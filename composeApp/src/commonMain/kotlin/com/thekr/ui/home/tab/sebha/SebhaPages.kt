@@ -1,5 +1,8 @@
+@file:OptIn(ExperimentalFoundationApi::class)
+
 package com.thekr.ui.home.tab.sebha
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.HorizontalPager
@@ -9,12 +12,13 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import com.thekr.R
 import com.thekr.data.settings.SettingsDetails
 import com.thekr.data.zekr.category.CategoryDetails
 import com.thekr.ui.home.HomeActions
 import com.thekr.ui.home.list.ZekrList
+import org.jetbrains.compose.resources.stringResource
+import thekr.composeapp.generated.resources.Res
+import thekr.composeapp.generated.resources.add_zekr
 
 @Composable
 fun SebhaPages(
@@ -41,7 +45,7 @@ fun SebhaPages(
             } else {
                 SebhaAddNewButton(
                     onCLick = { HomeActions.onCreateZekrClick() },
-                    text = stringResource(id = R.string.add_zekr)
+                    text = stringResource(Res.string.add_zekr)
                 )
             }
         }
