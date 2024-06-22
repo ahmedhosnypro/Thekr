@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.toRoute
 import com.thekr.data.zekr.zekr.ZekrEntry
 import com.thekr.data.zekr.zekr.ZekrEntryUiState
 import com.thekr.data.zekr.zekr.ZekrRepository
@@ -19,7 +18,11 @@ class ZekrEditViewModel(
     savedStateHandle: SavedStateHandle,
     private val zekrRepository: ZekrRepository,
 ) : ViewModel() {
-    private val zekrId: Long = savedStateHandle.toRoute<ZekrScreenRoute>().zekrId
+    private val zekrId: Long =
+        checkNotNull(savedStateHandle[ZekrScreenRoute.ZEKR_ID_ARG])
+
+
+//    private val zekrId: Long = savedStateHandle.toRoute<ZekrScreenRoute>().zekrId
 
     lateinit var zekr: Zekr
     var counterEditUiState = mutableStateOf(ZekrEntryUiState())

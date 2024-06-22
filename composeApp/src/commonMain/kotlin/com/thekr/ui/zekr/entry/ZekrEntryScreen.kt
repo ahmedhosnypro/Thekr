@@ -29,13 +29,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.thekr.R
 import com.thekr.data.settings.SettingsDetails
 import com.thekr.data.zekr.zekr.ZekrEntry
 import com.thekr.data.zekr.zekr.ZekrEntryUiState
@@ -45,8 +41,23 @@ import com.thekr.ui.home.bar.top.HeaderText
 import com.thekr.ui.navigation.NavigationActions
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.theme.ZekrTheme
-import com.thekr.ui.util.AppViewModelProvider
 import com.thekr.ui.util.RtlView
+import com.thekr.ui.values.Dimensions.large
+import com.thekr.ui.values.Dimensions.medium
+import com.thekr.ui.values.Dimensions.normal
+import com.thekr.ui.values.Dimensions.small
+import com.thekr.ui.viewmodel.AppViewModelProvider
+import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import thekr.composeapp.generated.resources.Res
+import thekr.composeapp.generated.resources.add_zekr
+import thekr.composeapp.generated.resources.coolDown
+import thekr.composeapp.generated.resources.daily_goal
+import thekr.composeapp.generated.resources.monthly_goal
+import thekr.composeapp.generated.resources.save
+import thekr.composeapp.generated.resources.weekly_goal
+import thekr.composeapp.generated.resources.yearly_goal
+import thekr.composeapp.generated.resources.zekr_content
 
 //todo:val c = LocalSoftwareKeyboardController.current
 @Composable
@@ -74,7 +85,7 @@ fun CounterEntry(
         ZekrBar(
             title = {
                 HeaderText(
-                    text = stringResource(id = R.string.add_zekr),
+                    text = stringResource(Res.string.add_zekr),
                 )
             },
             navigationIcon = {
@@ -94,7 +105,7 @@ fun CounterEntry(
                         disabledContentColor = zekrColors.onMainHeaderDisabled,
                     )
                 ) {
-                    Text(stringResource(R.string.save))
+                    Text(stringResource(Res.string.save))
                 }
             },
             settingsDetails = settingsDetails,
@@ -120,21 +131,21 @@ private fun CounterEntryBody(
             .verticalScroll(scrollState)
             .fillMaxWidth()
             .padding(
-                start = dimensionResource(id = R.dimen.padding_normal),
-                end = dimensionResource(id = R.dimen.padding_normal),
-                top = dimensionResource(id = R.dimen.padding_small)
+                start = normal,
+                end = normal,
+                top = small
             ), verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         val counterEntry = uiState.zekrEntry
 
         MyTextField(
-            stringResource(R.string.zekr_content),
+            stringResource(Res.string.zekr_content),
             counterEntry.text,
             uiState.isLabelValid,
             { ZekrEntryActions.onLabelChange(it) },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = dimensionResource(id = R.dimen.padding_medium)),
+                .padding(horizontal = medium),
         )
 
         ZekrGoals(
@@ -143,13 +154,13 @@ private fun CounterEntryBody(
 
 
         MyTextField(
-            stringResource(R.string.coolDown),
+            stringResource(Res.string.coolDown),
             counterEntry.coolDown.toString(),
             uiState.isLabelValid,
             { ZekrEntryActions.onCoolDownChange(it) },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = dimensionResource(id = R.dimen.padding_medium))
+                .padding(horizontal = medium)
 
         )
     }
@@ -190,12 +201,12 @@ fun ZekrGoals(
         modifier = Modifier
             .fillMaxWidth()
             .padding(
-                vertical = dimensionResource(id = R.dimen.padding_large),
+                vertical = large,
             ), verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         // yearly goal
         ZekrGoalItem(
-            label = stringResource(R.string.yearly_goal),
+            label = stringResource(Res.string.yearly_goal),
             value = zekrEntry.yearlyTarget.toString(),
             isValid = true,
             enabled = zekrEntry.yearlyTargetStatus == ZekrTargetStatus.Enabled,
@@ -211,7 +222,7 @@ fun ZekrGoals(
 
         // monthly goal
         ZekrGoalItem(
-            label = stringResource(R.string.monthly_goal),
+            label = stringResource(Res.string.monthly_goal),
             value = zekrEntry.monthlyTarget.toString(),
             isValid = true,
             enabled = zekrEntry.monthlyTargetStatus == ZekrTargetStatus.Enabled,
@@ -227,7 +238,7 @@ fun ZekrGoals(
 
         // weekly goal
         ZekrGoalItem(
-            label = stringResource(R.string.weekly_goal),
+            label = stringResource(Res.string.weekly_goal),
             value = zekrEntry.weeklyTarget.toString(),
             isValid = true,
             enabled = zekrEntry.weeklyTargetStatus == ZekrTargetStatus.Enabled,
@@ -243,7 +254,7 @@ fun ZekrGoals(
 
         // daily goal
         ZekrGoalItem(
-            label = stringResource(R.string.daily_goal),
+            label = stringResource(Res.string.daily_goal),
             value = zekrEntry.dailyTarget.toString(),
             isValid = true,
             enabled = zekrEntry.dailyTargetStatus == ZekrTargetStatus.Enabled,
@@ -277,7 +288,7 @@ fun ZekrGoalItem(
         modifier = modifier
             .fillMaxWidth()
             .padding(
-                end = dimensionResource(id = R.dimen.padding_normal),
+                end = normal,
             ),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
@@ -301,7 +312,7 @@ fun ZekrGoalItem(
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 private fun CounterEntryScreenPreview() {
     AppTheme {

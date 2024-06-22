@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.thekr.ui.component.DefaultHorizontalDivider
-import com.thekr.ui.util.AppViewModelProvider
+import com.thekr.ui.viewmodel.AppViewModelProvider
 import com.thekr.ui.zekr.entry.MyTextField
 
 @Composable

@@ -11,8 +11,12 @@ object NavigationActions {
         }
     }
 
-    fun navigateUp(rout: String) {
-        navController.popBackStack(rout, false)
+    fun navigateUp(route: String) {
+        navController.popBackStack(route, false)
+    }
+
+    fun navigateUp() {
+        navController.navigateUp()
     }
 
     fun navigate(route: String) {
