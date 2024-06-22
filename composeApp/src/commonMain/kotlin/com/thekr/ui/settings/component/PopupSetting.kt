@@ -15,11 +15,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.thekr.R
 import com.thekr.ui.theme.AppTheme
+import com.thekr.ui.values.Dimensions.medium
+import com.thekr.ui.values.Dimensions.normal
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun PopupSetting(
@@ -29,8 +29,8 @@ fun PopupSetting(
     icon: @Composable () -> Unit = {},
     onClick: () -> Unit = {},
     paddingValues: PaddingValues = PaddingValues(
-        horizontal = dimensionResource(id = R.dimen.padding_normal),
-        vertical = dimensionResource(id = R.dimen.padding_medium),
+        horizontal = normal,
+        vertical = medium,
     ),
     content: @Composable () -> Unit = {},
 ) {

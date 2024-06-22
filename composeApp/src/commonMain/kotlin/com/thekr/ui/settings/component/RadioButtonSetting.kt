@@ -11,14 +11,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.thekr.R
 import com.thekr.ui.theme.AppTheme
+import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import thekr.composeapp.generated.resources.Res
+import thekr.composeapp.generated.resources.arabic
+import thekr.composeapp.generated.resources.english
+import thekr.composeapp.generated.resources.local_ar
+import thekr.composeapp.generated.resources.local_en
 
 @Composable
 fun RadioButtonSetting(
@@ -62,34 +66,29 @@ fun RadioButtonSetting(
     }
 }
 
-@Preview(
-    showBackground = true,
-)
+@Preview
 @Composable
 fun OptionRadioButtonPreview() {
     AppTheme {
         Surface {
             RadioButtonSetting(
                 selected = true,
-                text = stringResource(id = R.string.english),
-                description = stringResource(id = R.string.local_en),
+                text = stringResource(Res.string.english),
+                description = stringResource(Res.string.local_en),
             )
         }
     }
 }
 
-@Preview(
-    showBackground = true,
-    locale = "ar"
-)
+@Preview
 @Composable
 fun OptionRadioButtonPreviewRtl() {
     AppTheme {
         Surface {
             RadioButtonSetting(
                 selected = false,
-                text = stringResource(id = R.string.arabic),
-                description = stringResource(id = R.string.local_ar),
+                text = stringResource(Res.string.arabic),
+                description = stringResource(Res.string.local_ar),
             )
         }
     }
