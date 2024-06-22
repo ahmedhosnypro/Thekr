@@ -6,7 +6,7 @@ import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.thekr.ZekrApplication
+import com.thekr.ThekrApplication
 import com.thekr.ui.counter.viewModel.ZekrCounterViewModel
 import com.thekr.ui.settings.SettingViewModel
 import com.thekr.ui.zekr.edit.ZekrEditViewModel
@@ -71,9 +71,10 @@ actual class AppViewModelFactory {
     }
 }
 
+
 /**
  * Extension function to query for [Application] object and returns an
- * instance of [ZekrApplication].
+ * instance of [ThekrApplication].
  */
-fun CreationExtras.counterApplication(): ZekrApplication =
-    (this[AndroidViewModelFactory.APPLICATION_KEY] as ZekrApplication)
+fun CreationExtras.counterApplication(): ThekrApplication =
+    (this[AndroidViewModelFactory.APPLICATION_KEY] as ThekrApplication)

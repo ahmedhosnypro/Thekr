@@ -42,7 +42,8 @@ object JsonParser {
 
     @OptIn(ExperimentalResourceApi::class)
     private suspend inline fun <reified T> readJsonFile(fileName: String): List<T> {
-        val jsonString = Res.readBytes("files/database/json/$fileName.json")
+        val res = Res
+        val jsonString = res.readBytes("files/database/json/$fileName.json")
             .decodeToString()
 
         return json.decodeFromString(jsonString)

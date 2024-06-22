@@ -208,13 +208,12 @@ apollo {
 
 dependencies {
     implementation(libs.androidx.room.ktx)
-    ksp(libs.room.compiler)
 
-//    with(libs.room.compiler) {
-//        add("kspAndroid", this)
-//        add("kspJvm", this)
+    with(libs.room.compiler) {
+        add("kspAndroid", this)
+        add("kspJvm", this)
 //        add("kspIosX64", this)
 //        add("kspIosArm64", this)
 //        add("kspIosSimulatorArm64", this)
-//    }
+    }
 }

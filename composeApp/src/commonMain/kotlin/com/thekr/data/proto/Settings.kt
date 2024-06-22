@@ -1,7 +1,9 @@
 package com.thekr.data.proto
 
 import com.thekr.data.settings.SettingsDetails
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Settings(
     val language: String = "",
     val themeMode: ThemeMode = ThemeMode.Dark,
