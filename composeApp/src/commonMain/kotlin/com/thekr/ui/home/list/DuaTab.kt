@@ -18,29 +18,33 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.thekr.R
 import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
 import com.thekr.data.zekr.category.CategoryDetails
 import com.thekr.ui.component.DefaultHorizontalDivider
+import com.thekr.ui.values.Dimensions.medium
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.theme.ImageResourceHelper
 import com.thekr.ui.theme.droidKufi
 import com.thekr.ui.util.NoRippleInteractionSource
 import com.thekr.ui.util.RtlView
+import com.thekr.ui.values.Colors.listDivider
+import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 /**
- * Displays the Dua tab content, which can show a list of Dua categories or a list of Zekr.
+ * Displays the Dua tab content, which can show a list of Dua categories or
+ * a list of Zekr.
  *
- * @param duaStack The stack of Dua categories, representing the navigation hierarchy.
- * @param settingsDetails The settings detail for theming and customization.
- * @param onZekrClick Callback function invoked when a Zekr item is clicked.
- * @param onCategoryClick Callback function invoked when a Dua category is clicked.
+ * @param duaStack The stack of Dua categories, representing the navigation
+ *     hierarchy.
+ * @param settingsDetails The settings detail for theming and
+ *     customization.
+ * @param onZekrClick Callback function invoked when a Zekr item is
+ *     clicked.
+ * @param onCategoryClick Callback function invoked when a Dua category is
+ *     clicked.
  * @param tabIndex The index of the current tab.
  */
 @Composable
@@ -79,7 +83,8 @@ fun DuaTab(
  * Displays a list of Dua categories.
  *
  * @param categoryDetails The state of the current category details.
- * @param onCategoryClick Callback function invoked when a category is clicked.
+ * @param onCategoryClick Callback function invoked when a category is
+ *     clicked.
  */
 @Composable
 private fun DuaCategoryList(
@@ -89,7 +94,7 @@ private fun DuaCategoryList(
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = dimensionResource(id = R.dimen.padding_medium)),
+            .padding(horizontal = medium),
         verticalArrangement = Arrangement.Center
     ) {
         items(categoryDetails.value.childCategories, key = { it.value.id }) { childCategory ->
@@ -98,10 +103,7 @@ private fun DuaCategoryList(
                 onClick = { onCategoryClick(childCategory) }
             )
             if (childCategory != categoryDetails.value.childCategories.last()) {
-                DefaultHorizontalDivider(
-                    thickness = 2.dp,
-                    color = colorResource(id = R.color.list_devider)
-                )
+                DefaultHorizontalDivider(thickness = 2.dp, color = listDivider)
             }
         }
     }
@@ -131,19 +133,17 @@ fun DuaCategoryCard(
                 onClick = onClick
             )
             .fillMaxWidth()
-            .padding(
-                horizontal = dimensionResource(id = R.dimen.padding_medium),
-                vertical = dimensionResource(id = R.dimen.padding_medium)
-            ),
-        verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium)),
+            .padding(horizontal = medium, vertical = medium),
+        verticalArrangement = Arrangement.spacedBy(medium),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         val iconFileName = category.value.iconFileName
         if (iconFileName != null) {
-            val iconResId = ImageResourceHelper.getResourceIdFromFileName(fileName = iconFileName)
+            val iconResId =
+                ImageResourceHelper.getDrawableResourceIdFromFileName(fileName = iconFileName)
             if (iconResId != null) {
                 Image(
-                    painter = painterResource(id = iconResId),
+                    painter = painterResource(iconResId),
                     contentDescription = null,
                     modifier = Modifier
                         .fillMaxWidth(0.3f)

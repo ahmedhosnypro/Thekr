@@ -37,9 +37,9 @@ import com.thekr.data.zekr.zekr.ZekrDetails
 import com.thekr.model.ZekrTargetStatus
 import com.thekr.ui.component.AutoSizeText
 import com.thekr.ui.counter.CounterHelper
-import com.thekr.ui.dimen.Dimension.medium
-import com.thekr.ui.dimen.Dimension.normal
-import com.thekr.ui.dimen.Dimension.xxLarge
+import com.thekr.ui.values.Dimensions.medium
+import com.thekr.ui.values.Dimensions.normal
+import com.thekr.ui.values.Dimensions.xxLarge
 import com.thekr.ui.home.list.ProgressState
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.theme.ZekrColors

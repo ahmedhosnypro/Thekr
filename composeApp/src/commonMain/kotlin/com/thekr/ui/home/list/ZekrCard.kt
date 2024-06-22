@@ -17,14 +17,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.thekr.R
 import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
 import com.thekr.ui.theme.AppTheme
@@ -34,19 +30,29 @@ import com.thekr.ui.theme.droidKufi
 import com.thekr.ui.theme.hacenTunisia
 import com.thekr.ui.util.NoRippleInteractionSource
 import com.thekr.ui.util.RtlView
+import com.thekr.ui.values.Dimensions.small
+import com.thekr.ui.values.Dimensions.tiny
+import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import thekr.composeapp.generated.resources.Res
+import thekr.composeapp.generated.resources.zekr_indicator
 
 /**
  * Displays a card representing a Zekr item.
  *
- * @param settingsDetails The settings detail for theming and customization.
+ * @param settingsDetails The settings detail for theming and
+ *     customization.
  * @param modifier Modifier to be applied to the card layout.
  * @param text The text of the Zekr.
  * @param count The current count for the Zekr.
  * @param target The target count for the Zekr.
  * @param onItemClick Callback function invoked when the card is clicked.
- * @param onLongCLick Callback function invoked when the card is long-clicked.
- * @param leadingIcon An optional composable function to display a leading icon.
- * @param trailingIcon An optional composable function to display a trailing icon.
+ * @param onLongCLick Callback function invoked when the card is
+ *     long-clicked.
+ * @param leadingIcon An optional composable function to display a leading
+ *     icon.
+ * @param trailingIcon An optional composable function to display a
+ *     trailing icon.
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -67,12 +73,12 @@ fun ZekrCard(
         onClick = onItemClick,
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = dimensionResource(id = R.dimen.padding_small))
+            .padding(horizontal = small)
             .combinedClickable(
                 onClick = onItemClick,
                 onLongClick = onLongCLick,
             )
-            .padding(top = dimensionResource(id = R.dimen.padding_small)),
+            .padding(top = small),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         shape = CardDefaults.shape,
         interactionSource = NoRippleInteractionSource(),
@@ -94,8 +100,10 @@ fun ZekrCard(
  * @param text The text of the Zekr.
  * @param count The current count for the Zekr.
  * @param target The target count for the Zekr.
- * @param leadingIcon An optional composable function to display a leading icon.
- * @param trailingIcon An optional composable function to display a trailing icon.
+ * @param leadingIcon An optional composable function to display a leading
+ *     icon.
+ * @param trailingIcon An optional composable function to display a
+ *     trailing icon.
  * @param zekrColors The color palette for the Zekr card.
  */
 @Composable
@@ -109,16 +117,13 @@ private fun ZekrCardContent(
 ) {
     Column(
         modifier = Modifier.requiredHeight(56.dp),
-        verticalArrangement = Arrangement.spacedBy(
-            dimensionResource(id = R.dimen.padding_tiny),
-            Alignment.CenterVertically
-        ),
+        verticalArrangement = Arrangement.spacedBy(tiny, Alignment.CenterVertically),
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight(0.85f),
-            horizontalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_small)),
+            horizontalArrangement = Arrangement.spacedBy(small),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             ZekrTextAndIcon(
@@ -160,7 +165,8 @@ private fun ZekrCardContent(
  * Displays the Zekr text and its leading icon.
  *
  * @param text The text of the Zekr.
- * @param leadingIcon An optional composable function to display a leading icon.
+ * @param leadingIcon An optional composable function to display a leading
+ *     icon.
  * @param contentColor The color of the Zekr text.
  */
 @Composable
@@ -171,12 +177,12 @@ private fun ZekrTextAndIcon(
     modifier: Modifier = Modifier,
 ) {
     Row(
-        horizontalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_small)),
+        horizontalArrangement = Arrangement.spacedBy(small),
         verticalAlignment = Alignment.Top,
         modifier = modifier.fillMaxHeight(),
     ) {
         leadingIcon?.let {
-            Box(modifier = Modifier.padding(top = dimensionResource(id = R.dimen.padding_tiny))) { it() }
+            Box(modifier = Modifier.padding(top = tiny)) { it() }
         }
         Text(
             text = text,
@@ -197,9 +203,11 @@ private fun ZekrTextAndIcon(
  *
  * @param count The current count.
  * @param target The target count.
- * @param successColor The color to use when the count equals or exceeds the target.
+ * @param successColor The color to use when the count equals or exceeds
+ *     the target.
  * @param contentColor The default content color.
- * @param progressColor The color to use when the count is less than the target.
+ * @param progressColor The color to use when the count is less than the
+ *     target.
  * @param modifier Modifier to be applied to the Text composable.
  */
 @Composable
@@ -252,7 +260,7 @@ fun CounterCardPreviewDarkMode() {
                     target = 100,
                     leadingIcon = {
                         Image(
-                            painterResource(id = R.drawable.zekr_indicator),
+                            painterResource(Res.drawable.zekr_indicator),
                             contentDescription = null,
                             contentScale = ContentScale.Crop,
                             modifier = Modifier.height(12.dp),
@@ -279,7 +287,7 @@ fun CounterCardPreview() {
                     target = 100,
                     leadingIcon = {
                         Image(
-                            painterResource(id = R.drawable.zekr_indicator),
+                            painterResource(Res.drawable.zekr_indicator),
                             contentDescription = null,
                             contentScale = ContentScale.Crop,
                             modifier = Modifier.height(12.dp),

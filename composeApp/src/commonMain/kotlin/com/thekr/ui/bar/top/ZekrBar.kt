@@ -38,7 +38,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.coerceIn
 import androidx.compose.ui.unit.dp
 import com.thekr.data.settings.SettingsDetails
-import com.thekr.ui.dimen.Dimension.xLarge
+import com.thekr.ui.values.Dimensions.xLarge
 import com.thekr.ui.home.HomeTab
 import com.thekr.ui.home.bar.top.HeaderTabsRow
 import com.thekr.ui.home.bar.top.HeaderText

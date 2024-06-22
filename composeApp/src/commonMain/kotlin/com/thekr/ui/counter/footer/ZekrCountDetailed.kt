@@ -21,9 +21,9 @@ import com.thekr.data.zekr.instance.ZekrInstanceDetails
 import com.thekr.data.zekr.zekr.ZekrDetails
 import com.thekr.model.ZekrTargetStatus
 import com.thekr.ui.component.AutoSizeText
-import com.thekr.ui.dimen.Dimension.normal
-import com.thekr.ui.dimen.Dimension.small
-import com.thekr.ui.dimen.Dimension.tiny
+import com.thekr.ui.values.Dimensions.normal
+import com.thekr.ui.values.Dimensions.small
+import com.thekr.ui.values.Dimensions.tiny
 import com.thekr.ui.home.list.zekrInstanceList
 import com.thekr.ui.home.list.zekrPreviewList
 import com.thekr.ui.theme.AppTheme

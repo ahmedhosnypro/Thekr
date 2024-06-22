@@ -50,9 +50,9 @@ import com.thekr.ui.counter.body.ZekrText
 import com.thekr.ui.counter.footer.CurrentZekrIndicator
 import com.thekr.ui.counter.footer.ZekrCount
 import com.thekr.ui.counter.viewModel.CounterUiState
-import com.thekr.ui.dimen.Dimension.normal
-import com.thekr.ui.dimen.Dimension.small
-import com.thekr.ui.dimen.Dimension.tiny
+import com.thekr.ui.values.Dimensions.normal
+import com.thekr.ui.values.Dimensions.small
+import com.thekr.ui.values.Dimensions.tiny
 import com.thekr.ui.home.list.categoryDetailsPreviewState
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.theme.ZekrTheme
@@ -60,7 +60,6 @@ import com.thekr.ui.util.KeepScreenOn
 import com.thekr.ui.util.NoRippleInteractionSource
 import com.thekr.ui.util.RtlView
 import com.thekr.ui.util.customOnKeyEvent
-import com.thekr.ui.util.findActivity
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable

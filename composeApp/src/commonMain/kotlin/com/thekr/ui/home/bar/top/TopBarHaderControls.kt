@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
-import com.thekr.ui.dimen.Dimension.medium
+import com.thekr.ui.values.Dimensions.medium
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.theme.ZekrTheme
 import com.thekr.ui.util.RtlView

@@ -11,8 +11,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.tooling.preview.Preview
 import com.thekr.ui.theme.ZekrColors
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 
 enum class ProgressState {

@@ -71,10 +71,10 @@ import com.thekr.data.zekr.zekr.ZekrDetails
 import com.thekr.ui.bar.top.ZekrBar
 import com.thekr.ui.counter.CounterHelper
 import com.thekr.ui.counter.viewModel.CounterUiState
-import com.thekr.ui.dimen.Dimension.normal
-import com.thekr.ui.dimen.Dimension.small
-import com.thekr.ui.dimen.Dimension.xLarge
-import com.thekr.ui.dimen.Dimension.xxLarge
+import com.thekr.ui.values.Dimensions.normal
+import com.thekr.ui.values.Dimensions.small
+import com.thekr.ui.values.Dimensions.xLarge
+import com.thekr.ui.values.Dimensions.xxLarge
 import com.thekr.ui.home.bar.top.HeaderControlCard
 import com.thekr.ui.home.bar.top.HeaderText
 import com.thekr.ui.home.bar.top.TopBarHeaderControls

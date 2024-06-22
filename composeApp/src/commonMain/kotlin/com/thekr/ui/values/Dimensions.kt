@@ -1,8 +1,8 @@
-package com.thekr.ui.dimen
+package com.thekr.ui.values
 
 import androidx.compose.ui.unit.dp
 
-object Dimension {
+object Dimensions {
     val tiny = 4.dp
     val small = 8.dp
     val normal = 12.dp

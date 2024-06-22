@@ -18,7 +18,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.sp
 import com.thekr.data.settings.SettingsDetails
 import com.thekr.data.zekr.category.CategoryDetails
-import com.thekr.ui.dimen.Dimension.large
+import com.thekr.ui.values.Dimensions.large
 import com.thekr.ui.theme.ZekrTheme
 import org.jetbrains.compose.resources.painterResource
 import thekr.composeapp.generated.resources.Res
