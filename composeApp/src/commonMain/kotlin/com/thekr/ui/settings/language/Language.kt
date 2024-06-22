@@ -19,19 +19,27 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.thekr.R
 import com.thekr.data.settings.Option
 import com.thekr.ui.component.DefaultHorizontalDivider
 import com.thekr.ui.settings.component.PopupSetting
 import com.thekr.ui.settings.component.RadioButtonSetting
 import com.thekr.ui.settings.component.SettingLabel
 import com.thekr.ui.theme.AppTheme
+import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import thekr.composeapp.generated.resources.Res
+import thekr.composeapp.generated.resources.all_languages
+import thekr.composeapp.generated.resources.app_language
+import thekr.composeapp.generated.resources.arabic
+import thekr.composeapp.generated.resources.cancel
+import thekr.composeapp.generated.resources.current_language
+import thekr.composeapp.generated.resources.english
+import thekr.composeapp.generated.resources.local_ar
+import thekr.composeapp.generated.resources.local_en
 
 
 @Composable
@@ -39,13 +47,13 @@ fun getLanguageOptions(): SnapshotStateList<Option> {
     return remember {
         mutableStateListOf(
             Option(
-                textRes = R.string.arabic,
-                descriptionTextRes = R.string.local_ar,
+                textRes = Res.string.arabic,
+                descriptionTextRes = Res.string.local_ar,
                 value = "ar",
             ),
             Option(
-                textRes = R.string.english,
-                descriptionTextRes = R.string.local_en,
+                textRes = Res.string.english,
+                descriptionTextRes = Res.string.local_en,
                 value = "en"
             ),
         )
@@ -63,9 +71,9 @@ fun LanguageSettings(
     }
 
     PopupSetting(
-        title = stringResource(id = R.string.app_language),
+        title = stringResource(Res.string.app_language),
         summary = getLanguageOptions().firstOrNull { it.value == selectedLanguage() }?.let {
-            stringResource(id = it.textRes)
+            stringResource(it.textRes)
         },
         onClick = {
             visible.value = true
@@ -73,7 +81,7 @@ fun LanguageSettings(
         modifier = modifier
     ) {
         MenuSetting(
-            title = stringResource(id = R.string.app_language),
+            title = stringResource(Res.string.app_language),
             options = getLanguageOptions().map {
                 it.copy(selected = it.value == selectedLanguage())
             }.toMutableStateList(),
@@ -101,7 +109,7 @@ fun MenuSetting(
                 TextButton(
                     onClick = { visible.value = false },
                 ) {
-                    Text(text = stringResource(R.string.cancel))
+                    Text(text = stringResource(Res.string.cancel))
                 }
             },
             text = {
@@ -125,20 +133,20 @@ fun MenuSetting(
                         // current language
                         // label
                         SettingLabel(
-                            stringResource(id = R.string.current_language),
+                            stringResource(Res.string.current_language),
                             horizontalPadding
                         )
                         val option = selectedOption.value
                         RadioButtonSetting(
                             selected = true,
-                            text = stringResource(id = option.textRes),
-                            description = option.descriptionTextRes?.let { stringResource(id = it) },
+                            text = stringResource(option.textRes),
+                            description = option.descriptionTextRes?.let { stringResource(it) },
                             onClick = { visible.value = false }
                         )
                     }
 
                     SettingLabel(
-                        label = stringResource(R.string.all_languages),
+                        label = stringResource(Res.string.all_languages),
                         horizontalPadding = horizontalPadding
                     )
                     // all languages (exclude current language)
@@ -146,8 +154,8 @@ fun MenuSetting(
                         items(options.filter { !it.selected }) {
                             RadioButtonSetting(
                                 selected = false,
-                                text = stringResource(id = it.textRes),
-                                description = it.descriptionTextRes?.let { it1 -> stringResource(id = it1) },
+                                text = stringResource(it.textRes),
+                                description = it.descriptionTextRes?.let { it1 -> stringResource(it1) },
                                 onClick = { onOptionSelected(it) }
                             )
                         }
@@ -159,10 +167,7 @@ fun MenuSetting(
 }
 
 
-@Preview(
-    widthDp = 400,
-    locale = "ar"
-)
+@Preview
 @Composable
 fun DropDownListSettingPreview() {
     Column(
@@ -171,7 +176,7 @@ fun DropDownListSettingPreview() {
         AppTheme {
             Surface {
                 MenuSetting(
-                    title = stringResource(id = R.string.app_language),
+                    title = stringResource(Res.string.app_language),
                     options = getLanguageOptions(),
                     selectedOption = mutableStateOf(getLanguageOptions()[0]),
                     onOptionSelected = {},

@@ -1,145 +1,184 @@
 package com.thekr.ui.theme
 
-import androidx.compose.ui.text.font.Font
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import com.thekr.R
+import org.jetbrains.compose.resources.Font
+import thekr.composeapp.generated.resources.Res
+import thekr.composeapp.generated.resources.abdo_master_demi_bold
+import thekr.composeapp.generated.resources.abdo_master_regular
+import thekr.composeapp.generated.resources.alrafidain_art
+import thekr.composeapp.generated.resources.arial_bold
+import thekr.composeapp.generated.resources.arial_narrow
+import thekr.composeapp.generated.resources.arial_regular
+import thekr.composeapp.generated.resources.battar_font
+import thekr.composeapp.generated.resources.droid_kufi
+import thekr.composeapp.generated.resources.droid_kufi_bold
+import thekr.composeapp.generated.resources.ge_ss_two_bold
+import thekr.composeapp.generated.resources.ge_ss_two_light
+import thekr.composeapp.generated.resources.ge_ss_two_medium
+import thekr.composeapp.generated.resources.hacen_liner_print_out
+import thekr.composeapp.generated.resources.hacen_liner_print_out_light
+import thekr.composeapp.generated.resources.hacen_tunisia_lt
+import thekr.composeapp.generated.resources.helvetica_world_bold
+import thekr.composeapp.generated.resources.jf_flat_regular
+import thekr.composeapp.generated.resources.kfgqpchafs_uthmanic_script_regula_svg
+import thekr.composeapp.generated.resources.montserrat_bold
+import thekr.composeapp.generated.resources.nassim_arabic_regular
+import thekr.composeapp.generated.resources.roboto_bold
+import thekr.composeapp.generated.resources.roboto_light
+import thekr.composeapp.generated.resources.roboto_regular
 
-
-val abdoMaster = FontFamily(
+@Composable
+fun abdoMaster() =  FontFamily(
     Font(
-        R.font.abdo_master_demi_bold,
+        Res.font.abdo_master_demi_bold,
         weight = FontWeight.Bold,
     ),
     Font(
-        R.font.abdo_master_regular,
+        Res.font.abdo_master_regular,
     )
 )
 
 
-val alrafidainArt = FontFamily(
+@Composable
+fun alrafidainArt () = FontFamily(
     Font(
-        R.font.alrafidain_art,
+        Res.font.alrafidain_art,
     ),
 )
 
-val arial = FontFamily(
+@Composable
+fun arial () = FontFamily(
     Font(
-        R.font.arial_regular,
+        Res.font.arial_regular,
     ),
     Font(
-        R.font.arial_bold,
+        Res.font.arial_bold,
         weight = FontWeight.Bold
     ),
     Font(
-        R.font.arial_narrow,
+        Res.font.arial_narrow,
     ),
 )
 
-val battar = FontFamily(
+@Composable
+fun battar () = FontFamily(
     Font(
-        R.font.battar_font,
+        Res.font.battar_font,
     ),
 )
 
-val droidKufi = FontFamily(
+@Composable
+fun droidKufi () = FontFamily(
     Font(
-        R.font.droid_kufi,
+        Res.font.droid_kufi,
     ),
     Font(
-        R.font.droid_kufi_bold,
+        Res.font.droid_kufi_bold,
         weight = FontWeight.Bold
     ),
 )
 
 
-val geSsTwo= FontFamily(
+@Composable
+fun geSsTwo() = FontFamily(
     Font(
-        R.font.ge_ss_two_light,
+        Res.font.ge_ss_two_light,
         weight = FontWeight.Light
     ),
     Font(
-        R.font.ge_ss_two_medium,
+        Res.font.ge_ss_two_medium,
         weight = FontWeight.Medium
     ),
     Font(
-        R.font.ge_ss_two_bold,
+        Res.font.ge_ss_two_bold,
         weight = FontWeight.Bold
     )
 )
 
-val hacenLinerPrintOut = FontFamily(
+@Composable
+fun hacenLinerPrintOut () = FontFamily(
     Font(
-        R.font.hacen_liner_print_out_light,
+        Res.font.hacen_liner_print_out_light,
         weight = FontWeight.Light
     ),
     Font(
-        R.font.hacen_liner_print_out,
+        Res.font.hacen_liner_print_out,
     ),
 )
 
-val hacenTunisia = FontFamily(
+@Composable
+fun hacenTunisia () = FontFamily(
     Font(
-        R.font.hacen_tunisia_lt
+        Res.font.hacen_tunisia_lt
     )
 )
 
-val hacenTunisiaLt = FontFamily(
+@Composable
+fun hacenTunisiaLt () = FontFamily(
     Font(
-        R.font.hacen_tunisia_lt,
+        Res.font.hacen_tunisia_lt,
     )
 )
 
-val helveticaWorld = FontFamily(
+@Composable
+fun helveticaWorld () = FontFamily(
     Font(
-        R.font.helvetica_world_bold,
+        Res.font.helvetica_world_bold,
         weight = FontWeight.Bold
     ),
 )
 
-val jfFlat = FontFamily(
+@Composable
+fun jfFlat () = FontFamily(
     Font(
-        R.font.jf_flat_regular
+        Res.font.jf_flat_regular
     ),
 )
 
-val uthmanicScript = FontFamily(
+@Composable
+fun uthmanicScript () = FontFamily(
     Font(
-        R.font.kfgqpchafs_uthmanic_script_regula_svg
+        Res.font.kfgqpchafs_uthmanic_script_regula_svg
     )
 )
 
-val montserrat = FontFamily(
+@Composable
+fun montserrat () = FontFamily(
     Font(
-        R.font.montserrat_bold,
+        Res.font.montserrat_bold,
         weight = FontWeight.Bold
     ),
 )
 
 
-val nassimArabic = FontFamily(
+@Composable
+fun nassimArabic () = FontFamily(
     Font(
-        R.font.nassim_arabic_regular
+        Res.font.nassim_arabic_regular
     )
 )
 
-val roboto = FontFamily(
+@Composable
+fun roboto () = FontFamily(
     Font(
-        R.font.roboto_light,
+        Res.font.roboto_light,
         weight = FontWeight.Light
     ),
     Font(
-        R.font.roboto_regular
+        Res.font.roboto_regular
     ),
     Font(
-        R.font.roboto_bold,
+        Res.font.roboto_bold,
         weight = FontWeight.Bold
     ),
 )
 
-val helvetica = FontFamily(
+@Composable
+fun helvetica () = FontFamily(
     Font(
-        R.font.helvetica_world_bold,
+        Res.font.helvetica_world_bold,
         weight = FontWeight.Bold
     )
 )

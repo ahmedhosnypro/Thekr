@@ -40,7 +40,7 @@ object TimeHelper {
      *     time.
      */
     fun calcMidnight(
-        time: Long = Clock.System.now().toEpochMilliseconds(),
+        time: Long = now(),
         timeZone: TimeZone = TimeZone.currentSystemDefault()
     ): Long {
         return Instant.fromEpochMilliseconds(time)

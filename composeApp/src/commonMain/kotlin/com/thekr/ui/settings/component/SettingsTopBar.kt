@@ -12,11 +12,12 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
-import com.thekr.R
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.util.RtlView
+import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import thekr.composeapp.generated.resources.Res
+import thekr.composeapp.generated.resources.settings
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -26,7 +27,7 @@ fun SettingsTopBar(
     modifier: Modifier = Modifier,
 ) {
     CenterAlignedTopAppBar(
-        title = { Text(stringResource(R.string.settings)) },
+        title = { Text(stringResource(Res.string.settings)) },
         modifier = modifier,
         navigationIcon = {
             if (canNavigateBack) {

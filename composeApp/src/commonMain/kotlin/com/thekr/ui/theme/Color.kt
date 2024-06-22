@@ -5,9 +5,9 @@ import androidx.compose.material.Surface
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import com.thekr.data.proto.ThemeMode
 import com.thekr.ui.util.RtlView
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 val md_theme_light_primary = Color(0xFF026E10)
 val md_theme_light_onPrimary = Color(0xFFFFFFFF)
@@ -84,7 +84,6 @@ val md_theme_dark_scrim = Color(0xFF000000)
 val seed = Color(0xFFFF8400)
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
 fun AppPreview() {
@@ -102,8 +101,7 @@ fun AppPreview() {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true)
+@Preview
 @Composable
 fun AppDarkPreview() {
     AppTheme(ThemeMode.Dark) {

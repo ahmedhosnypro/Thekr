@@ -16,18 +16,20 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.thekr.R
 import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.ThemeModeDetails
 import com.thekr.data.settings.ThemeModeOption
 import com.thekr.ui.component.DefaultHorizontalDivider
 import com.thekr.ui.settings.component.PopupSetting
 import com.thekr.ui.settings.component.RadioButtonSetting
+import org.jetbrains.compose.resources.stringResource
+import thekr.composeapp.generated.resources.Res
+import thekr.composeapp.generated.resources.cancel
+import thekr.composeapp.generated.resources.theme
 
 @Composable
 fun ThemeModeSetting(
@@ -44,18 +46,18 @@ fun ThemeModeSetting(
     }
 
     PopupSetting(
-        title = stringResource(id = R.string.theme),
-        summary = stringResource(id = selectedThemeDetails.titleRes),
+        title = stringResource(Res.string.theme),
+        summary = stringResource(selectedThemeDetails.titleRes),
         onClick = {
             visible.value = true
         },
         modifier = modifier
     ) {
         ThemeModeMenuSetting(
-            title = stringResource(id = R.string.theme),
+            title = stringResource(Res.string.theme),
             options = ThemeModeDetails.entries.map {
                 ThemeModeOption(
-                    text = stringResource(id = it.titleRes),
+                    text = stringResource(it.titleRes),
                     value = ThemeMode.valueOf(it.name),
                     selected = it.name == selectedTheme().name
                 )
@@ -83,7 +85,7 @@ fun ThemeModeMenuSetting(
                 TextButton(
                     onClick = { visible.value = false },
                 ) {
-                    Text(text = stringResource(R.string.cancel))
+                    Text(text = stringResource(Res.string.cancel))
                 }
             },
             text = {

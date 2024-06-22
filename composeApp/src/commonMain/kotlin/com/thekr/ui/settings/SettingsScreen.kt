@@ -15,11 +15,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.thekr.R
 import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
 import com.thekr.data.settings.SettingsHelper.settingViewModel
@@ -34,6 +30,24 @@ import com.thekr.ui.settings.language.LanguageSettings
 import com.thekr.ui.settings.theme.ThemeModeSetting
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.util.RtlView
+import com.thekr.ui.values.Dimensions.medium
+import com.thekr.ui.values.Dimensions.small
+import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import thekr.composeapp.generated.resources.Res
+import thekr.composeapp.generated.resources.click_sound
+import thekr.composeapp.generated.resources.display
+import thekr.composeapp.generated.resources.feedback
+import thekr.composeapp.generated.resources.fingerprint
+import thekr.composeapp.generated.resources.input
+import thekr.composeapp.generated.resources.material_you
+import thekr.composeapp.generated.resources.screen_always_on
+import thekr.composeapp.generated.resources.settings
+import thekr.composeapp.generated.resources.sound
+import thekr.composeapp.generated.resources.speech_name
+import thekr.composeapp.generated.resources.speech_value
+import thekr.composeapp.generated.resources.vibration
+import thekr.composeapp.generated.resources.volume_key
 
 @Composable
 fun SettingsScreen(
@@ -56,9 +70,10 @@ private fun SettingsBody(
     Scaffold(
         topBar = {
             ZekrBar(
-                title = { HeaderText(stringResource(R.string.settings)) },
+                title = { HeaderText(stringResource(Res.string.settings)) },
                 navigationIcon = {
-                    IconButton(onClick = { NavigationActions.navigateUp(HomeRoute::class) }) {
+//                    IconButton(onClick = { NavigationActions.navigateUp(HomeRoute::class) }) {
+                        IconButton(onClick = { NavigationActions.navigateUp(HomeRoute.route) }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back"
@@ -112,16 +127,16 @@ fun InputSettings(
     onSettingUpdate: (SettingsDetails) -> Unit = {},
 ) {
     GroupTitle(
-        title = stringResource(id = R.string.input),
-        modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.padding_medium))
+        title = stringResource(Res.string.input),
+        modifier = Modifier.padding(horizontal = medium)
     )
     Column(
-        modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.padding_small))
+        modifier = Modifier.padding(horizontal = small)
     ) {
 
         // volume control
         SwitchSetting(
-            title = stringResource(R.string.volume_key),
+            title = stringResource(Res.string.volume_key),
             value = { settingsDetails.volumeControl },
             onToggle = {
                 onSettingUpdate(
@@ -134,7 +149,7 @@ fun InputSettings(
         DefaultHorizontalDivider()
         // fingerprint control
         SwitchSetting(
-            title = stringResource(R.string.fingerprint),
+            title = stringResource(Res.string.fingerprint),
             value = { settingsDetails.fingerPrintControl },
             onToggle = {
                 onSettingUpdate(
@@ -153,15 +168,15 @@ fun OutputSettings(
     onSettingUpdate: (SettingsDetails) -> Unit = {},
 ) {
     GroupTitle(
-        title = stringResource(id = R.string.feedback),
-        modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.padding_medium))
+        title = stringResource(Res.string.feedback),
+        modifier = Modifier.padding(horizontal = medium)
     )
     Column(
-        modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.padding_small))
+        modifier = Modifier.padding(horizontal = small)
     ) {
         // vibration
         SwitchSetting(
-            title = stringResource(R.string.vibration),
+            title = stringResource(Res.string.vibration),
             value = { settingsDetails.vibration },
             onToggle = {
                 onSettingUpdate(
@@ -175,7 +190,7 @@ fun OutputSettings(
         DefaultHorizontalDivider()
         // sound
         SwitchSetting(
-            title = stringResource(R.string.sound),
+            title = stringResource(Res.string.sound),
             value = { settingsDetails.sound },
             onToggle = {
                 onSettingUpdate(
@@ -189,7 +204,7 @@ fun OutputSettings(
         DefaultHorizontalDivider()
         // click sound
         SwitchSetting(
-            title = stringResource(R.string.click_sound),
+            title = stringResource(Res.string.click_sound),
             value = { settingsDetails.clickSound },
             onToggle = {
                 onSettingUpdate(
@@ -204,7 +219,7 @@ fun OutputSettings(
         DefaultHorizontalDivider()
         // speech value
         SwitchSetting(
-            title = stringResource(R.string.speech_value),
+            title = stringResource(Res.string.speech_value),
             value = { settingsDetails.speechValue },
             onToggle = {
                 onSettingUpdate(
@@ -218,7 +233,7 @@ fun OutputSettings(
         DefaultHorizontalDivider()
         // speech name
         SwitchSetting(
-            title = stringResource(R.string.speech_name),
+            title = stringResource(Res.string.speech_name),
             value = { settingsDetails.speechName },
             onToggle = {
                 onSettingUpdate(
@@ -238,12 +253,12 @@ fun DisplaySettings(
     onSettingUpdate: (SettingsDetails) -> Unit = {},
 ) {
     GroupTitle(
-        title = stringResource(id = R.string.display),
-        modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.padding_medium))
+        title = stringResource(Res.string.display),
+        modifier = Modifier.padding(horizontal = medium)
     )
 
     Column(
-        modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.padding_small))
+        modifier = Modifier.padding(horizontal = small)
     ) {
         LanguageSettings(
             selectedLanguage = { settingsDetails.language },
@@ -270,7 +285,7 @@ fun DisplaySettings(
         DefaultHorizontalDivider()
         // material you
         SwitchSetting(
-            title = stringResource(R.string.material_you),
+            title = stringResource(Res.string.material_you),
             value = { settingsDetails.materialYou },
             onToggle = {
                 onSettingUpdate(
@@ -283,7 +298,7 @@ fun DisplaySettings(
         // screen always on
         DefaultHorizontalDivider()
         SwitchSetting(
-            title = stringResource(R.string.screen_always_on),
+            title = stringResource(Res.string.screen_always_on),
             value = { settingsDetails.screenAlwaysOn },
             onToggle = {
                 onSettingUpdate(

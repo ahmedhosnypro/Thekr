@@ -1,4 +1,4 @@
-package com.thekr.ui.util
+package com.thekr.util
 
 import android.content.Context
 import android.speech.tts.TextToSpeech

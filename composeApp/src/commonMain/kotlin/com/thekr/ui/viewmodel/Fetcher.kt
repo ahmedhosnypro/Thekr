@@ -17,7 +17,13 @@ import com.thekr.ui.viewmodel.TimeHelper.weekEnd
 import com.thekr.ui.viewmodel.TimeHelper.weekStart
 import com.thekr.ui.viewmodel.TimeHelper.yearEnd
 import com.thekr.ui.viewmodel.TimeHelper.yearStart
-import com.thekr.util.*
+import com.thekr.util.TimeHelper.calcMidnight
+import com.thekr.util.TimeHelper.calcMonthEnd
+import com.thekr.util.TimeHelper.calcMonthStart
+import com.thekr.util.TimeHelper.calcWeekEnd
+import com.thekr.util.TimeHelper.calcWeekStart
+import com.thekr.util.TimeHelper.calcYearEnd
+import com.thekr.util.TimeHelper.calcYearStart
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
@@ -169,7 +175,7 @@ object Fetcher {
 
 object TimeHelper {
     data class TimeHelper(
-        val midnight: Long = calcMidnight(Clock.System.now().toEpochMilliseconds()),
+        val midnight: Long = calcMidnight(),
         val nextMidnight: Long = midnight + 24 * 60 * 60 * 1000,
         val weekStart: Long = calcWeekStart(midnight),
         val weekEnd: Long = calcWeekEnd(midnight),

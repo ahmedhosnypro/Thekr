@@ -22,20 +22,20 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.thekr.R
 import com.thekr.ui.component.DefaultVerticalDivider
 import com.thekr.ui.theme.AppTheme
+import com.thekr.ui.values.Dimensions.medium
+import com.thekr.ui.values.Dimensions.normal
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SwitchSetting(
     title: String,
     modifier: Modifier = Modifier,
     paddingValues: PaddingValues = PaddingValues(
-        horizontal = dimensionResource(id = R.dimen.padding_normal),
-        vertical = dimensionResource(id = R.dimen.padding_medium),
+        horizontal = normal,
+        vertical = medium,
     ),
     value: () -> Boolean = { false },
     summary: String? = null,
