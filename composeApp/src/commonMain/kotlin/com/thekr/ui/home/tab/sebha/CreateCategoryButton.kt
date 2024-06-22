@@ -14,13 +14,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.thekr.R
 import com.thekr.ui.theme.AppTheme
+import com.thekr.ui.values.Dimensions.large
+import com.thekr.ui.values.Dimensions.small
+import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import thekr.composeapp.generated.resources.Res
+import thekr.composeapp.generated.resources.create_zekr_group
 
 /**
  * A button that triggers a dialog for creating a new category.
@@ -41,14 +43,14 @@ fun CreateCategoryButton(
     IconButton(
         onClick = { showCreateCategoryDialog.value = true },
         modifier = Modifier
-            .padding(horizontal = dimensionResource(id = R.dimen.padding_small))
+            .padding(horizontal = small)
             .requiredWidth(width)
             .requiredHeight(calculatedTabHeight),
     ) {
         Icon(
-            modifier = Modifier.requiredSize(dimensionResource(id = R.dimen.padding_large)),
+            modifier = Modifier.requiredSize(large),
             imageVector = Icons.Outlined.AddCircleOutline,
-            contentDescription = stringResource(R.string.create_zekr_group),
+            contentDescription = stringResource(Res.string.create_zekr_group),
         )
     }
 
