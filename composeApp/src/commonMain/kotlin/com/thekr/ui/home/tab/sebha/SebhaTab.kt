@@ -1,16 +1,14 @@
+@file:OptIn(ExperimentalFoundationApi::class)
+
 package com.thekr.ui.home.tab.sebha
 
-import android.annotation.SuppressLint
-import android.util.Log
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
 import androidx.compose.runtime.snapshots.SnapshotStateList
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
-import com.thekr.R
 import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
 import com.thekr.data.zekr.category.CategoryDetails
@@ -20,6 +18,10 @@ import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.util.RtlView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import thekr.composeapp.generated.resources.Res
+import thekr.composeapp.generated.resources.create_zekr_group
 
 /**
  * Represents the Sebha tab content on the Home screen.
@@ -79,7 +81,7 @@ private fun ShowCreateCategoryDialog(
     val showCreateNewDialog = remember { mutableStateOf(false) }
     SebhaAddNewButton(
         onCLick = { showCreateNewDialog.value = true },
-        text = stringResource(id = R.string.create_zekr_group)
+        text = stringResource(Res.string.create_zekr_group)
     )
     CreateCategoryDialog(
         showCreateCategoryDialog = showCreateNewDialog,
@@ -103,14 +105,14 @@ private fun handleNewCategorySave(
             }
         }
     } else {
-        Log.d("SebhaTab", "onNewCategorySave: index is out of bounds")
+        //todo:
+//        Log.d("SebhaTab", "onNewCategorySave: index is out of bounds")
     }
 }
 
 
 @Preview
 @Composable
-@SuppressLint("UnrememberedMutableState")
 fun SebhaTabPreview() {
     AppTheme(themeMode = ThemeMode.Dark) {
         Surface {
