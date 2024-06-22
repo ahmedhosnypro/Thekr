@@ -15,9 +15,9 @@ data class Settings(
     val fingerPrintControl: Boolean = false,
     val fontSize: Float = 0f,
     val materialYou: Boolean = false,
-    val colorSchemeDetails: ColorSchemeDetails = ColorSchemeDetails(
-        TODO()
-    ),
+//    val colorSchemeDetails: ColorSchemeDetails = ColorSchemeDetails(
+//        TODO()
+//    ),
     val currentSheikh: String = "",
     val swapDirection: SwapDirection = SwapDirection.Horizontal,
     val showCount: Boolean = false,
@@ -36,7 +36,7 @@ data class Settings(
         themeMode = themeMode,
         fontSize = fontSize,
         materialYou = materialYou,
-        colorSchemeDetails = colorSchemeDetails,
+//        colorSchemeDetails = colorSchemeDetails,
         screenAlwaysOn = screenAlwaysOn,
         vibration = vibration,
         sound = sound,

@@ -23,9 +23,9 @@ data class SettingsDetails(
 //        .setAlpha(defaultThemePrimary().alpha)
 //        .build(),
 
-    val colorSchemeDetails: ColorSchemeDetails = ColorSchemeDetails(
-        TODO()
-    ),
+//    val colorSchemeDetails: ColorSchemeDetails = ColorSchemeDetails(
+//        TODO()
+//    ),
     val screenAlwaysOn: Boolean = false,
     val vibration: Boolean = false,
     val sound: Boolean = true,
@@ -54,7 +54,7 @@ data class SettingsDetails(
         themeMode = themeMode,
         fontSize = fontSize,
         materialYou = materialYou,
-        colorSchemeDetails = colorSchemeDetails,
+//        colorSchemeDetails = colorSchemeDetails,
         screenAlwaysOn = screenAlwaysOn,
         vibration = vibration,
         sound = sound,
