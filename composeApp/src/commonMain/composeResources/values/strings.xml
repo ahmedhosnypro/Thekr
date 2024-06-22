@@ -1,0 +1,106 @@
+<resources>
+
+    <string name="cyclone">Cyclone</string>
+    <string name="open_github">Open github</string>
+    <string name="run">Run</string>
+    <string name="stop">Stop</string>
+
+    <string name="app_name">واصبر نفسك</string>
+    <string name="details">التفاصيل</string>
+    <string name="history">السجل</string>
+    <string name="settings">الإعدادات</string>
+    <string name="language">اللغة</string>
+    <string name="arabic">العربية</string>
+    <string name="english">الإنجليزية</string>
+    <string name="display">Display</string>
+    <string name="screen_always_on">منع اطفاء الشاشة</string>
+    <string name="theme">المظهر</string>
+    <string name="feedback">التنبيهات</string>
+    <string name="screen_always_on_key" translatable="false">screen_always_on</string>
+    <string name="click_sound">صوت الضغط</string>
+    <string name="click_sound_key" translatable="false">click_sound</string>
+    <string name="vibration_key" translatable="false">vibration</string>
+    <string name="vibration">الاهتزاز</string>
+    <string name="speech_output_key" translatable="false">speech_output</string>
+    <string name="speech_output">Speech output</string>
+    <string name="speak_name_key" translatable="false">speak_name</string>
+    <string name="speak_name">تنبيه بالذكر</string>
+    <string name="input">التفاعل</string>
+    <string name="volume_key">أزرار الصوت</string>
+    <string name="volume_key_key" translatable="false">volume_key</string>
+    <string name="dark_mode">الوضغ المظلم</string>
+    <string name="sound">الصوت</string>
+    <string name="speech_value">تنبيه العد</string>
+    <string name="speech_name">تنبيه بالذكر</string>
+    <string name="fingerprint">بصمة الاصبع</string>
+    <string name="app_language">لغة التطبيق</string>
+    <string name="current_language">اللغة الحالية</string>
+    <string name="turkish">Turkish</string>
+    <string name="spanish">Spanish</string>
+    <string name="portuguese">Portuguese</string>
+    <string name="italian">Italian</string>
+    <string name="german">German</string>
+    <string name="french">French</string>
+    <string name="cancel">الغاء</string>
+    <string name="all_languages">جميع اللغات</string>
+    <string name="local_ar" translatable="false">العربية</string>
+    <string name="local_en" translatable="false">English</string>
+    <string name="urdu">Urdu</string>
+    <string name="malay">Malay</string>
+    <string name="indonesian">Indonesian</string>
+    <string name="empty_zekr_list_alert">اضغط على القلم لاضافة ذكر جديد</string>
+    <string name="material_you">مظهر مستوحى من خلفية الهاتف</string>
+    <string name="system_default">تلقائي</string>
+    <string name="light">مضئ</string>
+    <string name="dark">مظلم</string>
+    <string name="about_zekr">معلومات عن الذكر</string>
+    <string name="counter_visibility">ظهور العد</string>
+    <string name="theme_mode">الوضع المظلم</string>
+    <string name="increase_font_size">تكبير حجم الخط</string>
+    <string name="decrease_font_size">تصغير حجم الخط</string>
+    <string name="statistics">الإحصائيات</string>
+    <string name="counter">العداد</string>
+    <string name="day">يوم</string>
+    <string name="week">أسبوع</string>
+    <string name="month">شهر</string>
+    <string name="weekly">Weekly</string>
+    <string name="daily">Daily</string>
+    <string name="monthly">Monthly</string>
+    <string name="am">ص</string>
+    <string name="pm">م</string>
+    <string name="sat">السبت</string>
+    <string name="sun">الأحد</string>
+    <string name="mon">الإثنين</string>
+    <string name="tue">tue</string>
+    <string name="wed">الأربعاء</string>
+    <string name="thu">الخميس</string>
+    <string name="fri">الجمغة</string>
+    <string name="minute">دقيقة</string>
+    <string name="hour">ساعة</string>
+    <string name="add_zekr">اضافة ذكر</string>
+    <string name="daily_goal">الهدف اليومي</string>
+    <string name="weekly_goal">الهدف الأسبوعي</string>
+    <string name="monthly_goal">الهدف الشهري</string>
+    <string name="yearly_goal">الهدف السنوي</string>
+    <string name="save">حفظ</string>
+    <string name="zekr_content">نص الذكر</string>
+    <string name="coolDown">مهلة الذكر</string>
+    <string name="zekr_count">عدد مرات الذكر :</string>
+    <string name="zohr">الظهر</string>
+    <string name="zekr">ذكر</string>
+    <string name="hesn_almuslim">حصن المسلم</string>
+    <string name="dua">الدعاء</string>
+    <string name="back">back</string>
+    <string name="zekr_list">Zekr List</string>
+    <string name="listen_to_zekr">استماع للذكر</string>
+    <string name="zekr_fadl">Zekr Fadl</string>
+    <string name="knooz">كنوز</string>
+    <string name="mesbaha">المسبحة</string>
+    <string name="create">انشاء</string>
+    <string name="category_group">انشاء مجموعة</string>
+    <string name="create_zekr_group">انشاء مجموعة أذكار</string>
+    <string name="group_name">اسم المجموعة</string>
+    <string name="yearly">Yearly</string>
+    <string name="total">Total</string>
+    <string name="session">Session</string>
+</resources>
