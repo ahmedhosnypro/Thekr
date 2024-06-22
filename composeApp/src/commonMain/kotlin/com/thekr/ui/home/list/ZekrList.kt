@@ -15,26 +15,31 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.thekr.R
 import com.thekr.data.settings.SettingsDetails
 import com.thekr.data.zekr.category.CategoryDetails
 import com.thekr.data.zekr.instance.ZekrInstanceDetails
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.util.RtlView
+import com.thekr.ui.values.Dimensions.medium
+import com.thekr.ui.values.Dimensions.xLarge
+import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import thekr.composeapp.generated.resources.Res
+import thekr.composeapp.generated.resources.zekr_indicator
 
 /**
  * Displays a list of Zekr items within a category.
  *
- * @param category The state of the category details containing the Zekr items.
+ * @param category The state of the category details containing the Zekr
+ *     items.
  * @param settingsDetails Settings details for theming and customization.
  * @param modifier Modifier to be applied to the LazyVerticalGrid.
  * @param tabIndex The index of the current tab.
- * @param onHomeListItemClick Callback invoked when a Zekr item is clicked in the Home context.
- * @param onCategoryListItemClick Callback invoked when a Zekr item is clicked in the Category context.
+ * @param onHomeListItemClick Callback invoked when a Zekr item is clicked
+ *     in the Home context.
+ * @param onCategoryListItemClick Callback invoked when a Zekr item is
+ *     clicked in the Category context.
  */
 @Composable
 fun ZekrList(
@@ -50,7 +55,7 @@ fun ZekrList(
         columns = GridCells.Fixed(1),
         modifier = modifier
             .fillMaxSize()
-            .padding(top = dimensionResource(id = R.dimen.padding_medium)),
+            .padding(top = medium),
     ) {
         items(
             items = categoryValue.zekrInstanceList,
@@ -77,10 +82,10 @@ fun ZekrList(
                         categoryValue.zekrInstanceList.firstOrNull { it.value.id == item.value.zekrId }
                     onCategoryListItemClick(zekrInstance ?: mutableStateOf(ZekrInstanceDetails()))
                 },
-                modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.padding_medium)),
+                modifier = Modifier.padding(horizontal = medium),
                 leadingIcon = {
                     Image(
-                        painterResource(id = R.drawable.zekr_indicator),
+                        painterResource(Res.drawable.zekr_indicator),
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
                         colorFilter = ColorFilter.tint(zekrIndicatorColor(colorIndex)),
@@ -91,7 +96,7 @@ fun ZekrList(
             )
         }
         item {
-            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_xlarge)))
+            Spacer(modifier = Modifier.height(xLarge))
         }
     }
 }
