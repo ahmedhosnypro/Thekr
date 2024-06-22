@@ -15,15 +15,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.thekr.R
+import com.thekr.ui.values.Dimensions.small
+import org.jetbrains.compose.resources.stringResource
+import thekr.composeapp.generated.resources.Res
+import thekr.composeapp.generated.resources.add_zekr
 
 
-/**
- * Use to add new Zekr or category
- */
+/** Use to add new Zekr or category */
 @Composable
 fun SebhaAddNewButton(
     onCLick: () -> Unit,
@@ -47,12 +46,12 @@ fun SebhaAddNewButton(
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_small))
+                horizontalArrangement = Arrangement.spacedBy(small)
             ) {
                 Text(text = text)
                 Icon(
                     Icons.Filled.Create,
-                    contentDescription = stringResource(R.string.add_zekr),
+                    contentDescription = stringResource(Res.string.add_zekr),
                 )
             }
         }
