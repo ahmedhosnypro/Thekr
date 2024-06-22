@@ -87,6 +87,15 @@ kotlin {
             implementation(libs.multiplatformSettings)
             implementation(libs.koin.core)
             implementation(libs.kstore)
+            implementation(libs.kstore.file)
+
+            implementation(libs.compose.full)
+            implementation(libs.bundles.material)
+
+
+            implementation(libs.lifecycle.viewmodel.compose)
+            implementation(libs.navigation.compose)
+
             implementation(libs.apollo.runtime)
 
             implementation(libs.moko.mvvm)
@@ -108,6 +117,7 @@ kotlin {
             implementation(libs.kotlinx.coroutines.android)
             implementation(libs.ktor.client.okhttp)
             implementation(libs.bundles.libsu)
+            implementation(libs.bundles.vico)
         }
 
         jvmMain.dependencies {

@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.firstOrNull
 
 class ZekrApplication : Application() {
     /** AppContainer instance used by the rest of classes to obtain dependencies */
-    private lateinit var container: AppContainer
+    lateinit var container: AppContainer
 
     private val appCoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 

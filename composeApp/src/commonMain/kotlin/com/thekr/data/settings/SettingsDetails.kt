@@ -6,6 +6,7 @@ import com.thekr.data.proto.ColorSchemeDetails
 import com.thekr.data.proto.Settings
 import com.thekr.data.proto.SwapDirection
 import com.thekr.data.proto.ThemeMode
+import com.thekr.ui.settings.SettingViewModel
 import com.thekr.util.TimeHelper.now
 
 @Stable
@@ -75,49 +76,19 @@ data class SettingsDetails(
         dbInitialized = dbInitialized,
         lastUpdate = lastUpdate
     )
-
-
-    fun toSettingsUiState(): SettingsDetails = SettingsDetails(
-        language = language,
-        themeMode = themeMode,
-        fontSize = fontSize,
-        materialYou = materialYou,
-        colorSchemeDetails = colorSchemeDetails,
-        screenAlwaysOn = screenAlwaysOn,
-        vibration = vibration,
-        sound = sound,
-        clickSound = clickSound,
-        speechValue = speechValue,
-        speechName = speechName,
-        volumeControl = volumeControl,
-        fingerPrintControl = fingerPrintControl,
-        currentSheikh = currentSheikh,
-        swapDirection = swapDirection,
-        // count
-        showCount = showCount,
-        showDailyCount = showDailyCount,
-        showWeeklyCount = showWeeklyCount,
-        showMonthlyCount = showMonthlyCount,
-        showYearlyCount = showYearlyCount,
-        showTotalCount = showTotalCount,
-        showSessionCount = showSessionCount,
-
-        initialized = initialized,
-        lastUpdate = this.lastUpdate
-    )
 }
 
 object SettingsHelper {
     /** don't use it in composable functions, for background tasks only */
-//    lateinit var settingViewModel: SettingViewModel
-//    var settingsDetails: SettingsDetails = SettingsDetails()
-//    fun updateState(settingsDetails: SettingsDetails) {
-//        this.settingsDetails = settingsDetails
-//    }
-//
-//    fun setViewModel(viewModel: SettingViewModel) {
-//        settingViewModel = viewModel
-//    }
+    lateinit var settingViewModel: SettingViewModel
+    var settingsDetails: SettingsDetails = SettingsDetails()
+    fun updateState(settingsDetails: SettingsDetails) {
+        this.settingsDetails = settingsDetails
+    }
+
+    fun setViewModel(viewModel: SettingViewModel) {
+        settingViewModel = viewModel
+    }
 }
 
 

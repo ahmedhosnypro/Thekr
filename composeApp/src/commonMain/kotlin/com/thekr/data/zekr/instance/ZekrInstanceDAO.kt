@@ -11,10 +11,10 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ZekrInstanceDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(zekrInstance: ZekrInstance):Long
+    suspend fun insert(zekrInstance: ZekrInstance): Long
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertAll(zekrInstance: List<ZekrInstance>)
+    suspend fun insertAll(zekrInstance: List<ZekrInstance>)
 
     @Update
     suspend fun update(zekrInstance: ZekrInstance)

@@ -15,7 +15,7 @@ class OfflineCategoryRepository(private val categoryDAO: CategoryDAO) : Category
 
     override fun findByRootId(id: Long) = categoryDAO.findByRootId(id)
 
-    override fun findAllExcept(id: Long) = categoryDAO.findAllExcept(id)
+    override suspend fun findAllExcept(id: Long) = categoryDAO.findAllExcept(id)
 
     override suspend fun delete(category: Category) = categoryDAO.delete(category)
     override suspend fun update(category: Category) = categoryDAO.update(category)

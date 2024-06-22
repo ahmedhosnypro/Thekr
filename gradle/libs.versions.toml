@@ -16,7 +16,9 @@ ktor = "3.0.0-wasm2"
 composeIcons = "1.1.0"
 kotlinx-serialization = "1.7.0"
 kotlinx-datetime = "0.6.0"
+lifecycle = "2.8.0"
 multiplatformSettings = "1.1.1"
+navigation-compose = "2.8.0-alpha02"
 koin = "3.6.0-wasm-alpha2"
 kstore = "0.8.0"
 room = "2.7.0-alpha04"
@@ -26,6 +28,8 @@ roomKtx = "2.6.1"
 
 ## Android only
 libsu = "5.2.1"
+vico = "2.0.0-alpha.21"
+
 
 [libraries]
 
@@ -53,25 +57,38 @@ kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.
 multiplatformSettings = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatformSettings" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 kstore = { module = "io.github.xxfast:kstore", version.ref = "kstore" }
+kstore-file = { module = "io.github.xxfast:kstore-file", version.ref = "kstore" }
 
 apollo-runtime = { module = "com.apollographql.apollo3:apollo-runtime", version.ref = "apollo" }
 
+compose-full= { module = "org.jetbrains.compose:compose-full", version.ref = "compose" }
 # database
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 #implementation("androidx.sqlite:sqlite-bundled:2.5.0-alpha04")
 sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "androidx-sqlite" }
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomKtx" }
-
+# viewmodel
+lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle" }
+navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigation-compose" }
+# material
+material-icons-core = { module = "org.jetbrains.compose.material:material-icons-core", version.ref = "compose" }
+material-icons-extended = { module = "org.jetbrains.compose.material:material-icons-extended", version.ref = "compose" }
+material-ripple = { module = "org.jetbrains.compose.material:material-ripple", version.ref = "compose" }
 ## Android only
 # libsu
 libsu-core = { module = "com.github.topjohnwu.libsu:core", version.ref = "libsu" }
 libsu-io = { module = "com.github.topjohnwu.libsu:io", version.ref = "libsu" }
 libsu-service = { module = "com.github.topjohnwu.libsu:service", version.ref = "libsu" }
-
+# vico
+vico-compose-m3 = { group = "com.patrykandpatrick.vico", name = "compose-m3", version.ref = "vico" }
+vico-core = { module = "com.patrykandpatryk.vico:core", version.ref = "vico" }
 [bundles]
 ## Android only
 libsu = ["libsu-core", "libsu-io", "libsu-service"]
+vico = ["vico-compose-m3", "vico-core"]
+material = ["material-icons-core", "material-icons-extended", "material-ripple"]
+
 
 [plugins]
 

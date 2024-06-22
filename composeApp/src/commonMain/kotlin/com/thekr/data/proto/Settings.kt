@@ -1,5 +1,7 @@
 package com.thekr.data.proto
 
+import com.thekr.data.settings.SettingsDetails
+
 data class Settings(
     val language: String = "",
     val themeMode: ThemeMode = ThemeMode.Dark,
@@ -28,7 +30,37 @@ data class Settings(
     val dbInitialized: Boolean = false,
     val initialized: Boolean = false,
     val lastUpdate: Long = 0L
-)
+){
+    fun toSettingsDetails(): SettingsDetails = SettingsDetails(
+        language = language,
+        themeMode = themeMode,
+        fontSize = fontSize,
+        materialYou = materialYou,
+        colorSchemeDetails = colorSchemeDetails,
+        screenAlwaysOn = screenAlwaysOn,
+        vibration = vibration,
+        sound = sound,
+        clickSound = clickSound,
+        speechValue = speechValue,
+        speechName = speechName,
+        volumeControl = volumeControl,
+        fingerPrintControl = fingerPrintControl,
+        currentSheikh = currentSheikh,
+        swapDirection = swapDirection,
+        // count
+        showCount = showCount,
+        showDailyCount = showDailyCount,
+        showWeeklyCount = showWeeklyCount,
+        showMonthlyCount = showMonthlyCount,
+        showYearlyCount = showYearlyCount,
+        showTotalCount = showTotalCount,
+        showSessionCount = showSessionCount,
+
+        initialized = initialized,
+        lastUpdate = this.lastUpdate
+    )
+
+}
 
 enum class SwapDirection {
     Horizontal,

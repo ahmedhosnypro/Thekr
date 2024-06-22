@@ -11,13 +11,13 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface FadlDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(fadl: ZekrFadl)
+    suspend fun insert(fadl: ZekrFadl)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertAll(fadlList: List<ZekrFadl>)
+    suspend fun insertAll(fadlList: List<ZekrFadl>)
 
     @Update
-    fun update(zekrFadl: ZekrFadl)
+    suspend fun update(zekrFadl: ZekrFadl)
 
     @Query("SELECT * FROM zekr_fadl")
     fun findAll(): Flow<List<ZekrFadl>>

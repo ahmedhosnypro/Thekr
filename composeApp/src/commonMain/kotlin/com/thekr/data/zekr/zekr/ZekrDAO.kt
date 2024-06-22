@@ -14,7 +14,7 @@ interface ZekrDAO {
     suspend fun insert(zekr: Zekr): Long
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertAll(zekrList: List<Zekr>)
+    suspend fun insertAll(zekrList: List<Zekr>)
 
     @Query("DELETE FROM zekr WHERE id = :id AND isProtected = 0")
     suspend fun deleteIfNotProtected(id: Long)

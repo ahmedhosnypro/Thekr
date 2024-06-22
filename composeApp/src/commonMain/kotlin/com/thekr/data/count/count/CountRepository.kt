@@ -19,6 +19,6 @@ interface CountRepository {
 
     fun getLastCountByZekrInstanceId(zekrInstanceId: Long): Flow<Count?>
     suspend fun findAllSync(): List<Count>
-     fun findAllByCategorySync(categoryId: Long): Flow<List<Count>>
+    fun findAllByCategorySync(categoryId: Long): Flow<List<Count>>
     fun findAllByZekrInstanceSync(zekrInstanceId: Long): Flow<List<Count>>
 }

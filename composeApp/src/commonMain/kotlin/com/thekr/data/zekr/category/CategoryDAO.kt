@@ -15,7 +15,7 @@ interface CategoryDAO {
     suspend fun insert(category: Category): Long
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertAll(categoryList: List<Category>)
+    suspend fun insertAll(categoryList: List<Category>)
 
     @Delete
     suspend fun delete(category: Category)
@@ -36,7 +36,7 @@ interface CategoryDAO {
     fun isCategoryHasChild(id: Long): Flow<Boolean>
 
     @Query("SELECT * FROM category WHERE id != :id")
-    fun findAllExcept(id: Long): List<Category>
+    suspend fun findAllExcept(id: Long): List<Category>
 
     @Query("SELECT * FROM category WHERE id = :id OR parent = :id")
     fun findByRootId(id: Long): Flow<List<Category>>

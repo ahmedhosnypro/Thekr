@@ -11,7 +11,7 @@ interface CategoryRepository {
     fun findByParentId(parent: Long): Flow<List<Category>>
     fun findByRootId(id: Long): Flow<List<Category>>
 
-    fun findAllExcept(id: Long): List<Category>
+    suspend fun findAllExcept(id: Long): List<Category>
     suspend fun delete(category: Category)
     suspend fun update(category: Category)
 

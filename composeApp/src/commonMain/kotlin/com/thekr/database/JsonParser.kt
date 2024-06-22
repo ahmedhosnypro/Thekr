@@ -48,15 +48,14 @@ object JsonParser {
         return json.decodeFromString(jsonString)
     }
 
-    fun insertDataIntoDatabase(
+    private suspend fun insertDataIntoDatabase(
         zekrList: List<Zekr>, zekrInstanceList: List<ZekrInstance>, categoryList: List<Category>
     ) {
-        // todo: runIntTransaction not available in multiplatform
-//        database.runInTransaction {
-        database.zekrDAO().insertAll(zekrList)
-        database.zekrInstanceDao().insertAll(zekrInstanceList)
-        database.categoryDao().insertAll(categoryList)
-//        }
+        withContext(Dispatchers.IO) {
+            database.zekrDAO().insertAll(zekrList)
+            database.zekrInstanceDao().insertAll(zekrInstanceList)
+            database.categoryDao().insertAll(categoryList)
+        }
     }
 
     @OptIn(ExperimentalSerializationApi::class)
