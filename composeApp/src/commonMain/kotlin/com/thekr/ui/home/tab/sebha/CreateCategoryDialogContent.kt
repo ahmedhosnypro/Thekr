@@ -8,22 +8,28 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
-import com.thekr.R
 import com.thekr.data.proto.ThemeMode
 import com.thekr.ui.AzkarActions
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.theme.hacenTunisiaLt
 import com.thekr.ui.util.RtlView
+import com.thekr.ui.values.Dimensions.medium
+import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import thekr.composeapp.generated.resources.Res
+import thekr.composeapp.generated.resources.cancel
+import thekr.composeapp.generated.resources.create
+import thekr.composeapp.generated.resources.create_zekr_group
+import thekr.composeapp.generated.resources.group_name
 
 /**
  * Displays a dialog for creating a new category.
  *
- * @param showCreateCategoryDialog State variable controlling the visibility of the dialog.
- * @param onCategorySave Callback invoked when a new category is saved, providing the index of the new category.
+ * @param showCreateCategoryDialog State variable controlling the
+ *     visibility of the dialog.
+ * @param onCategorySave Callback invoked when a new category is saved,
+ *     providing the index of the new category.
  */
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
@@ -44,11 +50,11 @@ fun CreateCategoryDialog(
 }
 
 /**
- * Content of the new category dialog.
- * Allows the user to enter a category name and create a new category.
+ * Content of the new category dialog. Allows the user to enter a category
+ * name and create a new category.
  *
  * @param onCategorySave Callback invoked when a new category is saved,
- * providing the index of the new category.
+ *     providing the index of the new category.
  * @param onDismissRequest Callback invoked to dismiss the dialog.
  */
 @Composable
@@ -66,11 +72,8 @@ private fun CreateCategoryDialogContent(
                 color = MaterialTheme.colorScheme.surfaceVariant,
                 shape = MaterialTheme.shapes.medium
             )
-            .padding(dimensionResource(id = R.dimen.padding_medium)),
-        verticalArrangement = Arrangement.spacedBy(
-            dimensionResource(id = R.dimen.padding_medium),
-            alignment = Alignment.CenterVertically
-        ),
+            .padding(medium),
+        verticalArrangement = Arrangement.spacedBy(medium, alignment = Alignment.CenterVertically),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         CreateCategoryDialogTitle()
@@ -101,13 +104,11 @@ private fun CreateCategoryDialogContent(
     }
 }
 
-/**
- * Displays the title of the Create Category dialog.
- */
+/** Displays the title of the Create Category dialog. */
 @Composable
 private fun CreateCategoryDialogTitle() {
     Text(
-        text = stringResource(R.string.create_zekr_group),
+        text = stringResource(Res.string.create_zekr_group),
         modifier = Modifier.fillMaxWidth(),
         textAlign = TextAlign.Center,
         style = MaterialTheme.typography.headlineSmall,
@@ -120,7 +121,8 @@ private fun CreateCategoryDialogTitle() {
  *
  * @param categoryName The current category name.
  * @param isError Indicates if the category name is invalid.
- * @param onCategoryNameChange Callback invoked when the category name changes.
+ * @param onCategoryNameChange Callback invoked when the category name
+ *     changes.
  */
 @Composable
 private fun CategoryNameInput(
@@ -133,7 +135,7 @@ private fun CategoryNameInput(
         value = categoryName,
         onValueChange = onCategoryNameChange,
         isError = isError,
-        label = { Text(text = stringResource(R.string.group_name), fontFamily = hacenTunisiaLt) },
+        label = { Text(text = stringResource(Res.string.group_name), fontFamily = hacenTunisiaLt) },
         singleLine = true
     )
 }
@@ -155,7 +157,7 @@ private fun CreateCategoryDialogButtons(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(
-            dimensionResource(id = R.dimen.padding_medium),
+            medium,
             Alignment.End
         )
     ) {
@@ -167,7 +169,7 @@ private fun CreateCategoryDialogButtons(
                 contentColor = MaterialTheme.colorScheme.onSurface
             )
         ) {
-            Text(text = stringResource(R.string.cancel), fontFamily = hacenTunisiaLt)
+            Text(text = stringResource(Res.string.cancel), fontFamily = hacenTunisiaLt)
         }
 
         // Create button
@@ -178,14 +180,14 @@ private fun CreateCategoryDialogButtons(
                 contentColor = MaterialTheme.colorScheme.onSurface
             )
         ) {
-            Text(text = stringResource(R.string.create), fontFamily = hacenTunisiaLt)
+            Text(text = stringResource(Res.string.create), fontFamily = hacenTunisiaLt)
         }
     }
 }
 
 /**
- * Checks if a category name is valid.
- * A valid name is not empty, not blank, and has a length between 3 and 20 characters.
+ * Checks if a category name is valid. A valid name is not empty, not
+ * blank, and has a length between 3 and 20 characters.
  *
  * @param categoryName The category name to validate.
  * @return True if the category name is valid, false otherwise.
