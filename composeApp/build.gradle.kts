@@ -89,7 +89,7 @@ kotlin {
             implementation(libs.kstore)
             implementation(libs.kstore.file)
 
-            implementation(libs.compose.full)
+//            implementation(libs.compose.full)
             implementation(libs.bundles.material)
 
 

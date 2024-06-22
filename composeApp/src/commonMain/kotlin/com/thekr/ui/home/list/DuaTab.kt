@@ -155,7 +155,7 @@ fun DuaCategoryCard(
         Text(
             text = category.value.name,
             color = contentColor,
-            fontFamily = droidKufi,
+            fontFamily = droidKufi(),
             maxLines = 2,
         )
     }

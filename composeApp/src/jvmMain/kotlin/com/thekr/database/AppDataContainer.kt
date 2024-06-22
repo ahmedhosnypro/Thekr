@@ -16,14 +16,13 @@ import com.thekr.data.zekr.instance.OfflineZekrInstanceRepository
 import com.thekr.data.zekr.instance.ZekrInstanceRepository
 import com.thekr.data.zekr.zekr.OfflineZekrRepository
 import com.thekr.data.zekr.zekr.ZekrRepository
+import com.thekr.database.DatabaseProvider.database
 
 /**
  * [AppContainer] implementation that provides instance of
  * [OfflineZekrRepository]
  */
 actual class AppDataContainer() : AppContainer {
-    private val database = getAppDatabase(getDatabaseBuilder())
-
     override val categoryRepository: CategoryRepository by lazy {
         OfflineCategoryRepository(database.categoryDao())
     }

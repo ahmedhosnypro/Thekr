@@ -24,7 +24,7 @@ fun SearchUi(
         Text(
             text = stringResource(Res.string.app_name),
             style = MaterialTheme.typography.headlineLarge,
-            fontFamily = hacenTunisia,
+            fontFamily = hacenTunisia(),
             modifier = Modifier
                 .fillMaxWidth(),
             textAlign = TextAlign.Center

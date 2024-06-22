@@ -12,7 +12,6 @@ import com.thekr.data.settings.SettingsHelper
 import com.thekr.ui.navigation.CounterNavyHost
 import com.thekr.ui.settings.SettingViewModel
 import com.thekr.ui.theme.AppTheme
-import com.thekr.ui.util.MultiLang
 import com.thekr.ui.viewmodel.AzkarViewModel
 import androidx.compose.runtime.getValue
 import com.thekr.ui.component.LoadScreen
@@ -48,19 +47,19 @@ fun CounterApp(
         AppTheme(
             themeMode = settingsDetails.themeMode,
         ) {
-            MultiLang(
-                language = language,
+//            MultiLang(
+//                language = language,
+//            ) {
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colorScheme.background
             ) {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    CounterNavyHost(
-                        settingsDetails = settingsDetails,
-                        azkarState = azkarState,
-                    )
-                }
+                CounterNavyHost(
+                    settingsDetails = settingsDetails,
+                    azkarState = azkarState,
+                )
             }
+//            }
         }
     }
 }

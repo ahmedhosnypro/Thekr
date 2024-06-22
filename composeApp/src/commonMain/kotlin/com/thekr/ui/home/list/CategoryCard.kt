@@ -164,7 +164,7 @@ fun CategoryCard(
         Text(
             text = category.value.name,
             color = contentColor,
-            fontFamily = droidKufi,
+            fontFamily = droidKufi(),
             maxLines = 2,
             modifier = Modifier.weight(1f)
         )

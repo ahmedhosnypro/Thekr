@@ -187,7 +187,7 @@ private fun ZekrTextAndIcon(
         Text(
             text = text,
             color = contentColor,
-            fontFamily = droidKufi,
+            fontFamily = droidKufi(),
             fontSize = 12.sp,
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
@@ -239,7 +239,7 @@ private fun DailyCount(
     Text(
         text = text,
         color = color,
-        fontFamily = hacenTunisia,
+        fontFamily = hacenTunisia(),
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
         textAlign = TextAlign.End,

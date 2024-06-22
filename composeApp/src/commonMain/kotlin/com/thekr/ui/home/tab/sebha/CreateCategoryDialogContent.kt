@@ -112,7 +112,7 @@ private fun CreateCategoryDialogTitle() {
         modifier = Modifier.fillMaxWidth(),
         textAlign = TextAlign.Center,
         style = MaterialTheme.typography.headlineSmall,
-        fontFamily = hacenTunisiaLt
+        fontFamily = hacenTunisiaLt()
     )
 }
 
@@ -135,7 +135,7 @@ private fun CategoryNameInput(
         value = categoryName,
         onValueChange = onCategoryNameChange,
         isError = isError,
-        label = { Text(text = stringResource(Res.string.group_name), fontFamily = hacenTunisiaLt) },
+        label = { Text(text = stringResource(Res.string.group_name), fontFamily = hacenTunisiaLt()) },
         singleLine = true
     )
 }
@@ -169,7 +169,7 @@ private fun CreateCategoryDialogButtons(
                 contentColor = MaterialTheme.colorScheme.onSurface
             )
         ) {
-            Text(text = stringResource(Res.string.cancel), fontFamily = hacenTunisiaLt)
+            Text(text = stringResource(Res.string.cancel), fontFamily = hacenTunisiaLt())
         }
 
         // Create button
@@ -180,7 +180,7 @@ private fun CreateCategoryDialogButtons(
                 contentColor = MaterialTheme.colorScheme.onSurface
             )
         ) {
-            Text(text = stringResource(Res.string.create), fontFamily = hacenTunisiaLt)
+            Text(text = stringResource(Res.string.create), fontFamily = hacenTunisiaLt())
         }
     }
 }

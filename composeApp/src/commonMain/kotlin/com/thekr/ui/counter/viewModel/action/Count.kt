@@ -57,21 +57,21 @@ fun ZekrCounterViewModel.repeatAudio() {
         when {
             count.dailyCount + 1 < zekrInstanceVal.dailyTarget -> {
                 count(zekr, zekrInstanceVal, count, clickSound = false)
-                playZekrAudio()
+//                playZekrAudio()
             }
 
             count.dailyCount + 1 == zekrInstanceVal.dailyTarget -> {
                 count(zekr, zekrInstanceVal, count, clickSound = false)
                 updateCurrentZekrInstance(nextZekrIndex)
                 CounterHelper.scrollToNextZekr()
-                playZekrAudio()
+//                playZekrAudio()
             }
 
             count.dailyCount + 1 > zekrInstanceVal.dailyTarget -> {
 
                 updateCurrentZekrInstance(nextZekrIndex)
                 CounterHelper.scrollToNextZekr()
-                playZekrAudio()
+//                playZekrAudio()
             }
         }
     }

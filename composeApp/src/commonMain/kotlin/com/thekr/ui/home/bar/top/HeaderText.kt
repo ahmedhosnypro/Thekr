@@ -19,7 +19,7 @@ fun HeaderText(
         text = text,
         modifier = modifier.padding(horizontal = medium),
         textAlign = TextAlign.Center,
-        fontFamily = droidKufi,
+        fontFamily = droidKufi(),
         style = MaterialTheme.typography.titleLarge,
         maxLines = 1,
         overflow = TextOverflow.Ellipsis

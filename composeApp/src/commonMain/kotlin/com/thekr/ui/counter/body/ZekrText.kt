@@ -64,7 +64,7 @@ fun ZekrText(
             Text(
                 text = zekr.text,
                 style = textStyle,
-                fontFamily = if (zekr.bsmalaType != 0) uthmanicScript else hacenTunisiaLt,
+                fontFamily = if (zekr.bsmalaType != 0) uthmanicScript() else hacenTunisiaLt(),
             )
         }
         if (categoryDetails.value.fadlList.any { it.zekrId == counterUiState.currentZekrInstance.value.id }) {
