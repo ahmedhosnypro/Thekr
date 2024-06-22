@@ -31,14 +31,17 @@ class HomeViewModel : ViewModel() {
         val initialPage = getZekrPageIndex(tabIndex, zekrId) ?: 0
         val pageCount = getZekrPageCount(tabIndex) ?: 0
 
-       NavigationActions.navigate(
-            ZekrScreenRoute(
-                categoryId = categoryId,
-                zekrId = zekrId,
-                initialPage = initialPage,
-                pageCount = pageCount
-            )
-        )
+//       NavigationActions.navigate(
+//            ZekrScreenRoute(
+//                categoryId = categoryId,
+//                zekrId = zekrId,
+//                initialPage = initialPage,
+//                pageCount = pageCount
+//            )
+//        )
+
+        val route: String = "zekrDetails/${categoryId.toInt()}/${zekrId.toInt()}/$initialPage/$pageCount"
+        NavigationActions.navigate(route)
     }
 
     /**
@@ -142,12 +145,17 @@ class HomeViewModel : ViewModel() {
     ) {
         val zekrId = category.zekrInstanceList.firstOrNull()?.value?.zekrId ?: 0L
 
-        NavigationActions.navigate(
-            ZekrScreenRoute(
-                categoryId = category.id,
-                zekrId = zekrId,
-                pageCount = category.zekrInstanceList.size
-            )
-        )
+//        NavigationActions.navigate(
+//            ZekrScreenRoute(
+//                categoryId = category.id,
+//                zekrId = zekrId,
+//                pageCount = category.zekrInstanceList.size
+//            )
+//        )
+
+        val route: String =
+            "zekrDetails/${category.id.toInt()}/${zekrId.toInt()}/0/${category.zekrInstanceList.size}"
+        NavigationActions.navigate(route)
+
     }
 }

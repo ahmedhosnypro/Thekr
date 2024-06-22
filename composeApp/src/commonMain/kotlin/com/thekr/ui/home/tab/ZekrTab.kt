@@ -8,7 +8,6 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.thekr.data.settings.SettingsDetails
 import com.thekr.data.zekr.category.CategoryDetails
 import com.thekr.ui.home.list.CategoryList
@@ -16,6 +15,7 @@ import com.thekr.ui.home.list.ZekrList
 import com.thekr.ui.home.list.categoryDetailsPreviewState
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.util.RtlView
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 /**
  * Displays a tab content containing either a list of categories or a list of Zekrs,

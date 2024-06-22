@@ -1,6 +1,5 @@
 package com.thekr.ui.home
 
-import android.annotation.SuppressLint
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.MutableState
 import com.thekr.data.zekr.category.CategoryDetails
@@ -17,7 +16,6 @@ object HomeActions {
         { _, _ -> }
     var onCreateZekrClick: () -> Unit = {}
 
-    @SuppressLint("RestrictedApi")
     fun initActions(
         homeViewModel: HomeViewModel,
         uiCoroutine: CoroutineScope,
@@ -40,7 +38,8 @@ object HomeActions {
         }
 
         onCreateZekrClick = {
-            NavigationActions.navigate(CounterEntryRoute)
+//            NavigationActions.navigate(CounterEntryRoute)
+            NavigationActions.navigate(CounterEntryRoute.route)
         }
     }
 

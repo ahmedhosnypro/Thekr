@@ -1,7 +1,9 @@
+@file:OptIn(ExperimentalFoundationApi::class, InternalVoyagerApi::class)
+
 package com.thekr.ui.home
 
-import android.annotation.SuppressLint
-import androidx.activity.compose.BackHandler
+
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -20,8 +22,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
+import cafe.adriel.voyager.core.annotation.InternalVoyagerApi
+import cafe.adriel.voyager.navigator.internal.BackHandler
 import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
 import com.thekr.ui.AzkarActions
@@ -34,10 +37,10 @@ import com.thekr.ui.home.tab.sebha.SebhaTab
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.util.RtlView
 import com.thekr.ui.viewmodel.AzkarState
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 
 // stack of cat nav
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(
     azkarState: AzkarState,
@@ -76,7 +79,7 @@ private fun HomeContent(
 
     // BackHandler moved inside HomeContent composable
     if (canNavigateToPreviousCategory(pagerState.currentPage)) {
-        BackHandler {
+        BackHandler(true) {
             navigateToParentCategory(pagerState.currentPage)
         }
     }
@@ -159,16 +162,13 @@ fun HomeScreenPreview() {
 }
 
 
-@Preview(
-    showSystemUi = true,
-    showBackground = true,
-)
+@Preview
 @Composable
 fun EmptyHomeScreenPreview() {
     AppTheme(ThemeMode.Dark) {
         RtlView {
             Surface {
-                with(AzkarActions){
+                with(AzkarActions) {
                     canNavigateToPreviousCategory = { true }
                 }
                 HomeContent(

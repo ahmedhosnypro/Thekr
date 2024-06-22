@@ -8,16 +8,12 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
-import com.thekr.R
+import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import thekr.composeapp.generated.resources.Res
+import thekr.composeapp.generated.resources.add_zekr
 
-
-@Preview(
-    showBackground = true,
-    backgroundColor = 0x000000,
-)
-
+@Preview
 @Composable
 fun AddCounterFAB(
     modifier: Modifier = Modifier,
@@ -29,6 +25,6 @@ fun AddCounterFAB(
         contentColor = MaterialTheme.colorScheme.onSurface,
         onClick = { onClick() },
     ) {
-        Icon(Icons.Filled.Create, stringResource(R.string.add_zekr))
+        Icon(Icons.Filled.Create, stringResource(Res.string.add_zekr))
     }
 }
