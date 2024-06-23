@@ -3,7 +3,7 @@
 kotlin = "2.0.0"
 compose = "1.6.10"
 agp = "8.2.2"
-androidx-activityCompose = "1.9.0"
+androidx-activity-compose = "1.9.0"
 androidx-uiTest = "1.6.8"
 androidx-sqlite = "2.5.0-alpha04"
 voyager = "1.1.0-beta01"
@@ -35,7 +35,7 @@ vico = "2.0.0-alpha.21"
 
 [libraries]
 
-androidx-activityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity-compose" }
 androidx-testManifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "androidx-uiTest" }
 androidx-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "androidx-uiTest" }
 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
