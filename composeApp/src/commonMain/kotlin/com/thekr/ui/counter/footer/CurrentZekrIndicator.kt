@@ -21,8 +21,8 @@ import com.thekr.data.zekr.category.CategoryDetails
 import com.thekr.ui.values.Dimensions.large
 import com.thekr.ui.theme.ZekrTheme
 import org.jetbrains.compose.resources.painterResource
-import thekr.composeapp.generated.resources.Res
-import thekr.composeapp.generated.resources.next_zekr
+import com.thekr.resources.Res
+import com.thekr.resources.next_zekr
 
 @Composable
 fun CurrentZekrIndicator(

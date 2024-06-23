@@ -3,9 +3,11 @@ package com.thekr.ui.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.thekr.data.settings.SettingsDetails
 import com.thekr.ui.counter.ZekrScreen
 import com.thekr.ui.home.HomeScreen
@@ -55,14 +57,37 @@ fun CounterNavyHost(
         }
 
         // counter details screen
-        composable(ZekrScreenRoute.route) {
+        composable(
+            ZekrScreenRoute.routeWithArgs,
+            arguments = listOf(
+                navArgument(ZekrScreenRoute.CATEGORY_ID_ARG) {
+                    type = NavType.LongType
+                },
+                navArgument(ZekrScreenRoute.ZEKR_ID_ARG) {
+                    type = NavType.LongType
+                },
+                navArgument(ZekrScreenRoute.INITIAL_PAGE_ARG) {
+                    type = NavType.IntType
+                },
+                navArgument(ZekrScreenRoute.PAGE_COUNT_ARG) {
+                    type = NavType.IntType
+                },
+            )
+        ) {
             ZekrScreen(
                 settingsDetails = settingsDetails,
             )
         }
 
         // counter-edit screen
-        composable(CounterEditRoute.route) {
+        composable(
+            CounterEditRoute.routeWithArgs,
+            arguments = listOf(
+                navArgument(CounterEditRoute.COUNTER_ID_ARG) {
+                    type = NavType.LongType
+                },
+            )
+        ) {
             // todo: use NavigationActions to navigate back
             CounterEditScreen(
                 navigateBack = { navigateBack() },

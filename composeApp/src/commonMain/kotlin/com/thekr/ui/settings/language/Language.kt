@@ -31,15 +31,15 @@ import com.thekr.ui.settings.component.SettingLabel
 import com.thekr.ui.theme.AppTheme
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import thekr.composeapp.generated.resources.Res
-import thekr.composeapp.generated.resources.all_languages
-import thekr.composeapp.generated.resources.app_language
-import thekr.composeapp.generated.resources.arabic
-import thekr.composeapp.generated.resources.cancel
-import thekr.composeapp.generated.resources.current_language
-import thekr.composeapp.generated.resources.english
-import thekr.composeapp.generated.resources.local_ar
-import thekr.composeapp.generated.resources.local_en
+import com.thekr.resources.Res
+import com.thekr.resources.all_languages
+import com.thekr.resources.app_language
+import com.thekr.resources.arabic
+import com.thekr.resources.cancel
+import com.thekr.resources.current_language
+import com.thekr.resources.english
+import com.thekr.resources.local_ar
+import com.thekr.resources.local_en
 
 
 @Composable

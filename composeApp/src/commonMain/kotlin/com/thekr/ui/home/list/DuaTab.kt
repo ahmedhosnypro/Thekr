@@ -28,7 +28,7 @@ import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.theme.ImageResourceHelper
 import com.thekr.ui.theme.droidKufi
 import com.thekr.ui.util.NoRippleInteractionSource
-import com.thekr.ui.util.RtlView
+import com.thekr.ui.component.RtlView
 import com.thekr.ui.values.Colors.listDivider
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview

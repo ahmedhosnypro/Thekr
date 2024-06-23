@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
-        android:name=".AndroidApp"
+        android:name=".ThekrApplication"
         android:icon="@android:drawable/ic_menu_compass"
         android:label="Thekr"
         android:theme="@android:style/Theme.Material.NoActionBar">

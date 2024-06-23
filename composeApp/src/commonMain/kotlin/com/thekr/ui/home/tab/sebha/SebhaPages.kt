@@ -17,8 +17,8 @@ import com.thekr.data.zekr.category.CategoryDetails
 import com.thekr.ui.home.HomeActions
 import com.thekr.ui.home.list.ZekrList
 import org.jetbrains.compose.resources.stringResource
-import thekr.composeapp.generated.resources.Res
-import thekr.composeapp.generated.resources.add_zekr
+import com.thekr.resources.Res
+import com.thekr.resources.add_zekr
 
 @Composable
 fun SebhaPages(

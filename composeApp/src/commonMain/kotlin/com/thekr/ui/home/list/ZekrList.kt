@@ -20,13 +20,13 @@ import com.thekr.data.settings.SettingsDetails
 import com.thekr.data.zekr.category.CategoryDetails
 import com.thekr.data.zekr.instance.ZekrInstanceDetails
 import com.thekr.ui.theme.AppTheme
-import com.thekr.ui.util.RtlView
+import com.thekr.ui.component.RtlView
 import com.thekr.ui.values.Dimensions.medium
 import com.thekr.ui.values.Dimensions.xLarge
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import thekr.composeapp.generated.resources.Res
-import thekr.composeapp.generated.resources.zekr_indicator
+import com.thekr.resources.Res
+import com.thekr.resources.zekr_indicator
 
 /**
  * Displays a list of Zekr items within a category.

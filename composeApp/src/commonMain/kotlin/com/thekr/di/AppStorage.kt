@@ -1,3 +1,4 @@
-package di
+package com.thekr.di
 
-var appStorage: String? = ""
+const val settingsFile = "settings.json"
+var appStorage: String = ""

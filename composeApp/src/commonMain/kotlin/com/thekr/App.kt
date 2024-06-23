@@ -39,17 +39,17 @@ import com.thekr.ui.CounterApp
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
-import thekr.composeapp.generated.resources.IndieFlower_Regular
-import thekr.composeapp.generated.resources.Res
-import thekr.composeapp.generated.resources.cyclone
-import thekr.composeapp.generated.resources.ic_cyclone
-import thekr.composeapp.generated.resources.ic_dark_mode
-import thekr.composeapp.generated.resources.ic_light_mode
-import thekr.composeapp.generated.resources.ic_rotate_right
-import thekr.composeapp.generated.resources.open_github
-import thekr.composeapp.generated.resources.run
-import thekr.composeapp.generated.resources.stop
-import thekr.composeapp.generated.resources.theme
+import com.thekr.resources.IndieFlower_Regular
+import com.thekr.resources.Res
+import com.thekr.resources.cyclone
+import com.thekr.resources.ic_cyclone
+import com.thekr.resources.ic_dark_mode
+import com.thekr.resources.ic_light_mode
+import com.thekr.resources.ic_rotate_right
+import com.thekr.resources.open_github
+import com.thekr.resources.run
+import com.thekr.resources.stop
+import com.thekr.resources.theme
 
 @Composable
 internal fun App() = AppTheme {

@@ -1,12 +1,13 @@
 package com.thekr.data.proto
 
 import com.thekr.data.settings.SettingsDetails
+import com.thekr.util.TimeHelper.now
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class Settings(
     val language: String = "",
-    val themeMode: ThemeMode = ThemeMode.Dark,
+    val themeMode: ThemeMode = ThemeMode.System,
     val screenAlwaysOn: Boolean = false,
     val vibration: Boolean = false,
     val sound: Boolean = false,
@@ -31,7 +32,7 @@ data class Settings(
     val showSessionCount: Boolean = false,
     val dbInitialized: Boolean = false,
     val initialized: Boolean = false,
-    val lastUpdate: Long = 0L
+    val lastUpdate: Long = now()
 ){
     fun toSettingsDetails(): SettingsDetails = SettingsDetails(
         language = language,

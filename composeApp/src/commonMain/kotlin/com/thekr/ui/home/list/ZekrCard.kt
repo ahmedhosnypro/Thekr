@@ -29,13 +29,13 @@ import com.thekr.ui.theme.ZekrTheme
 import com.thekr.ui.theme.droidKufi
 import com.thekr.ui.theme.hacenTunisia
 import com.thekr.ui.util.NoRippleInteractionSource
-import com.thekr.ui.util.RtlView
+import com.thekr.ui.component.RtlView
 import com.thekr.ui.values.Dimensions.small
 import com.thekr.ui.values.Dimensions.tiny
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import thekr.composeapp.generated.resources.Res
-import thekr.composeapp.generated.resources.zekr_indicator
+import com.thekr.resources.Res
+import com.thekr.resources.zekr_indicator
 
 /**
  * Displays a card representing a Zekr item.

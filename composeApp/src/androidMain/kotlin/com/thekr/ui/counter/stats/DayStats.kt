@@ -59,10 +59,10 @@
 //import com.thekr.util.TimeHelper.calcMidnight
 //import org.jetbrains.compose.resources.stringResource
 //import org.slf4j.Marker
-//import thekr.composeapp.generated.resources.Res
-//import thekr.composeapp.generated.resources.am
-//import thekr.composeapp.generated.resources.minute
-//import thekr.composeapp.generated.resources.pm
+//import com.thekr.resources.Res
+//import com.thekr.resources.am
+//import com.thekr.resources.minute
+//import com.thekr.resources.pm
 //import java.util.Calendar
 //import java.util.Locale
 //

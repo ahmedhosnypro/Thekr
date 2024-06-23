@@ -58,7 +58,7 @@ import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.theme.ZekrTheme
 import com.thekr.ui.util.KeepScreenOn
 import com.thekr.ui.util.NoRippleInteractionSource
-import com.thekr.ui.util.RtlView
+import com.thekr.ui.component.RtlView
 import com.thekr.ui.util.customOnKeyEvent
 import org.jetbrains.compose.ui.tooling.preview.Preview
 

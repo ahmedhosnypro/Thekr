@@ -10,8 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import thekr.composeapp.generated.resources.Res
-import thekr.composeapp.generated.resources.add_zekr
+import com.thekr.resources.Res
+import com.thekr.resources.add_zekr
 
 @Preview
 @Composable

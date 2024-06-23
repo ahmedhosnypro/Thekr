@@ -18,8 +18,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.thekr.ui.values.Dimensions.small
 import org.jetbrains.compose.resources.stringResource
-import thekr.composeapp.generated.resources.Res
-import thekr.composeapp.generated.resources.add_zekr
+import com.thekr.resources.Res
+import com.thekr.resources.add_zekr
 
 
 /** Use to add new Zekr or category */

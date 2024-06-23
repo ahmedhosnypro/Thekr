@@ -40,7 +40,8 @@ class HomeViewModel : ViewModel() {
 //            )
 //        )
 
-        val route: String = "zekrDetails/${categoryId.toInt()}/${zekrId.toInt()}/$initialPage/$pageCount"
+        val route: String =
+            "${ZekrScreenRoute.route}/${categoryId.toInt()}/${zekrId.toInt()}/$initialPage/$pageCount"
         NavigationActions.navigate(route)
     }
 
@@ -154,7 +155,7 @@ class HomeViewModel : ViewModel() {
 //        )
 
         val route: String =
-            "zekrDetails/${category.id.toInt()}/${zekrId.toInt()}/0/${category.zekrInstanceList.size}"
+            "${ZekrScreenRoute.route}/${category.id.toInt()}/${zekrId.toInt()}/0/${category.zekrInstanceList.size}"
         NavigationActions.navigate(route)
 
     }

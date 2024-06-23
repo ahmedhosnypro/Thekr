@@ -1,21 +1,28 @@
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import com.android.build.api.dsl.ManagedVirtualDevice
+import com.android.build.gradle.internal.lint.AndroidLintAnalysisTask
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
 plugins {
     alias(libs.plugins.multiplatform)
-    alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.compose)
+
     alias(libs.plugins.android.application)
+
+    alias(libs.plugins.compose)
+    alias(libs.plugins.compose.compiler)
+
+
     alias(libs.plugins.buildConfig)
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.room)
     alias(libs.plugins.ksp)
     alias(libs.plugins.apollo)
 }
+
+val nameSpace = "com.thekr"
 
 kotlin {
     targets.all {
@@ -69,41 +76,45 @@ kotlin {
 //    }
 
     sourceSets {
-        commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material3)
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
-            implementation(libs.voyager.navigator)
-            implementation(libs.coil)
-            implementation(libs.coil.network.ktor)
-            implementation(libs.napier)
-            implementation(libs.kotlinx.coroutines.core)
-            implementation(libs.ktor.core)
-            implementation(libs.composeIcons.featherIcons)
-            implementation(libs.kotlinx.serialization.json)
-            implementation(libs.kotlinx.datetime)
-            implementation(libs.multiplatformSettings)
-            implementation(libs.koin.core)
-            implementation(libs.kstore)
-            implementation(libs.kstore.file)
+        commonMain {
+            dependencies {
+                implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.material3)
+                implementation(compose.components.resources)
+                implementation(compose.components.uiToolingPreview)
+                implementation(libs.voyager.navigator)
+                implementation(libs.coil)
+                implementation(libs.coil.network.ktor)
+                implementation(libs.napier)
+                implementation(libs.kotlinx.coroutines.core)
+                implementation(libs.ktor.core)
+                implementation(libs.composeIcons.featherIcons)
+                implementation(libs.kotlinx.serialization.json)
+                implementation(libs.kotlinx.datetime)
+                implementation(libs.multiplatformSettings)
+                implementation(libs.koin.core)
+                implementation(libs.kstore)
+                implementation(libs.kstore.file)
 
 //            implementation(libs.compose.full)
-            implementation(libs.bundles.material)
+                implementation(libs.bundles.material)
 
 
-            implementation(libs.lifecycle.viewmodel.compose)
-            implementation(libs.navigation.compose)
+                implementation(libs.lifecycle.viewmodel.compose)
+                implementation(libs.navigation.compose)
 
-            implementation(libs.apollo.runtime)
+                implementation(libs.apollo.runtime)
 
-            implementation(libs.moko.mvvm)
+                implementation(libs.moko.mvvm)
 
-            implementation(libs.room.runtime)
-            implementation(libs.sqlite.bundled)
+                implementation(libs.room.runtime)
+                implementation(libs.sqlite.bundled)
+
+                implementation(libs.kotlinx.io.core)
+                implementation(libs.appdirs)
+            }
         }
-
         commonTest.dependencies {
             implementation(kotlin("test"))
             @OptIn(ExperimentalComposeLibrary::class)
@@ -134,14 +145,14 @@ kotlin {
 }
 
 android {
-    namespace = "com.thekr"
+    namespace = nameSpace
     compileSdk = 34
 
     defaultConfig {
         minSdk = 24
         targetSdk = 34
 
-        applicationId = "com.thekr.androidApp"
+        applicationId = "$nameSpace.androidApp"
         versionCode = 1
         versionName = "1.0.0"
 
@@ -172,13 +183,21 @@ android {
     }
 }
 
+compose {
+    tasks {
+        withType<AndroidLintAnalysisTask> {
+            enabled = false
+        }
+    }
+}
+
 compose.desktop {
     application {
         mainClass = "MainKt"
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "com.thekr.desktopApp"
+            packageName = "$nameSpace.desktopApp"
             packageVersion = "1.0.0"
         }
     }
@@ -187,6 +206,7 @@ compose.desktop {
 compose.resources {
     publicResClass = true
     generateResClass = always
+    packageOfResClass = "$nameSpace.resources"
 }
 
 buildConfig {
@@ -202,7 +222,7 @@ apollo {
     service("api") {
         // GraphQL configuration here.
         // https://www.apollographql.com/docs/kotlin/advanced/plugin-configuration/
-        packageName.set("com.thekr.graphql")
+        packageName.set("$nameSpace.graphql")
     }
 }
 

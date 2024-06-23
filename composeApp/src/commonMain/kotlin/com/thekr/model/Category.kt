@@ -3,7 +3,9 @@ package com.thekr.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.thekr.data.zekr.category.CategoryDetails
+import kotlinx.serialization.Serializable
 
+@Serializable
 @Entity(tableName = "category")
 data class Category(
     @PrimaryKey(autoGenerate = true)

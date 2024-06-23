@@ -14,7 +14,7 @@ import com.thekr.ui.home.list.CategoryList
 import com.thekr.ui.home.list.ZekrList
 import com.thekr.ui.home.list.categoryDetailsPreviewState
 import com.thekr.ui.theme.AppTheme
-import com.thekr.ui.util.RtlView
+import com.thekr.ui.component.RtlView
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 /**

@@ -29,15 +29,15 @@ import com.thekr.ui.home.list.zekrPreviewList
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.theme.ZekrColors
 import com.thekr.ui.theme.ZekrTheme
-import com.thekr.ui.util.RtlView
+import com.thekr.ui.component.RtlView
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import thekr.composeapp.generated.resources.Res
-import thekr.composeapp.generated.resources.daily
-import thekr.composeapp.generated.resources.monthly
-import thekr.composeapp.generated.resources.total
-import thekr.composeapp.generated.resources.weekly
-import thekr.composeapp.generated.resources.yearly
+import com.thekr.resources.Res
+import com.thekr.resources.daily
+import com.thekr.resources.monthly
+import com.thekr.resources.total
+import com.thekr.resources.weekly
+import com.thekr.resources.yearly
 
 /**
  * Displays detailed Zekr count information.

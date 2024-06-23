@@ -81,27 +81,27 @@ import com.thekr.ui.home.bar.top.TopBarHeaderControls
 import com.thekr.ui.home.list.categoryDetailsPreviewState
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.theme.ZekrTheme
-import com.thekr.ui.util.RtlView
+import com.thekr.ui.component.RtlView
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import thekr.composeapp.generated.resources.Res
-import thekr.composeapp.generated.resources.about_zekr
-import thekr.composeapp.generated.resources.back
-import thekr.composeapp.generated.resources.counter_visibility
-import thekr.composeapp.generated.resources.daily
-import thekr.composeapp.generated.resources.listen_to_zekr
-import thekr.composeapp.generated.resources.monthly
-import thekr.composeapp.generated.resources.pause_sound
-import thekr.composeapp.generated.resources.play_sound
-import thekr.composeapp.generated.resources.session
-import thekr.composeapp.generated.resources.settings
-import thekr.composeapp.generated.resources.total
-import thekr.composeapp.generated.resources.weekly
-import thekr.composeapp.generated.resources.yearly
-import thekr.composeapp.generated.resources.zekr_list
+import com.thekr.resources.Res
+import com.thekr.resources.about_zekr
+import com.thekr.resources.back
+import com.thekr.resources.counter_visibility
+import com.thekr.resources.daily
+import com.thekr.resources.listen_to_zekr
+import com.thekr.resources.monthly
+import com.thekr.resources.pause_sound
+import com.thekr.resources.play_sound
+import com.thekr.resources.session
+import com.thekr.resources.settings
+import com.thekr.resources.total
+import com.thekr.resources.weekly
+import com.thekr.resources.yearly
+import com.thekr.resources.zekr_list
 
 /** Represents the top app bar for the Zekr counter-screen. */
 @Composable

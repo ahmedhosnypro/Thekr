@@ -5,7 +5,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import com.thekr.data.proto.ThemeMode
-import com.thekr.ui.util.RtlView
+import com.thekr.ui.component.RtlView
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 val md_theme_light_primary = Color(0xFF026E10)

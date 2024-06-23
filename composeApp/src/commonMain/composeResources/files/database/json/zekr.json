@@ -24,8 +24,8 @@
   "coolDown" : 500,
   "soundFileName" : "alkorsy",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917094,
   "timeUpdated" : 1710766917094
 }, {
@@ -54,8 +54,8 @@
   "coolDown" : 500,
   "soundFileName" : "alsmd",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917109,
   "timeUpdated" : 1710766917109
 }, {
@@ -84,8 +84,8 @@
   "coolDown" : 500,
   "soundFileName" : "alflq",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917116,
   "timeUpdated" : 1710766917116
 }, {
@@ -114,8 +114,8 @@
   "coolDown" : 500,
   "soundFileName" : "alnas",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917124,
   "timeUpdated" : 1710766917124
 }, {
@@ -144,8 +144,8 @@
   "coolDown" : 500,
   "soundFileName" : "asb7na_w_asb7_almolk_al7md_laelaha",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917132,
   "timeUpdated" : 1710766917132
 }, {
@@ -174,8 +174,8 @@
   "coolDown" : 500,
   "soundFileName" : "alahom_bk_asb7na_w_amsina",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917146,
   "timeUpdated" : 1710766917146
 }, {
@@ -204,8 +204,8 @@
   "coolDown" : 500,
   "soundFileName" : "allhom_anta_rby_5lktny",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917153,
   "timeUpdated" : 1710766917153
 }, {
@@ -234,8 +234,8 @@
   "coolDown" : 500,
   "soundFileName" : "allahom_eny_asb7t_ashedk",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917163,
   "timeUpdated" : 1710766917163
 }, {
@@ -264,8 +264,8 @@
   "coolDown" : 500,
   "soundFileName" : "allahmo_ma_asb7_be_bnm3mtn_aw_a7d_mn_5lqk",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917174,
   "timeUpdated" : 1710766917174
 }, {
@@ -294,8 +294,8 @@
   "coolDown" : 500,
   "soundFileName" : "allahom_3afny_fi_bdny_wasm3y",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917180,
   "timeUpdated" : 1710766917180
 }, {
@@ -324,8 +324,8 @@
   "coolDown" : 500,
   "soundFileName" : "7sby_allah_3leih_twaklt",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917190,
   "timeUpdated" : 1710766917190
 }, {
@@ -354,8 +354,8 @@
   "coolDown" : 500,
   "soundFileName" : "allahom_eny_as2lk_al3fo_wal3afya",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917196,
   "timeUpdated" : 1710766917196
 }, {
@@ -384,8 +384,8 @@
   "coolDown" : 500,
   "soundFileName" : "allaom_3alem_al8ayb_fater",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917202,
   "timeUpdated" : 1710766917202
 }, {
@@ -414,8 +414,8 @@
   "coolDown" : 500,
   "soundFileName" : "bsmellah_alzy_laydr_m3esmehe",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917207,
   "timeUpdated" : 1710766917207
 }, {
@@ -444,8 +444,8 @@
   "coolDown" : 500,
   "soundFileName" : "radito_bellahe_raba",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917210,
   "timeUpdated" : 1710766917210
 }, {
@@ -474,8 +474,8 @@
   "coolDown" : 500,
   "soundFileName" : "ya7y_ya_quom_br7mtk",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917213,
   "timeUpdated" : 1710766917213
 }, {
@@ -504,8 +504,8 @@
   "coolDown" : 500,
   "soundFileName" : "asb7na_allahom_eny_as2lk_5air",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917217,
   "timeUpdated" : 1710766917217
 }, {
@@ -534,8 +534,8 @@
   "coolDown" : 500,
   "soundFileName" : "asb7na_3la_fetrt_aleslam",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917222,
   "timeUpdated" : 1710766917222
 }, {
@@ -564,8 +564,8 @@
   "coolDown" : 500,
   "soundFileName" : "asb7to_osny_3lik_7mda",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917226,
   "timeUpdated" : 1710766917226
 }, {
@@ -594,8 +594,8 @@
   "coolDown" : 500,
   "soundFileName" : "allahom_eny_a3oz_bk_mn_alhm",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917229,
   "timeUpdated" : 1710766917229
 }, {
@@ -624,8 +624,8 @@
   "coolDown" : 500,
   "soundFileName" : "sob7an_allh_wb7mdh_3dd_5lqh_wazent_3rsho",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917234,
   "timeUpdated" : 1710766917234
 }, {
@@ -654,8 +654,8 @@
   "coolDown" : 500,
   "soundFileName" : "allahom_eny_as2lk_3lman_nafe3a",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917237,
   "timeUpdated" : 1710766917237
 }, {
@@ -684,8 +684,8 @@
   "coolDown" : 500,
   "soundFileName" : "ast8froallah_wa_atob_elih",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917240,
   "timeUpdated" : 1710766917240
 }, {
@@ -714,8 +714,8 @@
   "coolDown" : 500,
   "soundFileName" : "sob7an_allaho_web7mdh",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917243,
   "timeUpdated" : 1710766917243
 }, {
@@ -744,8 +744,8 @@
   "coolDown" : 500,
   "soundFileName" : "sob7an_allah",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917246,
   "timeUpdated" : 1710766917246
 }, {
@@ -774,8 +774,8 @@
   "coolDown" : 500,
   "soundFileName" : "al7mdo_lelah",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917249,
   "timeUpdated" : 1710766917249
 }, {
@@ -804,8 +804,8 @@
   "coolDown" : 500,
   "soundFileName" : "allaho_akbr",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917252,
   "timeUpdated" : 1710766917252
 }, {
@@ -834,8 +834,8 @@
   "coolDown" : 500,
   "soundFileName" : "laelaha_w7daho_la_sharika_lho_almolk_waal7md",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917254,
   "timeUpdated" : 1710766917254
 }, {
@@ -864,8 +864,8 @@
   "coolDown" : 500,
   "soundFileName" : "allahom_sle_3la_mohamed_wa_aleh",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917258,
   "timeUpdated" : 1710766917258
 }, {
@@ -894,8 +894,8 @@
   "coolDown" : 500,
   "soundFileName" : "alkorsy",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917260,
   "timeUpdated" : 1710766917260
 }, {
@@ -924,8 +924,8 @@
   "coolDown" : 500,
   "soundFileName" : "alsmd",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917264,
   "timeUpdated" : 1710766917264
 }, {
@@ -954,8 +954,8 @@
   "coolDown" : 500,
   "soundFileName" : "alflq",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917267,
   "timeUpdated" : 1710766917267
 }, {
@@ -984,8 +984,8 @@
   "coolDown" : 500,
   "soundFileName" : "alnas",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917273,
   "timeUpdated" : 1710766917273
 }, {
@@ -1014,8 +1014,8 @@
   "coolDown" : 500,
   "soundFileName" : "amsyna_wa_amsa_almolk_leellah_wa_almdlelah",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917278,
   "timeUpdated" : 1710766917278
 }, {
@@ -1044,8 +1044,8 @@
   "coolDown" : 500,
   "soundFileName" : "allhom_bk_amsyna_w_bk_asb7na,wn7ya",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917284,
   "timeUpdated" : 1710766917284
 }, {
@@ -1074,8 +1074,8 @@
   "coolDown" : 500,
   "soundFileName" : "allhom_anta_rby_5lktny",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917286,
   "timeUpdated" : 1710766917286
 }, {
@@ -1104,8 +1104,8 @@
   "coolDown" : 500,
   "soundFileName" : "allahom_eny_amsyt_ashedk",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917291,
   "timeUpdated" : 1710766917291
 }, {
@@ -1134,8 +1134,8 @@
   "coolDown" : 500,
   "soundFileName" : "allahom_ma_amsa_by_mn3mtn_mnk_w7dk",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917297,
   "timeUpdated" : 1710766917297
 }, {
@@ -1164,8 +1164,8 @@
   "coolDown" : 500,
   "soundFileName" : "allahom_3afny_fi_bdny_wasm3y",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917301,
   "timeUpdated" : 1710766917301
 }, {
@@ -1194,8 +1194,8 @@
   "coolDown" : 500,
   "soundFileName" : "7sby_allah_3leih_twaklt",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917307,
   "timeUpdated" : 1710766917307
 }, {
@@ -1224,8 +1224,8 @@
   "coolDown" : 500,
   "soundFileName" : "allahom_eny_as2lk_al3fo_wal3afya",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917310,
   "timeUpdated" : 1710766917310
 }, {
@@ -1254,8 +1254,8 @@
   "coolDown" : 500,
   "soundFileName" : "allaom_3alem_al8ayb_fater",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917314,
   "timeUpdated" : 1710766917314
 }, {
@@ -1284,8 +1284,8 @@
   "coolDown" : 500,
   "soundFileName" : "bsmellah_alzy_laydr_m3esmehe",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917320,
   "timeUpdated" : 1710766917320
 }, {
@@ -1314,8 +1314,8 @@
   "coolDown" : 500,
   "soundFileName" : "radito_bellahe_raba",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917324,
   "timeUpdated" : 1710766917324
 }, {
@@ -1344,8 +1344,8 @@
   "coolDown" : 500,
   "soundFileName" : "ya7y_ya_quom_br7mtk",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917325,
   "timeUpdated" : 1710766917325
 }, {
@@ -1374,8 +1374,8 @@
   "coolDown" : 500,
   "soundFileName" : "amsyna_wa_amsa_almolk_leellah_rb_al3almein",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917328,
   "timeUpdated" : 1710766917328
 }, {
@@ -1404,8 +1404,8 @@
   "coolDown" : 500,
   "soundFileName" : "2msyna_3la_f6rt_aleslam_w3la_klmt_2l25las",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917333,
   "timeUpdated" : 1710766917333
 }, {
@@ -1434,8 +1434,8 @@
   "coolDown" : 500,
   "soundFileName" : "a3oz_bkalemat_allh_mn_4r_ma5lq",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917336,
   "timeUpdated" : 1710766917336
 }, {
@@ -1464,8 +1464,8 @@
   "coolDown" : 500,
   "soundFileName" : "amsyt_osny_3alik_7mda",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917340,
   "timeUpdated" : 1710766917340
 }, {
@@ -1494,8 +1494,8 @@
   "coolDown" : 500,
   "soundFileName" : "allahom_eny_a3oz_bk_mn_alhm",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917343,
   "timeUpdated" : 1710766917343
 }, {
@@ -1524,8 +1524,8 @@
   "coolDown" : 500,
   "soundFileName" : "ast8froallah_wa_atob_elih",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917348,
   "timeUpdated" : 1710766917348
 }, {
@@ -1554,8 +1554,8 @@
   "coolDown" : 500,
   "soundFileName" : "sob7an_allaho_web7mdh",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917351,
   "timeUpdated" : 1710766917351
 }, {
@@ -1584,8 +1584,8 @@
   "coolDown" : 500,
   "soundFileName" : "sob7an_allah",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917355,
   "timeUpdated" : 1710766917355
 }, {
@@ -1614,8 +1614,8 @@
   "coolDown" : 500,
   "soundFileName" : "al7mdo_lelah",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917358,
   "timeUpdated" : 1710766917358
 }, {
@@ -1644,8 +1644,8 @@
   "coolDown" : 500,
   "soundFileName" : "allaho_akbr",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917359,
   "timeUpdated" : 1710766917359
 }, {
@@ -1674,8 +1674,8 @@
   "coolDown" : 500,
   "soundFileName" : "laelaha_w7daho_la_sharika_lho_almolk_waal7md",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917360,
   "timeUpdated" : 1710766917360
 }, {
@@ -1704,8 +1704,8 @@
   "coolDown" : 500,
   "soundFileName" : "allahom_sle_3la_mohamed_wa_aleh",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917361,
   "timeUpdated" : 1710766917361
 }, {
@@ -1734,8 +1734,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917366,
   "timeUpdated" : 1710766917366
 }, {
@@ -1764,8 +1764,8 @@
   "coolDown" : 500,
   "soundFileName" : "alkorsy",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917368,
   "timeUpdated" : 1710766917368
 }, {
@@ -1794,8 +1794,8 @@
   "coolDown" : 500,
   "soundFileName" : "amn_alrosol",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917375,
   "timeUpdated" : 1710766917375
 }, {
@@ -1824,8 +1824,8 @@
   "coolDown" : 500,
   "soundFileName" : "alkaferoon",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917384,
   "timeUpdated" : 1710766917384
 }, {
@@ -1854,8 +1854,8 @@
   "coolDown" : 500,
   "soundFileName" : "alsmd",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917388,
   "timeUpdated" : 1710766917388
 }, {
@@ -1884,8 +1884,8 @@
   "coolDown" : 500,
   "soundFileName" : "bsm_rby_wd3t_gnby",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917395,
   "timeUpdated" : 1710766917395
 }, {
@@ -1914,8 +1914,8 @@
   "coolDown" : 500,
   "soundFileName" : "allahom_qny_3zabk_youm",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917398,
   "timeUpdated" : 1710766917398
 }, {
@@ -1944,8 +1944,8 @@
   "coolDown" : 500,
   "soundFileName" : "bsmk_allahom_2mot_wa27ia",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917401,
   "timeUpdated" : 1710766917401
 }, {
@@ -1974,8 +1974,8 @@
   "coolDown" : 500,
   "soundFileName" : "al7mdolelah_alzy_a63mna_wsqana",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917402,
   "timeUpdated" : 1710766917402
 }, {
@@ -2004,8 +2004,8 @@
   "coolDown" : 500,
   "soundFileName" : "allahmo_2nk_5lqt_nfsy_wttofaha",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917405,
   "timeUpdated" : 1710766917405
 }, {
@@ -2034,8 +2034,8 @@
   "coolDown" : 500,
   "soundFileName" : "allahom_rb_alsmwat_elsab7_wrb_el3rsh",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917409,
   "timeUpdated" : 1710766917409
 }, {
@@ -2064,8 +2064,8 @@
   "coolDown" : 500,
   "soundFileName" : "allahom_2slmt_nfsy_wafodt_2mry",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917411,
   "timeUpdated" : 1710766917411
 }, {
@@ -2094,8 +2094,8 @@
   "coolDown" : 500,
   "soundFileName" : "allahmo_3alem_al8yb_wal4hada_fa6r",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917414,
   "timeUpdated" : 1710766917414
 }, {
@@ -2124,8 +2124,8 @@
   "coolDown" : 500,
   "soundFileName" : "laelaha_w7daho_la_sharika_lho_almolk_waal7md_wla7ol_wlaqoh",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917416,
   "timeUpdated" : 1710766917416
 }, {
@@ -2154,8 +2154,8 @@
   "coolDown" : 500,
   "soundFileName" : "al7mdolelah_2lzy_kafany_w2wany",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917418,
   "timeUpdated" : 1710766917418
 }, {
@@ -2184,8 +2184,8 @@
   "coolDown" : 500,
   "soundFileName" : "bsmellah_wd3t_gmby_allhom_28frly",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917420,
   "timeUpdated" : 1710766917420
 }, {
@@ -2214,8 +2214,8 @@
   "coolDown" : 500,
   "soundFileName" : "alahom_2ny_23ozo_bwaghk_wwkalematk",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917423,
   "timeUpdated" : 1710766917423
 }, {
@@ -2244,8 +2244,8 @@
   "coolDown" : 500,
   "soundFileName" : "allaho_2kbr_3dd_alshaf3_waalwetr",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917425,
   "timeUpdated" : 1710766917425
 }, {
@@ -2274,8 +2274,8 @@
   "coolDown" : 500,
   "soundFileName" : "laelaha_ela_allah_3dd_alshaf3_waalwetr",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917428,
   "timeUpdated" : 1710766917428
 }, {
@@ -2304,8 +2304,8 @@
   "coolDown" : 500,
   "soundFileName" : "sob7an_allah",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917430,
   "timeUpdated" : 1710766917430
 }, {
@@ -2334,8 +2334,8 @@
   "coolDown" : 500,
   "soundFileName" : "al7mdo_lelah",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917434,
   "timeUpdated" : 1710766917434
 }, {
@@ -2364,8 +2364,8 @@
   "coolDown" : 500,
   "soundFileName" : "allaho_akbr",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917436,
   "timeUpdated" : 1710766917436
 }, {
@@ -2394,8 +2394,8 @@
   "coolDown" : 500,
   "soundFileName" : "tabark",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917438,
   "timeUpdated" : 1710766917438
 }, {
@@ -2424,8 +2424,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917450,
   "timeUpdated" : 1710766917450
 }, {
@@ -2454,8 +2454,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917451,
   "timeUpdated" : 1710766917451
 }, {
@@ -2484,8 +2484,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917451,
   "timeUpdated" : 1710766917451
 }, {
@@ -2514,8 +2514,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917452,
   "timeUpdated" : 1710766917452
 }, {
@@ -2544,8 +2544,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917452,
   "timeUpdated" : 1710766917452
 }, {
@@ -2574,8 +2574,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917453,
   "timeUpdated" : 1710766917453
 }, {
@@ -2604,8 +2604,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917453,
   "timeUpdated" : 1710766917453
 }, {
@@ -2634,8 +2634,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917454,
   "timeUpdated" : 1710766917454
 }, {
@@ -2664,8 +2664,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917455,
   "timeUpdated" : 1710766917455
 }, {
@@ -2694,8 +2694,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917455,
   "timeUpdated" : 1710766917455
 }, {
@@ -2724,8 +2724,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917456,
   "timeUpdated" : 1710766917456
 }, {
@@ -2754,8 +2754,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917457,
   "timeUpdated" : 1710766917457
 }, {
@@ -2784,8 +2784,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917458,
   "timeUpdated" : 1710766917458
 }, {
@@ -2814,8 +2814,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917459,
   "timeUpdated" : 1710766917459
 }, {
@@ -2844,8 +2844,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917459,
   "timeUpdated" : 1710766917459
 }, {
@@ -2874,8 +2874,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917460,
   "timeUpdated" : 1710766917460
 }, {
@@ -2904,8 +2904,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917460,
   "timeUpdated" : 1710766917460
 }, {
@@ -2934,8 +2934,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917461,
   "timeUpdated" : 1710766917461
 }, {
@@ -2964,8 +2964,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917462,
   "timeUpdated" : 1710766917462
 }, {
@@ -2994,8 +2994,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917463,
   "timeUpdated" : 1710766917463
 }, {
@@ -3024,8 +3024,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917464,
   "timeUpdated" : 1710766917464
 }, {
@@ -3054,8 +3054,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917464,
   "timeUpdated" : 1710766917464
 }, {
@@ -3084,8 +3084,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917465,
   "timeUpdated" : 1710766917465
 }, {
@@ -3114,8 +3114,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917465,
   "timeUpdated" : 1710766917465
 }, {
@@ -3144,8 +3144,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917466,
   "timeUpdated" : 1710766917466
 }, {
@@ -3174,8 +3174,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917466,
   "timeUpdated" : 1710766917466
 }, {
@@ -3204,8 +3204,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917467,
   "timeUpdated" : 1710766917467
 }, {
@@ -3234,8 +3234,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917468,
   "timeUpdated" : 1710766917468
 }, {
@@ -3264,8 +3264,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917468,
   "timeUpdated" : 1710766917468
 }, {
@@ -3294,8 +3294,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917469,
   "timeUpdated" : 1710766917469
 }, {
@@ -3324,8 +3324,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917470,
   "timeUpdated" : 1710766917470
 }, {
@@ -3354,8 +3354,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917470,
   "timeUpdated" : 1710766917470
 }, {
@@ -3384,8 +3384,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917471,
   "timeUpdated" : 1710766917471
 }, {
@@ -3414,8 +3414,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917471,
   "timeUpdated" : 1710766917471
 }, {
@@ -3444,8 +3444,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917472,
   "timeUpdated" : 1710766917472
 }, {
@@ -3474,8 +3474,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917473,
   "timeUpdated" : 1710766917473
 }, {
@@ -3504,8 +3504,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917473,
   "timeUpdated" : 1710766917473
 }, {
@@ -3534,8 +3534,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917474,
   "timeUpdated" : 1710766917474
 }, {
@@ -3564,8 +3564,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917474,
   "timeUpdated" : 1710766917474
 }, {
@@ -3594,8 +3594,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917475,
   "timeUpdated" : 1710766917475
 }, {
@@ -3624,8 +3624,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917476,
   "timeUpdated" : 1710766917476
 }, {
@@ -3654,8 +3654,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917476,
   "timeUpdated" : 1710766917476
 }, {
@@ -3684,8 +3684,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917477,
   "timeUpdated" : 1710766917477
 }, {
@@ -3714,8 +3714,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917477,
   "timeUpdated" : 1710766917477
 }, {
@@ -3744,8 +3744,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917478,
   "timeUpdated" : 1710766917478
 }, {
@@ -3774,8 +3774,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917478,
   "timeUpdated" : 1710766917478
 }, {
@@ -3804,8 +3804,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917480,
   "timeUpdated" : 1710766917480
 }, {
@@ -3834,8 +3834,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917480,
   "timeUpdated" : 1710766917480
 }, {
@@ -3864,8 +3864,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917481,
   "timeUpdated" : 1710766917481
 }, {
@@ -3894,8 +3894,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917481,
   "timeUpdated" : 1710766917481
 }, {
@@ -3924,8 +3924,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917482,
   "timeUpdated" : 1710766917482
 }, {
@@ -3954,8 +3954,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917482,
   "timeUpdated" : 1710766917482
 }, {
@@ -3984,8 +3984,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917483,
   "timeUpdated" : 1710766917483
 }, {
@@ -4014,8 +4014,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917483,
   "timeUpdated" : 1710766917483
 }, {
@@ -4044,8 +4044,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917484,
   "timeUpdated" : 1710766917484
 }, {
@@ -4074,8 +4074,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917484,
   "timeUpdated" : 1710766917484
 }, {
@@ -4104,8 +4104,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917485,
   "timeUpdated" : 1710766917485
 }, {
@@ -4134,8 +4134,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917485,
   "timeUpdated" : 1710766917485
 }, {
@@ -4164,8 +4164,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917486,
   "timeUpdated" : 1710766917486
 }, {
@@ -4194,8 +4194,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917486,
   "timeUpdated" : 1710766917486
 }, {
@@ -4224,8 +4224,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917487,
   "timeUpdated" : 1710766917487
 }, {
@@ -4254,8 +4254,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917487,
   "timeUpdated" : 1710766917487
 }, {
@@ -4284,8 +4284,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917488,
   "timeUpdated" : 1710766917488
 }, {
@@ -4314,8 +4314,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917488,
   "timeUpdated" : 1710766917488
 }, {
@@ -4344,8 +4344,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917489,
   "timeUpdated" : 1710766917489
 }, {
@@ -4374,8 +4374,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917489,
   "timeUpdated" : 1710766917489
 }, {
@@ -4404,8 +4404,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917490,
   "timeUpdated" : 1710766917490
 }, {
@@ -4434,8 +4434,8 @@
   "coolDown" : 500,
   "soundFileName" : "2st8fro_allah",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917490,
   "timeUpdated" : 1710766917490
 }, {
@@ -4464,8 +4464,8 @@
   "coolDown" : 500,
   "soundFileName" : "allahom_ant_alsalm_wmnk_alsalm",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917491,
   "timeUpdated" : 1710766917491
 }, {
@@ -4494,8 +4494,8 @@
   "coolDown" : 500,
   "soundFileName" : "laelaha_ela_allh_w7dah_la_mane3a_lam_a36ayt",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917492,
   "timeUpdated" : 1710766917492
 }, {
@@ -4524,8 +4524,8 @@
   "coolDown" : 500,
   "soundFileName" : "laelaha_ela_allh_w7dah_lan3bdo_el_eyah",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917493,
   "timeUpdated" : 1710766917493
 }, {
@@ -4554,8 +4554,8 @@
   "coolDown" : 500,
   "soundFileName" : "sob7an_allah",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917496,
   "timeUpdated" : 1710766917496
 }, {
@@ -4584,8 +4584,8 @@
   "coolDown" : 500,
   "soundFileName" : "al7mdo_lelah",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917497,
   "timeUpdated" : 1710766917497
 }, {
@@ -4614,8 +4614,8 @@
   "coolDown" : 500,
   "soundFileName" : "allaho_akbr",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917498,
   "timeUpdated" : 1710766917498
 }, {
@@ -4644,8 +4644,8 @@
   "coolDown" : 500,
   "soundFileName" : "laelaha_elaallag_lasharika_lah_kader",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917499,
   "timeUpdated" : 1710766917499
 }, {
@@ -4674,8 +4674,8 @@
   "coolDown" : 500,
   "soundFileName" : "alsmd",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917500,
   "timeUpdated" : 1710766917500
 }, {
@@ -4704,8 +4704,8 @@
   "coolDown" : 500,
   "soundFileName" : "alflq",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917501,
   "timeUpdated" : 1710766917501
 }, {
@@ -4734,8 +4734,8 @@
   "coolDown" : 500,
   "soundFileName" : "alnas",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917502,
   "timeUpdated" : 1710766917502
 }, {
@@ -4764,8 +4764,8 @@
   "coolDown" : 500,
   "soundFileName" : "alkorsy",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917503,
   "timeUpdated" : 1710766917503
 }, {
@@ -4794,8 +4794,8 @@
   "coolDown" : 500,
   "soundFileName" : "allahom_eny_as2lk_3lman_nafe3a",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917506,
   "timeUpdated" : 1710766917506
 }, {
@@ -4824,8 +4824,8 @@
   "coolDown" : 500,
   "soundFileName" : "rb_qny_3zabk_youm",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917507,
   "timeUpdated" : 1710766917507
 }, {
@@ -4854,8 +4854,8 @@
   "coolDown" : 500,
   "soundFileName" : "allahom_a8frly_maqdmt_wma25rt",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917507,
   "timeUpdated" : 1710766917507
 }, {
@@ -4884,8 +4884,8 @@
   "coolDown" : 500,
   "soundFileName" : "sob7ank_allhom_wb7mdk_laelaha",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917508,
   "timeUpdated" : 1710766917508
 }, {
@@ -4914,8 +4914,8 @@
   "coolDown" : 500,
   "soundFileName" : "allaho_2kbr_3dd_alshaf3_waalwetr",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917509,
   "timeUpdated" : 1710766917509
 }, {
@@ -4944,8 +4944,8 @@
   "coolDown" : 500,
   "soundFileName" : "laelaha_ela_allah_3dd_alshaf3_waalwetr",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917510,
   "timeUpdated" : 1710766917510
 }, {
@@ -4974,8 +4974,8 @@
   "coolDown" : 500,
   "soundFileName" : "laelaha_w7daho_la_sharika_lho_almolk_waal7md",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917511,
   "timeUpdated" : 1710766917511
 }, {
@@ -5004,8 +5004,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917514,
   "timeUpdated" : 1710766917514
 }, {
@@ -5034,8 +5034,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917515,
   "timeUpdated" : 1710766917515
 }, {
@@ -5064,8 +5064,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917515,
   "timeUpdated" : 1710766917515
 }, {
@@ -5094,8 +5094,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917515,
   "timeUpdated" : 1710766917515
 }, {
@@ -5124,8 +5124,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917516,
   "timeUpdated" : 1710766917516
 }, {
@@ -5154,8 +5154,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917517,
   "timeUpdated" : 1710766917517
 }, {
@@ -5184,8 +5184,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917517,
   "timeUpdated" : 1710766917517
 }, {
@@ -5214,8 +5214,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917517,
   "timeUpdated" : 1710766917517
 }, {
@@ -5244,8 +5244,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917518,
   "timeUpdated" : 1710766917518
 }, {
@@ -5274,8 +5274,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917518,
   "timeUpdated" : 1710766917518
 }, {
@@ -5304,8 +5304,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917519,
   "timeUpdated" : 1710766917519
 }, {
@@ -5334,8 +5334,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917519,
   "timeUpdated" : 1710766917519
 }, {
@@ -5364,8 +5364,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917520,
   "timeUpdated" : 1710766917520
 }, {
@@ -5394,8 +5394,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917520,
   "timeUpdated" : 1710766917520
 }, {
@@ -5424,8 +5424,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917521,
   "timeUpdated" : 1710766917521
 }, {
@@ -5454,8 +5454,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917521,
   "timeUpdated" : 1710766917521
 }, {
@@ -5484,8 +5484,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917522,
   "timeUpdated" : 1710766917522
 }, {
@@ -5514,8 +5514,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917522,
   "timeUpdated" : 1710766917522
 }, {
@@ -5544,8 +5544,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917523,
   "timeUpdated" : 1710766917523
 }, {
@@ -5574,8 +5574,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917523,
   "timeUpdated" : 1710766917523
 }, {
@@ -5604,8 +5604,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917524,
   "timeUpdated" : 1710766917524
 }, {
@@ -5634,8 +5634,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917524,
   "timeUpdated" : 1710766917524
 }, {
@@ -5664,8 +5664,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917524,
   "timeUpdated" : 1710766917524
 }, {
@@ -5694,8 +5694,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917525,
   "timeUpdated" : 1710766917525
 }, {
@@ -5724,8 +5724,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917526,
   "timeUpdated" : 1710766917526
 }, {
@@ -5754,8 +5754,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917526,
   "timeUpdated" : 1710766917526
 }, {
@@ -5784,8 +5784,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917526,
   "timeUpdated" : 1710766917526
 }, {
@@ -5814,8 +5814,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917527,
   "timeUpdated" : 1710766917527
 }, {
@@ -5844,8 +5844,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917527,
   "timeUpdated" : 1710766917527
 }, {
@@ -5874,8 +5874,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917528,
   "timeUpdated" : 1710766917528
 }, {
@@ -5904,8 +5904,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917528,
   "timeUpdated" : 1710766917528
 }, {
@@ -5934,8 +5934,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917529,
   "timeUpdated" : 1710766917529
 }, {
@@ -5964,8 +5964,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917530,
   "timeUpdated" : 1710766917530
 }, {
@@ -5994,8 +5994,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917530,
   "timeUpdated" : 1710766917530
 }, {
@@ -6024,8 +6024,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917531,
   "timeUpdated" : 1710766917531
 }, {
@@ -6054,8 +6054,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917531,
   "timeUpdated" : 1710766917531
 }, {
@@ -6084,8 +6084,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917532,
   "timeUpdated" : 1710766917532
 }, {
@@ -6114,8 +6114,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917532,
   "timeUpdated" : 1710766917532
 }, {
@@ -6144,8 +6144,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917533,
   "timeUpdated" : 1710766917533
 }, {
@@ -6174,8 +6174,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917533,
   "timeUpdated" : 1710766917533
 }, {
@@ -6204,8 +6204,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917533,
   "timeUpdated" : 1710766917533
 }, {
@@ -6234,8 +6234,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917534,
   "timeUpdated" : 1710766917534
 }, {
@@ -6264,8 +6264,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917535,
   "timeUpdated" : 1710766917535
 }, {
@@ -6294,8 +6294,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917535,
   "timeUpdated" : 1710766917535
 }, {
@@ -6324,8 +6324,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917535,
   "timeUpdated" : 1710766917535
 }, {
@@ -6354,8 +6354,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917536,
   "timeUpdated" : 1710766917536
 }, {
@@ -6384,8 +6384,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917536,
   "timeUpdated" : 1710766917536
 }, {
@@ -6414,8 +6414,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917537,
   "timeUpdated" : 1710766917537
 }, {
@@ -6444,8 +6444,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917537,
   "timeUpdated" : 1710766917537
 }, {
@@ -6474,8 +6474,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917538,
   "timeUpdated" : 1710766917538
 }, {
@@ -6504,8 +6504,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917538,
   "timeUpdated" : 1710766917538
 }, {
@@ -6534,8 +6534,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917539,
   "timeUpdated" : 1710766917539
 }, {
@@ -6564,8 +6564,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917539,
   "timeUpdated" : 1710766917539
 }, {
@@ -6594,8 +6594,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917540,
   "timeUpdated" : 1710766917540
 }, {
@@ -6624,8 +6624,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917540,
   "timeUpdated" : 1710766917540
 }, {
@@ -6654,8 +6654,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917541,
   "timeUpdated" : 1710766917541
 }, {
@@ -6684,8 +6684,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917541,
   "timeUpdated" : 1710766917541
 }, {
@@ -6714,8 +6714,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917541,
   "timeUpdated" : 1710766917541
 }, {
@@ -6744,8 +6744,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917542,
   "timeUpdated" : 1710766917542
 }, {
@@ -6774,8 +6774,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917542,
   "timeUpdated" : 1710766917542
 }, {
@@ -6804,8 +6804,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917543,
   "timeUpdated" : 1710766917543
 }, {
@@ -6834,8 +6834,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917543,
   "timeUpdated" : 1710766917543
 }, {
@@ -6864,8 +6864,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917544,
   "timeUpdated" : 1710766917544
 }, {
@@ -6894,8 +6894,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917544,
   "timeUpdated" : 1710766917544
 }, {
@@ -6924,8 +6924,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917544,
   "timeUpdated" : 1710766917544
 }, {
@@ -6954,8 +6954,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917545,
   "timeUpdated" : 1710766917545
 }, {
@@ -6984,8 +6984,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917545,
   "timeUpdated" : 1710766917545
 }, {
@@ -7014,8 +7014,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917545,
   "timeUpdated" : 1710766917545
 }, {
@@ -7044,8 +7044,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917546,
   "timeUpdated" : 1710766917546
 }, {
@@ -7074,8 +7074,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917546,
   "timeUpdated" : 1710766917546
 }, {
@@ -7104,8 +7104,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917547,
   "timeUpdated" : 1710766917547
 }, {
@@ -7134,8 +7134,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917547,
   "timeUpdated" : 1710766917547
 }, {
@@ -7164,8 +7164,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917547,
   "timeUpdated" : 1710766917547
 }, {
@@ -7194,8 +7194,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917548,
   "timeUpdated" : 1710766917548
 }, {
@@ -7224,8 +7224,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917548,
   "timeUpdated" : 1710766917548
 }, {
@@ -7254,8 +7254,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917549,
   "timeUpdated" : 1710766917549
 }, {
@@ -7284,8 +7284,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917549,
   "timeUpdated" : 1710766917549
 }, {
@@ -7314,8 +7314,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917549,
   "timeUpdated" : 1710766917549
 }, {
@@ -7344,8 +7344,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917550,
   "timeUpdated" : 1710766917550
 }, {
@@ -7374,8 +7374,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917550,
   "timeUpdated" : 1710766917550
 }, {
@@ -7404,8 +7404,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917551,
   "timeUpdated" : 1710766917551
 }, {
@@ -7434,8 +7434,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917551,
   "timeUpdated" : 1710766917551
 }, {
@@ -7464,8 +7464,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917552,
   "timeUpdated" : 1710766917552
 }, {
@@ -7494,8 +7494,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917552,
   "timeUpdated" : 1710766917552
 }, {
@@ -7524,8 +7524,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917552,
   "timeUpdated" : 1710766917552
 }, {
@@ -7554,8 +7554,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917553,
   "timeUpdated" : 1710766917553
 }, {
@@ -7584,8 +7584,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917553,
   "timeUpdated" : 1710766917553
 }, {
@@ -7614,8 +7614,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917554,
   "timeUpdated" : 1710766917554
 }, {
@@ -7644,8 +7644,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917554,
   "timeUpdated" : 1710766917554
 }, {
@@ -7674,8 +7674,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917555,
   "timeUpdated" : 1710766917555
 }, {
@@ -7704,8 +7704,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917555,
   "timeUpdated" : 1710766917555
 }, {
@@ -7734,8 +7734,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917556,
   "timeUpdated" : 1710766917556
 }, {
@@ -7764,8 +7764,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917556,
   "timeUpdated" : 1710766917556
 }, {
@@ -7794,8 +7794,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917556,
   "timeUpdated" : 1710766917556
 }, {
@@ -7824,8 +7824,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917557,
   "timeUpdated" : 1710766917557
 }, {
@@ -7854,8 +7854,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917557,
   "timeUpdated" : 1710766917557
 }, {
@@ -7884,8 +7884,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917558,
   "timeUpdated" : 1710766917558
 }, {
@@ -7914,8 +7914,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917558,
   "timeUpdated" : 1710766917558
 }, {
@@ -7944,8 +7944,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917558,
   "timeUpdated" : 1710766917558
 }, {
@@ -7974,8 +7974,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917559,
   "timeUpdated" : 1710766917559
 }, {
@@ -8004,8 +8004,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917559,
   "timeUpdated" : 1710766917559
 }, {
@@ -8034,8 +8034,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917560,
   "timeUpdated" : 1710766917560
 }, {
@@ -8064,8 +8064,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917560,
   "timeUpdated" : 1710766917560
 }, {
@@ -8094,8 +8094,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917561,
   "timeUpdated" : 1710766917561
 }, {
@@ -8124,8 +8124,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917561,
   "timeUpdated" : 1710766917561
 }, {
@@ -8154,8 +8154,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917562,
   "timeUpdated" : 1710766917562
 }, {
@@ -8184,8 +8184,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917563,
   "timeUpdated" : 1710766917563
 }, {
@@ -8214,8 +8214,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917563,
   "timeUpdated" : 1710766917563
 }, {
@@ -8244,8 +8244,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917563,
   "timeUpdated" : 1710766917563
 }, {
@@ -8274,8 +8274,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917564,
   "timeUpdated" : 1710766917564
 }, {
@@ -8304,8 +8304,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917564,
   "timeUpdated" : 1710766917564
 }, {
@@ -8334,8 +8334,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917565,
   "timeUpdated" : 1710766917565
 }, {
@@ -8364,8 +8364,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917565,
   "timeUpdated" : 1710766917565
 }, {
@@ -8394,8 +8394,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917566,
   "timeUpdated" : 1710766917566
 }, {
@@ -8424,8 +8424,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917566,
   "timeUpdated" : 1710766917566
 }, {
@@ -8454,8 +8454,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917566,
   "timeUpdated" : 1710766917566
 }, {
@@ -8484,8 +8484,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917567,
   "timeUpdated" : 1710766917567
 }, {
@@ -8514,8 +8514,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917567,
   "timeUpdated" : 1710766917567
 }, {
@@ -8544,8 +8544,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917568,
   "timeUpdated" : 1710766917568
 }, {
@@ -8574,8 +8574,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917568,
   "timeUpdated" : 1710766917568
 }, {
@@ -8604,8 +8604,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917569,
   "timeUpdated" : 1710766917569
 }, {
@@ -8634,8 +8634,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917569,
   "timeUpdated" : 1710766917569
 }, {
@@ -8664,8 +8664,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917570,
   "timeUpdated" : 1710766917570
 }, {
@@ -8694,8 +8694,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917570,
   "timeUpdated" : 1710766917570
 }, {
@@ -8724,8 +8724,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917570,
   "timeUpdated" : 1710766917570
 }, {
@@ -8754,8 +8754,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917571,
   "timeUpdated" : 1710766917571
 }, {
@@ -8784,8 +8784,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917571,
   "timeUpdated" : 1710766917571
 }, {
@@ -8814,8 +8814,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917572,
   "timeUpdated" : 1710766917572
 }, {
@@ -8844,8 +8844,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917572,
   "timeUpdated" : 1710766917572
 }, {
@@ -8874,8 +8874,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917573,
   "timeUpdated" : 1710766917573
 }, {
@@ -8904,8 +8904,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917573,
   "timeUpdated" : 1710766917573
 }, {
@@ -8934,8 +8934,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917573,
   "timeUpdated" : 1710766917573
 }, {
@@ -8964,8 +8964,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917574,
   "timeUpdated" : 1710766917574
 }, {
@@ -8994,8 +8994,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917574,
   "timeUpdated" : 1710766917574
 }, {
@@ -9024,8 +9024,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917575,
   "timeUpdated" : 1710766917575
 }, {
@@ -9054,8 +9054,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917575,
   "timeUpdated" : 1710766917575
 }, {
@@ -9084,8 +9084,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917576,
   "timeUpdated" : 1710766917576
 }, {
@@ -9114,8 +9114,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917576,
   "timeUpdated" : 1710766917576
 }, {
@@ -9144,8 +9144,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917576,
   "timeUpdated" : 1710766917576
 }, {
@@ -9174,8 +9174,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917577,
   "timeUpdated" : 1710766917577
 }, {
@@ -9204,8 +9204,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917577,
   "timeUpdated" : 1710766917577
 }, {
@@ -9234,8 +9234,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917578,
   "timeUpdated" : 1710766917578
 }, {
@@ -9264,8 +9264,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917578,
   "timeUpdated" : 1710766917578
 }, {
@@ -9294,8 +9294,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917578,
   "timeUpdated" : 1710766917578
 }, {
@@ -9324,8 +9324,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917579,
   "timeUpdated" : 1710766917579
 }, {
@@ -9354,8 +9354,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917579,
   "timeUpdated" : 1710766917579
 }, {
@@ -9384,8 +9384,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917580,
   "timeUpdated" : 1710766917580
 }, {
@@ -9414,8 +9414,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917580,
   "timeUpdated" : 1710766917580
 }, {
@@ -9444,8 +9444,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917580,
   "timeUpdated" : 1710766917580
 }, {
@@ -9474,8 +9474,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917581,
   "timeUpdated" : 1710766917581
 }, {
@@ -9504,8 +9504,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917581,
   "timeUpdated" : 1710766917581
 }, {
@@ -9534,8 +9534,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917582,
   "timeUpdated" : 1710766917582
 }, {
@@ -9564,8 +9564,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917582,
   "timeUpdated" : 1710766917582
 }, {
@@ -9594,8 +9594,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917583,
   "timeUpdated" : 1710766917583
 }, {
@@ -9624,8 +9624,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917583,
   "timeUpdated" : 1710766917583
 }, {
@@ -9654,8 +9654,8 @@
   "coolDown" : 500,
   "soundFileName" : null,
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917584,
   "timeUpdated" : 1710766917584
 }, {
@@ -9684,8 +9684,8 @@
   "coolDown" : 500,
   "soundFileName" : "ast8froallah_wa_atob_elih",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917584,
   "timeUpdated" : 1710766917584
 }, {
@@ -9714,8 +9714,8 @@
   "coolDown" : 500,
   "soundFileName" : "ast8fro_allah_al7y_alkyoum",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917585,
   "timeUpdated" : 1710766917585
 }, {
@@ -9744,8 +9744,8 @@
   "coolDown" : 500,
   "soundFileName" : "allahom_sle_3la_mohamed_wa_aleh",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917586,
   "timeUpdated" : 1710766917586
 }, {
@@ -9774,8 +9774,8 @@
   "coolDown" : 500,
   "soundFileName" : "sob7an_allh_web7mdh_sob7an_allh_al3zem",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917588,
   "timeUpdated" : 1710766917588
 }, {
@@ -9804,8 +9804,8 @@
   "coolDown" : 500,
   "soundFileName" : "16_sob7n_al3zem_web7mdh",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917588,
   "timeUpdated" : 1710766917588
 }, {
@@ -9834,8 +9834,8 @@
   "coolDown" : 500,
   "soundFileName" : "sob7an_allaho_web7mdh",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917589,
   "timeUpdated" : 1710766917589
 }, {
@@ -9864,8 +9864,8 @@
   "coolDown" : 500,
   "soundFileName" : "sob7an_allah",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917591,
   "timeUpdated" : 1710766917591
 }, {
@@ -9894,8 +9894,8 @@
   "coolDown" : 500,
   "soundFileName" : "al7mdo_lelah",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917592,
   "timeUpdated" : 1710766917592
 }, {
@@ -9924,8 +9924,8 @@
   "coolDown" : 500,
   "soundFileName" : "la7ola_wlakoata_ela_bellah",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917593,
   "timeUpdated" : 1710766917593
 }, {
@@ -9954,8 +9954,8 @@
   "coolDown" : 500,
   "soundFileName" : "laelaha_ela_allah",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917595,
   "timeUpdated" : 1710766917595
 }, {
@@ -9984,8 +9984,8 @@
   "coolDown" : 500,
   "soundFileName" : "laelaha_w7daho_la_sharika_lho_almolk_waal7md",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917596,
   "timeUpdated" : 1710766917596
 }, {
@@ -10014,8 +10014,8 @@
   "coolDown" : 500,
   "soundFileName" : "sob7an_al7md_laelaha_allahoakbr",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917598,
   "timeUpdated" : 1710766917598
 }, {
@@ -10044,8 +10044,8 @@
   "coolDown" : 500,
   "soundFileName" : "radito_bellahe_raba",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917599,
   "timeUpdated" : 1710766917599
 }, {
@@ -10074,8 +10074,8 @@
   "coolDown" : 500,
   "soundFileName" : "alsmd",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917600,
   "timeUpdated" : 1710766917600
 }, {
@@ -10104,8 +10104,8 @@
   "coolDown" : 500,
   "soundFileName" : "sob7an_allah_al7md_allhoakbr",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917604,
   "timeUpdated" : 1710766917604
 }, {
@@ -10134,8 +10134,8 @@
   "coolDown" : 500,
   "soundFileName" : "laelaha_allhakbr_sob7an",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917607,
   "timeUpdated" : 1710766917607
 }, {
@@ -10164,8 +10164,8 @@
   "coolDown" : 500,
   "soundFileName" : "allahom_agrny_mn_alnar",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917609,
   "timeUpdated" : 1710766917609
 }, {
@@ -10194,8 +10194,8 @@
   "coolDown" : 500,
   "soundFileName" : "allahom_eny_as2lk_algna",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917612,
   "timeUpdated" : 1710766917612
 }, {
@@ -10224,8 +10224,8 @@
   "coolDown" : 500,
   "soundFileName" : "sob7an_allah_3ddma_5lk",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917614,
   "timeUpdated" : 1710766917614
 }, {
@@ -10254,8 +10254,8 @@
   "coolDown" : 500,
   "soundFileName" : "laelaha_w7daho_la_sharika_lah_allaho_akbr",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917617,
   "timeUpdated" : 1710766917617
 }, {
@@ -10284,8 +10284,8 @@
   "coolDown" : 500,
   "soundFileName" : "allaho_akbr_kabira",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917619,
   "timeUpdated" : 1710766917619
 }, {
@@ -10314,8 +10314,8 @@
   "coolDown" : 500,
   "soundFileName" : "laelahaelallah_allahoakbr_w7dh",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917620,
   "timeUpdated" : 1710766917620
 }, {
@@ -10344,8 +10344,8 @@
   "coolDown" : 500,
   "soundFileName" : "sob7an_allh_wb7mdh_ast8fr_allah",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917621,
   "timeUpdated" : 1710766917621
 }, {
@@ -10374,8 +10374,8 @@
   "coolDown" : 500,
   "soundFileName" : "laelaha_akbe_sob7an_al7md",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917622,
   "timeUpdated" : 1710766917622
 }, {
@@ -10404,8 +10404,8 @@
   "coolDown" : 500,
   "soundFileName" : "laelaha_sob7an_akbr_al7amd",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917623,
   "timeUpdated" : 1710766917623
 }, {
@@ -10434,8 +10434,8 @@
   "coolDown" : 500,
   "soundFileName" : "anta_rby_5lqtny_wana_3bdk",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917623,
   "timeUpdated" : 1710766917623
 }, {
@@ -10464,8 +10464,8 @@
   "coolDown" : 500,
   "soundFileName" : "rb_e8frly_elznob",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917625,
   "timeUpdated" : 1710766917625
 }, {
@@ -10494,8 +10494,8 @@
   "coolDown" : 500,
   "soundFileName" : "la7ola_lamlg2",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917626,
   "timeUpdated" : 1710766917626
 }, {
@@ -10524,8 +10524,8 @@
   "coolDown" : 500,
   "soundFileName" : "laelaha_we_lasharika_al7md_akbr",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917627,
   "timeUpdated" : 1710766917627
 }, {
@@ -10554,8 +10554,8 @@
   "coolDown" : 500,
   "soundFileName" : "ashhado_lasharika_mohamed_eisa_abdo",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917628,
   "timeUpdated" : 1710766917628
 }, {
@@ -10584,8 +10584,8 @@
   "coolDown" : 500,
   "soundFileName" : "13_rb_28frly_r7im",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917629,
   "timeUpdated" : 1710766917629
 }, {
@@ -10614,8 +10614,8 @@
   "coolDown" : 500,
   "soundFileName" : "al7md_sob7an_laelaha_allahakbr",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917630,
   "timeUpdated" : 1710766917630
 }, {
@@ -10644,8 +10644,8 @@
   "coolDown" : 500,
   "soundFileName" : "18_sob7n_web7mdh_3dd5lqh",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917631,
   "timeUpdated" : 1710766917631
 }, {
@@ -10674,8 +10674,8 @@
   "coolDown" : 500,
   "soundFileName" : "laelah_ela_allah_al3ly_al7lem",
   "shortSoundFileName" : null,
-  "isProtected" : 0,
-  "editable" : 1,
+  "isProtected" : false,
+  "editable" : true,
   "timeCreated" : 1710766917632,
   "timeUpdated" : 1710766917632
 } ]

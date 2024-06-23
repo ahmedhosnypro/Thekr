@@ -4,8 +4,10 @@ import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import java.awt.Dimension
 import com.thekr.App
+import com.thekr.JvmApplication
 
 fun main() = application {
+    JvmApplication
     Window(
         title = "Thekr",
         state = rememberWindowState(width = 800.dp, height = 600.dp),

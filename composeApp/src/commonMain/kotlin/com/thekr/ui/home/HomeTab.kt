@@ -2,15 +2,15 @@ package com.thekr.ui.home
 
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
-import thekr.composeapp.generated.resources.Res
-import thekr.composeapp.generated.resources.doaa_active
-import thekr.composeapp.generated.resources.dua
-import thekr.composeapp.generated.resources.hesn_active
-import thekr.composeapp.generated.resources.hesn_almuslim
-import thekr.composeapp.generated.resources.knooz
-import thekr.composeapp.generated.resources.mesbaha
-import thekr.composeapp.generated.resources.sebha
-import thekr.composeapp.generated.resources.sound_azkar_active
+import com.thekr.resources.Res
+import com.thekr.resources.doaa_active
+import com.thekr.resources.dua
+import com.thekr.resources.hesn_active
+import com.thekr.resources.hesn_almuslim
+import com.thekr.resources.knooz
+import com.thekr.resources.mesbaha
+import com.thekr.resources.sebha
+import com.thekr.resources.sound_azkar_active
 
 /** Represents the tabs available on the Home screen. */
 enum class HomeTab(
