@@ -63,7 +63,9 @@ import com.thekr.resources.zekr_content
 @Composable
 fun CounterEntryScreen(
     settingsDetails: SettingsDetails,
-    viewModel: ZekrEntryViewModel = viewModel(factory = AppViewModelProvider.Factory),
+    viewModel: ZekrEntryViewModel = viewModel {
+        AppViewModelProvider.Factory.create(ZekrEntryViewModel::class, this)
+    },
 ) {
     val uiState by viewModel.viewState.collectAsState()
     LaunchedEffect(Unit) {

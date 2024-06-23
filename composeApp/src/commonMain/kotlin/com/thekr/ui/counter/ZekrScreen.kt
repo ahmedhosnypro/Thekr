@@ -36,6 +36,7 @@ import com.thekr.ui.home.list.categoryDetailsPreviewState
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.util.RtlView
 import com.thekr.ui.viewmodel.AppViewModelProvider
+import com.thekr.ui.zekr.entry.ZekrEntryViewModel
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -43,7 +44,9 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Composable
 fun ZekrScreen(
     settingsDetails: SettingsDetails,
-    viewModel: ZekrCounterViewModel = viewModel(factory = AppViewModelProvider.Factory),
+    viewModel: ZekrCounterViewModel = viewModel {
+        AppViewModelProvider.Factory.create(ZekrCounterViewModel::class, this)
+    },
 ) {
     val counterUiState by viewModel.uiState.collectAsState()
 
@@ -128,8 +131,8 @@ fun ZekrScreen(
             settingsDetails = settingsDetails,
         )
     } else if (counterUiState.showStatistics) {
-    // todo:
-    //        ZekrStats(
+        // todo:
+        //        ZekrStats(
 //            settingsDetails = settingsDetails,
 //            onNavigateUp = {
 //                viewModel.hideStatistics()
