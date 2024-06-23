@@ -29,7 +29,7 @@ import com.thekr.ui.theme.ZekrTheme
 import com.thekr.ui.theme.droidKufi
 import com.thekr.ui.theme.hacenTunisia
 import com.thekr.ui.util.NoRippleInteractionSource
-import com.thekr.ui.util.RtlView
+import com.thekr.ui.component.RtlView
 import com.thekr.ui.values.Dimensions.small
 import com.thekr.ui.values.Dimensions.tiny
 import org.jetbrains.compose.resources.painterResource

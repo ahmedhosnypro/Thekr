@@ -29,7 +29,7 @@ import com.thekr.ui.home.list.zekrPreviewList
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.theme.ZekrColors
 import com.thekr.ui.theme.ZekrTheme
-import com.thekr.ui.util.RtlView
+import com.thekr.ui.component.RtlView
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import com.thekr.resources.Res

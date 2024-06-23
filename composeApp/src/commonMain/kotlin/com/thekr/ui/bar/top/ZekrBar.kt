@@ -46,7 +46,7 @@ import com.thekr.ui.navigation.route.SettingsRoute
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.theme.ZekrColors
 import com.thekr.ui.theme.ZekrTheme
-import com.thekr.ui.util.RtlView
+import com.thekr.ui.component.RtlView
 import com.thekr.ui.viewmodel.AzkarState
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource

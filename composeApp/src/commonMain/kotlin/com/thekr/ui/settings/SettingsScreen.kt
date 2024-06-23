@@ -29,7 +29,7 @@ import com.thekr.ui.settings.component.SwitchSetting
 import com.thekr.ui.settings.language.LanguageSettings
 import com.thekr.ui.settings.theme.ThemeModeSetting
 import com.thekr.ui.theme.AppTheme
-import com.thekr.ui.util.RtlView
+import com.thekr.ui.component.RtlView
 import com.thekr.ui.values.Dimensions.medium
 import com.thekr.ui.values.Dimensions.small
 import org.jetbrains.compose.resources.stringResource

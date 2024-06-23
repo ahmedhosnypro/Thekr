@@ -34,9 +34,8 @@ import com.thekr.ui.counter.viewModel.ZekrCounterViewModel
 import com.thekr.ui.counter.viewModel.action.configSleepJop
 import com.thekr.ui.home.list.categoryDetailsPreviewState
 import com.thekr.ui.theme.AppTheme
-import com.thekr.ui.util.RtlView
+import com.thekr.ui.component.RtlView
 import com.thekr.ui.viewmodel.AppViewModelProvider
-import com.thekr.ui.zekr.entry.ZekrEntryViewModel
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.ui.tooling.preview.Preview
 

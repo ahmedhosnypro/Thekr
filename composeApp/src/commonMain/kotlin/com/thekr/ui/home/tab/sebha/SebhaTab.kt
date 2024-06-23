@@ -15,7 +15,7 @@ import com.thekr.data.zekr.category.CategoryDetails
 import com.thekr.ui.AzkarActions
 import com.thekr.ui.home.list.categoryDetailsListPreviewState
 import com.thekr.ui.theme.AppTheme
-import com.thekr.ui.util.RtlView
+import com.thekr.ui.component.RtlView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource

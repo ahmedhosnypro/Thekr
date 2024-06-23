@@ -20,7 +20,7 @@ import com.thekr.data.settings.SettingsDetails
 import com.thekr.data.zekr.category.CategoryDetails
 import com.thekr.data.zekr.instance.ZekrInstanceDetails
 import com.thekr.ui.theme.AppTheme
-import com.thekr.ui.util.RtlView
+import com.thekr.ui.component.RtlView
 import com.thekr.ui.values.Dimensions.medium
 import com.thekr.ui.values.Dimensions.xLarge
 import org.jetbrains.compose.resources.painterResource

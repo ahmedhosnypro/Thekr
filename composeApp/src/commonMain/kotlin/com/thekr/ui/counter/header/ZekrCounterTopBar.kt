@@ -81,7 +81,7 @@ import com.thekr.ui.home.bar.top.TopBarHeaderControls
 import com.thekr.ui.home.list.categoryDetailsPreviewState
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.theme.ZekrTheme
-import com.thekr.ui.util.RtlView
+import com.thekr.ui.component.RtlView
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
