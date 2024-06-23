@@ -45,6 +45,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 fun HomeScreen(
     azkarState: AzkarState,
     settingsDetails: SettingsDetails,
+    // todo: fun MyComposable(viewModel: MyViewModel = viewModel { MyViewModel() })
     homeViewModel: HomeViewModel = viewModel(),
 ) {
     val snackBarHostState = remember { SnackbarHostState() }

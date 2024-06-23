@@ -1,6 +1,8 @@
 package com.thekr
 
 import ca.gosyer.appdirs.AppDirs
+import com.thekr.data.proto.Settings
+import com.thekr.data.settingsStore
 import com.thekr.database.AppContainer
 import com.thekr.database.AppDataContainer
 import com.thekr.database.JsonParser.importDataFromJson
@@ -22,16 +24,23 @@ object JvmApplication {
         DatabaseProvider.initDatabase(getDatabaseBuilder())
 
         // Initialize settingsDataStore
-        appStorage  = AppDirs("thekr", "thekr").getUserDataDir()
+        val userDataDir = AppDirs("thekr", "thekr").getUserDataDir()
+        appStorage = userDataDir
 
         appCoroutineScope.launch {
-//            val settingsDataStore = applicationContext.settingsDataStore
-//            val settings = settingsDataStore.data.firstOrNull() ?: return@launch
-//            if (settings.initialized.not() && settings.dbInitialized.not()) {
-            importDataFromJson()
-//                settingsDataStore.updateData {
-//                    SettingsDetails().toSettings()
-//                }
+            val settings = settingsStore.get()
+            if (settings == null) {
+                kotlinx.io.files.SystemFileSystem.run {
+                    createDirectories(
+                        path = kotlinx.io.files.Path(userDataDir)
+                    )
+                }
+
+
+                settingsStore.set(Settings(initialized = true))
+                importDataFromJson()
+            } else if (settings.dbInitialized.not()) {
+                importDataFromJson()
 //            } else {
 //                // Start fingerprint logging in the background
 //                // todo: save this as a job to be able to cancel it
@@ -39,6 +48,7 @@ object JvmApplication {
 //                    FingerPrintLogcatProcessor.startMonitoring()
 //                }
 //            }
+            }
         }
     }
 }

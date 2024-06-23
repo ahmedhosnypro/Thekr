@@ -27,6 +27,10 @@ fun CounterApp(
 ) {
     SettingsHelper.setViewModel(settingViewModel)
     val settings by settingsStore.updates.collectAsState(Settings())
+    if (settings == null) {
+        LoadScreen()
+        return
+    }
     val azkarState by azkarViewModel.azkarState.collectAsState()
     LaunchedEffect(Unit) {
         AzkarActions.initActions(azkarViewModel)
