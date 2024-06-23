@@ -1,9 +1,15 @@
 package com.thekr
 
 import android.app.Application
+import com.thekr.data.proto.Settings
+import com.thekr.data.settings.SettingsDetails
+import com.thekr.data.settingsStore
 import com.thekr.database.AppContainer
 import com.thekr.database.AppDataContainer
+import com.thekr.database.DatabaseProvider
 import com.thekr.database.JsonParser.importDataFromJson
+import com.thekr.database.getDatabaseBuilder
+import com.thekr.di.appStorage
 import com.topjohnwu.superuser.Shell
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -35,16 +41,22 @@ class ThekrApplication : Application() {
         super.onCreate()
         container = AppDataContainer(this)
 
+        // Initialize database
+        DatabaseProvider.initDatabase(getDatabaseBuilder(this))
 
         // Initialize settingsDataStore
         appCoroutineScope.launch {
-//            val settingsDataStore = applicationContext.settingsDataStore
+            appStorage = filesDir.path
+            val settings = settingsStore.get()
 //            val settings = settingsDataStore.data.firstOrNull() ?: return@launch
-//            if (settings.initialized.not() && settings.dbInitialized.not()) {
-            importDataFromJson()
-//                settingsDataStore.updateData {
-//                    SettingsDetails().toSettings()
-//                }
+            if (settings != null && settings.initialized.not() && settings.dbInitialized.not()) {
+                importDataFromJson()
+                settingsStore.update {
+                    Settings(
+                        initialized = true,
+                        dbInitialized = true
+                    )
+                }
 //            } else {
 //                // Start fingerprint logging in the background
 //                // todo: save this as a job to be able to cancel it
@@ -52,6 +64,7 @@ class ThekrApplication : Application() {
 //                    FingerPrintLogcatProcessor.startMonitoring()
 //                }
 //            }
+            }
         }
     }
 }

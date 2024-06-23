@@ -8,13 +8,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
-object ThekrApplication {
+object JvmApplication {
     /** AppContainer instance used by the rest of classes to obtain dependencies */
-    lateinit var container: AppContainer
+    var container: AppContainer = AppDataContainer()
 
     private val appCoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     init {
-        container = AppDataContainer()
         // Initialize settingsDataStore
         appCoroutineScope.launch {
 //            val settingsDataStore = applicationContext.settingsDataStore

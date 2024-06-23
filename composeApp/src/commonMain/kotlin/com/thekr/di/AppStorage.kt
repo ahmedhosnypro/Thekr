@@ -1,3 +1,3 @@
-package di
+package com.thekr.di
 
 var appStorage: String? = ""

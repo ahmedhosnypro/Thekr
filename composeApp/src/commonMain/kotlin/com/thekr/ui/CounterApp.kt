@@ -14,6 +14,8 @@ import com.thekr.ui.settings.SettingViewModel
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.viewmodel.AzkarViewModel
 import androidx.compose.runtime.getValue
+import com.thekr.data.proto.Settings
+import com.thekr.data.settingsStore
 import com.thekr.ui.component.LoadScreen
 import com.thekr.ui.viewmodel.AppViewModelProvider
 import com.thekr.ui.viewmodel.AzkarStateHelper
@@ -24,28 +26,30 @@ fun CounterApp(
     azkarViewModel: AzkarViewModel = viewModel(factory = AppViewModelProvider.Factory),
 ) {
     SettingsHelper.setViewModel(settingViewModel)
-    val settingsDetails by settingViewModel.viewState
+    val settings by settingsStore.updates.collectAsState(Settings())
     val azkarState by azkarViewModel.azkarState.collectAsState()
-
     LaunchedEffect(Unit) {
         AzkarActions.initActions(azkarViewModel)
     }
-
+    val settingsDetails = settings!!.toSettingsDetails()
+    LaunchedEffect(settings) {
+        SettingsHelper.updateState(settingsDetails)
+    }
     LaunchedEffect(azkarState) {
         AzkarStateHelper.updateState(azkarState)
     }
 
     // Apply settings changes using a LaunchedEffect
-    LaunchedEffect(settingsDetails) {
+    LaunchedEffect(settings) {
         SettingsHelper.updateState(settingsDetails)
     }
 
     if (settingsDetails.initialized.not()) {
         LoadScreen()
     } else {
-        val language = settingsDetails.language
+        val language = settings!!.language
         AppTheme(
-            themeMode = settingsDetails.themeMode,
+            themeMode = settings!!.themeMode,
         ) {
 //            MultiLang(
 //                language = language,

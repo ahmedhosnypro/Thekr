@@ -1,7 +1,7 @@
 package com.thekr.data
 
 import com.thekr.data.proto.Settings
-import di.appStorage
+import com.thekr.di.appStorage
 import io.github.xxfast.kstore.KStore
 import io.github.xxfast.kstore.file.storeOf
 import okio.Path.Companion.toPath
