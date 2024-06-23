@@ -26,7 +26,7 @@ import com.thekr.ui.home.tab.sebha.CreateCategoryDialog
 import com.thekr.ui.navigation.NavigationActions
 import com.thekr.ui.navigation.route.SettingsRoute
 import com.thekr.ui.theme.AppTheme
-import com.thekr.ui.util.RtlView
+import com.thekr.ui.component.RtlView
 import com.thekr.ui.viewmodel.AzkarState
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview

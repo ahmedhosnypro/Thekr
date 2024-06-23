@@ -13,7 +13,7 @@ import com.thekr.data.proto.ThemeMode
 import com.thekr.ui.AzkarActions
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.theme.hacenTunisiaLt
-import com.thekr.ui.util.RtlView
+import com.thekr.ui.component.RtlView
 import com.thekr.ui.values.Dimensions.medium
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview

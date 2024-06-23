@@ -35,7 +35,7 @@ import com.thekr.ui.home.list.DuaTab
 import com.thekr.ui.home.tab.ZekrTab
 import com.thekr.ui.home.tab.sebha.SebhaTab
 import com.thekr.ui.theme.AppTheme
-import com.thekr.ui.util.RtlView
+import com.thekr.ui.component.RtlView
 import com.thekr.ui.viewmodel.AzkarState
 import org.jetbrains.compose.ui.tooling.preview.Preview
 

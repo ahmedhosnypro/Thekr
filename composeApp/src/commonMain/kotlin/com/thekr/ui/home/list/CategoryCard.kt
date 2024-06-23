@@ -32,7 +32,7 @@ import com.thekr.ui.values.Dimensions.medium
 import com.thekr.ui.theme.*
 import com.thekr.ui.theme.ImageResourceHelper.getDrawableResourceIdFromFileName
 import com.thekr.ui.util.NoRippleInteractionSource
-import com.thekr.ui.util.RtlView
+import com.thekr.ui.component.RtlView
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import com.thekr.resources.Res
