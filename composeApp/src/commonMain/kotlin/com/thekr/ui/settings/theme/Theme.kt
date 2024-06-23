@@ -27,9 +27,9 @@ import com.thekr.ui.component.DefaultHorizontalDivider
 import com.thekr.ui.settings.component.PopupSetting
 import com.thekr.ui.settings.component.RadioButtonSetting
 import org.jetbrains.compose.resources.stringResource
-import thekr.composeapp.generated.resources.Res
-import thekr.composeapp.generated.resources.cancel
-import thekr.composeapp.generated.resources.theme
+import com.thekr.resources.Res
+import com.thekr.resources.cancel
+import com.thekr.resources.theme
 
 @Composable
 fun ThemeModeSetting(

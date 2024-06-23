@@ -34,20 +34,20 @@ import com.thekr.ui.values.Dimensions.medium
 import com.thekr.ui.values.Dimensions.small
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import thekr.composeapp.generated.resources.Res
-import thekr.composeapp.generated.resources.click_sound
-import thekr.composeapp.generated.resources.display
-import thekr.composeapp.generated.resources.feedback
-import thekr.composeapp.generated.resources.fingerprint
-import thekr.composeapp.generated.resources.input
-import thekr.composeapp.generated.resources.material_you
-import thekr.composeapp.generated.resources.screen_always_on
-import thekr.composeapp.generated.resources.settings
-import thekr.composeapp.generated.resources.sound
-import thekr.composeapp.generated.resources.speech_name
-import thekr.composeapp.generated.resources.speech_value
-import thekr.composeapp.generated.resources.vibration
-import thekr.composeapp.generated.resources.volume_key
+import com.thekr.resources.Res
+import com.thekr.resources.click_sound
+import com.thekr.resources.display
+import com.thekr.resources.feedback
+import com.thekr.resources.fingerprint
+import com.thekr.resources.input
+import com.thekr.resources.material_you
+import com.thekr.resources.screen_always_on
+import com.thekr.resources.settings
+import com.thekr.resources.sound
+import com.thekr.resources.speech_name
+import com.thekr.resources.speech_value
+import com.thekr.resources.vibration
+import com.thekr.resources.volume_key
 
 @Composable
 fun SettingsScreen(

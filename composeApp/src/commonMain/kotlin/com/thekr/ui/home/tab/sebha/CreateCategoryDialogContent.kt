@@ -17,11 +17,11 @@ import com.thekr.ui.util.RtlView
 import com.thekr.ui.values.Dimensions.medium
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import thekr.composeapp.generated.resources.Res
-import thekr.composeapp.generated.resources.cancel
-import thekr.composeapp.generated.resources.create
-import thekr.composeapp.generated.resources.create_zekr_group
-import thekr.composeapp.generated.resources.group_name
+import com.thekr.resources.Res
+import com.thekr.resources.cancel
+import com.thekr.resources.create
+import com.thekr.resources.create_zekr_group
+import com.thekr.resources.group_name
 
 /**
  * Displays a dialog for creating a new category.
@@ -135,7 +135,12 @@ private fun CategoryNameInput(
         value = categoryName,
         onValueChange = onCategoryNameChange,
         isError = isError,
-        label = { Text(text = stringResource(Res.string.group_name), fontFamily = hacenTunisiaLt()) },
+        label = {
+            Text(
+                text = stringResource(Res.string.group_name),
+                fontFamily = hacenTunisiaLt()
+            )
+        },
         singleLine = true
     )
 }

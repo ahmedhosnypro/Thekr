@@ -1,7 +1,8 @@
-package com.thekr.database
+package com.thekr.di
 
 import androidx.room.RoomDatabase
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
+import com.thekr.database.AppDatabase
 import kotlinx.coroutines.Dispatchers
 
 object DatabaseProvider {

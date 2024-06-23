@@ -49,15 +49,15 @@ import com.thekr.ui.values.Dimensions.small
 import com.thekr.ui.viewmodel.AppViewModelProvider
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import thekr.composeapp.generated.resources.Res
-import thekr.composeapp.generated.resources.add_zekr
-import thekr.composeapp.generated.resources.coolDown
-import thekr.composeapp.generated.resources.daily_goal
-import thekr.composeapp.generated.resources.monthly_goal
-import thekr.composeapp.generated.resources.save
-import thekr.composeapp.generated.resources.weekly_goal
-import thekr.composeapp.generated.resources.yearly_goal
-import thekr.composeapp.generated.resources.zekr_content
+import com.thekr.resources.Res
+import com.thekr.resources.add_zekr
+import com.thekr.resources.coolDown
+import com.thekr.resources.daily_goal
+import com.thekr.resources.monthly_goal
+import com.thekr.resources.save
+import com.thekr.resources.weekly_goal
+import com.thekr.resources.yearly_goal
+import com.thekr.resources.zekr_content
 
 //todo:val c = LocalSoftwareKeyboardController.current
 @Composable

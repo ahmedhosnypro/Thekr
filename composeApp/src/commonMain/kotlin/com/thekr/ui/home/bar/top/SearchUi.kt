@@ -9,8 +9,8 @@ import androidx.compose.ui.text.style.TextAlign
 import com.thekr.data.settings.SettingsDetails
 import com.thekr.ui.theme.hacenTunisia
 import org.jetbrains.compose.resources.stringResource
-import thekr.composeapp.generated.resources.Res
-import thekr.composeapp.generated.resources.app_name
+import com.thekr.resources.Res
+import com.thekr.resources.app_name
 
 @Composable
 fun SearchUi(

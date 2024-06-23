@@ -5,7 +5,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.thekr.data.zekr.instance.ZekrInstanceDetails
 import com.thekr.util.TimeHelper.now
+import kotlinx.serialization.Serializable
 
+@Serializable
 @Entity(tableName = "zekr_instance")
 data class ZekrInstance(
     @PrimaryKey(autoGenerate = true)

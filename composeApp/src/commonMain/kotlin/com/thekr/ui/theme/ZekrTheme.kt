@@ -11,9 +11,9 @@ import com.thekr.data.settings.SettingsDetails
 import com.thekr.ui.settings.SettingViewModel
 import com.thekr.ui.viewmodel.AppViewModelProvider
 import org.jetbrains.compose.resources.DrawableResource
-import thekr.composeapp.generated.resources.Res
-import thekr.composeapp.generated.resources.day_mode
-import thekr.composeapp.generated.resources.night_mode
+import com.thekr.resources.Res
+import com.thekr.resources.day_mode
+import com.thekr.resources.night_mode
 
 object ZekrTheme {
     private val LightResources = ThemeModeResources(

@@ -51,10 +51,10 @@ import com.thekr.ui.viewmodel.AzkarState
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import thekr.composeapp.generated.resources.Res
-import thekr.composeapp.generated.resources.back
-import thekr.composeapp.generated.resources.header_background
-import thekr.composeapp.generated.resources.settings
+import com.thekr.resources.Res
+import com.thekr.resources.back
+import com.thekr.resources.header_background
+import com.thekr.resources.settings
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)

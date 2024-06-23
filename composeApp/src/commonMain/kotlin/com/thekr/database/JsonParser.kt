@@ -1,28 +1,22 @@
 package com.thekr.database
 
-import com.thekr.database.DatabaseProvider.database
+import com.thekr.data.settingsStore
+import com.thekr.di.DatabaseProvider.database
 import com.thekr.model.Category
 import com.thekr.model.Zekr
 import com.thekr.model.ZekrInstance
+import com.thekr.resources.Res
+import com.thekr.util.TimeHelper.now
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.KSerializer
-import kotlinx.serialization.Serializer
-import kotlinx.serialization.encoding.Decoder
-import kotlinx.serialization.encoding.Encoder
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.modules.SerializersModule
-import kotlinx.serialization.modules.contextual
 import org.jetbrains.compose.resources.ExperimentalResourceApi
-import thekr.composeapp.generated.resources.Res
+
 
 object JsonParser {
-    val json = Json {
+    val j = Json
+    private val json = Json {
         ignoreUnknownKeys = true
-        serializersModule = SerializersModule {
-            contextual(BooleanAsIntSerializer)
-        }
     }
 
     suspend fun importDataFromJson() {
@@ -33,6 +27,12 @@ object JsonParser {
                 val categoryList = readJsonFile<Category>("category.json")
 
                 insertDataIntoDatabase(zekrList, zekrInstanceList, categoryList)
+                settingsStore.update { it ->
+                    it?.copy(
+                        dbInitialized = true,
+                        lastUpdate = now()
+                    )
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
                 // Handle error, maybe log or notify user
@@ -42,8 +42,7 @@ object JsonParser {
 
     @OptIn(ExperimentalResourceApi::class)
     private suspend inline fun <reified T> readJsonFile(fileName: String): List<T> {
-        val res = Res
-        val jsonString = res.readBytes("files/database/json/$fileName.json")
+        val jsonString = Res.readBytes("files/database/json/$fileName")
             .decodeToString()
 
         return json.decodeFromString(jsonString)
@@ -56,18 +55,6 @@ object JsonParser {
             database.zekrDAO().insertAll(zekrList)
             database.zekrInstanceDao().insertAll(zekrInstanceList)
             database.categoryDao().insertAll(categoryList)
-        }
-    }
-
-    @OptIn(ExperimentalSerializationApi::class)
-    @Serializer(forClass = Boolean::class)
-    object BooleanAsIntSerializer : KSerializer<Boolean> {
-        override fun serialize(encoder: Encoder, value: Boolean) {
-            encoder.encodeInt(if (value) 1 else 0)
-        }
-
-        override fun deserialize(decoder: Decoder): Boolean {
-            return decoder.decodeInt() != 0
         }
     }
 }

@@ -16,8 +16,8 @@ import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.util.RtlView
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import thekr.composeapp.generated.resources.Res
-import thekr.composeapp.generated.resources.settings
+import com.thekr.resources.Res
+import com.thekr.resources.settings
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

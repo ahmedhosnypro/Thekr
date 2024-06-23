@@ -4,7 +4,7 @@ import com.thekr.ui.navigation.NavigationRoute
 import kotlinx.serialization.Serializable
 
 object ZekrScreenRoute : NavigationRoute {
-    override val route = "item_details"
+    override val route = "zekr_screen"
     override val titleRes = "Counter Details"
     const val CATEGORY_ID_ARG = "categoryId"
     const val ZEKR_ID_ARG = "itemId"

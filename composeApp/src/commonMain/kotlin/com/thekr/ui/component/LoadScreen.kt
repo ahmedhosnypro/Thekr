@@ -7,8 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.painterResource
-import thekr.composeapp.generated.resources.Res
-import thekr.composeapp.generated.resources.icon
+import com.thekr.resources.Res
+import com.thekr.resources.icon
 
 @Composable
 fun LoadScreen() {

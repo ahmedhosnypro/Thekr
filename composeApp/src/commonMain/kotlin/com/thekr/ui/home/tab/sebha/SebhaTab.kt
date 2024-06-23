@@ -20,8 +20,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import thekr.composeapp.generated.resources.Res
-import thekr.composeapp.generated.resources.create_zekr_group
+import com.thekr.resources.Res
+import com.thekr.resources.create_zekr_group
 
 /**
  * Represents the Sebha tab content on the Home screen.

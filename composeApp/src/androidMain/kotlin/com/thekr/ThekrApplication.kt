@@ -2,11 +2,10 @@ package com.thekr
 
 import android.app.Application
 import com.thekr.data.proto.Settings
-import com.thekr.data.settings.SettingsDetails
 import com.thekr.data.settingsStore
 import com.thekr.database.AppContainer
 import com.thekr.database.AppDataContainer
-import com.thekr.database.DatabaseProvider
+import com.thekr.di.DatabaseProvider
 import com.thekr.database.JsonParser.importDataFromJson
 import com.thekr.database.getDatabaseBuilder
 import com.thekr.di.appStorage
@@ -47,6 +46,7 @@ class ThekrApplication : Application() {
         // Initialize settingsDataStore
         appCoroutineScope.launch {
             appStorage = filesDir.path
+
             val settings = settingsStore.get()
 //            val settings = settingsDataStore.data.firstOrNull() ?: return@launch
             if (settings != null && settings.initialized.not() && settings.dbInitialized.not()) {
@@ -54,7 +54,6 @@ class ThekrApplication : Application() {
                 settingsStore.update {
                     Settings(
                         initialized = true,
-                        dbInitialized = true
                     )
                 }
 //            } else {
@@ -64,6 +63,8 @@ class ThekrApplication : Application() {
 //                    FingerPrintLogcatProcessor.startMonitoring()
 //                }
 //            }
+            } else if (settings != null && settings.dbInitialized.not()) {
+                importDataFromJson()
             }
         }
     }

@@ -1,7 +1,7 @@
 package com.thekr.ui.theme
 
 import org.jetbrains.compose.resources.DrawableResource
-import thekr.composeapp.generated.resources.*
+import com.thekr.resources.*
 
 object ImageResourceHelper {
 
