@@ -3,13 +3,13 @@ package com.thekr.ui.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.thekr.data.settings.SettingsDetails
-import com.thekr.ui.component.MultiLang
 import com.thekr.ui.counter.ZekrScreen
 import com.thekr.ui.home.HomeScreen
 import com.thekr.ui.navigation.route.CounterEditRoute
@@ -26,19 +26,15 @@ import com.thekr.ui.zekr.entry.CounterEntryScreen
 fun CounterNavyHost(
     azkarState: AzkarState,
     settingsDetails: SettingsDetails,
+    navController: NavHostController,
     modifier: Modifier = Modifier,
 ) {
-    val navController = rememberNavController()
     // use when navigating up after finishing a process (background process)
     val navigateBack = { navController.popBackStack() }
     // when a user clicks on the back button
     val onNavigateUp = { navController.navigateUp() }
 
-    LaunchedEffect(Unit) {
-        NavigationActions.initNavController(navController)
-    }
 
-    val language = settingsDetails.language
     NavHost(
         navController = navController,
         startDestination = HomeRoute.route,
@@ -46,24 +42,16 @@ fun CounterNavyHost(
     ) {
         // home screen
         composable(HomeRoute.route) {
-            MultiLang(
-                language = language,
-            ) {
-                HomeScreen(
-                    azkarState = azkarState,
-                    settingsDetails = settingsDetails,
-                )
-            }
+            HomeScreen(
+                azkarState = azkarState,
+                settingsDetails = settingsDetails,
+            )
         }
         // counter entry screen
         composable(CounterEntryRoute.route) {
-            MultiLang(
-                language = language,
-            ) {
-                CounterEntryScreen(
-                    settingsDetails = settingsDetails,
-                )
-            }
+            CounterEntryScreen(
+                settingsDetails = settingsDetails,
+            )
         }
 
         // counter details screen
@@ -84,13 +72,9 @@ fun CounterNavyHost(
                 },
             )
         ) {
-            MultiLang(
-                language = language,
-            ) {
-                ZekrScreen(
-                    settingsDetails = settingsDetails,
-                )
-            }
+            ZekrScreen(
+                settingsDetails = settingsDetails,
+            )
         }
 
         // counter-edit screen
@@ -103,14 +87,10 @@ fun CounterNavyHost(
             )
         ) {
             // todo: use NavigationActions to navigate back
-            MultiLang(
-                language = language,
-            ) {
-                CounterEditScreen(
-                    navigateBack = { navigateBack() },
-                    onNavigateUp = { onNavigateUp() }
-                )
-            }
+            CounterEditScreen(
+                navigateBack = { navigateBack() },
+                onNavigateUp = { onNavigateUp() }
+            )
         }
 
         // counter-statistics screen
@@ -125,13 +105,9 @@ fun CounterNavyHost(
 //        }
 //        settings screen
         composable(SettingsRoute.route) {
-            MultiLang(
-                language = language,
-            ) {
-                SettingsScreen(
-                    settingsDetails = settingsDetails,
-                )
-            }
+            SettingsScreen(
+                settingsDetails = settingsDetails,
+            )
         }
     }
 }
