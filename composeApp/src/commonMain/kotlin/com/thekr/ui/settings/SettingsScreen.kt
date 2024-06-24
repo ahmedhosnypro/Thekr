@@ -15,6 +15,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.unit.dp
 import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
@@ -48,6 +49,7 @@ import com.thekr.resources.speech_name
 import com.thekr.resources.speech_value
 import com.thekr.resources.vibration
 import com.thekr.resources.volume_key
+import org.jetbrains.compose.resources.DefaultComposeEnvironment
 
 @Composable
 fun SettingsScreen(
@@ -73,7 +75,7 @@ private fun SettingsBody(
                 title = { HeaderText(stringResource(Res.string.settings)) },
                 navigationIcon = {
 //                    IconButton(onClick = { NavigationActions.navigateUp(HomeRoute::class) }) {
-                        IconButton(onClick = { NavigationActions.navigateUp(HomeRoute.route) }) {
+                    IconButton(onClick = { NavigationActions.navigateUp(HomeRoute.route) }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back"
@@ -262,10 +264,18 @@ fun DisplaySettings(
     ) {
         LanguageSettings(
             selectedLanguage = { settingsDetails.language },
-            onLanguageChange = {
+            onLanguageChange = { option ->
+                val locale = try {
+                    Locale(option.value)
+                } catch (e: Exception) {
+                    null
+                }
+                locale?.let { it ->
+                    DefaultComposeEnvironment.setLocale(it)
+                }
                 onSettingUpdate(
                     settingsDetails.copy(
-                        language = it.value
+                        language = option.value
                     )
                 )
             },
