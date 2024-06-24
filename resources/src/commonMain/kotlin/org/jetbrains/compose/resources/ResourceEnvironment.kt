@@ -52,7 +52,6 @@ val DefaultComposeEnvironment = object : ComposeEnvironment {
         if (::environment.isInitialized) {
             return environment.value
         }
-
         val composeLocale = Locale.current
         val composeTheme = isSystemInDarkTheme()
         val composeDensity = LocalDensity.current
