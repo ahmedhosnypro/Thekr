@@ -7,7 +7,6 @@ import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.unit.LayoutDirection
 import com.thekr.ui.theme.rtlLanguages
 import org.jetbrains.compose.resources.DefaultComposeEnvironment
-import org.jetbrains.compose.resources.LocalComposeEnvironment
 
 
 @Composable

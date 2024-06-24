@@ -36,6 +36,7 @@ import com.thekr.resources.back
 import com.thekr.resources.create_zekr_group
 import com.thekr.resources.settings
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeBar(
     settingsDetails: SettingsDetails,

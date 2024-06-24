@@ -68,6 +68,7 @@ import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
 import com.thekr.data.zekr.category.CategoryDetails
 import com.thekr.data.zekr.zekr.ZekrDetails
+import com.thekr.model.ZekrTargetStatus
 import com.thekr.ui.bar.top.ZekrBar
 import com.thekr.ui.counter.CounterHelper
 import com.thekr.ui.counter.viewModel.CounterUiState
@@ -356,6 +357,8 @@ private fun CountVisibilityDropdownMenu(
  */
 @Composable
 private fun CountVisibilityOptions(settingsDetails: SettingsDetails) {
+    val zekrInstanceDetails = CounterHelper.getCurrentZekrInstance().value
+
     RadioMenuItem(
         text = stringResource(Res.string.counter_visibility),
         onClick = CounterHelper.onClickCountVisibility,
@@ -363,36 +366,51 @@ private fun CountVisibilityOptions(settingsDetails: SettingsDetails) {
     )
 
     // Display checkboxes for each count type
-    CountVisibilityCheckbox(
-        Res.string.daily,
-        settingsDetails.showDailyCount,
-        settingsDetails.showCount,
-        CounterHelper.toggleDailyCountVisibility
-    )
-    CountVisibilityCheckbox(
-        Res.string.weekly,
-        settingsDetails.showWeeklyCount,
-        settingsDetails.showCount,
-        CounterHelper.toggleWeeklyCountVisibility
-    )
-    CountVisibilityCheckbox(
-        Res.string.monthly,
-        settingsDetails.showMonthlyCount,
-        settingsDetails.showCount,
-        CounterHelper.toggleMonthlyCountVisibility
-    )
-    CountVisibilityCheckbox(
-        Res.string.yearly,
-        settingsDetails.showYearlyCount,
-        settingsDetails.showCount,
-        CounterHelper.toggleYearlyCountVisibility
-    )
+
+    if (zekrInstanceDetails.dailyTargetStatus == ZekrTargetStatus.Enabled){
+        CountVisibilityCheckbox(
+            Res.string.daily,
+            settingsDetails.showDailyCount,
+            settingsDetails.showCount,
+            CounterHelper.toggleDailyCountVisibility
+        )
+    }
+
+    if (zekrInstanceDetails.weeklyTargetStatus == ZekrTargetStatus.Enabled) {
+        CountVisibilityCheckbox(
+            Res.string.weekly,
+            settingsDetails.showWeeklyCount,
+            settingsDetails.showCount,
+            CounterHelper.toggleWeeklyCountVisibility
+        )
+    }
+
+    if (zekrInstanceDetails.monthlyTargetStatus == ZekrTargetStatus.Enabled) {
+        CountVisibilityCheckbox(
+            Res.string.monthly,
+            settingsDetails.showMonthlyCount,
+            settingsDetails.showCount,
+            CounterHelper.toggleMonthlyCountVisibility
+        )
+    }
+
+    if (zekrInstanceDetails.yearlyTargetStatus == ZekrTargetStatus.Enabled) {
+        CountVisibilityCheckbox(
+            Res.string.yearly,
+            settingsDetails.showYearlyCount,
+            settingsDetails.showCount,
+            CounterHelper.toggleYearlyCountVisibility
+        )
+    }
+
+
     CountVisibilityCheckbox(
         Res.string.total,
         settingsDetails.showTotalCount,
         settingsDetails.showCount,
         CounterHelper.toggleTotalCountVisibility
     )
+
     CountVisibilityCheckbox(
         Res.string.session,
         settingsDetails.showSessionCount,
