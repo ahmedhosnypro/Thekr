@@ -74,7 +74,7 @@ fun ZekrList(
                 count = count ?: 0L,
                 target = item.value.dailyTarget,
                 onClick = {
-                    HomeActions.onZekrClick(tabIndex, item.value.categoryId, item.value.zekrId)
+                    HomeActions.onThekrClick(tabIndex, item.value.categoryId, item.value.zekrId)
                     // Simplify ZekrInstanceDetails retrieval
                     val zekrInstance =
                         categoryValue.zekrInstanceList.firstOrNull { it.value.id == item.value.zekrId }

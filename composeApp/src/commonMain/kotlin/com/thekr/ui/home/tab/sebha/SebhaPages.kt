@@ -43,7 +43,7 @@ fun SebhaPages(
                 )
             } else {
                 SebhaAddNewButton(
-                    onCLick = { HomeActions.onCreateZekrClick() },
+                    onCLick = { HomeActions.onThekrCategoryClick() },
                     text = stringResource(Res.string.add_zekr)
                 )
             }

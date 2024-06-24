@@ -96,7 +96,9 @@ fun HomeBarCreateAction(
     IconButton(
         onClick = if (azkarState.userAzkar.value.childCategories.isEmpty()) {
             { showCreateNewCategoryDialog.value = true }
-        } else HomeActions.onCreateZekrClick
+        } else {
+            { HomeActions.onThekrCategoryClick() }
+        }
     ) {
         Icon(
             Icons.Outlined.Create,

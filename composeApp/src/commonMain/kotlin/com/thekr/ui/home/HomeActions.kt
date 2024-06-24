@@ -11,9 +11,9 @@ import kotlinx.coroutines.launch
 /** Represents actions that can be performed on the Home screen. */
 
 object HomeActions {
-    lateinit var onZekrClick: (tabIndex: Int, categoryId: Long, zekrId: Long) -> Unit
+    lateinit var onThekrClick: (tabIndex: Int, categoryId: Long, zekrId: Long) -> Unit
     lateinit var onCategoryClick: (tabIndex: Int, categoryDetails: MutableState<CategoryDetails>) -> Unit
-    var onCreateZekrClick: () -> Unit = {}
+    lateinit var onThekrCategoryClick: () -> Unit
 
     fun initActions(
         homeViewModel: HomeViewModel,
@@ -21,7 +21,7 @@ object HomeActions {
         snackBarHostState: SnackbarHostState
     ) {
         println("HomeActions.initActions")
-        onZekrClick = { tabIndex, categoryId, zekrId ->
+        onThekrClick = { tabIndex, categoryId, zekrId ->
             homeViewModel.onZekrClick(tabIndex, categoryId, zekrId)
         }
 
@@ -37,7 +37,7 @@ object HomeActions {
             )
         }
 
-        onCreateZekrClick = {
+        onThekrCategoryClick = {
 //            NavigationActions.navigate(CounterEntryRoute)
             NavigationActions.navigate(CounterEntryRoute.route)
         }
