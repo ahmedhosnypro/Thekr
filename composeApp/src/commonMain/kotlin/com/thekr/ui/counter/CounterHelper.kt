@@ -174,7 +174,7 @@ object CounterHelper {
             }
         }
 
-        onNavigateUp = { counterViewModel.onNavigateUp() }
+        onNavigateUp = counterViewModel::onNavigateUp
         showCategoryZekrListMenu = { counterViewModel.showCategoryZekrListMenu() }
         showZekrStatistics = { counterViewModel.showStatistics() }
 
