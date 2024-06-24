@@ -1,55 +1,23 @@
 package com.thekr
 
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
-import androidx.compose.animation.core.tween
-import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.widthIn
-import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ElevatedButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.unit.dp
+import com.thekr.resources.*
 import com.thekr.theme.AppTheme
 import com.thekr.theme.LocalThemeIsDark
 import com.thekr.ui.CounterApp
+import com.thekr.ui.unit.udp
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
-import com.thekr.resources.IndieFlower_Regular
-import com.thekr.resources.Res
-import com.thekr.resources.cyclone
-import com.thekr.resources.ic_cyclone
-import com.thekr.resources.ic_dark_mode
-import com.thekr.resources.ic_light_mode
-import com.thekr.resources.ic_rotate_right
-import com.thekr.resources.open_github
-import com.thekr.resources.run
-import com.thekr.resources.stop
-import com.thekr.resources.theme
 
 @Composable
 internal fun App() = AppTheme {
@@ -62,7 +30,7 @@ internal fun App1() = AppTheme {
         modifier = Modifier
             .fillMaxSize()
             .windowInsetsPadding(WindowInsets.safeDrawing)
-            .padding(16.dp),
+            .padding(16.udp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
@@ -83,8 +51,8 @@ internal fun App1() = AppTheme {
 
         Image(
             modifier = Modifier
-                .size(250.dp)
-                .padding(16.dp)
+                .size(250.udp)
+                .padding(16.udp)
                 .run { if (isAnimate) rotate(rotate) else this },
             imageVector = vectorResource(Res.drawable.ic_cyclone),
             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
@@ -93,8 +61,8 @@ internal fun App1() = AppTheme {
 
         ElevatedButton(
             modifier = Modifier
-                .padding(horizontal = 8.dp, vertical = 4.dp)
-                .widthIn(min = 200.dp),
+                .padding(horizontal = 8.udp, vertical = 4.udp)
+                .widthIn(min = 200.udp),
             onClick = { isAnimate = !isAnimate },
             content = {
                 Icon(vectorResource(Res.drawable.ic_rotate_right), contentDescription = null)
@@ -112,7 +80,7 @@ internal fun App1() = AppTheme {
         }
 
         ElevatedButton(
-            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp).widthIn(min = 200.dp),
+            modifier = Modifier.padding(horizontal = 8.udp, vertical = 4.udp).widthIn(min = 200.udp),
             onClick = { isDark = !isDark },
             content = {
                 Icon(vectorResource(icon), contentDescription = null)
@@ -122,7 +90,7 @@ internal fun App1() = AppTheme {
         )
 
         TextButton(
-            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp).widthIn(min = 200.dp),
+            modifier = Modifier.padding(horizontal = 8.udp, vertical = 4.udp).widthIn(min = 200.udp),
             onClick = { openUrl("https://github.com/terrakok") },
         ) {
             Text(stringResource(Res.string.open_github))

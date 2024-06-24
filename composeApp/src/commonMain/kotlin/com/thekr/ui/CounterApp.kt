@@ -14,10 +14,12 @@ import com.thekr.ui.settings.SettingViewModel
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.viewmodel.AzkarViewModel
 import androidx.compose.runtime.getValue
+import androidx.navigation.compose.rememberNavController
 import com.thekr.data.proto.Settings
 import com.thekr.data.settingsStore
 import com.thekr.ui.component.LoadScreen
 import com.thekr.ui.component.MultiLang
+import com.thekr.ui.navigation.NavigationActions
 import com.thekr.ui.viewmodel.AppViewModelProvider
 import com.thekr.ui.viewmodel.AzkarStateHelper
 
@@ -49,6 +51,12 @@ fun CounterApp(
         SettingsHelper.updateState(settingsDetails)
     }
 
+    val navController = rememberNavController()
+
+    LaunchedEffect(Unit) {
+        NavigationActions.initNavController(navController)
+    }
+
     if (settingsDetails.initialized.not()) {
         LoadScreen()
     } else {
@@ -56,14 +64,19 @@ fun CounterApp(
         AppTheme(
             themeMode = settings!!.themeMode,
         ) {
-            Surface(
-                modifier = Modifier.fillMaxSize(),
-                color = MaterialTheme.colorScheme.background
+            MultiLang(
+                language = language,
             ) {
-                CounterNavyHost(
-                    settingsDetails = settingsDetails,
-                    azkarState = azkarState,
-                )
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    CounterNavyHost(
+                        settingsDetails = settingsDetails,
+                        azkarState = azkarState,
+                        navController = navController,
+                    )
+                }
             }
         }
     }
