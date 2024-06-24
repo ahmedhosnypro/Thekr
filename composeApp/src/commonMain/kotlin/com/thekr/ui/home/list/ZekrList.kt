@@ -27,6 +27,7 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import com.thekr.resources.Res
 import com.thekr.resources.zekr_indicator
+import com.thekr.ui.home.HomeActions
 
 /**
  * Displays a list of Zekr items within a category.
@@ -36,8 +37,6 @@ import com.thekr.resources.zekr_indicator
  * @param settingsDetails Settings details for theming and customization.
  * @param modifier Modifier to be applied to the LazyVerticalGrid.
  * @param tabIndex The index of the current tab.
- * @param onHomeListItemClick Callback invoked when a Zekr item is clicked
- *     in the Home context.
  * @param onCategoryListItemClick Callback invoked when a Zekr item is
  *     clicked in the Category context.
  */
@@ -47,7 +46,6 @@ fun ZekrList(
     settingsDetails: SettingsDetails,
     modifier: Modifier = Modifier,
     tabIndex: Int = 0,
-    onHomeListItemClick: (Int, Long, Long) -> Unit = { _, _, _ -> },
     onCategoryListItemClick: (MutableState<ZekrInstanceDetails>) -> Unit = {},
 ) {
     val categoryValue = category.value // Access the value once for optimization
@@ -75,8 +73,8 @@ fun ZekrList(
                 text = zekr?.text ?: "",
                 count = count ?: 0L,
                 target = item.value.dailyTarget,
-                onItemClick = {
-                    onHomeListItemClick(tabIndex, item.value.categoryId, item.value.zekrId)
+                onClick = {
+                    HomeActions.onZekrClick(tabIndex, item.value.categoryId, item.value.zekrId)
                     // Simplify ZekrInstanceDetails retrieval
                     val zekrInstance =
                         categoryValue.zekrInstanceList.firstOrNull { it.value.id == item.value.zekrId }

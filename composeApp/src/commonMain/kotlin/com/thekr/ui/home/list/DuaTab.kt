@@ -41,8 +41,6 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
  *     hierarchy.
  * @param settingsDetails The settings detail for theming and
  *     customization.
- * @param onZekrClick Callback function invoked when a Zekr item is
- *     clicked.
  * @param onCategoryClick Callback function invoked when a Dua category is
  *     clicked.
  * @param tabIndex The index of the current tab.
@@ -51,7 +49,6 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 fun DuaTab(
     duaStack: SnapshotStateList<MutableState<CategoryDetails>>,
     settingsDetails: SettingsDetails,
-    onZekrClick: (Int, Long, Long) -> Unit = { _, _, _ -> },
     onCategoryClick: (MutableState<CategoryDetails>) -> Unit = {},
     tabIndex: Int = 0,
 ) {
@@ -71,7 +68,6 @@ fun DuaTab(
                     modifier = Modifier.fillMaxSize(),
                     tabIndex = tabIndex,
                     category = categoryDetails,
-                    onHomeListItemClick = onZekrClick,
                     settingsDetails = settingsDetails,
                 )
             }

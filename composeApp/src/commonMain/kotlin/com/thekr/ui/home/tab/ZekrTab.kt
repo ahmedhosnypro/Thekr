@@ -24,7 +24,6 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
  * @param categoryDetails The state of the current category details.
  * @param settingsDetails The settings detail for theming and customization.
  * @param tabIndex The index of the current tab.
- * @param onZekrClick Callback invoked when a Zekr item is clicked.
  * @param onCategoryClick Callback invoked when a category is clicked.
  */
 @Composable
@@ -32,7 +31,6 @@ fun ZekrTab(
     categoryDetails: MutableState<CategoryDetails>,
     settingsDetails: SettingsDetails,
     tabIndex: Int,
-    onZekrClick: (Int, Long, Long) -> Unit = { _, _, _ -> },
     onCategoryClick: (MutableState<CategoryDetails>) -> Unit = {},
 ) {
     val category = categoryDetails.value // Access the value only once for optimization
@@ -51,7 +49,6 @@ fun ZekrTab(
             ZekrList(
                 category = categoryDetails,
                 modifier = Modifier.fillMaxSize(),
-                onHomeListItemClick = onZekrClick,
                 settingsDetails = settingsDetails,
                 tabIndex = tabIndex,
             )

@@ -187,7 +187,7 @@ private fun ZekrAppBarActions(
 /** Displays the navigation icon (back button) in the Zekr app bar. */
 @Composable
 private fun ZekrAppBarNavigationIcon() {
-    IconButton(onClick = CounterHelper.onNavigateUp) {
+    IconButton(onClick = { CounterHelper.onNavigateUp() }) {
         Icon(
             Icons.AutoMirrored.Filled.ArrowBackIos,
             contentDescription = stringResource(Res.string.back),
@@ -367,7 +367,7 @@ private fun CountVisibilityOptions(settingsDetails: SettingsDetails) {
 
     // Display checkboxes for each count type
 
-    if (zekrInstanceDetails.dailyTargetStatus == ZekrTargetStatus.Enabled){
+    if (zekrInstanceDetails.dailyTargetStatus == ZekrTargetStatus.Enabled) {
         CountVisibilityCheckbox(
             Res.string.daily,
             settingsDetails.showDailyCount,

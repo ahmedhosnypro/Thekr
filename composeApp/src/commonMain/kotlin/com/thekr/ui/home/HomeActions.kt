@@ -11,9 +11,8 @@ import kotlinx.coroutines.launch
 /** Represents actions that can be performed on the Home screen. */
 
 object HomeActions {
-    var onZekrClick: (tabIndex: Int, categoryId: Long, zekrId: Long) -> Unit = { _, _, _ -> }
-    var onCategoryClick: (tabIndex: Int, categoryDetails: MutableState<CategoryDetails>) -> Unit =
-        { _, _ -> }
+    lateinit var onZekrClick: (tabIndex: Int, categoryId: Long, zekrId: Long) -> Unit
+    lateinit var onCategoryClick: (tabIndex: Int, categoryDetails: MutableState<CategoryDetails>) -> Unit
     var onCreateZekrClick: () -> Unit = {}
 
     fun initActions(
@@ -21,6 +20,7 @@ object HomeActions {
         uiCoroutine: CoroutineScope,
         snackBarHostState: SnackbarHostState
     ) {
+        println("HomeActions.initActions")
         onZekrClick = { tabIndex, categoryId, zekrId ->
             homeViewModel.onZekrClick(tabIndex, categoryId, zekrId)
         }

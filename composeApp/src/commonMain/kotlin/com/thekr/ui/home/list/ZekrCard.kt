@@ -46,7 +46,7 @@ import com.thekr.resources.zekr_indicator
  * @param text The text of the Zekr.
  * @param count The current count for the Zekr.
  * @param target The target count for the Zekr.
- * @param onItemClick Callback function invoked when the card is clicked.
+ * @param onClick Callback function invoked when the card is clicked.
  * @param onLongCLick Callback function invoked when the card is
  *     long-clicked.
  * @param leadingIcon An optional composable function to display a leading
@@ -62,7 +62,7 @@ fun ZekrCard(
     text: String = "",
     count: Long = 0,
     target: Long = 0,
-    onItemClick: () -> Unit = {},
+    onClick: () -> Unit = {},
     onLongCLick: () -> Unit = {},
     leadingIcon: (@Composable () -> Unit)? = null,
     trailingIcon: (@Composable () -> Unit)? = null,
@@ -70,12 +70,12 @@ fun ZekrCard(
     val zekrColors = ZekrTheme.colors(settingsDetails)
 
     Card(
-        onClick = onItemClick,
+        onClick = onClick,
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = small)
             .combinedClickable(
-                onClick = onItemClick,
+                onClick = onClick,
                 onLongClick = onLongCLick,
             )
             .padding(top = small),

@@ -36,10 +36,9 @@ fun SebhaPages(
         val category = userAzkar[tabIndex]
         Column {
             if (category.value.zekrList.isNotEmpty()) {
-                ZekrList(
+                    ZekrList(
                     category = category,
                     modifier = Modifier.fillMaxSize(),
-                    onHomeListItemClick = HomeActions.onZekrClick,
                     settingsDetails = settingsDetails,
                 )
             } else {

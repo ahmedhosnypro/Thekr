@@ -51,7 +51,7 @@ fun HomeScreen(
     val uiCoroutine = rememberCoroutineScope()
 
     // Define HomeActions within HomeScreen composable
-    LaunchedEffect(Unit) {
+    LaunchedEffect(true) {
         HomeActions.initActions(
             homeViewModel = homeViewModel,
             uiCoroutine = uiCoroutine,
@@ -116,7 +116,6 @@ private fun HomeContent(
 
                     HomeTab.HesnAlMuslim -> ZekrTab(
                         categoryDetails = azkarState.hesnAlmuslimStack.last(),
-                        onZekrClick = HomeActions.onZekrClick,
                         onCategoryClick = { HomeActions.onCategoryClick(tabIndex, it) },
                         settingsDetails = settingsDetails,
                         tabIndex = tabIndex,
@@ -124,7 +123,6 @@ private fun HomeContent(
 
                     HomeTab.Knooz -> ZekrTab(
                         categoryDetails = azkarState.knoozStack.last(),
-                        onZekrClick = HomeActions.onZekrClick,
                         onCategoryClick = { HomeActions.onCategoryClick(tabIndex, it) },
                         settingsDetails = settingsDetails,
                         tabIndex = tabIndex,
@@ -133,7 +131,6 @@ private fun HomeContent(
                     HomeTab.Dua -> DuaTab(
                         duaStack = azkarState.duaCategoryStack,
                         onCategoryClick = { HomeActions.onCategoryClick(tabIndex, it) },
-                        onZekrClick = HomeActions.onZekrClick,
                         settingsDetails = settingsDetails,
                     )
                 }
