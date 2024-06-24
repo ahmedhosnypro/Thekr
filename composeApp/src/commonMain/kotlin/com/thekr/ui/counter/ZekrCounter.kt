@@ -39,7 +39,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import com.thekr.ui.unit.udp
+import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.annotation.InternalVoyagerApi
 import cafe.adriel.voyager.navigator.internal.BackHandler
 import com.thekr.data.proto.ThemeMode
@@ -155,7 +155,7 @@ fun ZekrHomeBody(
         val maxHeight = maxHeight
         val isDailyTargetEnabled =
             CounterHelper.getZekrInstance(tabIndex).value.dailyTargetStatus == ZekrTargetStatus.Enabled
-        val peak = if (categoryDetails.value.zekrList.size > 1) 72.udp else 0.udp
+        val peak = if (categoryDetails.value.zekrList.size > 1) 72.dp else 0.dp
         val colors = ZekrTheme.colors(settingsDetails)
         BottomSheetScaffold(
             scaffoldState = countSheetState,

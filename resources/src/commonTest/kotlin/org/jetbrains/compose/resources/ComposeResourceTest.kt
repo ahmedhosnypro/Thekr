@@ -5,6 +5,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.runComposeUiTest
+import androidx.compose.ui.text.intl.Locale
 import kotlinx.coroutines.test.runTest
 import kotlin.test.*
 
@@ -76,6 +77,10 @@ class ComposeResourceTest {
                 theme = ThemeQualifier.LIGHT,
                 density = DensityQualifier.MDPI
             )
+
+            override fun setLocale(locale: Locale) {
+                // do nothing
+            }
         }
 
         var environment by mutableStateOf(TestComposeEnvironment)
