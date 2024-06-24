@@ -14,9 +14,16 @@ fun MultiLang(
     language: String, content: @Composable () -> Unit
 ) {
 
-    LaunchedEffect(language) {
-        DefaultComposeEnvironment.setLocale(Locale(language))
-    }
+//    LaunchedEffect(language) {
+//        val locale = try {
+//            Locale(language)
+//        } catch (e: Exception) {
+//            null
+//        }
+//        locale?.let {
+//            DefaultComposeEnvironment.setLocale(it)
+//        }
+//    }
 
     if (language in rtlLanguages) {
         RtlView {
