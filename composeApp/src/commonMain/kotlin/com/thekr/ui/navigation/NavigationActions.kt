@@ -21,7 +21,6 @@ object NavigationActions {
 
     fun navigate(route: String) {
         navController.navigate(route)
-
     }
 }
 

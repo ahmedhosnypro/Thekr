@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.thekr.data.settings.SettingsDetails
+import com.thekr.ui.component.MultiLang
 import com.thekr.ui.counter.ZekrScreen
 import com.thekr.ui.home.HomeScreen
 import com.thekr.ui.navigation.route.CounterEditRoute
@@ -37,6 +38,7 @@ fun CounterNavyHost(
         NavigationActions.initNavController(navController)
     }
 
+    val language = settingsDetails.language
     NavHost(
         navController = navController,
         startDestination = HomeRoute.route,
@@ -44,16 +46,24 @@ fun CounterNavyHost(
     ) {
         // home screen
         composable(HomeRoute.route) {
-            HomeScreen(
-                azkarState = azkarState,
-                settingsDetails = settingsDetails,
-            )
+            MultiLang(
+                language = language,
+            ) {
+                HomeScreen(
+                    azkarState = azkarState,
+                    settingsDetails = settingsDetails,
+                )
+            }
         }
         // counter entry screen
         composable(CounterEntryRoute.route) {
-            CounterEntryScreen(
-                settingsDetails = settingsDetails,
-            )
+            MultiLang(
+                language = language,
+            ) {
+                CounterEntryScreen(
+                    settingsDetails = settingsDetails,
+                )
+            }
         }
 
         // counter details screen
@@ -74,9 +84,13 @@ fun CounterNavyHost(
                 },
             )
         ) {
-            ZekrScreen(
-                settingsDetails = settingsDetails,
-            )
+            MultiLang(
+                language = language,
+            ) {
+                ZekrScreen(
+                    settingsDetails = settingsDetails,
+                )
+            }
         }
 
         // counter-edit screen
@@ -89,10 +103,14 @@ fun CounterNavyHost(
             )
         ) {
             // todo: use NavigationActions to navigate back
-            CounterEditScreen(
-                navigateBack = { navigateBack() },
-                onNavigateUp = { onNavigateUp() }
-            )
+            MultiLang(
+                language = language,
+            ) {
+                CounterEditScreen(
+                    navigateBack = { navigateBack() },
+                    onNavigateUp = { onNavigateUp() }
+                )
+            }
         }
 
         // counter-statistics screen
@@ -107,9 +125,13 @@ fun CounterNavyHost(
 //        }
 //        settings screen
         composable(SettingsRoute.route) {
-            SettingsScreen(
-                settingsDetails = settingsDetails,
-            )
+            MultiLang(
+                language = language,
+            ) {
+                SettingsScreen(
+                    settingsDetails = settingsDetails,
+                )
+            }
         }
     }
 }

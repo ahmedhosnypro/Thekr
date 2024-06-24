@@ -3,8 +3,12 @@
 kotlin = "2.0.0"
 compose = "1.6.10"
 agp = "8.2.2"
+
 androidx-activity-compose = "1.9.0"
 androidx-uiTest = "1.6.8"
+androidx-test = "1.5.0"
+androidx-compose = "1.6.0"
+
 androidx-sqlite = "2.5.0-alpha04"
 voyager = "1.1.0-beta01"
 coil = "3.0.0-alpha06"
@@ -33,11 +37,17 @@ libsu = "5.2.1"
 vico = "2.0.0-alpha.21"
 ## JVM only
 
+## plugins
+binary-compatibility-validator = "0.15.0-Beta.2"
+
 [libraries]
 
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity-compose" }
-androidx-testManifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "androidx-uiTest" }
-androidx-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "androidx-uiTest" }
+androidx-test-core = { module = "androidx.test:core", version.ref = "androidx-test" }
+androidx-compose-ui-test = { module = "androidx.compose.ui:ui-test", version.ref = "androidx-compose" }
+androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "androidx-uiTest" }
+androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "androidx-uiTest" }
+
 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
 coil = { module = "io.coil-kt.coil3:coil-compose-core", version.ref = "coil" }
 coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor", version.ref = "coil" }
@@ -116,3 +126,6 @@ kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", vers
 room = { id = "androidx.room", version.ref = "room" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 apollo = { id = "com.apollographql.apollo3", version.ref = "apollo" }
+
+android-library = { id = "com.android.library", version.ref = "agp" }
+binary-compatibility-validator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binary-compatibility-validator" }

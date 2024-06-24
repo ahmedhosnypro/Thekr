@@ -49,8 +49,8 @@ kotlin {
         instrumentedTestVariant {
             sourceSetTree.set(KotlinSourceSetTree.test)
             dependencies {
-                debugImplementation(libs.androidx.testManifest)
-                implementation(libs.androidx.junit4)
+                debugImplementation(libs.androidx.compose.ui.test.manifest)
+                implementation(libs.androidx.compose.ui.test.junit4)
             }
         }
     }
@@ -81,7 +81,10 @@ kotlin {
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material3)
-                implementation(compose.components.resources)
+
+//                implementation(compose.components.resources)
+                implementation(project(":resources"))
+
                 implementation(compose.components.uiToolingPreview)
                 implementation(libs.voyager.navigator)
                 implementation(libs.coil)

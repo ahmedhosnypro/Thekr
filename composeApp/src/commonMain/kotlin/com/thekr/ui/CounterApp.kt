@@ -56,18 +56,14 @@ fun CounterApp(
         AppTheme(
             themeMode = settings!!.themeMode,
         ) {
-            MultiLang(
-                language = language,
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colorScheme.background
             ) {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    CounterNavyHost(
-                        settingsDetails = settingsDetails,
-                        azkarState = azkarState,
-                    )
-                }
+                CounterNavyHost(
+                    settingsDetails = settingsDetails,
+                    azkarState = azkarState,
+                )
             }
         }
     }

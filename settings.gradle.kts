@@ -1,5 +1,5 @@
 rootProject.name = "Thekr"
-include(":composeApp")
+include(":composeApp", ":resources")
 
 pluginManagement {
     repositories {

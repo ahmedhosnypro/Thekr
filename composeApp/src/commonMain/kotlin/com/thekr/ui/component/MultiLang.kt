@@ -1,30 +1,30 @@
 package com.thekr.ui.component
 
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.unit.LayoutDirection
 import com.thekr.ui.theme.rtlLanguages
-
-val LocalAppLocale = staticCompositionLocalOf { Locale("ar") }
+import org.jetbrains.compose.resources.DefaultComposeEnvironment
+import org.jetbrains.compose.resources.LocalComposeEnvironment
 
 
 @Composable
- fun MultiLang(
+fun MultiLang(
     language: String, content: @Composable () -> Unit
-){
-    val locale = Locale(language)
-    CompositionLocalProvider(LocalAppLocale provides locale) {
-        if (language in rtlLanguages) {
-            RtlView {
-                content()
-            }
-        } else {
+) {
+
+    LaunchedEffect(language) {
+        DefaultComposeEnvironment.setLocale(Locale(language))
+    }
+
+    if (language in rtlLanguages) {
+        RtlView {
             content()
         }
+    } else {
+        content()
     }
 }
 
