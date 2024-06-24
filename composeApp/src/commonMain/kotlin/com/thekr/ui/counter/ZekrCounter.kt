@@ -1,4 +1,5 @@
-@file:OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class,
+@file:OptIn(
+    ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class,
     InternalVoyagerApi::class
 )
 
@@ -38,7 +39,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.unit.dp
+import com.thekr.ui.unit.udp
 import cafe.adriel.voyager.core.annotation.InternalVoyagerApi
 import cafe.adriel.voyager.navigator.internal.BackHandler
 import com.thekr.data.proto.ThemeMode
@@ -154,7 +155,7 @@ fun ZekrHomeBody(
         val maxHeight = maxHeight
         val isDailyTargetEnabled =
             CounterHelper.getZekrInstance(tabIndex).value.dailyTargetStatus == ZekrTargetStatus.Enabled
-        val peak = if (categoryDetails.value.zekrList.size > 1) 72.dp else 0.dp
+        val peak = if (categoryDetails.value.zekrList.size > 1) 72.udp else 0.udp
         val colors = ZekrTheme.colors(settingsDetails)
         BottomSheetScaffold(
             scaffoldState = countSheetState,
@@ -173,7 +174,7 @@ fun ZekrHomeBody(
                     Column(
                         modifier = modifier
                             .fillMaxWidth()
-                            .padding(top = small,)
+                            .padding(top = small)
                             .requiredHeight(peak),
 
                         verticalArrangement = Arrangement.spacedBy(normal, Alignment.Top),
@@ -229,7 +230,7 @@ fun SheikhCard(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = tiny,),
+                    .padding(horizontal = tiny),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(text = "بصوت الشيخ $sheikhName")
