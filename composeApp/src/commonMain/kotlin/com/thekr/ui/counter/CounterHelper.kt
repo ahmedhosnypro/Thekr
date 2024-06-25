@@ -73,6 +73,7 @@ object CounterHelper {
     lateinit var getCurrentZekrCount: () -> MutableState<ZekrCount>
     lateinit var getZekr: (Int) -> MutableState<ZekrDetails>
 
+    var tabIndexOf: (zekrInstanceId: Long) -> Int = { 0 }
 
     var initialized: MutableState<Boolean> = mutableStateOf(false)
 
@@ -162,9 +163,6 @@ object CounterHelper {
 
         scrollToZekr = { index ->
             counterViewModel.updateCurrentZekrInstance(index)
-            if (ThekrSoundPlayer.isPlaying) {
-                counterViewModel.playZekrAudio()
-            }
         }
 
         scrollToNextZekr = {
@@ -174,6 +172,9 @@ object CounterHelper {
                         pagerState.currentPage + 1,
                         animationSpec = tween(100)
                     )
+                }
+                if (ThekrSoundPlayer.isPlaying) {
+                    counterViewModel.playZekrAudio()
                 }
             }
         }
@@ -200,6 +201,8 @@ object CounterHelper {
         getZekrCount = counterViewModel::getZekrCount
         getCurrentZekrCount = counterViewModel::getCurrentZekrCount
         getZekr = counterViewModel::getZekr
+        //    val tabIndex = category.value.zekrInstanceList.indexOf(zekrDetails)
+        tabIndexOf = counterViewModel::tabIndexOf
     }
 
     // --- Helper Functions ---

@@ -15,6 +15,7 @@ import com.thekr.ui.home.list.ZekrList
 import com.thekr.ui.home.list.categoryDetailsPreviewState
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.component.RtlView
+import com.thekr.ui.home.HomeActions
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 /**
@@ -47,10 +48,13 @@ fun ZekrTab(
         // Show ZekrList if there are Zekr items
         if (category.zekrList.isNotEmpty()) {
             ZekrList(
-                category = categoryDetails,
+                categoryDetails = categoryDetails,
                 modifier = Modifier.fillMaxSize(),
                 settingsDetails = settingsDetails,
                 tabIndex = tabIndex,
+                homeOnClick = {tabIndex1: Int, categoryId: Long, zekrId: Long ->
+                    HomeActions.onThekrClick(tabIndex1, categoryId, zekrId)
+                }
             )
         }
     }

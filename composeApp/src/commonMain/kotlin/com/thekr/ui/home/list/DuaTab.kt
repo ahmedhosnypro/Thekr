@@ -29,6 +29,7 @@ import com.thekr.ui.theme.ImageResourceHelper
 import com.thekr.ui.theme.droidKufi
 import com.thekr.ui.util.NoRippleInteractionSource
 import com.thekr.ui.component.RtlView
+import com.thekr.ui.home.HomeActions
 import com.thekr.ui.values.Colors.listDivider
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -67,8 +68,11 @@ fun DuaTab(
                 ZekrList(
                     modifier = Modifier.fillMaxSize(),
                     tabIndex = tabIndex,
-                    category = categoryDetails,
+                    categoryDetails = categoryDetails,
                     settingsDetails = settingsDetails,
+                    homeOnClick = {tabIndex1: Int, categoryId: Long, zekrId: Long ->
+                        HomeActions.onThekrClick(tabIndex1, categoryId, zekrId)
+                    }
                 )
             }
         }

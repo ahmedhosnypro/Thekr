@@ -16,16 +16,15 @@ import cafe.adriel.voyager.navigator.internal.BackHandler
 import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
 import com.thekr.data.zekr.category.CategoryDetails
-import com.thekr.data.zekr.instance.ZekrInstanceDetails
+import com.thekr.resources.Res
+import com.thekr.resources.back
 import com.thekr.ui.bar.top.ZekrBar
+import com.thekr.ui.component.RtlView
 import com.thekr.ui.home.bar.top.HeaderText
 import com.thekr.ui.home.list.ZekrList
 import com.thekr.ui.theme.AppTheme
-import com.thekr.ui.component.RtlView
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import com.thekr.resources.Res
-import com.thekr.resources.back
 
 @Composable
 @OptIn(InternalVoyagerApi::class)
@@ -35,7 +34,7 @@ fun CategoryZekrList(
     category: MutableState<CategoryDetails> = mutableStateOf(CategoryDetails()),
     onNavigateUp: () -> Unit = {},
     canNavigateUp: () -> Boolean = { true },
-    onZekrClick: (MutableState<ZekrInstanceDetails>) -> Unit = {},
+    categoryListOnClick: (tabIndex: Int) -> Unit = {},
 ) {
     BackHandler(true) {
         onNavigateUp()
@@ -60,8 +59,8 @@ fun CategoryZekrList(
         },
     ) { innerPadding ->
         ZekrList(
-            category = category,
-            onCategoryListItemClick = onZekrClick,
+            categoryDetails = category,
+            categoryListOnClick = categoryListOnClick,
             modifier = Modifier.padding(innerPadding),
             settingsDetails = settingsDetails,
         )

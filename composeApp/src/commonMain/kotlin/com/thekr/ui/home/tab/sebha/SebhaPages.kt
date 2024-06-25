@@ -36,10 +36,13 @@ fun SebhaPages(
         val category = userAzkar[tabIndex]
         Column {
             if (category.value.zekrList.isNotEmpty()) {
-                    ZekrList(
-                    category = category,
+                ZekrList(
+                    categoryDetails = category,
                     modifier = Modifier.fillMaxSize(),
                     settingsDetails = settingsDetails,
+                    homeOnClick = {tabIndex1: Int, categoryId: Long, zekrId: Long ->
+                        HomeActions.onThekrClick(tabIndex1, categoryId, zekrId)
+                    }
                 )
             } else {
                 SebhaAddNewButton(

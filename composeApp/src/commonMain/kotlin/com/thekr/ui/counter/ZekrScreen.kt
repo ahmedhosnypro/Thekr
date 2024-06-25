@@ -126,9 +126,8 @@ fun ZekrScreen(
             onNavigateUp = {
                 viewModel.hideCategoryZekrListMenu()
             },
-            onZekrClick = { zekrDetails ->
+            categoryListOnClick = { tabIndex ->
                 viewModel.hideCategoryZekrListMenu()
-                val tabIndex = category.value.zekrInstanceList.indexOf(zekrDetails)
                 coroutineScope.launch {
                     pagerState.animateScrollToPage(tabIndex)
                 }

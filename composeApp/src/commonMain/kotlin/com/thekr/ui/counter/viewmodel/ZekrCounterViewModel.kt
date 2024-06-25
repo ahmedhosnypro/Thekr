@@ -178,6 +178,12 @@ class ZekrCounterViewModel(
             ?: mutableStateOf(ZekrInstanceDetails())
     }
 
+    fun tabIndexOf(zekrInstanceId: Long): Int {
+        return uiState.value.categoryDetails.value.zekrInstanceList.indexOfFirst {
+            it.value.id == zekrInstanceId
+        }
+    }
+
     fun updateUiState(counterUiState: CounterUiState) {
         mutableUiState.update {
             counterUiState

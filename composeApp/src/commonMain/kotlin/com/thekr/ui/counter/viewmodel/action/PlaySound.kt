@@ -15,16 +15,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 
-expect suspend fun SoundAudioStream.platformPlay(): SoundChannel
+expect suspend fun SoundAudioStream.platformPlay()
 
 object ThekrSoundPlayer {
-    private val scope = CoroutineScope(Dispatchers.IO)
-    private var playerSoundChannel: SoundChannel? = null
+    internal val scope = CoroutineScope(Dispatchers.IO)
+    internal var playerSoundChannel: SoundChannel? = null
+
+    private var stream: SoundAudioStream? = null
 
     @OptIn(ExperimentalResourceApi::class)
     fun ZekrCounterViewModel.playZekrAudio() {
-        stopPlayer()
-
         val soundFileName = getCurrentZekr().value.soundFileName
         val filePath = "files/thekr/${settingState.value.currentSheikh}/${soundFileName}.mp3"
 
@@ -37,13 +37,9 @@ object ThekrSoundPlayer {
                 coroutineContext = scope.coroutineContext,
                 soundProvider = nativeSoundProvider
             )
-
-            val channel = soundAudioStream.platformPlay()
-
-            playerSoundChannel = channel
-            channel.onCompleted(scope.coroutineContext) {
-                playerSoundChannel = null
-            }
+            stopPlayer()
+            soundAudioStream.platformPlay()
+            stream = soundAudioStream
         }
     }
 
@@ -51,6 +47,7 @@ object ThekrSoundPlayer {
     fun stopPlayer() {
         if (playerSoundChannel != null) {
             playerSoundChannel?.stop()
+            stream?.closeStream
             playerSoundChannel = null
         }
     }
