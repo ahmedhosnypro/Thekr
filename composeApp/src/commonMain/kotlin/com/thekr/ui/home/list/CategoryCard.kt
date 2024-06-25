@@ -221,16 +221,7 @@ fun CategoryListPreview() {
         RtlView {
             Surface {
                 CategoryList(
-                    categoryList = remember {
-                        mutableStateListOf(
-                            mutableStateOf(
-                                CategoryDetails(
-                                    name = "أذكار الصباح",
-                                    iconFileName = "azkar_masaa1.png"
-                                )
-                            )
-                        )
-                    },
+                    categoryList = categoryDetailsListPreviewState(),
                     settingsDetails = SettingsDetails(themeMode = ThemeMode.Dark)
                 )
             }

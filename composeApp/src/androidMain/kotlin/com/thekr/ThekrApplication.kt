@@ -21,6 +21,7 @@ class ThekrApplication : Application() {
 
     private val appCoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
+    //todo: fix this bug
     private val shellInitiated = false
 
     init {
@@ -42,31 +43,7 @@ class ThekrApplication : Application() {
 
         // Initialize database
         DatabaseProvider.initDatabase(getDatabaseBuilder(this))
-
-        // Initialize settingsDataStore
-        appCoroutineScope.launch {
-            appStorage = filesDir.path
-
-            val settings = settingsStore.get()
-//            val settings = settingsDataStore.data.firstOrNull() ?: return@launch
-            if (settings != null && settings.initialized.not() && settings.dbInitialized.not()) {
-                importDataFromJson()
-                settingsStore.update {
-                    Settings(
-                        initialized = true,
-                    )
-                }
-//            } else {
-//                // Start fingerprint logging in the background
-//                // todo: save this as a job to be able to cancel it
-//                if (settings.fingerPrintControl) {
-//                    FingerPrintLogcatProcessor.startMonitoring()
-//                }
-//            }
-            } else if (settings != null && settings.dbInitialized.not()) {
-                importDataFromJson()
-            }
-        }
+        appStorage = filesDir.path
     }
 }
 

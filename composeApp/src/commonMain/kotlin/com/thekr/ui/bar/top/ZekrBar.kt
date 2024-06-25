@@ -16,12 +16,7 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBackIos
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Surface
-import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -33,6 +28,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.coerceIn
 import androidx.compose.ui.unit.dp
+import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
 import com.thekr.ui.values.Dimensions.xLarge
 import com.thekr.ui.home.HomeTab
@@ -50,11 +46,13 @@ import com.thekr.ui.component.RtlView
 import com.thekr.ui.viewmodel.AzkarState
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
+
 import com.thekr.resources.Res
 import com.thekr.resources.back
 import com.thekr.resources.header_background
 import com.thekr.resources.settings
+
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
@@ -169,16 +167,16 @@ private fun Modifier.backgroundImageModifier(
         )
     }
 
+
+
 @OptIn(ExperimentalFoundationApi::class)
-@Preview
 @Composable
 fun ZekrBarPreviewTemplate(
     azkarState: AzkarState = AzkarState(),
     pagerState: PagerState = rememberPagerState(pageCount = { HomeTab.entries.size }),
     settingsDetails: SettingsDetails = SettingsDetails(),
 ) {
-
-    AppTheme {
+    AppTheme(ThemeMode.Dark) {
         Surface {
             RtlView {
                 ZekrBar(
@@ -221,4 +219,11 @@ fun ZekrBarPreviewTemplate(
             }
         }
     }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+@Preview
+fun ZekrBarPreview(){
+    ZekrBarPreviewTemplate()
 }

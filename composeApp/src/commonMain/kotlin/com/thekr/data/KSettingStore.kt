@@ -5,3 +5,5 @@ import io.github.xxfast.kstore.KStore
 
 
 expect val settingsStore: KStore<Settings>
+
+expect suspend fun initAppData()

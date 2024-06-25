@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.thekr.data.count.count.CountRepository
 import com.thekr.data.count.miss.CountMissRepository
+import com.thekr.data.initAppData
 import com.thekr.data.zekr.category.CategoryDetails
 import com.thekr.data.zekr.category.CategoryRepository
 import com.thekr.data.zekr.fadl.FadlRepository
@@ -44,6 +45,7 @@ class AzkarViewModel(
 
     private fun intiCategoryList() {
         viewModelScope.launch(ioDispatcher) {
+            initAppData()
             val childCategories = categoryRepository.findAll().first().map { category ->
                 mutableStateOf(category.toCategoryDetails())
             }

@@ -1,30 +1,28 @@
-import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import com.android.build.api.dsl.ManagedVirtualDevice
-import com.android.build.gradle.internal.lint.AndroidLintAnalysisTask
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.compose.ExperimentalComposeLibrary
+import com.android.build.api.dsl.ManagedVirtualDevice
+import com.android.build.gradle.internal.lint.AndroidLintAnalysisTask
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
 plugins {
-    alias(libs.plugins.multiplatform)
-
-    alias(libs.plugins.android.application)
-
-    alias(libs.plugins.compose)
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
 
 
-    alias(libs.plugins.buildConfig)
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.room)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.apollo)
 }
 
 val nameSpace = "com.thekr"
 
+
 kotlin {
+
     targets.all {
         compilations.all {
             compileTaskProvider {
@@ -32,18 +30,23 @@ kotlin {
                     freeCompilerArgs.add("-Xexpect-actual-classes")
                 }
             }
-
         }
     }
+
+//    androidTarget {
+//        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+//        compilerOptions {
+//            jvmTarget.set(JvmTarget.JVM_11)
+//        }
+//    }
+
     androidTarget {
-        compilations.all {
-            compileTaskProvider {
-                compilerOptions {
-                    jvmTarget.set(JvmTarget.JVM_1_8)
-                    freeCompilerArgs.add("-Xjdk-release=${JavaVersion.VERSION_1_8}")
-                }
-            }
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_11)
+            freeCompilerArgs.add("-Xjdk-release=${JavaVersion.VERSION_11}")
         }
+
         //https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         instrumentedTestVariant {
@@ -55,68 +58,79 @@ kotlin {
         }
     }
 
-    jvm()
+    jvm("desktop")
 
-//    wasmJs {
-//        browser()
-//        binaries.executable()
-//    }
+    //    wasmJs {
+    //        browser()
+    //        binaries.executable()
+    //    }
 
-//    listOf(
-//        iosX64(),
-//        iosArm64(),
-//        iosSimulatorArm64()
-//    ).forEach {
-//        it.binaries.framework {
-//            baseName = "ComposeApp"
-//            isStatic = true
+    //    listOf(
+    //        iosX64(),
+    //        iosArm64(),
+    //        iosSimulatorArm64()
+    //    ).forEach {
+    //        it.binaries.framework {
+    //            baseName = "ComposeApp"
+    //            isStatic = true
     // Required when using NativeSQLiteDriver
-//    linkerOpts.add("-lsqlite3")
-//        }
-//    }
+    //    linkerOpts.add("-lsqlite3")
+    //        }
+    //    }
 
     sourceSets {
-        commonMain {
-            dependencies {
-                implementation(compose.runtime)
-                implementation(compose.foundation)
-                implementation(compose.material3)
-
-//                implementation(compose.components.resources)
-                implementation(project(":resources"))
-
-                implementation(compose.components.uiToolingPreview)
-                implementation(libs.voyager.navigator)
-                implementation(libs.coil)
-                implementation(libs.coil.network.ktor)
-                implementation(libs.napier)
-                implementation(libs.kotlinx.coroutines.core)
-                implementation(libs.ktor.core)
-                implementation(libs.composeIcons.featherIcons)
-                implementation(libs.kotlinx.serialization.json)
-                implementation(libs.kotlinx.datetime)
-                implementation(libs.multiplatformSettings)
-                implementation(libs.koin.core)
-                implementation(libs.kstore)
-                implementation(libs.kstore.file)
-
-//            implementation(libs.compose.full)
-                implementation(libs.bundles.material)
+        val desktopMain by getting
+       
+        androidMain.dependencies {
+            implementation(compose.preview)
+            implementation(compose.uiTooling)
+            implementation(libs.androidx.activity.compose)
+            implementation(libs.kotlinx.coroutines.android)
+            implementation(libs.ktor.client.okhttp)
+            implementation(libs.bundles.libsu)
+            implementation(libs.bundles.vico)
+            implementation(libs.androidx.appcompat)
+        }
+        
+        commonMain.dependencies {
+            implementation(compose.ui)
+            implementation(compose.runtime)
+            implementation(compose.material)
+            implementation(compose.material3)
+            implementation(compose.foundation)
+            implementation(compose.materialIconsExtended)
 
 
-                implementation(libs.lifecycle.viewmodel.compose)
-                implementation(libs.navigation.compose)
+//            implementation(compose.components.resources)
+            implementation(project(":resources"))
+            implementation(compose.components.uiToolingPreview)
 
-                implementation(libs.apollo.runtime)
+            implementation(libs.voyager.navigator)
+            implementation(libs.coil)
+            implementation(libs.coil.network.ktor)
+            implementation(libs.napier)
+            implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.ktor.core)
+            implementation(libs.composeIcons.featherIcons)
+            implementation(libs.kotlinx.serialization.json)
+            implementation(libs.kotlinx.datetime)
+            implementation(libs.multiplatformSettings)
+            implementation(libs.koin.core)
+            implementation(libs.kstore)
+            implementation(libs.kstore.file)
 
-                implementation(libs.moko.mvvm)
+            implementation(libs.lifecycle.viewmodel.compose)
+            implementation(libs.navigation.compose)
 
-                implementation(libs.room.runtime)
-                implementation(libs.sqlite.bundled)
+            implementation(libs.apollo.runtime)
 
-                implementation(libs.kotlinx.io.core)
-                implementation(libs.appdirs)
-            }
+            implementation(libs.moko.mvvm)
+
+            implementation(libs.room.runtime)
+            implementation(libs.sqlite.bundled)
+
+            implementation(libs.kotlinx.io.core)
+            implementation(libs.appdirs)
         }
         commonTest.dependencies {
             implementation(kotlin("test"))
@@ -125,16 +139,8 @@ kotlin {
             implementation(libs.kotlinx.coroutines.test)
         }
 
-        androidMain.dependencies {
-            implementation(compose.uiTooling)
-            implementation(libs.androidx.activity.compose)
-            implementation(libs.kotlinx.coroutines.android)
-            implementation(libs.ktor.client.okhttp)
-            implementation(libs.bundles.libsu)
-            implementation(libs.bundles.vico)
-        }
 
-        jvmMain.dependencies {
+        desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
             implementation(libs.ktor.client.okhttp)
@@ -143,27 +149,49 @@ kotlin {
 //        iosMain.dependencies {
 //            implementation(libs.ktor.client.darwin)
 //        }
-
     }
 }
 
 android {
     namespace = nameSpace
-    compileSdk = 34
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
+
+    sourceSets["main"].apply {
+        manifest.srcFile("src/androidMain/AndroidManifest.xml")
+        res.srcDirs("src/androidMain/res")
+        resources.srcDirs("src/commonMain/resources")
+    }
 
     defaultConfig {
-        minSdk = 24
-        targetSdk = 34
+        applicationId = nameSpace
+        minSdk = libs.versions.android.minSdk.get().toInt()
+        targetSdk = libs.versions.android.targetSdk.get().toInt()
 
-        applicationId = "$nameSpace.androidApp"
         versionCode = 1
         versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-    sourceSets["main"].apply {
-        manifest.srcFile("src/androidMain/AndroidManifest.xml")
-        res.srcDirs("src/androidMain/res")
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
+    buildTypes {
+        getByName("release") {
+            isMinifyEnabled = false
+        }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+    buildFeatures {
+        //enables a Compose tooling support in the AndroidStudio
+        compose = true
+    }
+    dependencies {
+        debugImplementation(compose.uiTooling)
     }
     //https://developer.android.com/studio/test/gradle-managed-devices
     @Suppress("UnstableApiUsage")
@@ -176,23 +204,15 @@ android {
             }
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    buildFeatures {
-        //enables a Compose tooling support in the AndroidStudio
-        compose = true
-    }
 }
 
-compose {
-    tasks {
-        withType<AndroidLintAnalysisTask> {
-            enabled = false
-        }
-    }
-}
+//compose {
+//    tasks {
+//        withType<AndroidLintAnalysisTask> {
+//            enabled = false
+//        }
+//    }
+//}
 
 compose.desktop {
     application {
@@ -200,7 +220,7 @@ compose.desktop {
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "$nameSpace.desktopApp"
+            packageName = "org.preview"
             packageVersion = "1.0.0"
         }
     }
@@ -212,31 +232,18 @@ compose.resources {
     packageOfResClass = "$nameSpace.resources"
 }
 
-buildConfig {
-    // BuildConfig configuration here.
-    // https://github.com/gmazzo/gradle-buildconfig-plugin#usage-in-kts
-}
-
 room {
     schemaDirectory("$projectDir/schemas")
 }
 
-apollo {
-    service("api") {
-        // GraphQL configuration here.
-        // https://www.apollographql.com/docs/kotlin/advanced/plugin-configuration/
-        packageName.set("$nameSpace.graphql")
-    }
-}
-
 dependencies {
-    implementation(libs.androidx.room.ktx)
+    //    implementation(libs.androidx.room.ktx)
 
     with(libs.room.compiler) {
         add("kspAndroid", this)
-        add("kspJvm", this)
-//        add("kspIosX64", this)
-//        add("kspIosArm64", this)
-//        add("kspIosSimulatorArm64", this)
+        add("kspDesktop", this)
+        //        add("kspIosX64", this)
+        //        add("kspIosArm64", this)
+        //        add("kspIosSimulatorArm64", this)
     }
 }

@@ -60,6 +60,7 @@ data class Settings(
         showSessionCount = showSessionCount,
 
         initialized = initialized,
+        dbInitialized = dbInitialized,
         lastUpdate = this.lastUpdate
     )
 
