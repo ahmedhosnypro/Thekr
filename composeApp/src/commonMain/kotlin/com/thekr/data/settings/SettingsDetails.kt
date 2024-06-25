@@ -2,11 +2,9 @@ package com.thekr.data.settings
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
-import com.thekr.data.proto.ColorSchemeDetails
 import com.thekr.data.proto.Settings
 import com.thekr.data.proto.SwapDirection
 import com.thekr.data.proto.ThemeMode
-import com.thekr.ui.settings.SettingViewModel
 import com.thekr.util.TimeHelper.now
 
 @Stable
@@ -77,31 +75,3 @@ data class SettingsDetails(
         lastUpdate = lastUpdate
     )
 }
-
-object SettingsHelper {
-    /** don't use it in composable functions, for background tasks only */
-    lateinit var settingViewModel: SettingViewModel
-    var settingsDetails: SettingsDetails = SettingsDetails()
-    fun updateState(settingsDetails: SettingsDetails) {
-        this.settingsDetails = settingsDetails
-    }
-
-    fun setViewModel(viewModel: SettingViewModel) {
-        settingViewModel = viewModel
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
