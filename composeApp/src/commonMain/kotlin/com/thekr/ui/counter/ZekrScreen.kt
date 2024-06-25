@@ -84,6 +84,12 @@ fun ZekrScreen(
         )
     }
 
+    val actionsInitialized = CounterHelper.initialized
+
+    if (actionsInitialized.value.not()) {
+        return
+    }
+
 
     LaunchedEffect(counterUiState.currentZekrInstance) {
         configSleepJop(viewModel)

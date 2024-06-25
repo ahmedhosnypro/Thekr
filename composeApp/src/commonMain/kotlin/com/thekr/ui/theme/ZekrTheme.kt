@@ -5,15 +5,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.Color
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
-import com.thekr.ui.settings.SettingViewModel
-import com.thekr.ui.viewmodel.AppViewModelProvider
-import org.jetbrains.compose.resources.DrawableResource
 import com.thekr.resources.Res
 import com.thekr.resources.day_mode
 import com.thekr.resources.night_mode
+import org.jetbrains.compose.resources.DrawableResource
 
 object ZekrTheme {
     private val LightResources = ThemeModeResources(
@@ -122,15 +119,6 @@ data class ZekrColors(
 data class ThemeModeResources(
     val themeMode: DrawableResource,
 )
-
-@Composable
-fun isDark(
-    settingViewModel: SettingViewModel = viewModel(factory = AppViewModelProvider.Factory)
-): Boolean {
-    val settingsState = settingViewModel.viewState.value
-    val themeMode = settingsState.themeMode
-    return (themeMode == ThemeMode.Dark || isSystemInDarkTheme()) && themeMode != ThemeMode.Light
-}
 
 @Composable
 fun isDark(

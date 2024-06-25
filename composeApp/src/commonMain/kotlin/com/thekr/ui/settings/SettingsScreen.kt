@@ -19,7 +19,6 @@ import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.unit.dp
 import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
-import com.thekr.data.settings.SettingsHelper.settingViewModel
 import com.thekr.ui.bar.top.ZekrBar
 import com.thekr.ui.component.DefaultHorizontalDivider
 import com.thekr.ui.home.bar.top.HeaderText
@@ -58,7 +57,7 @@ fun SettingsScreen(
 ) {
     SettingsBody(
         settingsDetails = settingsDetails, modifier = modifier,
-        onSettingUpdate = remember { { settingViewModel.update(it) } },
+        onSettingUpdate = remember { { SettingActions.update(it) } },
     )
 }
 

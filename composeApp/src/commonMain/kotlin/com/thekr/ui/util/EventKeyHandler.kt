@@ -10,6 +10,7 @@ import androidx.compose.ui.focus.focusTarget
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onKeyEvent
+import com.thekr.ui.counter.CounterHelper
 import com.thekr.ui.util.EventKeyHandler.handleKeyDebounce
 
 object EventKeyHandler {
@@ -22,7 +23,7 @@ object EventKeyHandler {
         val currentAction by rememberUpdatedState(onKeyAction)
         val lastClickTime = remember { mutableLongStateOf(0L) }
 
-         onKeyEvent { event ->
+        onKeyEvent { event ->
             if (event.key == key) {
                 // Debounce the action for the specified key
                 debounceAction(
@@ -50,15 +51,13 @@ object EventKeyHandler {
 }
 
 fun Modifier.customOnKeyEvent(
-    navigateUp: () -> Unit,
     enabled: Boolean,
-    onCount: () -> Unit,
     focusRequester: FocusRequester
-) = this then  if (enabled) Modifier
+) = this then if (enabled) Modifier
     .onKeyEvent { keyEvent ->
         // Handle Back Key
         if (keyEvent.key == Key.Back) {
-            navigateUp()
+            CounterHelper.onNavigateUp()
         }
         true // Consume back key event
     }
@@ -66,7 +65,5 @@ fun Modifier.customOnKeyEvent(
     .focusRequester(focusRequester)
     .focusTarget()
     // Apply debounced key handling
-    .handleKeyDebounce(key = Key.VolumeUp) {
-        onCount()
-    }
+    .handleKeyDebounce(key = Key.VolumeUp) { CounterHelper.onCount() }
 else Modifier

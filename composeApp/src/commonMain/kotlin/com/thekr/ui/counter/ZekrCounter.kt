@@ -84,11 +84,7 @@ fun ZekrHome(
         }
     }
 
-    DisposableEffect(Unit) {
-        onDispose {
-            CounterHelper.onCounterDispose()
-        }
-    }
+    DisposableEffect(Unit) { onDispose { CounterHelper.onCounterDispose() } }
 
     // todo:
     KeepScreenOn(
@@ -105,13 +101,11 @@ fun ZekrHome(
                 .clickable(
                     interactionSource = NoRippleInteractionSource(),
                     indication = LocalIndication.current,
-                    onClick = CounterHelper.onCount
+                    onClick = { CounterHelper.onCount() }
                 )
                 // to use volume keys to increment and decrement the counter
                 .customOnKeyEvent(
-                    navigateUp = CounterHelper.onNavigateUp,
                     enabled = settingsDetails.volumeControl,
-                    CounterHelper.onCount,
                     focusRequester = focusRequester
                 )
         ) {
@@ -153,8 +147,6 @@ fun ZekrHomeBody(
             .fillMaxSize()
     ) {
         val maxHeight = maxHeight
-        val isDailyTargetEnabled =
-            CounterHelper.getZekrInstance(tabIndex).value.dailyTargetStatus == ZekrTargetStatus.Enabled
         val peak = if (categoryDetails.value.zekrList.size > 1) 72.dp else 0.dp
         val colors = ZekrTheme.colors(settingsDetails)
         BottomSheetScaffold(
@@ -198,9 +190,9 @@ fun ZekrHomeBody(
             sheetPeekHeight = peak,
             sheetContainerColor = colors.sheetBackgroundColor
         ) {
-            if (CounterHelper.isPlayingSound()) {
-
-            }
+//            if (CounterHelper.isPlayingSound()) {
+                //todo:
+//            }
             ZekrText(
                 settingsDetails = settingsDetails,
                 categoryDetails = categoryDetails,

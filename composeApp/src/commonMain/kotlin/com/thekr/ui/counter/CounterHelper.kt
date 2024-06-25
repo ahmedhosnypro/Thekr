@@ -12,14 +12,14 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.mutableStateOf
 import com.thekr.data.settings.SettingsDetails
-import com.thekr.data.settings.SettingsHelper.settingViewModel
-import com.thekr.data.settings.SettingsHelper.settingsDetails
 import com.thekr.data.zekr.count.ZekrCount
 import com.thekr.data.zekr.instance.ZekrInstanceDetails
 import com.thekr.data.zekr.zekr.ZekrDetails
 import com.thekr.ui.counter.viewModel.CounterUiState
 import com.thekr.ui.counter.viewModel.ZekrCounterViewModel
 import com.thekr.ui.counter.viewModel.action.onZekrCounterCount
+import com.thekr.ui.settings.SettingActions
+import com.thekr.ui.settings.SettingActions.settingState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -28,52 +28,52 @@ import kotlinx.coroutines.launch
  * screen.
  */
 object CounterHelper {
-    var onCount: () -> Unit = {}
-    var onClickFadl: () -> Unit = {}
+    lateinit var onCount: () -> Unit
+    lateinit var onClickFadl: () -> Unit
 
     // Settings
-    var onSettingUpdate: (SettingsDetails) -> Unit = {}
-    var onClickThemeMode: () -> Unit = {}
-    var onClickIncreaseFontSize: () -> Unit = {}
-    var onClickDecreaseFontSize: () -> Unit = {}
-    var onChangeSheikh: (String) -> Unit = {}
-    var onClickCountVisibility: () -> Unit = {}
-    var toggleDailyCountVisibility: () -> Unit = {}
-    var toggleWeeklyCountVisibility: () -> Unit = {}
-    var toggleMonthlyCountVisibility: () -> Unit = {}
-    var toggleYearlyCountVisibility: () -> Unit = {}
-    var toggleTotalCountVisibility: () -> Unit = {}
-    var toggleSessionCountVisibility: () -> Unit = {}
-    var showSheikhSelectorList: () -> Unit = {}
+    lateinit var onSettingUpdate: (SettingsDetails) -> Unit
+    lateinit var onClickThemeMode: () -> Unit
+    lateinit var onClickIncreaseFontSize: () -> Unit
+    lateinit var onClickDecreaseFontSize: () -> Unit
+    lateinit var onChangeSheikh: (String) -> Unit
+    lateinit var onClickCountVisibility: () -> Unit
+    lateinit var toggleDailyCountVisibility: () -> Unit
+    lateinit var toggleWeeklyCountVisibility: () -> Unit
+    lateinit var toggleMonthlyCountVisibility: () -> Unit
+    lateinit var toggleYearlyCountVisibility: () -> Unit
+    lateinit var toggleTotalCountVisibility: () -> Unit
+    lateinit var toggleSessionCountVisibility: () -> Unit
+    lateinit var showSheikhSelectorList: () -> Unit
 
     // Statistics
-//    var getDayStatistics: (Long, DayStatisticsType) -> CountStatistics =
+//    lateinit var getDayStatistics: (Long, DayStatisticsType) -> CountStatistics =
 //        { _, _ -> CountStatistics() }
-//    var getWeekStatistics: (Long) -> CountStatistics = { CountStatistics() }
-//    var getMonthStatistics: (Long) -> CountStatistics = { CountStatistics() }
+//    lateinit var getWeekStatistics: (Long) -> CountStatistics = { CountStatistics() }
+//    lateinit var getMonthStatistics: (Long) -> CountStatistics = { CountStatistics() }
 
     // Navigation and UI
-    var onCounterDispose: () -> Unit = {}
-    var scrollToZekr: (Int) -> Unit = {}
-    var scrollToNextZekr: () -> Unit = {}
-    var onEditClick: () -> Unit = {}
-    var onNavigateUp: () -> Unit = {}
-    var showCategoryZekrListMenu: () -> Unit = {}
-    var showZekrStatistics: () -> Unit = {}
-    var onClickSound: () -> Unit = {}
-    var isPlayingSound: () -> Boolean = { false }
-    var updateUiState: (CounterUiState) -> Unit = {}
-    var updateOnCount: () -> Unit = {}
+    lateinit var onCounterDispose: () -> Unit
+    lateinit var scrollToZekr: (Int) -> Unit
+    lateinit var scrollToNextZekr: () -> Unit
+    lateinit var onEditClick: () -> Unit
+    lateinit var onNavigateUp: () -> Unit
+    lateinit var showCategoryZekrListMenu: () -> Unit
+    lateinit var showZekrStatistics: () -> Unit
+    lateinit var onClickSound: () -> Unit
+    lateinit var isPlayingSound: () -> Boolean
+    lateinit var updateUiState: (CounterUiState) -> Unit
+    lateinit var updateOnCount: () -> Unit
 
     // Data access
-    var getCurrentZekrInstance: () -> MutableState<ZekrInstanceDetails> =
-        { mutableStateOf(ZekrInstanceDetails()) }
-    var getZekrInstance: (Int) -> MutableState<ZekrInstanceDetails> =
-        { mutableStateOf(ZekrInstanceDetails()) }
-    var getZekrCount: (Int) -> MutableState<ZekrCount> = { mutableStateOf(ZekrCount()) }
-    var getCurrentZekrCount: () -> MutableState<ZekrCount> = { mutableStateOf(ZekrCount()) }
-    var getZekr: (Int) -> MutableState<ZekrDetails> = { mutableStateOf(ZekrDetails()) }
+    lateinit var getCurrentZekrInstance: () -> MutableState<ZekrInstanceDetails>
+    lateinit var getZekrInstance: (Int) -> MutableState<ZekrInstanceDetails>
+    lateinit var getZekrCount: (Int) -> MutableState<ZekrCount>
+    lateinit var getCurrentZekrCount: () -> MutableState<ZekrCount>
+    lateinit var getZekr: (Int) -> MutableState<ZekrDetails>
 
+
+    var initialized: MutableState<Boolean> = mutableStateOf(false)
 
     /**
      * Initializes actions for the Counter screen, connecting UI events to
@@ -83,12 +83,13 @@ object CounterHelper {
      *     the Counter screen.
      */
     fun initActions(actionComponents: CounterActionComponents) {
+        initDataAccess(actionComponents.counterViewModel)
         initCountingActions(actionComponents.counterViewModel)
         initBottomSheetActions(actionComponents)
         initSettingsActions()
         initStatisticsActions(actionComponents.counterViewModel)
         initNavigationAndUiActions(actionComponents)
-        initDataAccess(actionComponents.counterViewModel)
+        initialized.value = true
     }
 
     // --- Counting Actions ---
@@ -100,42 +101,44 @@ object CounterHelper {
     // --- Bottom Sheet and Count Visibility Actions ---
     private fun initBottomSheetActions(components: CounterActionComponents) {
 
+        val settingState = settingState.value
+
         onClickCountVisibility = {
-            settingViewModel.changeCountVisibility()
+            SettingActions.changeCountVisibility()
             handleBottomSheetExpansion(components)
         }
 
         toggleDailyCountVisibility = {
-            settingViewModel.update(settingsDetails.copy(showDailyCount = !settingsDetails.showDailyCount))
+            SettingActions.update(settingState.copy(showDailyCount = !settingState.showDailyCount))
         }
 
         toggleWeeklyCountVisibility = {
-            settingViewModel.update(settingsDetails.copy(showWeeklyCount = !settingsDetails.showWeeklyCount))
+            SettingActions.update(settingState.copy(showWeeklyCount = !settingState.showWeeklyCount))
         }
 
         toggleMonthlyCountVisibility = {
-            settingViewModel.update(settingsDetails.copy(showMonthlyCount = !settingsDetails.showMonthlyCount))
+            SettingActions.update(settingState.copy(showMonthlyCount = !settingState.showMonthlyCount))
         }
 
         toggleYearlyCountVisibility = {
-            settingViewModel.update(settingsDetails.copy(showYearlyCount = !settingsDetails.showYearlyCount))
+            SettingActions.update(settingState.copy(showYearlyCount = !settingState.showYearlyCount))
         }
 
         toggleTotalCountVisibility = {
-            settingViewModel.update(settingsDetails.copy(showTotalCount = !settingsDetails.showTotalCount))
+            SettingActions.update(settingState.copy(showTotalCount = !settingState.showTotalCount))
         }
 
         toggleSessionCountVisibility = {
-            settingViewModel.update(settingsDetails.copy(showSessionCount = !settingsDetails.showSessionCount))
+            SettingActions.update(settingState.copy(showSessionCount = !settingState.showSessionCount))
         }
     }
 
     // --- Settings Actions ---
     private fun initSettingsActions() {
-        onClickThemeMode = { settingViewModel.changeThemeMode() }
-        onClickIncreaseFontSize = { settingViewModel.increaseFontSize() }
-        onClickDecreaseFontSize = { settingViewModel.decreaseFontSize() }
-        onSettingUpdate = { newSettings -> settingViewModel.update(newSettings) }
+        onClickThemeMode = { SettingActions.changeThemeMode() }
+        onClickIncreaseFontSize = { SettingActions.increaseFontSize() }
+        onClickDecreaseFontSize = { SettingActions.decreaseFontSize() }
+        onSettingUpdate = { newSettings -> SettingActions.update(newSettings) }
     }
 
     // --- Statistics Actions ---
@@ -178,6 +181,10 @@ object CounterHelper {
         showCategoryZekrListMenu = { counterViewModel.showCategoryZekrListMenu() }
         showZekrStatistics = { counterViewModel.showStatistics() }
 
+        onEditClick = {
+            //todo: initialize
+        }
+
         onClickSound = {
 //            if (counterViewModel.isPlayerPlaying()) {
 //                stopPlayer(counterViewModel)
@@ -206,7 +213,7 @@ object CounterHelper {
      * count visibility settings.
      */
     private fun handleBottomSheetExpansion(components: CounterActionComponents) {
-        val countVisible = settingsDetails.showCount
+        val countVisible = settingState.value.showCount
         components.coroutineScope.launch {
             val sheetState = components.zekrCountSheetState.bottomSheetState
             when {

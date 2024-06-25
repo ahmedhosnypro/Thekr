@@ -156,7 +156,7 @@ private fun ZekrAppBarActions(
 ) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         if (counterUiState.currentZekrInstance.value.editable) {
-            IconButton(onClick = CounterHelper.onEditClick) {
+            IconButton(onClick = { CounterHelper.onEditClick() }) {
                 Icon(
                     imageVector = Icons.Filled.EditNote,
                     contentDescription = stringResource(Res.string.settings),
@@ -165,7 +165,7 @@ private fun ZekrAppBarActions(
             }
         }
 
-        IconButton(onClick = CounterHelper.showZekrStatistics) {
+        IconButton(onClick = { CounterHelper.showZekrStatistics() }) {
             Icon(
                 imageVector = Icons.Filled.StackedBarChart,
                 contentDescription = "Statistics"
@@ -173,7 +173,7 @@ private fun ZekrAppBarActions(
         }
 
         if (categoryDetails.value.zekrList.size > 1) {
-            IconButton(onClick = CounterHelper.showCategoryZekrListMenu) {
+            IconButton(onClick = {CounterHelper.showCategoryZekrListMenu()}) {
                 Icon(
                     imageVector = Icons.Filled.MoreHoriz,
                     contentDescription = stringResource(Res.string.zekr_list),

@@ -43,6 +43,7 @@ class AzkarViewModel(
         intiCategoryList()
     }
 
+    val initialized = mutableStateOf(false)
     private fun intiCategoryList() {
         viewModelScope.launch(ioDispatcher) {
             initAppData()
@@ -84,6 +85,8 @@ class AzkarViewModel(
                         ?: mutableStateOf(CategoryDetails()),
                 )
             }
+
+            initialized.value = true
         }
     }
 
@@ -108,13 +111,11 @@ data class AzkarState(
     val currentViewedSebhaCategory: MutableState<CategoryDetails>? = null,
 )
 
-object AzkarStateHelper{
-    /**
-     * use for background tasks only
-     */
+object AzkarStateHelper {
+    /** use for background tasks only */
     lateinit var azkarState: AzkarState
 
-    fun updateState(azkarState: AzkarState){
+    fun updateState(azkarState: AzkarState) {
         this.azkarState = azkarState
     }
 }
