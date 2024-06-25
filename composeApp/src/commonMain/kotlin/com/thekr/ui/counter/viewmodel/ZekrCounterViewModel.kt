@@ -16,6 +16,7 @@ import com.thekr.data.zekr.zekr.ZekrDetails
 import com.thekr.data.zekr.zekr.ZekrRepository
 import com.thekr.ui.counter.viewmodel.action.AntiSleep.killDetectSleepingJob
 import com.thekr.ui.counter.viewmodel.action.AntiSleep.stopDetectSleepingJob
+import com.thekr.ui.counter.viewmodel.action.ThekrSoundPlayer
 import com.thekr.ui.counter.viewmodel.action.configSleepJop
 
 import com.thekr.ui.counter.viewmodel.init.initCoolDown
@@ -56,16 +57,12 @@ class ZekrCounterViewModel(
     val uiState = mutableUiState.asStateFlow()
 
     var firstTime = true
-
-//    val zekrSoundPlayer = ExoPlayer.Builder(appContext()).build()
-//
 //    private var fingerprintEventListener: FingerprintEventListener? = null
 
     init {
         initCoolDown(this)
         // todo: add validation for count items
         initClickSoundPlayer()
-//        observePlayerEvents()
     }
 
     private fun initClickSoundPlayer() {
@@ -109,7 +106,7 @@ class ZekrCounterViewModel(
 
     fun onCounterDispose() {
         stopDetectSleepingJob()
-//        stopPlayer(this)
+        ThekrSoundPlayer.stopPlayer()
     }
 
     fun onNavigateUp() {
@@ -148,12 +145,6 @@ class ZekrCounterViewModel(
         }
         configSleepJop(this)
     }
-
-//    fun appContext(): Context = getApplication<Application>().applicationContext
-
-
-    //    fun isPlayerPlaying() = zekrSoundPlayer.isPlaying
-    fun isPlayerPlaying() = false
 
     fun getCurrentZekrInstance(): MutableState<ZekrInstanceDetails> =
         uiState.value.currentZekrInstance
