@@ -45,7 +45,7 @@ ksp = "2.0.0-1.0.22"
 apollo = "4.0.0-beta.6"
 kotlinx-io = "0.4.0"
 
-korge= "5.4.0"
+korge= "6.0.0-alpha5"
 
 ## Android only
 libsu = "5.2.1"
@@ -117,6 +117,7 @@ material-icons-extended = { module = "org.jetbrains.compose.material:material-ic
 material-ripple = { module = "org.jetbrains.compose.material:material-ripple", version.ref = "compose" }
 # Third party
 appdirs = { module = "ca.gosyer:kotlin-multiplatform-appdirs", version.ref = "appdirs" }
+korge-core = { module = "com.soywiz.korge:korge", version.ref = "korge" }
 ## Android only
 # libsu
 libsu-core = { module = "com.github.topjohnwu.libsu:core", version.ref = "libsu" }
