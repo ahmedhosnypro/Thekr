@@ -1,4 +1,4 @@
-package com.thekr.ui.counter.viewModel
+package com.thekr.ui.counter.viewmodel
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.MutableState

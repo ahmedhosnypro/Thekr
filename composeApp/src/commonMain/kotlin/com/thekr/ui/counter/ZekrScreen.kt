@@ -29,9 +29,9 @@ import com.thekr.data.zekr.category.CategoryDetails
 import com.thekr.ui.counter.CounterHelper.CounterActionComponents
 import com.thekr.ui.counter.body.CategoryZekrList
 import com.thekr.ui.counter.header.ZekrCounterTopBar
-import com.thekr.ui.counter.viewModel.CounterUiState
-import com.thekr.ui.counter.viewModel.ZekrCounterViewModel
-import com.thekr.ui.counter.viewModel.action.configSleepJop
+import com.thekr.ui.counter.viewmodel.CounterUiState
+import com.thekr.ui.counter.viewmodel.ZekrCounterViewModel
+import com.thekr.ui.counter.viewmodel.action.configSleepJop
 import com.thekr.ui.home.list.categoryDetailsPreviewState
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.component.RtlView

@@ -50,7 +50,7 @@ import com.thekr.model.ZekrTargetStatus
 import com.thekr.ui.counter.body.ZekrText
 import com.thekr.ui.counter.footer.CurrentZekrIndicator
 import com.thekr.ui.counter.footer.ZekrCount
-import com.thekr.ui.counter.viewModel.CounterUiState
+import com.thekr.ui.counter.viewmodel.CounterUiState
 import com.thekr.ui.values.Dimensions.normal
 import com.thekr.ui.values.Dimensions.small
 import com.thekr.ui.values.Dimensions.tiny

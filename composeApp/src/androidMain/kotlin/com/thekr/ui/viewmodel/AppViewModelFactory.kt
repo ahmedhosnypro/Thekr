@@ -7,7 +7,7 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.thekr.ThekrApplication
-import com.thekr.ui.counter.viewModel.ZekrCounterViewModel
+import com.thekr.ui.counter.viewmodel.ZekrCounterViewModel
 import com.thekr.ui.zekr.edit.ZekrEditViewModel
 import com.thekr.ui.zekr.entry.ZekrEntryViewModel
 

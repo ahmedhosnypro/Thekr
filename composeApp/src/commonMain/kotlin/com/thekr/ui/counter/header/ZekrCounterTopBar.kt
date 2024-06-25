@@ -71,7 +71,7 @@ import com.thekr.data.zekr.zekr.ZekrDetails
 import com.thekr.model.ZekrTargetStatus
 import com.thekr.ui.bar.top.ZekrBar
 import com.thekr.ui.counter.CounterHelper
-import com.thekr.ui.counter.viewModel.CounterUiState
+import com.thekr.ui.counter.viewmodel.CounterUiState
 import com.thekr.ui.values.Dimensions.normal
 import com.thekr.ui.values.Dimensions.small
 import com.thekr.ui.values.Dimensions.xLarge
@@ -479,7 +479,7 @@ private fun SoundPlayer(
 ) {
     if (CounterHelper.getZekr(pagerState.currentPage).value.soundFileName != null) {
         IconButton(
-            onClick = CounterHelper.onClickSound,
+            onClick = {CounterHelper.onClickSound()},
             modifier = Modifier.requiredWidth(width)
         ) {
             HeaderImage(

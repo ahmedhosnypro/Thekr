@@ -1,7 +1,7 @@
-package com.thekr.ui.counter.viewModel.init
+package com.thekr.ui.counter.viewmodel.init
 
 import androidx.lifecycle.viewModelScope
-import com.thekr.ui.counter.viewModel.ZekrCounterViewModel
+import com.thekr.ui.counter.viewmodel.ZekrCounterViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull

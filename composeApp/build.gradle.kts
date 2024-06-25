@@ -133,7 +133,10 @@ kotlin {
 
             implementation(libs.kotlinx.io.core)
             implementation(libs.appdirs)
+
+            implementation(libs.korge.core)
         }
+
         commonTest.dependencies {
             implementation(kotlin("test"))
             @OptIn(ExperimentalComposeLibrary::class)

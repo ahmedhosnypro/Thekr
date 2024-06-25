@@ -1,10 +1,10 @@
-package com.thekr.ui.counter.viewModel.action
+package com.thekr.ui.counter.viewmodel.action
 
 
-import com.thekr.ui.counter.viewModel.SuspendRunnable
-import com.thekr.ui.counter.viewModel.ZekrCounterViewModel
-import com.thekr.ui.counter.viewModel.action.AntiSleep.alertSleepRunnable
-import com.thekr.ui.counter.viewModel.action.AntiSleep.detectSleepingJob
+import com.thekr.ui.counter.viewmodel.SuspendRunnable
+import com.thekr.ui.counter.viewmodel.ZekrCounterViewModel
+import com.thekr.ui.counter.viewmodel.action.AntiSleep.alertSleepRunnable
+import com.thekr.ui.counter.viewmodel.action.AntiSleep.detectSleepingJob
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

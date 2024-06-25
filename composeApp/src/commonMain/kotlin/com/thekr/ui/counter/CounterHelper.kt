@@ -15,9 +15,11 @@ import com.thekr.data.settings.SettingsDetails
 import com.thekr.data.zekr.count.ZekrCount
 import com.thekr.data.zekr.instance.ZekrInstanceDetails
 import com.thekr.data.zekr.zekr.ZekrDetails
-import com.thekr.ui.counter.viewModel.CounterUiState
-import com.thekr.ui.counter.viewModel.ZekrCounterViewModel
-import com.thekr.ui.counter.viewModel.action.onZekrCounterCount
+import com.thekr.ui.counter.viewmodel.CounterUiState
+import com.thekr.ui.counter.viewmodel.ZekrCounterViewModel
+import com.thekr.ui.counter.viewmodel.action.onZekrCounterCount
+import com.thekr.ui.counter.viewmodel.action.playZekrAudio
+import com.thekr.ui.counter.viewmodel.action.stopPlayer
 import com.thekr.ui.settings.SettingActions
 import com.thekr.ui.settings.SettingActions.settingState
 import kotlinx.coroutines.CoroutineScope
@@ -186,11 +188,11 @@ object CounterHelper {
         }
 
         onClickSound = {
-//            if (counterViewModel.isPlayerPlaying()) {
-//                stopPlayer(counterViewModel)
-//            } else {
-//                counterViewModel.playZekrAudio()
-//            }
+            if (counterViewModel.isPlayerPlaying()) {
+                stopPlayer(counterViewModel)
+            } else {
+                counterViewModel.playZekrAudio()
+            }
         }
 
         isPlayingSound = { counterViewModel.isPlayerPlaying() }

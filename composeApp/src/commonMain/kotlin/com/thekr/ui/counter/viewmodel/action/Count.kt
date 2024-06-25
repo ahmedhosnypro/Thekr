@@ -1,4 +1,4 @@
-package com.thekr.ui.counter.viewModel.action
+package com.thekr.ui.counter.viewmodel.action
 
 import androidx.lifecycle.viewModelScope
 import com.thekr.data.zekr.count.ZekrCount
@@ -7,8 +7,8 @@ import com.thekr.data.zekr.zekr.ZekrDetails
 import com.thekr.model.Count
 import com.thekr.model.CountMiss
 import com.thekr.ui.counter.CounterHelper
-import com.thekr.ui.counter.viewModel.ZekrCounterViewModel
-import com.thekr.ui.counter.viewModel.action.AntiSleep.restartSleepJop
+import com.thekr.ui.counter.viewmodel.ZekrCounterViewModel
+import com.thekr.ui.counter.viewmodel.action.AntiSleep.restartSleepJop
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -57,21 +57,21 @@ fun ZekrCounterViewModel.repeatAudio() {
         when {
             count.dailyCount + 1 < zekrInstanceVal.dailyTarget -> {
                 count(zekr, zekrInstanceVal, count, clickSound = false)
-//                playZekrAudio()
+                playZekrAudio()
             }
 
             count.dailyCount + 1 == zekrInstanceVal.dailyTarget -> {
                 count(zekr, zekrInstanceVal, count, clickSound = false)
                 updateCurrentZekrInstance(nextZekrIndex)
                 CounterHelper.scrollToNextZekr()
-//                playZekrAudio()
+                playZekrAudio()
             }
 
             count.dailyCount + 1 > zekrInstanceVal.dailyTarget -> {
 
                 updateCurrentZekrInstance(nextZekrIndex)
                 CounterHelper.scrollToNextZekr()
-//                playZekrAudio()
+                playZekrAudio()
             }
         }
     }

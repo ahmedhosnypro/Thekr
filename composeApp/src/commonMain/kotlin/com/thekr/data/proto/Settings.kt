@@ -21,7 +21,7 @@ data class Settings(
 //    val colorSchemeDetails: ColorSchemeDetails = ColorSchemeDetails(
 //        TODO()
 //    ),
-    val currentSheikh: String = "",
+    val currentSheikh: String = "FasilBnGazyan",
     val swapDirection: SwapDirection = SwapDirection.Horizontal,
     val showCount: Boolean = false,
     val showDailyCount: Boolean = false,

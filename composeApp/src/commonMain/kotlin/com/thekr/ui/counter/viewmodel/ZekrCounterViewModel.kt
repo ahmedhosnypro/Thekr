@@ -1,4 +1,4 @@
-package com.thekr.ui.counter.viewModel
+package com.thekr.ui.counter.viewmodel
 
 
 import androidx.compose.runtime.MutableState
@@ -14,11 +14,11 @@ import com.thekr.data.zekr.count.ZekrCount
 import com.thekr.data.zekr.instance.ZekrInstanceDetails
 import com.thekr.data.zekr.zekr.ZekrDetails
 import com.thekr.data.zekr.zekr.ZekrRepository
-import com.thekr.ui.counter.viewModel.action.AntiSleep.killDetectSleepingJob
-import com.thekr.ui.counter.viewModel.action.AntiSleep.stopDetectSleepingJob
-import com.thekr.ui.counter.viewModel.action.configSleepJop
+import com.thekr.ui.counter.viewmodel.action.AntiSleep.killDetectSleepingJob
+import com.thekr.ui.counter.viewmodel.action.AntiSleep.stopDetectSleepingJob
+import com.thekr.ui.counter.viewmodel.action.configSleepJop
 
-import com.thekr.ui.counter.viewModel.init.initCoolDown
+import com.thekr.ui.counter.viewmodel.init.initCoolDown
 import com.thekr.ui.navigation.NavigationActions
 import com.thekr.ui.navigation.route.HomeRoute
 import com.thekr.ui.navigation.route.ZekrScreenRoute

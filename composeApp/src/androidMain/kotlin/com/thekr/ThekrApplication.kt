@@ -1,6 +1,7 @@
 package com.thekr
 
 import android.app.Application
+import android.content.Context
 import com.thekr.data.proto.Settings
 import com.thekr.data.settingsStore
 import com.thekr.database.AppContainer
@@ -19,7 +20,9 @@ class ThekrApplication : Application() {
     /** AppContainer instance used by the rest of classes to obtain dependencies */
     lateinit var container: AppContainer
 
-    private val appCoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    companion object {
+        lateinit var appContext: Context
+    }
 
     //todo: fix this bug
     private val shellInitiated = false
@@ -39,6 +42,9 @@ class ThekrApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        appContext = applicationContext
+
         container = AppDataContainer(this)
 
         // Initialize database

@@ -4,7 +4,7 @@ import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.thekr.JvmApplication
-import com.thekr.ui.counter.viewModel.ZekrCounterViewModel
+import com.thekr.ui.counter.viewmodel.ZekrCounterViewModel
 import com.thekr.ui.zekr.edit.ZekrEditViewModel
 import com.thekr.ui.zekr.entry.ZekrEntryViewModel
 

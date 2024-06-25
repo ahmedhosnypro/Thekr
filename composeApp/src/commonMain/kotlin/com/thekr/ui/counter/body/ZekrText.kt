@@ -18,7 +18,7 @@ import com.thekr.data.settings.SettingsDetails
 import com.thekr.data.zekr.category.CategoryDetails
 import com.thekr.ui.theme.ZekrTheme
 import com.thekr.ui.counter.CounterHelper
-import com.thekr.ui.counter.viewModel.CounterUiState
+import com.thekr.ui.counter.viewmodel.CounterUiState
 import com.thekr.ui.values.Dimensions.large
 import com.thekr.ui.values.Dimensions.medium
 import com.thekr.ui.values.Dimensions.small

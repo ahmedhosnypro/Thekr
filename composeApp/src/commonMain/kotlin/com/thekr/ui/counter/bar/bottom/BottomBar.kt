@@ -8,7 +8,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import com.thekr.data.settings.SettingsDetails
 import com.thekr.data.zekr.category.CategoryDetails
-import com.thekr.ui.counter.viewModel.CounterUiState
+import com.thekr.ui.counter.viewmodel.CounterUiState
 import com.thekr.ui.theme.ZekrTheme
 
 @OptIn(ExperimentalFoundationApi::class)
