@@ -13,4 +13,6 @@ plugins {
 
 
     alias(libs.plugins.binary.compatibility.validator).apply(false)
+
+//    alias(libs.plugins.korge).apply(false)
 }

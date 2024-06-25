@@ -45,6 +45,8 @@ ksp = "2.0.0-1.0.22"
 apollo = "4.0.0-beta.6"
 kotlinx-io = "0.4.0"
 
+korge= "5.4.0"
+
 ## Android only
 libsu = "5.2.1"
 vico = "2.0.0-alpha.21"
@@ -150,3 +152,5 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 apollo = { id = "com.apollographql.apollo3", version.ref = "apollo" }
 
 binary-compatibility-validator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binary-compatibility-validator" }
+
+korge  = {id ="com.soywiz.korge", version.ref = "korge"}
