@@ -9,6 +9,7 @@ import com.thekr.model.CountMiss
 import com.thekr.ui.counter.CounterHelper
 import com.thekr.ui.counter.viewmodel.ZekrCounterViewModel
 import com.thekr.ui.counter.viewmodel.action.AntiSleep.restartSleepJop
+import com.thekr.ui.counter.viewmodel.action.ThekrSoundPlayer.playZekrAudio
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
