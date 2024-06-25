@@ -16,13 +16,16 @@ plugins {
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.room)
     alias(libs.plugins.ksp)
+
+//    alias(libs.plugins.korge)
 }
 
 val nameSpace = "com.thekr"
 
 
 kotlin {
-
+//    jvm("desktop")
+    jvm()
     targets.all {
         compilations.all {
             compileTaskProvider {
@@ -58,7 +61,7 @@ kotlin {
         }
     }
 
-    jvm("desktop")
+
 
     //    wasmJs {
     //        browser()
@@ -79,8 +82,7 @@ kotlin {
     //    }
 
     sourceSets {
-        val desktopMain by getting
-       
+
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(compose.uiTooling)
@@ -140,7 +142,7 @@ kotlin {
         }
 
 
-        desktopMain.dependencies {
+        jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
             implementation(libs.ktor.client.okhttp)
@@ -241,7 +243,7 @@ dependencies {
 
     with(libs.room.compiler) {
         add("kspAndroid", this)
-        add("kspDesktop", this)
+        add("kspJvm", this)
         //        add("kspIosX64", this)
         //        add("kspIosArm64", this)
         //        add("kspIosSimulatorArm64", this)
