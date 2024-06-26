@@ -23,7 +23,7 @@ interface SoundPlayer {
 }
 
 object ThekrSoundPlayer : SoundPlayer {
-    internal val scope = CoroutineScope(Dispatchers.IO)
+    internal val scope = CoroutineScope(Dispatchers.Default)
     override var soundChannel: SoundChannel? = null
 
     private var stream: SoundAudioStream? = null

@@ -46,13 +46,13 @@ import com.thekr.ui.component.RtlView
 import com.thekr.ui.viewmodel.AzkarState
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-
 import com.thekr.resources.Res
 import com.thekr.resources.back
 import com.thekr.resources.header_background
 import com.thekr.resources.settings
-
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import com.thekr.ui.values.SDimensions.sTiny
+import com.thekr.ui.values.SDimensions.sXLarge
+import network.chaintech.sdpcomposemultiplatform.sdp
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
@@ -71,9 +71,12 @@ fun ZekrBar(
 
     // Combine header height calculation and padding logic
     var headerHeight by remember { mutableStateOf(0.dp) }
+
+    val diff = sXLarge + sTiny
     val secondaryHeaderTopPadding =
         remember(headerHeight) {
-            (headerHeight - xLarge + 4.dp).coerceIn(0.dp, headerHeight)
+            println(headerHeight.value)
+            (headerHeight - diff).coerceIn(0.dp, headerHeight)
         }
 
     Box(modifier = modifier) {
@@ -121,8 +124,7 @@ fun ZekrBar(
                 shouldDraw,
                 enter = EnterTransition.None,
             ) {
-                if (headerTabsRow != null)
-                    headerTabsRow?.let { it() }
+                if (headerTabsRow != null) headerTabsRow()
             }
         }
 
@@ -130,7 +132,7 @@ fun ZekrBar(
             shouldDraw,
             enter = EnterTransition.None,
         ) {
-            Box(Modifier.padding(top = secondaryHeaderTopPadding)) {
+            Box(Modifier.padding(top = secondaryHeaderTopPadding.value.toInt().sdp)) {
                 secondaryHeader?.let { it() }
             }
         }
@@ -166,7 +168,6 @@ private fun Modifier.backgroundImageModifier(
             )
         )
     }
-
 
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -219,11 +220,4 @@ fun ZekrBarPreviewTemplate(
             }
         }
     }
-}
-
-@OptIn(ExperimentalFoundationApi::class)
-@Composable
-@Preview
-fun ZekrBarPreview(){
-    ZekrBarPreviewTemplate()
 }

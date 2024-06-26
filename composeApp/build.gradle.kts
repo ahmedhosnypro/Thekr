@@ -92,6 +92,8 @@ kotlin {
             implementation(libs.bundles.libsu)
             implementation(libs.bundles.vico)
             implementation(libs.androidx.appcompat)
+
+            implementation(libs.androidx.ui.tooling.preview)
         }
         
         commonMain.dependencies {
@@ -135,6 +137,7 @@ kotlin {
             implementation(libs.appdirs)
 
             implementation(libs.korge.core)
+            implementation(libs.sdp.ssp.compose.multiplatform)
         }
 
         commonTest.dependencies {

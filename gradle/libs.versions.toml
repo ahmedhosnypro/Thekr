@@ -47,9 +47,13 @@ kotlinx-io = "0.4.0"
 
 korge= "6.0.0-alpha5"
 
+sdp-ssp-compose-multiplatform= "1.0.4"
+
 ## Android only
+ui-tooling-preview = "1.7.0-beta03"
 libsu = "5.2.1"
 vico = "2.0.0-alpha.21"
+
 ## JVM only
 
 ## plugins
@@ -71,6 +75,7 @@ androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-co
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidx-appcompat" }
 androidx-material = { group = "com.google.android.material", name = "material", version.ref = "androidx-material" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidx-constraintlayout" }
+
 
 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
 coil = { module = "io.coil-kt.coil3:coil-compose-core", version.ref = "coil" }
@@ -118,7 +123,10 @@ material-ripple = { module = "org.jetbrains.compose.material:material-ripple", v
 # Third party
 appdirs = { module = "ca.gosyer:kotlin-multiplatform-appdirs", version.ref = "appdirs" }
 korge-core = { module = "com.soywiz.korge:korge", version.ref = "korge" }
+
+sdp-ssp-compose-multiplatform = { module = "network.chaintech:sdp-ssp-compose-multiplatform", version.ref = "sdp-ssp-compose-multiplatform" }
 ## Android only
+androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 # libsu
 libsu-core = { module = "com.github.topjohnwu.libsu:core", version.ref = "libsu" }
 libsu-io = { module = "com.github.topjohnwu.libsu:io", version.ref = "libsu" }
