@@ -41,9 +41,7 @@ import com.thekr.ui.home.bar.top.HeaderTabsRow
 import com.thekr.ui.home.bar.top.HeaderText
 import com.thekr.ui.home.bar.top.HomeBarCreateAction
 import com.thekr.ui.home.bar.top.SearchUi
-import com.thekr.ui.modifier.background
-import com.thekr.ui.modifier.background5
-import com.thekr.ui.modifier.background6
+import com.thekr.ui.modifier.background4
 import com.thekr.ui.navigation.NavigationActions
 import com.thekr.ui.navigation.route.SettingsRoute
 import com.thekr.ui.theme.AppTheme
@@ -76,7 +74,7 @@ fun ZekrBar(
 
         Column(
             modifier = Modifier
-                .background(
+                .background4(
                     painter = painterResource(Res.drawable.header_background),
                     colorFilter = ColorFilter.tint(zekrColors.mainHeaderBackgroundImageTint),
                     contentScale = ContentScale.Crop,

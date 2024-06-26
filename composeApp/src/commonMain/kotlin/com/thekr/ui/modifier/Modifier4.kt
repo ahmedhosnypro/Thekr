@@ -4,7 +4,6 @@ package com.thekr.ui.modifier
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.geometry.isSpecified
 import androidx.compose.ui.graphics.ColorFilter
@@ -29,7 +28,7 @@ import kotlin.math.roundToInt
  * @param alpha opacity of [painter]
  * @param colorFilter optional [ColorFilter] to apply to [painter]
  */
-fun Modifier.background(
+fun Modifier.background4(
     painter: Painter,
     alignment: Alignment = Alignment.Center,
     contentScale: ContentScale = ContentScale.Inside,
