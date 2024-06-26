@@ -85,12 +85,11 @@ private fun ZekrCounterViewModel.count(
 ) {
     // feedback
     viewModelScope.launch {
-//        counterClickFeedBack(
-//            context = appContext(),
-//            label = zekr.text,
-//            count = count.dailyCount + 1,
-//            clickSound = clickSound,
-//        )
+        counterClickFeedBack(
+            label = zekr.text,
+            count = count.dailyCount + 1,
+            clickSound = clickSound,
+        )
     }
 
     // clickable

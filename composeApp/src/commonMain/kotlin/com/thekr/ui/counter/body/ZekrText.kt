@@ -16,6 +16,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import com.thekr.data.settings.SettingsDetails
 import com.thekr.data.zekr.category.CategoryDetails
+import com.thekr.ui.component.RtlView
 import com.thekr.ui.theme.ZekrTheme
 import com.thekr.ui.counter.CounterHelper
 import com.thekr.ui.counter.viewmodel.CounterUiState
@@ -46,42 +47,46 @@ fun ZekrText(
     if (zekr.text.isEmpty()) {
         return
     }
-    LazyColumn(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(
-                start = large,
-                end = large,
-            ),
-        verticalArrangement = Arrangement.spacedBy(large)
-    ) {
 
-        item {
-            Spacer(Modifier.height(small))
-        }
+//            todo: dynamic language
+    RtlView {
+        LazyColumn(
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(
+                    start = large,
+                    end = large,
+                ),
+            verticalArrangement = Arrangement.spacedBy(large)
+        ) {
 
-        item {
-            Text(
-                text = zekr.text,
-                style = textStyle,
-                fontFamily = if (zekr.bsmalaType != 0) uthmanicScript() else hacenTunisiaLt(),
-            )
-        }
-        if (categoryDetails.value.fadlList.any { it.zekrId == counterUiState.currentZekrInstance.value.id }) {
-            val fadlList =
-                categoryDetails.value.fadlList.filter { it.zekrId == counterUiState.currentZekrInstance.value.id }
-            items(fadlList) { fadl ->
+            item {
+                Spacer(Modifier.height(small))
+            }
+
+            item {
                 Text(
-                    text = fadl.fadl,
+                    text = zekr.text,
                     style = textStyle,
-                    lineHeight = if (zekr.bsmalaType != 0) (settingsDetails.fontSize + 28).sp
-                    else (settingsDetails.fontSize + 16).sp,
-                    color = zekrColors.fadlText
+                    fontFamily = if (zekr.bsmalaType != 0) uthmanicScript() else hacenTunisiaLt(),
                 )
             }
-        }
-        item {
-            Spacer(Modifier.height(medium))
+            if (categoryDetails.value.fadlList.any { it.zekrId == counterUiState.currentZekrInstance.value.id }) {
+                val fadlList =
+                    categoryDetails.value.fadlList.filter { it.zekrId == counterUiState.currentZekrInstance.value.id }
+                items(fadlList) { fadl ->
+                    Text(
+                        text = fadl.fadl,
+                        style = textStyle,
+                        lineHeight = if (zekr.bsmalaType != 0) (settingsDetails.fontSize + 28).sp
+                        else (settingsDetails.fontSize + 16).sp,
+                        color = zekrColors.fadlText
+                    )
+                }
+            }
+            item {
+                Spacer(Modifier.height(medium))
+            }
         }
     }
 }

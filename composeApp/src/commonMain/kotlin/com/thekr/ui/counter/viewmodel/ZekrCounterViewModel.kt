@@ -61,22 +61,7 @@ class ZekrCounterViewModel(
     init {
         initCoolDown(this)
         // todo: add validation for count items
-        initClickSoundPlayer()
     }
-
-    private fun initClickSoundPlayer() {
-//        clickSoundPlayer = ExoPlayer.Builder(appContext()).build()
-//        val soundFileName = "click_1.mp3"
-//        val soundResourceId = SoundResourceHelper.getResourceIdFromFileName(soundFileName)
-//        if (soundResourceId != null) {
-//            val mediaItem =
-//                MediaItem.fromUri("android.resource://${appContext().packageName}/$soundResourceId")
-//
-//            clickSoundPlayer?.setMediaItem(mediaItem)
-//            clickSoundPlayer?.prepare()
-//        }
-    }
-
 
 
     fun delete() {
@@ -201,10 +186,6 @@ class ZekrCounterViewModel(
             totalCount = count.totalCount + 1,
             timeUpdated = System.currentTimeMillis()
         )
-    }
-
-    companion object {
-//        var clickSoundPlayer: ExoPlayer? = null
     }
 }
 
