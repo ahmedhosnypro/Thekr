@@ -91,9 +91,6 @@ fun MyMaterialTheme(
     )
 }
 
-val rtlLanguages = listOf("ar", "fa", "he")
-
-
 /**
  * Applies system bar colors and content padding based on the current
  * theme.
