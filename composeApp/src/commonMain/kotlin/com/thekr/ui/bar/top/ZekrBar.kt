@@ -1,6 +1,7 @@
 package com.thekr.ui.bar.top
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
@@ -49,6 +51,7 @@ import com.thekr.ui.theme.ZekrTheme
 import com.thekr.ui.values.SDimensions.sTiny
 import com.thekr.ui.viewmodel.AzkarState
 import org.jetbrains.compose.resources.imageResource
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -71,6 +74,7 @@ fun ZekrBar(
         val (content, trdRow) = createRefs()
         val sTiny = sTiny
 
+
         Column(
             modifier = Modifier
                 .background(
@@ -83,7 +87,9 @@ fun ZekrBar(
                     )
                 )
                 .background(
-                    image = imageResource(Res.drawable.header_background),
+                    painter = painterResource(Res.drawable.header_background),
+                    colorFilter = ColorFilter.tint(zekrColors.mainHeaderBackgroundImageTint),
+                    contentScale = ContentScale.Crop
                 )
 
                 .constrainAs(content) {
