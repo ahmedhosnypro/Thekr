@@ -48,7 +48,7 @@ kotlinx-io = "0.4.0"
 korge= "6.0.0-alpha5"
 
 sdp-ssp-compose-multiplatform= "1.0.4"
-
+constraintlayout-compose-multiplatform= "0.4.0"
 ## Android only
 ui-tooling-preview = "1.7.0-beta03"
 libsu = "5.2.1"
@@ -125,6 +125,8 @@ appdirs = { module = "ca.gosyer:kotlin-multiplatform-appdirs", version.ref = "ap
 korge-core = { module = "com.soywiz.korge:korge", version.ref = "korge" }
 
 sdp-ssp-compose-multiplatform = { module = "network.chaintech:sdp-ssp-compose-multiplatform", version.ref = "sdp-ssp-compose-multiplatform" }
+
+constraintlayout-compose-multiplatform = { module = "tech.annexflow.compose:constraintlayout-compose-multiplatform", version.ref = "constraintlayout-compose-multiplatform" }
 ## Android only
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 # libsu

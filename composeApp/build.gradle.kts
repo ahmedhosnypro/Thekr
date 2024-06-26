@@ -138,6 +138,8 @@ kotlin {
 
             implementation(libs.korge.core)
             implementation(libs.sdp.ssp.compose.multiplatform)
+
+            implementation(libs.constraintlayout.compose.multiplatform)
         }
 
         commonTest.dependencies {
