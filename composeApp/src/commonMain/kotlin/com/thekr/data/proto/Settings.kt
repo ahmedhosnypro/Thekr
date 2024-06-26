@@ -6,32 +6,41 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Settings(
-    val language: String = "",
-    val themeMode: ThemeMode = ThemeMode.System,
+    val language: String = "ar", // ar, en
+    val themeMode: ThemeMode = ThemeMode.Light,
+    val fontSize: Float = 16f,
+    val materialYou: Boolean = false,
+//    val colorSchemeDetails: ColorSchemeDetails = ColorSchemeDetails.newBuilder()
+//        .setHue(defaultThemePrimary().hue)
+//        .setSaturation(defaultThemePrimary().saturation)
+//        .setValue(defaultThemePrimary().value)
+//        .setAlpha(defaultThemePrimary().alpha)
+//        .build(),
+
+//    val colorSchemeDetails: ColorSchemeDetails = ColorSchemeDetails(
+//        TODO()
+//    ),
     val screenAlwaysOn: Boolean = false,
     val vibration: Boolean = false,
-    val sound: Boolean = false,
-    val clickSound: Boolean = false,
+    val sound: Boolean = true,
+    val clickSound: Boolean = true,
     val speechValue: Boolean = false,
     val speechName: Boolean = false,
     val volumeControl: Boolean = false,
     val fingerPrintControl: Boolean = false,
-    val fontSize: Float = 0f,
-    val materialYou: Boolean = false,
-//    val colorSchemeDetails: ColorSchemeDetails = ColorSchemeDetails(
-//        TODO()
-//    ),
     val currentSheikh: String = "FasilBnGazyan",
     val swapDirection: SwapDirection = SwapDirection.Horizontal,
-    val showCount: Boolean = false,
-    val showDailyCount: Boolean = false,
-    val showWeeklyCount: Boolean = false,
-    val showMonthlyCount: Boolean = false,
-    val showYearlyCount: Boolean = false,
-    val showTotalCount: Boolean = false,
-    val showSessionCount: Boolean = false,
-    val dbInitialized: Boolean = false,
+
+    val showCount: Boolean = true,
+    val showDailyCount: Boolean = true,
+    val showWeeklyCount: Boolean = true,
+    val showMonthlyCount: Boolean = true,
+    val showYearlyCount: Boolean = true,
+    val showTotalCount: Boolean = true,
+    val showSessionCount: Boolean = true,
+
     val initialized: Boolean = false,
+    val dbInitialized: Boolean = false,
     val lastUpdate: Long = now()
 ){
     fun toSettingsDetails(): SettingsDetails = SettingsDetails(

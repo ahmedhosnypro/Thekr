@@ -25,7 +25,7 @@ data class SettingsDetails(
 //        TODO()
 //    ),
     val screenAlwaysOn: Boolean = false,
-    val vibration: Boolean = false,
+    val vibration: Boolean = true,
     val sound: Boolean = true,
     val clickSound: Boolean = true,
     val speechValue: Boolean = false,
