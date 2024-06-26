@@ -23,6 +23,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
@@ -44,6 +45,7 @@ import com.thekr.ui.home.bar.top.HeaderText
 import com.thekr.ui.home.bar.top.HomeBarCreateAction
 import com.thekr.ui.home.bar.top.SearchUi
 import com.thekr.ui.modifier.background
+import com.thekr.ui.modifier.drawWithContentIfReady
 import com.thekr.ui.navigation.NavigationActions
 import com.thekr.ui.navigation.route.SettingsRoute
 import com.thekr.ui.theme.AppTheme
@@ -89,9 +91,19 @@ fun ZekrBar(
                 .background(
                     painter = painterResource(Res.drawable.header_background),
                     colorFilter = ColorFilter.tint(zekrColors.mainHeaderBackgroundImageTint),
-                    contentScale = ContentScale.Crop
+                    contentScale = ContentScale.FillBounds,
+                    drawFront= {
+                        drawRect(
+                            brush = Brush.verticalGradient(
+                                colors = listOf(
+                                    Color.Transparent,
+                                    zekrColors.mainHeaderBackgroundEnd.copy(alpha = 0.5f),
+                                    zekrColors.mainHeaderBackgroundEnd.copy(alpha = 0.7f),
+                                ),
+                            )
+                        )
+                    }
                 )
-
                 .constrainAs(content) {
                     top.linkTo(parent.top)
                     start.linkTo(parent.start)

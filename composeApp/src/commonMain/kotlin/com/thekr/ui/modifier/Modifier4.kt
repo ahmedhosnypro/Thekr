@@ -35,7 +35,9 @@ fun Modifier.background(
     alignment: Alignment = Alignment.Center,
     contentScale: ContentScale = ContentScale.Inside,
     alpha: Float = DefaultAlpha,
-    colorFilter: ColorFilter? = null
+    colorFilter: ColorFilter? = null,
+    drawBehind: ContentDrawScope.() -> Unit = {},
+    drawFront: ContentDrawScope.() -> Unit = {},
 ): Modifier = this.then(
     BackgroundPainterElement(
         painter = painter,
@@ -43,6 +45,8 @@ fun Modifier.background(
         contentScale = contentScale,
         alpha = alpha,
         colorFilter = colorFilter,
+        drawBehind = drawBehind,
+        drawFront = drawFront,
         inspectorInfo = debugInspectorInfo {
             name = "background"
             properties["painter"] = painter
@@ -50,6 +54,8 @@ fun Modifier.background(
             properties["contentScale"] = contentScale
             properties["alpha"] = alpha
             properties["colorFilter"] = colorFilter
+            properties["drawBehind"] = drawBehind
+            properties["drawFront"] = drawFront
         }
     )
 )
@@ -60,6 +66,8 @@ private class BackgroundPainterElement(
     val contentScale: ContentScale,
     val alpha: Float,
     val colorFilter: ColorFilter?,
+    val drawBehind: ContentDrawScope.() -> Unit,
+    val drawFront: ContentDrawScope.() -> Unit,
     val inspectorInfo: InspectorInfo.() -> Unit
 ) : ModifierNodeElement<BackgroundPainterNode>() {
     override fun create(): BackgroundPainterNode {
@@ -69,6 +77,8 @@ private class BackgroundPainterElement(
             contentScale = contentScale,
             alpha = alpha,
             colorFilter = colorFilter,
+            drawBehind = drawBehind,
+            drawFront = drawFront
         )
     }
 
@@ -114,22 +124,23 @@ private class BackgroundPainterNode(
     var alignment: Alignment,
     var contentScale: ContentScale,
     var alpha: Float,
-    var colorFilter: ColorFilter?
+    var colorFilter: ColorFilter?,
+    var drawBehind: ContentDrawScope.() -> Unit,
+    var drawFront: ContentDrawScope.() -> Unit
 ) : DrawModifierNode, Modifier.Node() {
     override fun ContentDrawScope.draw() {
+        drawBehind()
         val intrinsicSize = painter.intrinsicSize
-
         val srcWidth = if (intrinsicSize.isSpecified) intrinsicSize.width else size.width
         val srcHeight = if (intrinsicSize.isSpecified) intrinsicSize.height else size.height
-
         val srcSize = Size(srcWidth, srcHeight)
 
-        val scaleFactor = contentScale.computeScaleFactor(srcSize, size)
-
-        val scaledSize:Size = if (size.width != 0f && size.height != 0f) {
-            Size(srcSize.width * scaleFactor.scaleX, srcSize.height * scaleFactor.scaleY)
-        } else {
-            Size.Zero
+        // Calculate scaled size respecting ContentScale and without exceeding bounds
+        val scaledSize = contentScale.computeScaleFactor(srcSize, size).let { scale ->
+            Size(
+                width = minOf(srcSize.width * scale.scaleX, size.width),
+                height = minOf(srcSize.height * scale.scaleY, size.height)
+            )
         }
 
         val alignedPosition = alignment.align(
@@ -147,6 +158,7 @@ private class BackgroundPainterNode(
             }
         }
 
+        drawFront()
         drawContent()
     }
 }
