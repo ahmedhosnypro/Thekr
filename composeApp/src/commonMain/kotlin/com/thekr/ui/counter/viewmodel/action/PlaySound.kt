@@ -1,11 +1,8 @@
 package com.thekr.ui.counter.viewmodel.action
 
-
 import com.thekr.resources.Res
 import com.thekr.ui.counter.viewmodel.ZekrCounterViewModel
-import com.thekr.ui.settings.SettingActions.settingState
-import korlibs.audio.sound.PlatformAudioOutput
-import korlibs.audio.sound.Sound
+import com.thekr.ui.settings.SettingActions.currentSettings
 import korlibs.audio.sound.SoundAudioStream
 import korlibs.audio.sound.SoundChannel
 import korlibs.audio.sound.nativeSoundProvider
@@ -26,10 +23,14 @@ object ThekrSoundPlayer {
     @OptIn(ExperimentalResourceApi::class)
     fun ZekrCounterViewModel.playZekrAudio() {
         val soundFileName = getCurrentZekr().value.soundFileName
-        val filePath = "files/thekr/${settingState.value.currentSheikh}/${soundFileName}.mp3"
+        val filePath = "files/thekr/${currentSettings().currentSheikh}/${soundFileName}.mp3"
 
         scope.launch {
-            val bytes = Res.readBytes(filePath)
+            val bytes = try {
+                Res.readBytes(filePath)
+            } catch (e: Exception) {
+                return@launch
+            }
             val sound = nativeSoundProvider.createSound(data = bytes)
             val audioStream = sound.toStream()
             val soundAudioStream = SoundAudioStream(

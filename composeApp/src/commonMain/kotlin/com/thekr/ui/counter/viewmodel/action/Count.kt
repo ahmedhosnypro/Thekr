@@ -15,8 +15,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-fun ZekrCounterViewModel.onZekrCounterCount(
-) {
+fun ZekrCounterViewModel.onZekrCounterCount() {
     restartSleepJop()
     val zekrInstance = uiState.value.currentZekrInstance.value
     val count = getCurrentZekrCount().value

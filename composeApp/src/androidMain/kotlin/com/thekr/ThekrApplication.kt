@@ -24,12 +24,9 @@ class ThekrApplication : Application() {
         lateinit var appContext: Context
     }
 
-    //todo: fix this bug
-    private val shellInitiated = false
-
     init {
         // Initialize Shell only once
-        if (shellInitiated.not() && Shell.isAppGrantedRoot() == false) {
+        if (Shell.isAppGrantedRoot() == false) {
 
             Shell.setDefaultBuilder(
                 Shell.Builder.create()

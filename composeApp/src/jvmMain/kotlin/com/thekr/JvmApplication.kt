@@ -22,14 +22,6 @@ object JvmApplication {
         DatabaseProvider.initDatabase(getDatabaseBuilder())
 
         appStorage = userDataDir
-
-            //            } else {
-//                // Start fingerprint logging in the background
-//                // todo: save this as a job to be able to cancel it
-//                if (settings.fingerPrintControl) {
-//                    FingerPrintLogcatProcessor.startMonitoring()
-//                }
-//            }
     }
 }
 

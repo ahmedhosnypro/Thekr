@@ -21,7 +21,7 @@ import com.thekr.ui.counter.viewmodel.action.ThekrSoundPlayer
 import com.thekr.ui.counter.viewmodel.action.ThekrSoundPlayer.playZekrAudio
 import com.thekr.ui.counter.viewmodel.action.onZekrCounterCount
 import com.thekr.ui.settings.SettingActions
-import com.thekr.ui.settings.SettingActions.settingState
+import com.thekr.ui.settings.SettingActions.currentSettings
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -103,34 +103,38 @@ object CounterHelper {
     // --- Bottom Sheet and Count Visibility Actions ---
     private fun initBottomSheetActions(components: CounterActionComponents) {
 
-        val settingState = settingState.value
-
         onClickCountVisibility = {
             SettingActions.changeCountVisibility()
             handleBottomSheetExpansion(components)
         }
 
         toggleDailyCountVisibility = {
+            val settingState = currentSettings()
             SettingActions.update(settingState.copy(showDailyCount = !settingState.showDailyCount))
         }
 
         toggleWeeklyCountVisibility = {
+            val settingState = currentSettings()
             SettingActions.update(settingState.copy(showWeeklyCount = !settingState.showWeeklyCount))
         }
 
         toggleMonthlyCountVisibility = {
+            val settingState = currentSettings()
             SettingActions.update(settingState.copy(showMonthlyCount = !settingState.showMonthlyCount))
         }
 
         toggleYearlyCountVisibility = {
+            val settingState = currentSettings()
             SettingActions.update(settingState.copy(showYearlyCount = !settingState.showYearlyCount))
         }
 
         toggleTotalCountVisibility = {
+            val settingState = currentSettings()
             SettingActions.update(settingState.copy(showTotalCount = !settingState.showTotalCount))
         }
 
         toggleSessionCountVisibility = {
+            val settingState = currentSettings()
             SettingActions.update(settingState.copy(showSessionCount = !settingState.showSessionCount))
         }
     }
@@ -212,7 +216,7 @@ object CounterHelper {
      * count visibility settings.
      */
     private fun handleBottomSheetExpansion(components: CounterActionComponents) {
-        val countVisible = settingState.value.showCount
+        val countVisible = currentSettings().showCount
         components.coroutineScope.launch {
             val sheetState = components.zekrCountSheetState.bottomSheetState
             when {

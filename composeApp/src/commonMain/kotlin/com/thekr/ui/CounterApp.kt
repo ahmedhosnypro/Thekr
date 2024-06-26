@@ -42,6 +42,7 @@ fun CounterApp(
         NavigationActions.initNavController(navController)
     }
 
+    // todo:
     val initialized = azkarViewModel.initialized
     if (settings == null ||
         settings!!.initialized.not() ||

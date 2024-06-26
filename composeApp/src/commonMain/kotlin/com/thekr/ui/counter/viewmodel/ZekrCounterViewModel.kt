@@ -57,7 +57,6 @@ class ZekrCounterViewModel(
     val uiState = mutableUiState.asStateFlow()
 
     var firstTime = true
-//    private var fingerprintEventListener: FingerprintEventListener? = null
 
     init {
         initCoolDown(this)
@@ -78,23 +77,7 @@ class ZekrCounterViewModel(
 //        }
     }
 
-    fun setFingerprintListener(
-        fingerPrintEnabled: Boolean,
-    ) {
-//        if (fingerprintEventListener != null) {
-//            FingerprintEventDispatcher.removeListener(fingerprintEventListener!!)
-//        }
-//
-//        if (fingerPrintEnabled) {
-//            val listener = FingerprintEventListener { fingerprintEvent ->
-//                if (fingerprintEvent.type == FingerprintEventType.TouchUp) {
-//                    onZekrCounterCount()
-//                }
-//            }
-//            this.fingerprintEventListener = listener
-//            FingerprintEventDispatcher.addListener(listener)
-//        }
-    }
+
 
     fun delete() {
         if (uiState.value.currentZekrInstance.value.isProtected.not()) {

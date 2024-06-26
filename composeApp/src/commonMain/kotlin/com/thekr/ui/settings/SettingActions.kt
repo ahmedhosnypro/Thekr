@@ -2,23 +2,44 @@ package com.thekr.ui.settings
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import com.thekr.Constants
+import com.thekr.data.proto.Settings
 import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
 import com.thekr.data.settingsStore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 
 object SettingActions {
-    val settingState: MutableState<SettingsDetails> = mutableStateOf(SettingsDetails())
+    private val _settingState: StateFlow<Settings?> = settingsStore.updates.stateIn(
+        CoroutineScope(Dispatchers.IO),
+        started = SharingStarted.WhileSubscribed(Constants.TIMEOUT_MILLIS),
+        initialValue = null
+    )
+
+    private lateinit var settingState: MutableState<SettingsDetails>
+
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
+    fun currentSettings() = settingState.value
+
     init {
+        runBlocking {
+            launch {
+                settingState = mutableStateOf(
+                    settingsStore.get()?.toSettingsDetails() ?: SettingsDetails()
+                )
+            }
+        }
         scope.launch {
-            settingsStore.updates.collectLatest { settings ->
+            _settingState.collect { settings ->
                 settings?.let {
                     settingState.value = it.toSettingsDetails()
                 }
@@ -34,7 +55,7 @@ object SettingActions {
         }
     }
 
-    private fun suspenseUpdate(settingsDetails: SettingsDetails){
+    private fun suspenseUpdate(settingsDetails: SettingsDetails) {
         settingState.value = settingsDetails
         scope.launch {
             settingsStore.update {
@@ -76,9 +97,10 @@ object SettingActions {
     }
 
     fun changeCountVisibility() {
+        val s = currentSettings()
         suspenseUpdate(
-            settingState.value.copy(
-                showCount = !settingState.value.showCount
+            s.copy(
+                showCount = !s.showCount
             )
         )
     }

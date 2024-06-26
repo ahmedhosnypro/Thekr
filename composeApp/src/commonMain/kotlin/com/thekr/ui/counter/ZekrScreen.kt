@@ -26,6 +26,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
 import com.thekr.data.zekr.category.CategoryDetails
+import com.thekr.fingerprint.Fingerprint.setFingerprintListener
 import com.thekr.ui.counter.CounterHelper.CounterActionComponents
 import com.thekr.ui.counter.body.CategoryZekrList
 import com.thekr.ui.counter.header.ZekrCounterTopBar
@@ -36,6 +37,7 @@ import com.thekr.ui.home.list.categoryDetailsPreviewState
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.component.RtlView
 import com.thekr.ui.viewmodel.AppViewModelProvider
+import korlibs.platform.Platform
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -55,7 +57,9 @@ fun ZekrScreen(
     )
 
     LaunchedEffect(settingsDetails.fingerPrintControl) {
-        viewModel.setFingerprintListener(settingsDetails.fingerPrintControl)
+        if (Platform.isAndroid) {
+            viewModel.setFingerprintListener(settingsDetails.fingerPrintControl)
+        }
     }
 
     val category = counterUiState.categoryDetails
