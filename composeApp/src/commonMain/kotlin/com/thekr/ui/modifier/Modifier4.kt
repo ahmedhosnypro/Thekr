@@ -4,6 +4,7 @@ package com.thekr.ui.modifier
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.geometry.isSpecified
 import androidx.compose.ui.graphics.ColorFilter
@@ -66,6 +67,7 @@ fun Modifier.background(
 
     translate(dx, dy) {
         with(painter) {
+
             draw(size = scaledSize, alpha = alpha, colorFilter = colorFilter)
         }
     }
@@ -80,39 +82,73 @@ private fun calculateScaledSize(
     dstSize: Size,
     contentScale: ContentScale
 ): Size {
+    val dstWidth = dstSize.width
+    val dstHeight = dstSize.height
+
+    val srcWidth = srcSize.width
+    val srcHeight = srcSize.height
+
     return when (contentScale) {
 
         ContentScale.Crop -> {
-            val scale = max(dstSize.width / srcSize.width, dstSize.height / srcSize.height)
-            Size(srcSize.width * scale, srcSize.height * scale)
+            val scale = max(
+                dstWidth / srcWidth,
+                dstHeight / srcHeight
+            )
+            val scaledWidth = srcWidth * scale
+            val scaledHeight = srcHeight * scale
+            if (scaledWidth > srcWidth || scaledHeight > srcHeight) {
+                // find the firs smallest scale that results  to be less than the destination size with the same aspect ratio
+                val scale = min(
+                    dstWidth / srcWidth,
+                    dstHeight / srcHeight
+                )
+                val scaledWidth = srcWidth * scale
+                val scaledHeight = srcHeight * scale
+                Size(scaledWidth, scaledHeight)
+            }else{
+                Size(scaledWidth, scaledHeight)
+            }
         }
 
         ContentScale.Fit -> {
-            val scale = min(dstSize.width / srcSize.width, dstSize.height / srcSize.height)
+            val scale = min(
+                dstSize.width / srcSize.width,
+                dstSize.height / srcSize.height
+            )
             Size(srcSize.width * scale, srcSize.height * scale)
         }
 
         ContentScale.FillHeight -> {
             val scale = dstSize.height / srcSize.height
-            Size(srcSize.width * scale, dstSize.height)
+            Size(
+                minOf(srcSize.width * scale, dstSize.width),
+                dstSize.height
+            )
         }
 
         ContentScale.FillWidth -> {
             val scale = dstSize.width / srcSize.width
-            Size(dstSize.width, srcSize.height * scale)
+            Size(
+                dstSize.width,
+                minOf(srcSize.height * scale, dstSize.height)
+            )
         }
 
         ContentScale.Inside -> {
             if (srcSize.width <= dstSize.width && srcSize.height <= dstSize.height) {
                 srcSize
             } else {
-                val scale = min(dstSize.width / srcSize.width, dstSize.height / srcSize.height)
+                val scale = min(
+                    dstSize.width / srcSize.width,
+                    dstSize.height / srcSize.height
+                )
                 Size(srcSize.width * scale, srcSize.height * scale)
             }
         }
 
         ContentScale.None -> srcSize
         ContentScale.FillBounds -> dstSize
-        else -> Size.Zero // Default case (shouldn't happen)
+        else -> Size.Zero
     }
 }
