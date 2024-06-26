@@ -65,7 +65,6 @@ fun Modifier.background4(
 
     translate(dx, dy) {
         with(painter) {
-
             draw(size = scaledSize, alpha = alpha, colorFilter = colorFilter)
         }
     }

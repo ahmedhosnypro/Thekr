@@ -39,6 +39,7 @@ import androidx.compose.ui.graphics.drawscope.DrawScope.Companion.DefaultBlendMo
 import androidx.compose.ui.graphics.drawscope.DrawStyle
 import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
+import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.node.DrawModifierNode
@@ -47,6 +48,9 @@ import androidx.compose.ui.platform.InspectorInfo
 import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize
+import kotlin.math.max
+import kotlin.math.min
+import kotlin.math.roundToInt
 
 /**
  * Draws an [ImageBitmap] with the given parameters and clipping shape
@@ -209,14 +213,18 @@ private class ImageBackgroundNode(
         val size = this.size
         drawIntoCanvas { canvas ->
 
-            val intrinsicSize =
+            val intrinsicSize = painter.intrinsicSize
             val srcWidth = if (intrinsicSize.isSpecified) intrinsicSize.width else size.width
             val srcHeight = if (intrinsicSize.isSpecified) intrinsicSize.height else size.height
             val srcSize = Size(srcWidth, srcHeight)
-            val srcRect = srcOffset.toRect(srcSize)
+
+            val srcRect = srcSize.toRect()
             val dstRect = size.toRect()
-            canvas.save()
-            shape.createOutline(size, layoutDirection, this).apply {
+
+            val scaledSize = calculateScaledSize(srcSize, size, contentScale)
+
+
+            shape.createOutline(scaledSize, layoutDirection, this).apply {
 
 //                this.bounds.let {
 //                    canvas.clipRect(
@@ -228,14 +236,15 @@ private class ImageBackgroundNode(
 //                }
                 // todo: try this
                 canvas.clipPath(Path().apply {
-                    addRect(size.toRect())
+                    addRect(scaledSize.toRect())
                 })
             }
+            canvas.save()
 
             // The image is drawn with srcRect and dstRect, but it may need to be scaled to fit
             // within the size of the layout. Calculate the scale to apply to the image so that
             // either its width or height matches the maximum dimension of the layout.
-            val scaleFactor = computeScaleFactor(srcSize, dstSize, size)
+            val scaleFactor = computeScaleFactor(srcSize, size)
 
             val scaledSrcWidth = srcRect.width * scaleFactor
             val scaledSrcHeight = srcRect.height * scaleFactor
@@ -252,6 +261,21 @@ private class ImageBackgroundNode(
                 (dstRect.top * scaleFactor).toInt()
             )
 
+            val alignedPosition = alignment.align(
+                IntSize(scaledSize.width.roundToInt(), scaledSize.height.roundToInt()),
+                IntSize(size.width.roundToInt(), size.height.roundToInt()),
+                layoutDirection
+            )
+
+            val dx = alignedPosition.x.toFloat()
+            val dy = alignedPosition.y.toFloat()
+
+            drawBehind()
+            translate(dx, dy) {
+                with(painter) {
+                    draw(size = scaledSize, alpha = alpha, colorFilter = colorFilter)
+                }
+            }
 
             drawImage(
                 image = image,
@@ -265,23 +289,23 @@ private class ImageBackgroundNode(
                 blendMode = blendMode,
                 filterQuality = filterQuality,
             )
+            drawFront()
             canvas.restore()
         }
         drawContent()
     }
 
     private fun computeScaleFactor(
-        srcSize: IntSize,
-        dstSize: IntSize,
-        canvasSize: Size
+        srcSize: Size,
+        dstSize: Size
     ): Float {
-        val scaleFactorX = if (dstSize.width != 0) {
-            canvasSize.width / dstSize.width
+        val scaleFactorX = if (srcSize.width != 0f) {
+            dstSize.width / srcSize.width
         } else {
             1f
         }
-        val scaleFactorY = if (dstSize.height != 0) {
-            canvasSize.height / dstSize.height
+        val scaleFactorY = if (srcSize.height != 0f) {
+            dstSize.height / srcSize.height
         } else {
             1f
         }
@@ -296,3 +320,80 @@ private fun IntOffset.toRect(size: IntSize): Rect =
         right = this.x + size.width.toFloat(),
         bottom = this.y + size.height.toFloat()
     )
+
+// Helper functions to calculate scaled size based on ContentScale
+private fun calculateScaledSize(
+    srcSize: Size,
+    dstSize: Size,
+    contentScale: ContentScale
+): Size {
+    val dstWidth = dstSize.width
+    val dstHeight = dstSize.height
+
+    val srcWidth = srcSize.width
+    val srcHeight = srcSize.height
+
+    return when (contentScale) {
+
+        ContentScale.Crop -> {
+            val scale = max(
+                dstWidth / srcWidth,
+                dstHeight / srcHeight
+            )
+            val scaledWidth = srcWidth * scale
+            val scaledHeight = srcHeight * scale
+            if (scaledWidth > srcWidth || scaledHeight > srcHeight) {
+                // find the firs smallest scale that results  to be less than the destination size with the same aspect ratio
+                val scale = min(
+                    dstWidth / srcWidth,
+                    dstHeight / srcHeight
+                )
+                val scaledWidth = srcWidth * scale
+                val scaledHeight = srcHeight * scale
+                Size(scaledWidth, scaledHeight)
+            }else{
+                Size(scaledWidth, scaledHeight)
+            }
+        }
+
+        ContentScale.Fit -> {
+            val scale = min(
+                dstSize.width / srcSize.width,
+                dstSize.height / srcSize.height
+            )
+            Size(srcSize.width * scale, srcSize.height * scale)
+        }
+
+        ContentScale.FillHeight -> {
+            val scale = dstSize.height / srcSize.height
+            Size(
+                minOf(srcSize.width * scale, dstSize.width),
+                dstSize.height
+            )
+        }
+
+        ContentScale.FillWidth -> {
+            val scale = dstSize.width / srcSize.width
+            Size(
+                dstSize.width,
+                minOf(srcSize.height * scale, dstSize.height)
+            )
+        }
+
+        ContentScale.Inside -> {
+            if (srcSize.width <= dstSize.width && srcSize.height <= dstSize.height) {
+                srcSize
+            } else {
+                val scale = min(
+                    dstSize.width / srcSize.width,
+                    dstSize.height / srcSize.height
+                )
+                Size(srcSize.width * scale, srcSize.height * scale)
+            }
+        }
+
+        ContentScale.None -> srcSize
+        ContentScale.FillBounds -> dstSize
+        else -> Size.Zero
+    }
+}
