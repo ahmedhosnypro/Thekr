@@ -1,8 +1,6 @@
 package com.thekr.ui.bar.top
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
@@ -23,7 +21,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
@@ -45,15 +42,14 @@ import com.thekr.ui.home.bar.top.HeaderText
 import com.thekr.ui.home.bar.top.HomeBarCreateAction
 import com.thekr.ui.home.bar.top.SearchUi
 import com.thekr.ui.modifier.background
-import com.thekr.ui.modifier.background1
-import com.thekr.ui.modifier.drawWithContentIfReady
+import com.thekr.ui.modifier.background5
+import com.thekr.ui.modifier.background6
 import com.thekr.ui.navigation.NavigationActions
 import com.thekr.ui.navigation.route.SettingsRoute
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.theme.ZekrTheme
 import com.thekr.ui.values.SDimensions.sTiny
 import com.thekr.ui.viewmodel.AzkarState
-import org.jetbrains.compose.resources.imageResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -80,10 +76,10 @@ fun ZekrBar(
 
         Column(
             modifier = Modifier
-                .background1(
+                .background(
                     painter = painterResource(Res.drawable.header_background),
                     colorFilter = ColorFilter.tint(zekrColors.mainHeaderBackgroundImageTint),
-                    contentScale = ContentScale.FillBounds,
+                    contentScale = ContentScale.Crop,
                     drawBehind = {
                         drawRect(
                             brush = Brush.verticalGradient(
