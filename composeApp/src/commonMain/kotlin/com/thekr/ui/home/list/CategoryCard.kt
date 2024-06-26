@@ -169,10 +169,11 @@ fun CategoryCard(
             modifier = Modifier.weight(1f)
         )
 
-        Icon(
+        LanguageIconMirrored(
             imageVector = Icons.Filled.ArrowBackIosNew,
             contentDescription = null,
             tint = zekrColors.cardCallToActionIcon,
+            languageTage = settingsDetails.language
         )
     }
 }

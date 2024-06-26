@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -36,6 +37,7 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import com.thekr.resources.Res
 import com.thekr.resources.zekr_indicator
+import com.thekr.ui.component.isRtlLanguage
 
 /**
  * Displays a card representing a Zekr item.
@@ -96,7 +98,8 @@ fun ZekrCard(
             target = target,
             leadingIcon = leadingIcon,
             trailingIcon = trailingIcon,
-            zekrColors = zekrColors
+            zekrColors = zekrColors,
+            settingsDetails = settingsDetails
         )
     }
 }
@@ -120,7 +123,8 @@ private fun ZekrCardContent(
     target: Long,
     leadingIcon: (@Composable () -> Unit)?,
     trailingIcon: (@Composable () -> Unit)?,
-    zekrColors: ZekrColors
+    zekrColors: ZekrColors,
+    settingsDetails: SettingsDetails,
 ) {
     Column(
         modifier = Modifier.requiredHeight(56.dp),
@@ -152,10 +156,11 @@ private fun ZekrCardContent(
             if (trailingIcon != null) {
                 trailingIcon()
             } else {
-                Icon(
+                LanguageIconMirrored(
                     imageVector = Icons.Filled.ArrowBackIosNew,
                     contentDescription = null,
                     tint = zekrColors.cardCallToActionIcon,
+                    languageTage = settingsDetails.language
                 )
             }
         }
@@ -167,6 +172,7 @@ private fun ZekrCardContent(
         )
     }
 }
+
 
 /**
  * Displays the Zekr text and its leading icon.
