@@ -45,6 +45,7 @@ import com.thekr.ui.home.bar.top.HeaderText
 import com.thekr.ui.home.bar.top.HomeBarCreateAction
 import com.thekr.ui.home.bar.top.SearchUi
 import com.thekr.ui.modifier.background
+import com.thekr.ui.modifier.background1
 import com.thekr.ui.modifier.drawWithContentIfReady
 import com.thekr.ui.navigation.NavigationActions
 import com.thekr.ui.navigation.route.SettingsRoute
@@ -79,20 +80,22 @@ fun ZekrBar(
 
         Column(
             modifier = Modifier
-                .background(
-                    brush = Brush.verticalGradient(
-                        colors = listOf(
-                            zekrColors.mainHeaderBackgroundStart,
-                            zekrColors.mainHeaderBackgroundEnd,
-                            zekrColors.mainHeaderBackgroundEnd,
-                        )
-                    )
-                )
-                .background(
+                .background1(
                     painter = painterResource(Res.drawable.header_background),
                     colorFilter = ColorFilter.tint(zekrColors.mainHeaderBackgroundImageTint),
                     contentScale = ContentScale.FillBounds,
-                    drawFront= {
+                    drawBehind = {
+                        drawRect(
+                            brush = Brush.verticalGradient(
+                                colors = listOf(
+                                    zekrColors.mainHeaderBackgroundStart,
+                                    zekrColors.mainHeaderBackgroundEnd,
+                                    zekrColors.mainHeaderBackgroundEnd,
+                                )
+                            )
+                        )
+                    },
+                    drawFront = {
                         drawRect(
                             brush = Brush.verticalGradient(
                                 colors = listOf(
