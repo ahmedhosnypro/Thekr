@@ -5,8 +5,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.LayoutDirection
-import com.thekr.ui.theme.rtlLanguages
 
+val rtlLanguages = listOf("ar", "fa", "he")
 
 @Composable
 fun MultiLang(
@@ -24,7 +24,7 @@ fun MultiLang(
 //        }
 //    }
 
-    if (language in rtlLanguages) {
+    if (isRtlLanguage(language)) {
         RtlView {
             content()
         }
@@ -33,6 +33,7 @@ fun MultiLang(
     }
 }
 
+fun isRtlLanguage(langTag: String) = langTag in rtlLanguages
 
 @Composable
 fun RtlView(
