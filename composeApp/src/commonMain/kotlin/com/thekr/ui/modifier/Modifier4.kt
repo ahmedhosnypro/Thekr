@@ -39,7 +39,6 @@ fun Modifier.background4(
 ): Modifier = drawWithContent {
     println("background: drawWithContent")
     drawBehind()
-
     val intrinsicSize = painter.intrinsicSize
     val srcWidth = if (intrinsicSize.isSpecified) intrinsicSize.width else size.width
     val srcHeight = if (intrinsicSize.isSpecified) intrinsicSize.height else size.height

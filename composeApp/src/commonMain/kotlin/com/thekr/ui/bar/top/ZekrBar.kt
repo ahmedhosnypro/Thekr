@@ -1,6 +1,7 @@
 package com.thekr.ui.bar.top
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
@@ -71,7 +72,13 @@ fun ZekrBar(
         val (content, trdRow) = createRefs()
         val sTiny = sTiny
 
+        Image(
+            painter =
+        )
 
+        Image(
+            bitmap =
+        )
         Column(
             modifier = Modifier
                 .background4(

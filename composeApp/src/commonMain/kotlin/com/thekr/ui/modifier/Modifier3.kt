@@ -19,10 +19,13 @@ package com.thekr.ui.modifier
 
 import androidx.annotation.FloatRange
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.geometry.isSpecified
 import androidx.compose.ui.geometry.toRect
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.ColorFilter
@@ -36,6 +39,7 @@ import androidx.compose.ui.graphics.drawscope.DrawScope.Companion.DefaultBlendMo
 import androidx.compose.ui.graphics.drawscope.DrawStyle
 import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
+import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.node.DrawModifierNode
 import androidx.compose.ui.node.ModifierNodeElement
@@ -48,13 +52,13 @@ import androidx.compose.ui.unit.IntSize
  * Draws an [ImageBitmap] with the given parameters and clipping shape
  * behind the content.
  *
- * @param image The ImageBitmap to draw
+ * @param bitmap The ImageBitmap to draw
  * @param shape desired shape of the background
  * @param alignment Alignment of the image within the layout bounds
  * @param contentScale Strategy for scaling the image if its size does not
- * @param alpha Opacity to be applied to [image], with `0` being completely
- *     transparent and `1` being completely opaque. The value must be
- *     between `0` and `1`.
+ * @param alpha Opacity to be applied to [bitmap], with `0` being
+ *     completely transparent and `1` being completely opaque. The value
+ *     must be between `0` and `1`.
  * @param style Whether to fill or stroke the destination with the image
  * @param colorFilter ColorFilter to apply to the image when drawn
  * @param blendMode Blending algorithm to be applied to the image
@@ -63,7 +67,7 @@ import androidx.compose.ui.unit.IntSize
  */
 @Stable
 fun Modifier.background3(
-    image: ImageBitmap,
+    bitmap: ImageBitmap,
     shape: Shape = RectangleShape,
     alignment: Alignment = Alignment.Center,
     contentScale: ContentScale = ContentScale.Inside,
@@ -74,9 +78,11 @@ fun Modifier.background3(
     filterQuality: FilterQuality = FilterQuality.Low,
     drawBehind: ContentDrawScope.() -> Unit = {},
     drawFront: ContentDrawScope.() -> Unit = {}
-): Modifier = this.then(
+): Modifier = composed {
+    val bitmapPainter = remember(bitmap) { BitmapPainter(bitmap, filterQuality = filterQuality) }
     ImageBackgroundElement(
-        image = image,
+        image = bitmap,
+        painter = bitmapPainter,
         shape = shape,
         alignment = alignment,
         contentScale = contentScale,
@@ -89,7 +95,7 @@ fun Modifier.background3(
         drawFront = drawFront,
         inspectorInfo = debugInspectorInfo {
             name = "background"
-            properties["image"] = image
+            properties["image"] = bitmap
             properties["shape"] = shape
             properties["alpha"] = alpha
             properties["style"] = style
@@ -98,10 +104,11 @@ fun Modifier.background3(
             properties["filterQuality"] = filterQuality
         }
     )
-)
+}
 
 private class ImageBackgroundElement(
     private val image: ImageBitmap,
+    private val painter: BitmapPainter,
     private val shape: Shape,
     private val alignment: Alignment,
     private val contentScale: ContentScale,
@@ -117,6 +124,7 @@ private class ImageBackgroundElement(
     override fun create(): ImageBackgroundNode {
         return ImageBackgroundNode(
             image,
+            painter,
             shape,
             alignment,
             contentScale,
@@ -132,6 +140,7 @@ private class ImageBackgroundElement(
 
     override fun update(node: ImageBackgroundNode) {
         node.image = image
+        node.painter = painter
         node.shape = shape
         node.alignment = alignment
         node.contentScale = contentScale
@@ -150,6 +159,7 @@ private class ImageBackgroundElement(
 
     override fun hashCode(): Int {
         var result = image.hashCode()
+        result = 31 * result + painter.hashCode()
         result = 31 * result + shape.hashCode()
         result = 31 * result + alignment.hashCode()
         result = 31 * result + contentScale.hashCode()
@@ -166,17 +176,23 @@ private class ImageBackgroundElement(
     override fun equals(other: Any?): Boolean {
         val otherModifier = other as? ImageBackgroundElement ?: return false
         return image == otherModifier.image &&
+                painter == otherModifier.painter &&
+                alignment == otherModifier.alignment &&
+                contentScale == otherModifier.contentScale &&
                 shape == otherModifier.shape &&
                 alpha == otherModifier.alpha &&
                 style == otherModifier.style &&
                 colorFilter == otherModifier.colorFilter &&
                 blendMode == otherModifier.blendMode &&
-                filterQuality == otherModifier.filterQuality
+                filterQuality == otherModifier.filterQuality &&
+                drawBehind == otherModifier.drawBehind &&
+                drawFront == otherModifier.drawFront
     }
 }
 
 private class ImageBackgroundNode(
     var image: ImageBitmap,
+    var painter: BitmapPainter,
     var shape: Shape,
     var alignment: Alignment,
     var contentScale: ContentScale,
@@ -192,9 +208,13 @@ private class ImageBackgroundNode(
     override fun ContentDrawScope.draw() {
         val size = this.size
         drawIntoCanvas { canvas ->
-            val canvasSize = size
+
+            val intrinsicSize =
+            val srcWidth = if (intrinsicSize.isSpecified) intrinsicSize.width else size.width
+            val srcHeight = if (intrinsicSize.isSpecified) intrinsicSize.height else size.height
+            val srcSize = Size(srcWidth, srcHeight)
             val srcRect = srcOffset.toRect(srcSize)
-            val dstRect = dstOffset.toRect(dstSize)
+            val dstRect = size.toRect()
             canvas.save()
             shape.createOutline(size, layoutDirection, this).apply {
 
@@ -215,7 +235,7 @@ private class ImageBackgroundNode(
             // The image is drawn with srcRect and dstRect, but it may need to be scaled to fit
             // within the size of the layout. Calculate the scale to apply to the image so that
             // either its width or height matches the maximum dimension of the layout.
-            val scaleFactor = computeScaleFactor(srcSize, dstSize, canvasSize)
+            val scaleFactor = computeScaleFactor(srcSize, dstSize, size)
 
             val scaledSrcWidth = srcRect.width * scaleFactor
             val scaledSrcHeight = srcRect.height * scaleFactor
@@ -231,6 +251,8 @@ private class ImageBackgroundNode(
                 (dstRect.left * scaleFactor).toInt(),
                 (dstRect.top * scaleFactor).toInt()
             )
+
+
             drawImage(
                 image = image,
                 srcOffset = scaledSrcOffset,
