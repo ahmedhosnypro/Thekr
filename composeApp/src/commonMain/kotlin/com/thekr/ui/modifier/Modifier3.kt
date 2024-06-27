@@ -305,8 +305,8 @@ private fun drawTiledImage(
             while (x < dstRect.right) {
                 var y = dstRect.top.toInt()
                 while (y < dstRect.bottom) {
-                    val tileDstRect = Rect(x.toFloat(), y.toFloat(), (x + scaledSize.width),
-                        (y + scaledSize.height)
+                    val tileDstRect = Rect(x.toFloat(), y.toFloat(), (x + scaledSize.width.toFloat()),
+                        (y + scaledSize.height.toFloat())
                     )
                     canvas.drawImageRect(
                         image = image,
@@ -316,9 +316,9 @@ private fun drawTiledImage(
                         dstSize = IntSize(tileDstRect.width.toInt(), tileDstRect.height.toInt()),
                         paint = paint
                     )
-                    y += srcRect.height.toInt() // Increment by srcRect.height
+                    y += scaledSize.height.toInt() // Increment by scaledSize.height
                 }
-                x += srcRect.width.toInt() // Increment by srcRect.width
+                x += scaledSize.width.toInt() // Increment by scaledSize.width
             }
         }
         BackgroundRepeat.RepeatX -> {
@@ -333,7 +333,7 @@ private fun drawTiledImage(
                     dstSize = IntSize(scaledSize.width.toInt(), scaledSize.height.toInt()), // Use scaledSize
                     paint = paint
                 )
-                x += srcRect.width.toInt() // Increment by srcRect.width
+                x += scaledSize.width.toInt() // Increment by scaledSize.width
             }
         }
         BackgroundRepeat.RepeatY -> {
@@ -348,7 +348,7 @@ private fun drawTiledImage(
                     dstSize = IntSize(scaledSize.width.toInt(), scaledSize.height.toInt()), // Use scaledSize
                     paint = paint
                 )
-                y += srcRect.height.toInt() // Increment by srcRect.height
+                y += scaledSize.height.toInt() // Increment by scaledSize.height
             }
         }
         BackgroundRepeat.NoRepeat -> {
@@ -364,6 +364,7 @@ private fun drawTiledImage(
         }
     }
 }
+
 
 
 // Helper functions to calculate scaled size based on ContentScale
