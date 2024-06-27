@@ -53,6 +53,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.thekr.resources.Res
+import com.thekr.resources.black_hex_pattern
+import com.thekr.resources.block
+import com.thekr.resources.golden_vector
+import com.thekr.resources.mono_vector
 import com.thekr.resources.wood
 import com.thekr.theme.AppTheme
 import com.thekr.ui.component.MultiLang
@@ -100,6 +104,7 @@ fun BackgroundImageShowCase() {
 //                    item { Shapes(shape) }
                 }
                 MultiLang(layoutDirection.value) {
+
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -387,6 +392,10 @@ enum class Scales(val value: ContentScale, val description: String) {
 
 enum class BackgroundImage(val drawableResource: DrawableResource, val description: String) {
     Wood(Res.drawable.wood, "Wood"),
+    BlackHexPattern(Res.drawable.black_hex_pattern, "Black Hex Pattern"),
+    Block(Res.drawable.block, "Block"),
+    GoldenVector(Res.drawable.golden_vector, "Golden Vector"),
+    MonoVector(Res.drawable.mono_vector, "Mono Vector"),
 }
 
 enum class Shapes(val shape: Shape, val description: String) {

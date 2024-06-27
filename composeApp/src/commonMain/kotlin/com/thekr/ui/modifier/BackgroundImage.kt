@@ -165,7 +165,6 @@ private class ImageBackgroundNode(
     override fun ContentDrawScope.draw() {
         val spaceSize = this.size
         drawIntoCanvas { canvas ->
-
             // 1. Clip to the destination bounds FIRST
             canvas.save()
             shape.createOutline(spaceSize, layoutDirection, this).apply {
@@ -177,7 +176,7 @@ private class ImageBackgroundNode(
             val srcWidth = if (intrinsicSize.isSpecified) intrinsicSize.width else spaceSize.width
             val srcHeight =
                 if (intrinsicSize.isSpecified) intrinsicSize.height else spaceSize.height
-            val srcSize = Size(srcWidth, srcHeight)
+            val imageSize = Size(srcWidth, srcHeight)
 
             drawBehind()
 
@@ -185,7 +184,7 @@ private class ImageBackgroundNode(
             drawTiledImage(
                 drawScope = this,
                 painter,
-                srcSize = srcSize, // Use original image size for tiling
+                imageSize = imageSize, // Use original image size for tiling
                 spaceSize = spaceSize, // Destination size
                 alignment = alignment,
                 contentScale = contentScale,
@@ -212,7 +211,7 @@ private class ImageBackgroundNode(
 private fun drawTiledImage(
     drawScope: DrawScope,
     painter: Painter,
-    srcSize: Size,
+    imageSize: Size,
     spaceSize: Size,
     alignment: Alignment,
     contentScale: ContentScale,
@@ -221,7 +220,7 @@ private fun drawTiledImage(
     alpha: Float,
     colorFilter: ColorFilter?,
 ) {
-    val tileDstSize = calculateTileSize(srcSize, spaceSize, contentScale)
+    val tileDstSize = calculateTileSize(imageSize, spaceSize, contentScale)
 
     val alignedPosition = alignment.align(
         IntSize(tileDstSize.width.roundToInt(), tileDstSize.height.roundToInt()),
@@ -293,49 +292,49 @@ private fun repeat(
 }
 
 private fun calculateTileSize(
-    srcSize: Size,
+    imageSize: Size,
     dstSize: Size,
     contentScale: ContentScale
 ): Size {
     return when (contentScale) {
         ContentScale.Crop -> {
             // Scale to cover the entire area, maintaining the aspect ratio
-            val scale = max(dstSize.width / srcSize.width, dstSize.height / srcSize.height)
-            Size(srcSize.width * scale, srcSize.height * scale)
+            val scale = max(dstSize.width / imageSize.width, dstSize.height / imageSize.height)
+            Size(imageSize.width * scale, imageSize.height * scale)
         }
 
         ContentScale.Fit -> {
             // Scale to fit completely within the area, maintaining the aspect ratio
-            val scale = min(dstSize.width / srcSize.width, dstSize.height / srcSize.height)
-            Size(srcSize.width * scale, srcSize.height * scale)
+            val scale = min(dstSize.width / imageSize.width, dstSize.height / imageSize.height)
+            Size(imageSize.width * scale, imageSize.height * scale)
         }
 
         ContentScale.FillHeight -> {
             // Scale to match the destination height, maintaining the aspect ratio
-            val scale = dstSize.height / srcSize.height
-            Size(srcSize.width * scale, dstSize.height)
+            val scale = dstSize.height / imageSize.height
+            Size(imageSize.width * scale, dstSize.height)
         }
 
         ContentScale.FillWidth -> {
             // Scale to match the destination width, maintaining the aspect ratio
-            val scale = dstSize.width / srcSize.width
-            Size(dstSize.width, srcSize.height * scale)
+            val scale = dstSize.width / imageSize.width
+            Size(dstSize.width, imageSize.height * scale)
         }
 
         ContentScale.Inside -> {
             // If the image is smaller, draw at original size
             // If the image is larger, scale down to fit within the area, maintaining the aspect ratio
-            if (srcSize.width <= dstSize.width && srcSize.height <= dstSize.height) {
-                srcSize
+            if (imageSize.width <= dstSize.width && imageSize.height <= dstSize.height) {
+                imageSize
             } else {
-                val scale = min(dstSize.width / srcSize.width, dstSize.height / srcSize.height)
-                Size(srcSize.width * scale, srcSize.height * scale)
+                val scale = min(dstSize.width / imageSize.width, dstSize.height / imageSize.height)
+                Size(imageSize.width * scale, imageSize.height * scale)
             }
         }
 
         ContentScale.None -> {
             // Draw the image at its original size
-            srcSize
+            imageSize
         }
 
         ContentScale.FillBounds -> {
