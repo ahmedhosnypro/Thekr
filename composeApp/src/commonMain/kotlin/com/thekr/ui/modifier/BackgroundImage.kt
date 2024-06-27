@@ -1,0 +1,379 @@
+package com.thekr.ui.modifier
+
+import androidx.annotation.FloatRange
+import androidx.compose.runtime.Stable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.geometry.isSpecified
+import androidx.compose.ui.geometry.toRect
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.drawscope.ContentDrawScope
+import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
+import androidx.compose.ui.graphics.drawscope.translate
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.node.DrawModifierNode
+import androidx.compose.ui.node.ModifierNodeElement
+import androidx.compose.ui.platform.InspectorInfo
+import androidx.compose.ui.platform.debugInspectorInfo
+import androidx.compose.ui.unit.IntSize
+import androidx.compose.ui.unit.LayoutDirection
+import kotlin.math.max
+import kotlin.math.min
+import kotlin.math.roundToInt
+
+/**
+ * Draws an [ImageBitmap] with the given parameters and clipping shape
+ * behind the content.
+ *
+ * @param painter Painter representing the image to be drawn
+ * @param shape desired shape of the background
+ * @param alignment Alignment of the image within the layout bounds
+ * @param contentScale Strategy for scaling the image if its size does not
+ * @param repeat CSS-like background repeat behavior
+ * @param alpha Opacity to be applied to [painter], with `0` being
+ *     completely transparent and `1` being completely opaque. The value
+ *     must be between `0` and `1`.
+ * @param colorFilter ColorFilter to apply to the image when drawn
+ */
+@Stable
+fun Modifier.backgroundImage(
+    painter: Painter,
+    shape: Shape = RectangleShape,
+    alignment: Alignment = Alignment.Center,
+    contentScale: ContentScale = ContentScale.None,
+    repeat: BackgroundRepeat = BackgroundRepeat.Repeat,
+    @FloatRange(from = 0.0, to = 1.0) alpha: Float = 1.0f,
+    colorFilter: ColorFilter? = null,
+    drawBehind: ContentDrawScope.() -> Unit = {},
+    drawFront: ContentDrawScope.() -> Unit = {}
+): Modifier = composed {
+//    val bitmapPainter = remember(bitmap) { BitmapPainter(bitmap, filterQuality = filterQuality) }
+    ImageBackgroundElement(
+        painter = painter,
+        shape = shape,
+        alignment = alignment,
+        contentScale = contentScale,
+        repeat = repeat,
+        alpha = alpha,
+        colorFilter = colorFilter,
+        drawBehind = drawBehind,
+        drawFront = drawFront,
+        inspectorInfo = debugInspectorInfo {
+            name = "background"
+            properties["painter"] = painter
+            properties["shape"] = shape
+            properties["alignment"] = alignment
+            properties["contentScale"] = contentScale
+            properties["repeat"] = repeat
+            properties["alpha"] = alpha
+            properties["colorFilter"] = colorFilter
+            properties["drawBehind"] = drawBehind
+            properties["drawFront"] = drawFront
+        }
+    )
+}
+
+private class ImageBackgroundElement(
+    private val painter: Painter,
+    private val shape: Shape,
+    private val alignment: Alignment,
+    private val contentScale: ContentScale,
+    private val repeat: BackgroundRepeat,
+    private val alpha: Float,
+    private val colorFilter: ColorFilter?,
+    private val drawBehind: ContentDrawScope.() -> Unit,
+    private val drawFront: ContentDrawScope.() -> Unit,
+    private val inspectorInfo: InspectorInfo.() -> Unit
+) : ModifierNodeElement<ImageBackgroundNode>() {
+    override fun create(): ImageBackgroundNode {
+        return ImageBackgroundNode(
+            painter,
+            shape,
+            alignment,
+            contentScale,
+            repeat,
+            alpha,
+            colorFilter,
+            drawBehind,
+            drawFront
+        )
+    }
+
+    override fun update(node: ImageBackgroundNode) {
+        node.painter = painter
+        node.shape = shape
+        node.alignment = alignment
+        node.contentScale = contentScale
+        node.repeat = repeat
+        node.alpha = alpha
+        node.colorFilter = colorFilter
+        node.drawBehind = drawBehind
+        node.drawFront = drawFront
+    }
+
+    override fun InspectorInfo.inspectableProperties() {
+        inspectorInfo()
+    }
+
+    override fun hashCode(): Int {
+        var result = painter.hashCode()
+        result = 31 * result + shape.hashCode()
+        result = 31 * result + alignment.hashCode()
+        result = 31 * result + contentScale.hashCode()
+        result = 31 * result + repeat.hashCode()
+        result = 31 * result + alpha.hashCode()
+        result = 31 * result + (colorFilter?.hashCode() ?: 0)
+        result = 31 * result + drawBehind.hashCode()
+        result = 31 * result + drawFront.hashCode()
+        return result
+    }
+
+    override fun equals(other: Any?): Boolean {
+        val otherModifier = other as? ImageBackgroundElement ?: return false
+        return painter == otherModifier.painter &&
+                alignment == otherModifier.alignment &&
+                contentScale == otherModifier.contentScale &&
+                repeat == otherModifier.repeat &&
+                shape == otherModifier.shape &&
+                alpha == otherModifier.alpha &&
+                colorFilter == otherModifier.colorFilter &&
+                drawBehind == otherModifier.drawBehind &&
+                drawFront == otherModifier.drawFront
+    }
+}
+
+private class ImageBackgroundNode(
+    var painter: Painter,
+    var shape: Shape,
+    var alignment: Alignment,
+    var contentScale: ContentScale,
+    var repeat: BackgroundRepeat,
+    var alpha: Float,
+    var colorFilter: ColorFilter?,
+    var drawBehind: ContentDrawScope.() -> Unit,
+    var drawFront: ContentDrawScope.() -> Unit
+) : DrawModifierNode, Modifier.Node() {
+    override fun ContentDrawScope.draw() {
+        val size = this.size
+        drawIntoCanvas { canvas ->
+
+            // 1. Clip to the destination bounds FIRST
+            canvas.save()
+            shape.createOutline(size, layoutDirection, this).apply {
+                canvas.clipPath(Path().apply { addRect(size.toRect()) })
+            }
+
+            val intrinsicSize = painter.intrinsicSize
+            val srcWidth = if (intrinsicSize.isSpecified) intrinsicSize.width else size.width
+            val srcHeight = if (intrinsicSize.isSpecified) intrinsicSize.height else size.height
+            val srcSize = Size(srcWidth, srcHeight)
+
+            drawBehind()
+
+            // 3. Draw the image with repeat
+            drawTiledImage(
+                drawScope = this,
+                painter,
+                srcSize = srcSize, // Use original image size for tiling
+                dstSize = size, // Destination size
+                alignment = alignment,
+                contentScale = contentScale,
+                repeat = repeat,
+                layoutDirection = layoutDirection,
+                alpha = alpha,
+                colorFilter = colorFilter,
+            )
+
+            drawFront()
+
+            // 4. Restore canvas state
+            canvas.restore()
+        }
+        drawContent()
+    }
+}
+
+
+/**
+ * Draws a tiled image on the canvas based on the specified repeat mode,
+ * respecting the aspect ratio defined by the contentScale.
+ */
+private fun drawTiledImage(
+    drawScope: DrawScope,
+    painter: Painter,
+    srcSize: Size,
+    dstSize: Size,
+    alignment: Alignment,
+    contentScale: ContentScale,
+    repeat: BackgroundRepeat,
+    layoutDirection: LayoutDirection,
+    alpha: Float,
+    colorFilter: ColorFilter?,
+) {
+    when (repeat) {
+        BackgroundRepeat.Repeat -> {
+            // Tile in both directions
+            var tileDstSize = Size.Zero
+            var x = 0
+            while (x < dstSize.width) {
+                var y = 0
+                while (y < dstSize.height) {
+                    tileDstSize = calculateTileSize(srcSize, dstSize, contentScale)
+                    val alignedPosition = alignment.align(
+                        IntSize(tileDstSize.width.roundToInt(), tileDstSize.height.roundToInt()),
+                        IntSize(tileDstSize.width.roundToInt(), tileDstSize.height.roundToInt()),
+                        layoutDirection
+                    )
+                    val dx = if (layoutDirection == LayoutDirection.Rtl) {
+                        dstSize.width - x - tileDstSize.width
+                    } else {
+                        x + alignedPosition.x.toFloat()
+                    }
+
+                    val dy = y + alignedPosition.y.toFloat()
+
+                    drawScope.translate(dx, dy) {
+                        with(painter) {
+                            draw(tileDstSize, alpha, colorFilter)
+                        }
+                    }
+
+                    y += tileDstSize.height.toInt()
+                }
+                x += tileDstSize.width.toInt()
+            }
+        }
+
+        BackgroundRepeat.RepeatX -> {
+            // Tile horizontally
+            var x = 0
+            while (x < dstSize.width) {
+                val tileDstSize = calculateTileSize(srcSize, dstSize, contentScale)
+                val alignedPosition = alignment.align(
+                    IntSize(tileDstSize.width.roundToInt(), tileDstSize.height.roundToInt()),
+                    IntSize(dstSize.width.roundToInt(), tileDstSize.height.roundToInt()),
+                    LayoutDirection.Ltr
+                )
+                val dx = if (layoutDirection == LayoutDirection.Rtl) {
+                    dstSize.width - x - tileDstSize.width
+                } else {
+                    x + alignedPosition.x.toFloat()
+                }
+                drawScope.translate(dx, 0f) {
+                    with(painter) {
+                        draw(tileDstSize, alpha, colorFilter)
+                    }
+                }
+                x += tileDstSize.width.toInt()
+            }
+        }
+
+        BackgroundRepeat.RepeatY -> {
+            // Tile vertically
+            var y = 0
+            while (y < dstSize.height) {
+                val tileDstSize = calculateTileSize(srcSize, dstSize, contentScale)
+                val alignedPosition = alignment.align(
+                    IntSize(tileDstSize.width.roundToInt(), tileDstSize.height.roundToInt()),
+                    IntSize(tileDstSize.width.roundToInt(), dstSize.height.roundToInt()),
+                    LayoutDirection.Ltr
+                )
+                val dy = y + alignedPosition.y.toFloat()
+                drawScope.translate(0f, dy) {
+                    with(painter) {
+                        draw(tileDstSize, alpha, colorFilter)
+                    }
+                }
+                y += tileDstSize.height.toInt()
+            }
+        }
+
+        BackgroundRepeat.NoRepeat -> {
+            val tileDstSize = calculateTileSize(srcSize, dstSize, contentScale)
+            val alignedPosition = alignment.align(
+                IntSize(tileDstSize.width.roundToInt(), tileDstSize.height.roundToInt()),
+                IntSize(dstSize.width.roundToInt(), dstSize.height.roundToInt()),
+                layoutDirection
+            )
+            val dx = alignedPosition.x.toFloat()
+            val dy = alignedPosition.y.toFloat()
+            drawScope.translate(dx, dy) {
+                // Draw only once
+                with(painter) {
+                    draw(tileDstSize, alpha, colorFilter)
+                }
+            }
+        }
+    }
+}
+
+private fun calculateTileSize(
+    srcSize: Size,
+    dstSize: Size,
+    contentScale: ContentScale
+): Size {
+    return when (contentScale) {
+        ContentScale.Crop -> {
+            // Scale to cover the entire area, maintaining the aspect ratio
+            val scale = max(dstSize.width / srcSize.width, dstSize.height / srcSize.height)
+            Size(srcSize.width * scale, srcSize.height * scale)
+        }
+
+        ContentScale.Fit -> {
+            // Scale to fit completely within the area, maintaining the aspect ratio
+            val scale = min(dstSize.width / srcSize.width, dstSize.height / srcSize.height)
+            Size(srcSize.width * scale, srcSize.height * scale)
+        }
+
+        ContentScale.FillHeight -> {
+            // Scale to match the destination height, maintaining the aspect ratio
+            val scale = dstSize.height / srcSize.height
+            Size(srcSize.width * scale, dstSize.height)
+        }
+
+        ContentScale.FillWidth -> {
+            // Scale to match the destination width, maintaining the aspect ratio
+            val scale = dstSize.width / srcSize.width
+            Size(dstSize.width, srcSize.height * scale)
+        }
+
+        ContentScale.Inside -> {
+            // If the image is smaller, draw at original size
+            // If the image is larger, scale down to fit within the area, maintaining the aspect ratio
+            if (srcSize.width <= dstSize.width && srcSize.height <= dstSize.height) {
+                srcSize
+            } else {
+                val scale = min(dstSize.width / srcSize.width, dstSize.height / srcSize.height)
+                Size(srcSize.width * scale, srcSize.height * scale)
+            }
+        }
+
+        ContentScale.None -> {
+            // Draw the image at its original size
+            srcSize
+        }
+
+        ContentScale.FillBounds -> {
+            // Scale to fill the entire area, ignoring the aspect ratio (might stretch)
+            dstSize
+        }
+
+        else -> Size.Zero
+    }
+}
+
+/** Enum class representing CSS-like background repeat behavior. */
+enum class BackgroundRepeat {
+    Repeat,
+    RepeatX,
+    RepeatY,
+    NoRepeat
+}
