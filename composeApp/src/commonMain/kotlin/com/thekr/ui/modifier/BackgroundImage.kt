@@ -45,6 +45,7 @@ import kotlin.math.roundToInt
  * @param colorFilter ColorFilter to apply to the image when drawn
  * @param drawBehind DrawScope to draw behind the image
  * @param drawFront DrawScope to draw in front of the image
+ * @author  Ahmed Hosny
  */
 @Stable
 fun Modifier.backgroundImage(
@@ -242,54 +243,30 @@ private fun drawTiledImage(
             }
         }
     } else {
-        repeat(
-            floatAlignedPosition,
-            tileDstSize,
-            spaceSize,
-            layoutDirection,
-            drawScope,
-            painter,
-            alpha,
-            colorFilter,
-            repeat
-        )
-    }
-}
-
-private fun repeat(
-    alignedPosition: Offset,
-    tileDstSize: Size,
-    spaceSize: Size,
-    layoutDirection: LayoutDirection,
-    drawScope: DrawScope,
-    painter: Painter,
-    alpha: Float,
-    colorFilter: ColorFilter?,
-    repeat: BackgroundRepeat,
-) {
-    var x = alignedPosition.x
-    while (true) {
-        var y = alignedPosition.y
-        while (y < spaceSize.height) {
-            println("Repeat Ltr x: $x y: $y")
-            drawScope.translate(x, y) {
-                with(painter) {
-                    draw(tileDstSize, alpha, colorFilter)
+        var x = floatAlignedPosition.x
+        while (true) {
+            var y = floatAlignedPosition.y
+            while (y < spaceSize.height) {
+                println("Repeat Ltr x: $x y: $y")
+                drawScope.translate(x, y) {
+                    with(painter) {
+                        draw(tileDstSize, alpha, colorFilter)
+                    }
                 }
+                if (repeat == BackgroundRepeat.RepeatX) break
+                y += tileDstSize.height.toInt()
             }
-            if (repeat == BackgroundRepeat.RepeatX) break
-            y += tileDstSize.height.toInt()
-        }
-        if (repeat == BackgroundRepeat.RepeatY) break
+            if (repeat == BackgroundRepeat.RepeatY) break
 
-        when (layoutDirection) {
-            LayoutDirection.Ltr -> if (x > spaceSize.width) break
-            LayoutDirection.Rtl -> if (x < 0) break
-        }
-        x += if (layoutDirection == LayoutDirection.Ltr) {
-            tileDstSize.width.toInt()
-        } else {
-            -tileDstSize.width.toInt()
+            when (layoutDirection) {
+                LayoutDirection.Ltr -> if (x > spaceSize.width) break
+                LayoutDirection.Rtl -> if (x < 0) break
+            }
+            x += if (layoutDirection == LayoutDirection.Ltr) {
+                tileDstSize.width.toInt()
+            } else {
+                -tileDstSize.width.toInt()
+            }
         }
     }
 }
