@@ -81,6 +81,7 @@ fun ZekrBar(
                     imageResource(Res.drawable.header_background),
                     colorFilter = ColorFilter.tint(zekrColors.mainHeaderBackgroundImageTint),
                     contentScale = ContentScale.Crop,
+                    repeat = BackgroundRepeat.RepeatX,
                     drawBehind = {
                         drawRect(
                             brush = Brush.verticalGradient(
