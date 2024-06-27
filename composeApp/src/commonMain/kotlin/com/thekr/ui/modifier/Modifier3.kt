@@ -28,9 +28,11 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.geometry.isSpecified
 import androidx.compose.ui.geometry.toRect
 import androidx.compose.ui.graphics.BlendMode
+import androidx.compose.ui.graphics.Canvas
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
@@ -39,7 +41,6 @@ import androidx.compose.ui.graphics.drawscope.DrawScope.Companion.DefaultBlendMo
 import androidx.compose.ui.graphics.drawscope.DrawStyle
 import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
-import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.node.DrawModifierNode
@@ -60,6 +61,7 @@ import kotlin.math.roundToInt
  * @param shape desired shape of the background
  * @param alignment Alignment of the image within the layout bounds
  * @param contentScale Strategy for scaling the image if its size does not
+ * @param repeat CSS-like background repeat behavior
  * @param alpha Opacity to be applied to [bitmap], with `0` being
  *     completely transparent and `1` being completely opaque. The value
  *     must be between `0` and `1`.
@@ -75,6 +77,7 @@ fun Modifier.background3(
     shape: Shape = RectangleShape,
     alignment: Alignment = Alignment.Center,
     contentScale: ContentScale = ContentScale.Inside,
+    repeat: BackgroundRepeat = BackgroundRepeat.Repeat,
     @FloatRange(from = 0.0, to = 1.0) alpha: Float = 1.0f,
     style: DrawStyle = Fill,
     colorFilter: ColorFilter? = null,
@@ -90,6 +93,7 @@ fun Modifier.background3(
         shape = shape,
         alignment = alignment,
         contentScale = contentScale,
+        repeat = repeat,
         alpha = alpha,
         style = style,
         colorFilter = colorFilter,
@@ -101,11 +105,16 @@ fun Modifier.background3(
             name = "background"
             properties["image"] = bitmap
             properties["shape"] = shape
+            properties["alignment"] = alignment
+            properties["contentScale"] = contentScale
+            properties["backgroundRepeat"] = repeat
             properties["alpha"] = alpha
             properties["style"] = style
             properties["colorFilter"] = colorFilter
             properties["blendMode"] = blendMode
             properties["filterQuality"] = filterQuality
+            properties["drawBehind"] = drawBehind
+            properties["drawFront"] = drawFront
         }
     )
 }
@@ -116,6 +125,7 @@ private class ImageBackgroundElement(
     private val shape: Shape,
     private val alignment: Alignment,
     private val contentScale: ContentScale,
+    private val repeat: BackgroundRepeat,
     private val alpha: Float,
     private val style: DrawStyle,
     private val colorFilter: ColorFilter?,
@@ -132,6 +142,7 @@ private class ImageBackgroundElement(
             shape,
             alignment,
             contentScale,
+            repeat,
             alpha,
             style,
             colorFilter,
@@ -148,6 +159,7 @@ private class ImageBackgroundElement(
         node.shape = shape
         node.alignment = alignment
         node.contentScale = contentScale
+        node.repeat = repeat
         node.alpha = alpha
         node.style = style
         node.colorFilter = colorFilter
@@ -167,6 +179,7 @@ private class ImageBackgroundElement(
         result = 31 * result + shape.hashCode()
         result = 31 * result + alignment.hashCode()
         result = 31 * result + contentScale.hashCode()
+        result = 31 * result + repeat.hashCode()
         result = 31 * result + alpha.hashCode()
         result = 31 * result + style.hashCode()
         result = 31 * result + (colorFilter?.hashCode() ?: 0)
@@ -183,6 +196,7 @@ private class ImageBackgroundElement(
                 painter == otherModifier.painter &&
                 alignment == otherModifier.alignment &&
                 contentScale == otherModifier.contentScale &&
+                repeat == otherModifier.repeat &&
                 shape == otherModifier.shape &&
                 alpha == otherModifier.alpha &&
                 style == otherModifier.style &&
@@ -200,6 +214,7 @@ private class ImageBackgroundNode(
     var shape: Shape,
     var alignment: Alignment,
     var contentScale: ContentScale,
+    var repeat: BackgroundRepeat,
     var alpha: Float,
     var style: DrawStyle,
     var colorFilter: ColorFilter?,
@@ -249,18 +264,38 @@ private class ImageBackgroundNode(
 ////                }
 //            }
 
-            drawImage(
+            // 1. Create a Paint object
+            val paint = Paint().apply {
+                alpha = this@ImageBackgroundNode.alpha
+                colorFilter = this@ImageBackgroundNode.colorFilter
+                blendMode = this@ImageBackgroundNode.blendMode
+                filterQuality = this@ImageBackgroundNode.filterQuality
+//                style = this@ImageBackgroundNode.style
+            }
+
+            // 3. Draw the image with repeat
+            drawBehind()
+            drawTiledImage(
+                canvas = canvas,
                 image = image,
-                srcOffset = IntOffset.Zero, // We're using srcRect for source area
-                srcSize = IntSize(srcRect.width.toInt(), srcRect.height.toInt()),
-                dstOffset = IntOffset(dstRect.left.toInt(), dstRect.top.toInt()),
-                dstSize = IntSize(dstRect.width.toInt(), dstRect.height.toInt()),
-                alpha = alpha,
-                style = style,
-                colorFilter = colorFilter,
-                blendMode = blendMode,
-                filterQuality = filterQuality,
+                srcRect = srcRect,
+                dstRect = dstRect,
+                repeat = repeat,
+                paint = paint
             )
+
+//            drawImage(
+//                image = image,
+//                srcOffset = IntOffset.Zero, // We're using srcRect for source area
+//                srcSize = IntSize(srcRect.width.toInt(), srcRect.height.toInt()),
+//                dstOffset = IntOffset(dstRect.left.toInt(), dstRect.top.toInt()),
+//                dstSize = IntSize(dstRect.width.toInt(), dstRect.height.toInt()),
+//                alpha = alpha,
+//                style = style,
+//                colorFilter = colorFilter,
+//                blendMode = blendMode,
+//                filterQuality = filterQuality,
+//            )
 
             drawFront()
 
@@ -270,6 +305,64 @@ private class ImageBackgroundNode(
         drawContent()
     }
 }
+
+/**
+ * Draws a tiled image on the canvas based on the specified repeat mode.
+ */
+private fun drawTiledImage(
+    canvas: Canvas,
+    image: ImageBitmap,
+    srcRect: Rect,
+    dstRect: Rect,
+    repeat: BackgroundRepeat,
+    paint: Paint
+) {
+    when (repeat) {
+        BackgroundRepeat.Repeat -> {
+            // Tile the image in both directions
+            val tileWidth = srcRect.width.toInt()
+            val tileHeight = srcRect.height.toInt()
+
+            var x = dstRect.left.toInt()
+            while (x < dstRect.right) {
+                var y = dstRect.top.toInt()
+                while (y < dstRect.bottom) {
+                    val tileDstRect = Rect(x.toFloat(), y.toFloat(), (x + tileWidth).toFloat(), (y + tileHeight).toFloat())
+                    canvas.drawImageRect(
+                        image = image,
+                        srcOffset = IntOffset.Zero,
+                        srcSize = IntSize(srcRect.width.toInt(), srcRect.height.toInt()),
+                        dstOffset = IntOffset(tileDstRect.left.toInt(), tileDstRect.top.toInt()),
+                        dstSize = IntSize(tileDstRect.width.toInt(), tileDstRect.height.toInt()),
+                        paint = paint
+                    )
+                    y += tileHeight
+                }
+                x += tileWidth
+            }
+        }
+        BackgroundRepeat.RepeatX -> {
+            // Tile horizontally only
+            // ... (implementation similar to Repeat, but only iterate along x)
+        }
+        BackgroundRepeat.RepeatY -> {
+            // Tile vertically only
+            // ... (implementation similar to Repeat, but only iterate along y)
+        }
+        BackgroundRepeat.NoRepeat -> {
+            // Draw only once
+            canvas.drawImageRect(
+                image = image,
+                srcOffset = IntOffset.Zero,
+                srcSize = IntSize(srcRect.width.toInt(), srcRect.height.toInt()),
+                dstOffset = IntOffset(dstRect.left.toInt(), dstRect.top.toInt()),
+                dstSize = IntSize(dstRect.width.toInt(), dstRect.height.toInt()),
+                paint = paint
+            )
+        }
+    }
+}
+
 
 // Helper functions to calculate scaled size based on ContentScale
 private fun calculateScaledSize(
@@ -334,4 +427,14 @@ private fun calculateScaledSize(
         ContentScale.FillBounds -> dstSize
         else -> Size.Zero
     }
+}
+
+/**
+ * Enum class representing CSS-like background repeat behavior.
+ */
+enum class BackgroundRepeat {
+    Repeat,
+    RepeatX,
+    RepeatY,
+    NoRepeat
 }

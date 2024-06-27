@@ -42,6 +42,7 @@ import com.thekr.ui.home.bar.top.HeaderTabsRow
 import com.thekr.ui.home.bar.top.HeaderText
 import com.thekr.ui.home.bar.top.HomeBarCreateAction
 import com.thekr.ui.home.bar.top.SearchUi
+import com.thekr.ui.modifier.BackgroundRepeat
 import com.thekr.ui.modifier.background3
 import com.thekr.ui.modifier.background4
 import com.thekr.ui.navigation.NavigationActions
@@ -80,6 +81,7 @@ fun ZekrBar(
                     imageResource(Res.drawable.header_background),
                     colorFilter = ColorFilter.tint(zekrColors.mainHeaderBackgroundImageTint),
                     contentScale = ContentScale.Crop,
+                    repeat = BackgroundRepeat.NoRepeat,
                     drawBehind = {
                         drawRect(
                             brush = Brush.verticalGradient(
