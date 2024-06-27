@@ -272,6 +272,7 @@ private class ImageBackgroundNode(
                 image = image,
                 srcRect = srcRect,
                 dstRect = dstRect,
+                scaledSize = scaledSize,
                 repeat = repeat,
                 paint = paint
             )
@@ -293,20 +294,23 @@ private fun drawTiledImage(
     image: ImageBitmap,
     srcRect: Rect,
     dstRect: Rect,
+    scaledSize: Size,
     repeat: BackgroundRepeat,
     paint: Paint
 ) {
     when (repeat) {
         BackgroundRepeat.Repeat -> {
-            // Tile the image in both directions
-            val tileWidth = srcRect.width.toInt()
-            val tileHeight = srcRect.height.toInt()
-
-            var x = dstRect.left.toInt()
+            // Tile in both directions
+            var x = dstRect.left
             while (x < dstRect.right) {
-                var y = dstRect.top.toInt()
+                var y = dstRect.top
                 while (y < dstRect.bottom) {
-                    val tileDstRect = Rect(x.toFloat(), y.toFloat(), (x + tileWidth).toFloat(), (y + tileHeight).toFloat())
+                    val tileDstRect = Rect(
+                        x,
+                        y,
+                        x + scaledSize.width,
+                        y + scaledSize.height
+                    )
                     canvas.drawImageRect(
                         image = image,
                         srcOffset = IntOffset.Zero,
@@ -315,41 +319,39 @@ private fun drawTiledImage(
                         dstSize = IntSize(tileDstRect.width.toInt(), tileDstRect.height.toInt()),
                         paint = paint
                     )
-                    y += tileHeight
+                    y += scaledSize.height
                 }
-                x += tileWidth
+                x += scaledSize.width
             }
         }
         BackgroundRepeat.RepeatX -> {
-            // Tile horizontally only
-            val tileWidth = srcRect.width.toInt()
+            // Tile horizontally
             var x = dstRect.left.toInt()
             while (x < dstRect.right) {
                 canvas.drawImageRect(
                     image = image,
                     srcOffset = IntOffset.Zero,
                     srcSize = IntSize(srcRect.width.toInt(), srcRect.height.toInt()),
-                    dstOffset = IntOffset(x, dstRect.top.toInt()), // Draw at the same y position
-                    dstSize = IntSize(tileWidth, dstRect.height.toInt()), // Use destination height
+                    dstOffset = IntOffset(x, dstRect.top.toInt()),
+                    dstSize = IntSize(scaledSize.width.toInt(), dstRect.height.toInt()), // Use scaled width
                     paint = paint
                 )
-                x += tileWidth
+                x += scaledSize.width.toInt()
             }
         }
         BackgroundRepeat.RepeatY -> {
-            // Tile vertically only
-            val tileHeight = srcRect.height.toInt()
+            // Tile vertically
             var y = dstRect.top.toInt()
             while (y < dstRect.bottom) {
                 canvas.drawImageRect(
                     image = image,
                     srcOffset = IntOffset.Zero,
                     srcSize = IntSize(srcRect.width.toInt(), srcRect.height.toInt()),
-                    dstOffset = IntOffset(dstRect.left.toInt(), y), // Draw at the same x position
-                    dstSize = IntSize(dstRect.width.toInt(), tileHeight), // Use destination width
+                    dstOffset = IntOffset(dstRect.left.toInt(), y),
+                    dstSize = IntSize(dstRect.width.toInt(), scaledSize.height.toInt()), // Use scaled height
                     paint = paint
                 )
-                y += tileHeight
+                y += scaledSize.height.toInt()
             }
         }
         BackgroundRepeat.NoRepeat -> {
