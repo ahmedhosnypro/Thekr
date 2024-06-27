@@ -32,6 +32,7 @@ fun TopBarHeaderControls(
     content: @Composable () -> Unit
 ) {
     val zekrColors = ZekrTheme.colors(settingsDetails)
+    CardDefaults
     Card(
         modifier = modifier
             .fillMaxWidth()
