@@ -1,5 +1,7 @@
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
+import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import java.awt.Dimension
@@ -9,11 +11,15 @@ import com.thekr.JvmApplication
 fun main() = application {
     JvmApplication // static initialization for dataStores
     Window(
-        title = "Thekr",
-        state = rememberWindowState(width = 800.dp, height = 600.dp),
+        title = "Desktop",
+        state = rememberWindowState(
+            width = 900.dp,
+            height = 900.dp,
+            position = WindowPosition.Aligned(Alignment.Center)
+        ),
         onCloseRequest = ::exitApplication,
     ) {
-        window.minimumSize = Dimension(350, 600)
+        window.minimumSize = Dimension(900, 900)
         App()
     }
 }

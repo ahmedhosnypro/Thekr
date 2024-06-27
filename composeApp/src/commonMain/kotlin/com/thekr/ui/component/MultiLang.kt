@@ -33,6 +33,15 @@ fun MultiLang(
     }
 }
 
+@Composable
+fun MultiLang(layoutDirection: LayoutDirection, content: @Composable () -> Unit) {
+    CompositionLocalProvider(
+        LocalLayoutDirection provides layoutDirection
+    ) {
+        content()
+    }
+}
+
 fun isRtlLanguage(langTag: String) = langTag in rtlLanguages
 
 @Composable
