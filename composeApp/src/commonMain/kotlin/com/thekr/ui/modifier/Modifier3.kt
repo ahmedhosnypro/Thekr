@@ -242,7 +242,7 @@ private class ImageBackgroundNode(
 
             val scaledSize = calculateScaledSize(srcSize, size, contentScale)
 
-            // 2. NOW draw the background image
+            // 3. Calculate aligned position
             val alignedPosition = alignment.align(
                 IntSize(scaledSize.width.roundToInt(), scaledSize.height.roundToInt()),
                 IntSize(size.width.roundToInt(), size.height.roundToInt()),
@@ -252,19 +252,11 @@ private class ImageBackgroundNode(
             val dx = alignedPosition.x.toFloat()
             val dy = alignedPosition.y.toFloat()
 
-            // 3. Calculate src and dst Rects for drawImage
+            // 4. Calculate src and dst Rect for drawImage
             val srcRect = Rect(0f, 0f, srcSize.width, srcSize.height)
             val dstRect = Rect(dx, dy, dx + scaledSize.width, dy + scaledSize.height)
 
-            drawBehind()
-//            translate(dx, dy) {
-//
-////                with(painter) {
-////                    draw(size = scaledSize, alpha = alpha, colorFilter = colorFilter)
-////                }
-//            }
-
-            // 1. Create a Paint object
+            // 5. Create a Paint object
             val paint = Paint().apply {
                 alpha = this@ImageBackgroundNode.alpha
                 colorFilter = this@ImageBackgroundNode.colorFilter
@@ -273,7 +265,7 @@ private class ImageBackgroundNode(
 //                style = this@ImageBackgroundNode.style
             }
 
-            // 3. Draw the image with repeat
+            // 6. Draw the image with repeat
             drawBehind()
             drawTiledImage(
                 canvas = canvas,
@@ -284,22 +276,9 @@ private class ImageBackgroundNode(
                 paint = paint
             )
 
-//            drawImage(
-//                image = image,
-//                srcOffset = IntOffset.Zero, // We're using srcRect for source area
-//                srcSize = IntSize(srcRect.width.toInt(), srcRect.height.toInt()),
-//                dstOffset = IntOffset(dstRect.left.toInt(), dstRect.top.toInt()),
-//                dstSize = IntSize(dstRect.width.toInt(), dstRect.height.toInt()),
-//                alpha = alpha,
-//                style = style,
-//                colorFilter = colorFilter,
-//                blendMode = blendMode,
-//                filterQuality = filterQuality,
-//            )
-
             drawFront()
 
-            // 3. Restore the canvas state for the content
+            // 7. Restore the canvas state for the content
             canvas.restore()
         }
         drawContent()
@@ -343,11 +322,35 @@ private fun drawTiledImage(
         }
         BackgroundRepeat.RepeatX -> {
             // Tile horizontally only
-            // ... (implementation similar to Repeat, but only iterate along x)
+            val tileWidth = srcRect.width.toInt()
+            var x = dstRect.left.toInt()
+            while (x < dstRect.right) {
+                canvas.drawImageRect(
+                    image = image,
+                    srcOffset = IntOffset.Zero,
+                    srcSize = IntSize(srcRect.width.toInt(), srcRect.height.toInt()),
+                    dstOffset = IntOffset(x, dstRect.top.toInt()), // Draw at the same y position
+                    dstSize = IntSize(tileWidth, dstRect.height.toInt()), // Use destination height
+                    paint = paint
+                )
+                x += tileWidth
+            }
         }
         BackgroundRepeat.RepeatY -> {
             // Tile vertically only
-            // ... (implementation similar to Repeat, but only iterate along y)
+            val tileHeight = srcRect.height.toInt()
+            var y = dstRect.top.toInt()
+            while (y < dstRect.bottom) {
+                canvas.drawImageRect(
+                    image = image,
+                    srcOffset = IntOffset.Zero,
+                    srcSize = IntSize(srcRect.width.toInt(), srcRect.height.toInt()),
+                    dstOffset = IntOffset(dstRect.left.toInt(), y), // Draw at the same x position
+                    dstSize = IntSize(dstRect.width.toInt(), tileHeight), // Use destination width
+                    paint = paint
+                )
+                y += tileHeight
+            }
         }
         BackgroundRepeat.NoRepeat -> {
             // Draw only once
