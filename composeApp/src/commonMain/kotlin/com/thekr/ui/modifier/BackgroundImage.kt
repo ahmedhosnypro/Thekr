@@ -5,6 +5,7 @@ import androidx.compose.runtime.Stable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.geometry.isSpecified
 import androidx.compose.ui.geometry.toRect
@@ -162,18 +163,20 @@ private class ImageBackgroundNode(
     var drawFront: ContentDrawScope.() -> Unit
 ) : DrawModifierNode, Modifier.Node() {
     override fun ContentDrawScope.draw() {
-        val size = this.size
+        val spaceSize = this.size
         drawIntoCanvas { canvas ->
 
             // 1. Clip to the destination bounds FIRST
             canvas.save()
-            shape.createOutline(size, layoutDirection, this).apply {
-                canvas.clipPath(Path().apply { addRect(size.toRect()) })
+            shape.createOutline(spaceSize, layoutDirection, this).apply {
+                canvas.clipPath(Path().apply { addRect(spaceSize.toRect()) })
             }
 
+            // 2. Calculate the painter source size
             val intrinsicSize = painter.intrinsicSize
-            val srcWidth = if (intrinsicSize.isSpecified) intrinsicSize.width else size.width
-            val srcHeight = if (intrinsicSize.isSpecified) intrinsicSize.height else size.height
+            val srcWidth = if (intrinsicSize.isSpecified) intrinsicSize.width else spaceSize.width
+            val srcHeight =
+                if (intrinsicSize.isSpecified) intrinsicSize.height else spaceSize.height
             val srcSize = Size(srcWidth, srcHeight)
 
             drawBehind()
@@ -183,7 +186,7 @@ private class ImageBackgroundNode(
                 drawScope = this,
                 painter,
                 srcSize = srcSize, // Use original image size for tiling
-                dstSize = size, // Destination size
+                spaceSize = spaceSize, // Destination size
                 alignment = alignment,
                 contentScale = contentScale,
                 repeat = repeat,
@@ -210,7 +213,7 @@ private fun drawTiledImage(
     drawScope: DrawScope,
     painter: Painter,
     srcSize: Size,
-    dstSize: Size,
+    spaceSize: Size,
     alignment: Alignment,
     contentScale: ContentScale,
     repeat: BackgroundRepeat,
@@ -218,99 +221,73 @@ private fun drawTiledImage(
     alpha: Float,
     colorFilter: ColorFilter?,
 ) {
-    when (repeat) {
-        BackgroundRepeat.Repeat -> {
-            // Tile in both directions
-            var tileDstSize = Size.Zero
-            var x = 0
-            while (x < dstSize.width) {
-                var y = 0
-                while (y < dstSize.height) {
-                    tileDstSize = calculateTileSize(srcSize, dstSize, contentScale)
-                    val alignedPosition = alignment.align(
-                        IntSize(tileDstSize.width.roundToInt(), tileDstSize.height.roundToInt()),
-                        IntSize(tileDstSize.width.roundToInt(), tileDstSize.height.roundToInt()),
-                        layoutDirection
-                    )
-                    val dx = if (layoutDirection == LayoutDirection.Rtl) {
-                        dstSize.width - x - tileDstSize.width
-                    } else {
-                        x + alignedPosition.x.toFloat()
-                    }
+    val tileDstSize = calculateTileSize(srcSize, spaceSize, contentScale)
 
-                    val dy = y + alignedPosition.y.toFloat()
+    val alignedPosition = alignment.align(
+        IntSize(tileDstSize.width.roundToInt(), tileDstSize.height.roundToInt()),
+        IntSize(spaceSize.width.roundToInt(), spaceSize.height.roundToInt()),
+        layoutDirection
+    )
 
-                    drawScope.translate(dx, dy) {
-                        with(painter) {
-                            draw(tileDstSize, alpha, colorFilter)
-                        }
-                    }
+    val floatAlignedPosition = Offset(alignedPosition.x.toFloat(), alignedPosition.y.toFloat())
 
-                    y += tileDstSize.height.toInt()
-                }
-                x += tileDstSize.width.toInt()
+    if (repeat == BackgroundRepeat.NoRepeat) {
+        val dx = floatAlignedPosition.x
+        val dy = floatAlignedPosition.y
+        drawScope.translate(dx, dy) {
+            with(painter) {
+                draw(tileDstSize, alpha, colorFilter)
             }
         }
+    } else {
+        repeat(
+            floatAlignedPosition,
+            tileDstSize,
+            spaceSize,
+            layoutDirection,
+            drawScope,
+            painter,
+            alpha,
+            colorFilter,
+            repeat
+        )
+    }
+}
 
-        BackgroundRepeat.RepeatX -> {
-            // Tile horizontally
-            var x = 0
-            while (x < dstSize.width) {
-                val tileDstSize = calculateTileSize(srcSize, dstSize, contentScale)
-                val alignedPosition = alignment.align(
-                    IntSize(tileDstSize.width.roundToInt(), tileDstSize.height.roundToInt()),
-                    IntSize(dstSize.width.roundToInt(), tileDstSize.height.roundToInt()),
-                    LayoutDirection.Ltr
-                )
-                val dx = if (layoutDirection == LayoutDirection.Rtl) {
-                    dstSize.width - x - tileDstSize.width
-                } else {
-                    x + alignedPosition.x.toFloat()
-                }
-                drawScope.translate(dx, 0f) {
-                    with(painter) {
-                        draw(tileDstSize, alpha, colorFilter)
-                    }
-                }
-                x += tileDstSize.width.toInt()
-            }
-        }
-
-        BackgroundRepeat.RepeatY -> {
-            // Tile vertically
-            var y = 0
-            while (y < dstSize.height) {
-                val tileDstSize = calculateTileSize(srcSize, dstSize, contentScale)
-                val alignedPosition = alignment.align(
-                    IntSize(tileDstSize.width.roundToInt(), tileDstSize.height.roundToInt()),
-                    IntSize(tileDstSize.width.roundToInt(), dstSize.height.roundToInt()),
-                    LayoutDirection.Ltr
-                )
-                val dy = y + alignedPosition.y.toFloat()
-                drawScope.translate(0f, dy) {
-                    with(painter) {
-                        draw(tileDstSize, alpha, colorFilter)
-                    }
-                }
-                y += tileDstSize.height.toInt()
-            }
-        }
-
-        BackgroundRepeat.NoRepeat -> {
-            val tileDstSize = calculateTileSize(srcSize, dstSize, contentScale)
-            val alignedPosition = alignment.align(
-                IntSize(tileDstSize.width.roundToInt(), tileDstSize.height.roundToInt()),
-                IntSize(dstSize.width.roundToInt(), dstSize.height.roundToInt()),
-                layoutDirection
-            )
-            val dx = alignedPosition.x.toFloat()
-            val dy = alignedPosition.y.toFloat()
-            drawScope.translate(dx, dy) {
-                // Draw only once
+private fun repeat(
+    alignedPosition: Offset,
+    tileDstSize: Size,
+    spaceSize: Size,
+    layoutDirection: LayoutDirection,
+    drawScope: DrawScope,
+    painter: Painter,
+    alpha: Float,
+    colorFilter: ColorFilter?,
+    repeat: BackgroundRepeat,
+) {
+    var x = alignedPosition.x
+    while (true) {
+        var y = alignedPosition.y
+        while (y < spaceSize.height) {
+            println("Repeat Ltr x: $x y: $y")
+            drawScope.translate(x, y) {
                 with(painter) {
                     draw(tileDstSize, alpha, colorFilter)
                 }
             }
+            if (repeat == BackgroundRepeat.RepeatX) break
+            y += tileDstSize.height.toInt()
+        }
+        if (repeat == BackgroundRepeat.RepeatY) break
+
+        when (layoutDirection) {
+            LayoutDirection.Ltr -> if (x > spaceSize.width) break
+            LayoutDirection.Rtl -> if (x < 0) break
+        }
+        x += if (layoutDirection == LayoutDirection.Ltr) {
+            tileDstSize.width.toInt()
+        } else {
+            -tileDstSize.width.toInt()
         }
     }
 }
