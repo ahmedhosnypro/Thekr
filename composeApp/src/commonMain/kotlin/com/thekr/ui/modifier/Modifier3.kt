@@ -305,15 +305,17 @@ private fun drawTiledImage(
             while (x < dstRect.right) {
                 var y = dstRect.top.toInt()
                 while (y < dstRect.bottom) {
-                    val tileDstRect = Rect(x.toFloat(), y.toFloat(), (x + scaledSize.width.toFloat()),
-                        (y + scaledSize.height.toFloat())
+                    val tileDstRect = Rect(
+                        x.toFloat(), y.toFloat(),
+                        (x + scaledSize.width).toFloat(),
+                        (y + scaledSize.height).toFloat()
                     )
                     canvas.drawImageRect(
                         image = image,
                         srcOffset = IntOffset.Zero,
                         srcSize = IntSize(srcRect.width.toInt(), srcRect.height.toInt()),
                         dstOffset = IntOffset(tileDstRect.left.toInt(), tileDstRect.top.toInt()),
-                        dstSize = IntSize(tileDstRect.width.toInt(), tileDstRect.height.toInt()),
+                        dstSize = IntSize(scaledSize.width.toInt(), scaledSize.height.toInt()),
                         paint = paint
                     )
                     y += scaledSize.height.toInt() // Increment by scaledSize.height
@@ -364,6 +366,7 @@ private fun drawTiledImage(
         }
     }
 }
+
 
 
 
