@@ -13,13 +13,13 @@ fun main() = application {
     Window(
         title = "Desktop",
         state = rememberWindowState(
-            width = 900.dp,
-            height = 900.dp,
+            width = 1920.dp,
+            height = 1080.dp,
             position = WindowPosition.Aligned(Alignment.Center)
         ),
         onCloseRequest = ::exitApplication,
     ) {
-        window.minimumSize = Dimension(900, 900)
+        window.minimumSize = Dimension(1920,1080)
         App()
     }
 }
