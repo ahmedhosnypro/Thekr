@@ -1,7 +1,6 @@
 package com.thekr.ui.bar.top
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
@@ -43,15 +42,13 @@ import com.thekr.ui.home.bar.top.HeaderText
 import com.thekr.ui.home.bar.top.HomeBarCreateAction
 import com.thekr.ui.home.bar.top.SearchUi
 import com.thekr.ui.modifier.BackgroundRepeat
-import com.thekr.ui.modifier.background3
-import com.thekr.ui.modifier.background4
+import com.thekr.ui.modifier.backgroundImage
 import com.thekr.ui.navigation.NavigationActions
 import com.thekr.ui.navigation.route.SettingsRoute
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.theme.ZekrTheme
 import com.thekr.ui.values.SDimensions.sTiny
 import com.thekr.ui.viewmodel.AzkarState
-import org.jetbrains.compose.resources.imageResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -77,10 +74,11 @@ fun ZekrBar(
 
         Column(
             modifier = Modifier
-                .background3(
-                    imageResource(Res.drawable.header_background),
+                .backgroundImage(
+                    painterResource(Res.drawable.header_background),
                     colorFilter = ColorFilter.tint(zekrColors.mainHeaderBackgroundImageTint),
-                    contentScale = ContentScale.Crop,
+                    contentScale = ContentScale.FillHeight,
+                    repeat = BackgroundRepeat.RepeatX,
                     drawBehind = {
                         drawRect(
                             brush = Brush.verticalGradient(
