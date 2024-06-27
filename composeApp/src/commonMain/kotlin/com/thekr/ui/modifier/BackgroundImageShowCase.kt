@@ -52,25 +52,25 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import com.thekr.data.proto.ThemeMode
 import com.thekr.resources.Res
 import com.thekr.resources.black_hex_pattern
 import com.thekr.resources.block
 import com.thekr.resources.golden_vector
 import com.thekr.resources.mono_vector
 import com.thekr.resources.wood
-import com.thekr.theme.AppTheme
 import com.thekr.ui.component.MultiLang
 import com.thekr.ui.component.bottomBorder
-import korlibs.image.color.scale
+import com.thekr.ui.theme.AppTheme
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun BackgroundImageShowCase() {
     val contentScale: MutableState<ContentScale> = remember { mutableStateOf(ContentScale.None) }
-    val drawableResource = remember { mutableStateOf(Res.drawable.wood) }
+    val drawableResource = remember { mutableStateOf(Res.drawable.golden_vector) }
     val shape = remember { mutableStateOf(RectangleShape) }
-    val alignment = remember { mutableStateOf(Alignment.Center) }
+    val alignment = remember { mutableStateOf(Alignment.TopStart) }
     val repeat = remember { mutableStateOf(BackgroundRepeat.NoRepeat) }
     val alpha = remember { mutableFloatStateOf(1f) }
     val colorFilter: MutableState<ColorFilter?> = remember { mutableStateOf(null) }
@@ -79,7 +79,9 @@ fun BackgroundImageShowCase() {
 
     val layoutDirection = remember { mutableStateOf(LayoutDirection.Ltr) }
 
-    AppTheme {
+    AppTheme (
+        themeMode = ThemeMode.Dark,
+    ){
         Surface {
             Column(modifier = Modifier.fillMaxSize()) {
                 Row(

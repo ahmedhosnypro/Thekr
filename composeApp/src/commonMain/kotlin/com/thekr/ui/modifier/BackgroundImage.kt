@@ -43,12 +43,14 @@ import kotlin.math.roundToInt
  *     completely transparent and `1` being completely opaque. The value
  *     must be between `0` and `1`.
  * @param colorFilter ColorFilter to apply to the image when drawn
+ * @param drawBehind DrawScope to draw behind the image
+ * @param drawFront DrawScope to draw in front of the image
  */
 @Stable
 fun Modifier.backgroundImage(
     painter: Painter,
     shape: Shape = RectangleShape,
-    alignment: Alignment = Alignment.Center,
+    alignment: Alignment = Alignment.TopStart,
     contentScale: ContentScale = ContentScale.None,
     repeat: BackgroundRepeat = BackgroundRepeat.Repeat,
     @FloatRange(from = 0.0, to = 1.0) alpha: Float = 1.0f,
