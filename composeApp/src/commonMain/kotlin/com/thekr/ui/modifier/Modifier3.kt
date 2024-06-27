@@ -298,6 +298,9 @@ private fun drawTiledImage(
     repeat: BackgroundRepeat,
     paint: Paint
 ) {
+    val scaledWidth = scaledSize.width.toInt()
+    val scaledHeight = scaledSize.height.toInt()
+
     when (repeat) {
         BackgroundRepeat.Repeat -> {
             // Tile in both directions
@@ -305,22 +308,17 @@ private fun drawTiledImage(
             while (x < dstRect.right) {
                 var y = dstRect.top.toInt()
                 while (y < dstRect.bottom) {
-                    val tileDstRect = Rect(
-                        x.toFloat(), y.toFloat(),
-                        (x + scaledSize.width).toFloat(),
-                        (y + scaledSize.height).toFloat()
-                    )
                     canvas.drawImageRect(
                         image = image,
                         srcOffset = IntOffset.Zero,
                         srcSize = IntSize(srcRect.width.toInt(), srcRect.height.toInt()),
-                        dstOffset = IntOffset(tileDstRect.left.toInt(), tileDstRect.top.toInt()),
-                        dstSize = IntSize(scaledSize.width.toInt(), scaledSize.height.toInt()),
+                        dstOffset = IntOffset(x, y),
+                        dstSize = IntSize(scaledWidth, scaledHeight), // Use scaledSize for drawing
                         paint = paint
                     )
-                    y += scaledSize.height.toInt() // Increment by scaledSize.height
+                    y += scaledHeight // Increment by scaled height
                 }
-                x += scaledSize.width.toInt() // Increment by scaledSize.width
+                x += scaledWidth  // Increment by scaled width
             }
         }
         BackgroundRepeat.RepeatX -> {
@@ -332,10 +330,10 @@ private fun drawTiledImage(
                     srcOffset = IntOffset.Zero,
                     srcSize = IntSize(srcRect.width.toInt(), srcRect.height.toInt()),
                     dstOffset = IntOffset(x, dstRect.top.toInt()),
-                    dstSize = IntSize(scaledSize.width.toInt(), scaledSize.height.toInt()), // Use scaledSize
+                    dstSize = IntSize(scaledWidth, scaledHeight),  // Use scaledSize for drawing
                     paint = paint
                 )
-                x += scaledSize.width.toInt() // Increment by scaledSize.width
+                x += scaledWidth // Increment by scaled width
             }
         }
         BackgroundRepeat.RepeatY -> {
@@ -347,10 +345,10 @@ private fun drawTiledImage(
                     srcOffset = IntOffset.Zero,
                     srcSize = IntSize(srcRect.width.toInt(), srcRect.height.toInt()),
                     dstOffset = IntOffset(dstRect.left.toInt(), y),
-                    dstSize = IntSize(scaledSize.width.toInt(), scaledSize.height.toInt()), // Use scaledSize
+                    dstSize = IntSize(scaledWidth, scaledHeight),  // Use scaledSize for drawing
                     paint = paint
                 )
-                y += scaledSize.height.toInt() // Increment by scaledSize.height
+                y += scaledHeight // Increment by scaled height
             }
         }
         BackgroundRepeat.NoRepeat -> {
