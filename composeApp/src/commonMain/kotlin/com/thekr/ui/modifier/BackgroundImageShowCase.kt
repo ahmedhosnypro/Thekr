@@ -88,7 +88,7 @@ fun BackgroundImageShowCase() {
     val drawableResource = remember { mutableStateOf(Res.drawable.background1) }
     val shape = remember { mutableStateOf(RectangleShape) }
     val alignment = remember { mutableStateOf(Alignment.TopStart) }
-    val repeat = remember { mutableStateOf(BackgroundRepeat.NoRepeat) }
+    val repeat = remember { mutableStateOf(PaintingRepeat.NoRepeat) }
     val alpha = remember { mutableFloatStateOf(1f) }
     val colorFilter: MutableState<ColorFilter?> = remember { mutableStateOf(null) }
     val drawBehind: MutableState<ContentDrawScope.() -> Unit> = remember { mutableStateOf({}) }
@@ -116,7 +116,7 @@ fun BackgroundImageShowCase() {
                         horizontalArrangement = Arrangement.spacedBy(16.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        LayoutDirection(layoutDirection, Modifier.requiredWidth(width / 5))
+                        LayoutDirections(layoutDirection, Modifier.requiredWidth(width / 5))
                         CustomSlider("Alpha:", alpha, Modifier.requiredWidth(width / 5))
                         CustomSlider(
                             "Height ",
@@ -179,7 +179,7 @@ fun BackgroundImageShowCase() {
                                 alpha = alpha.value,
                                 colorFilter = colorFilter.value,
                                 alignment = alignment.value,
-                                backgroundRepeat = repeat.value,
+                                repeat = repeat.value,
                             )
 
                     ) {
@@ -400,7 +400,7 @@ fun CustomSlider(
 }
 
 @Composable
-fun LayoutDirection(
+fun LayoutDirections(
     layoutDirection: MutableState<LayoutDirection>,
     modifier: Modifier = Modifier
 ) {
@@ -567,23 +567,23 @@ fun Alignments(
 
 @Composable
 fun Repeats(
-    backgroundRepeat: MutableState<BackgroundRepeat>
+    paintingRepeat: MutableState<PaintingRepeat>
 ) {
     CustomDropDownMenu(
         leadingIcon = {
             Icon(
-                when (backgroundRepeat.value) {
-                    BackgroundRepeat.RepeatX -> Icons.Filled.SwipeLeft
-                    BackgroundRepeat.RepeatY -> Icons.Filled.SwipeVertical
-                    BackgroundRepeat.Repeat -> Icons.Filled.Repeat
-                    BackgroundRepeat.NoRepeat -> Icons.Filled.RepeatOne
+                when (paintingRepeat.value) {
+                    PaintingRepeat.RepeatX -> Icons.Filled.SwipeLeft
+                    PaintingRepeat.RepeatY -> Icons.Filled.SwipeVertical
+                    PaintingRepeat.Repeat -> Icons.Filled.Repeat
+                    PaintingRepeat.NoRepeat -> Icons.Filled.RepeatOne
                 },
                 contentDescription = null,
             )
         },
         label = "Repeat",
         value = BackgroundRepeats.entries.find {
-            it.value == backgroundRepeat.value
+            it.value == paintingRepeat.value
         }?.description ?: "",
         dropDownMenu = { expanded ->
             DropdownMenu(
@@ -594,7 +594,7 @@ fun Repeats(
                     DropdownMenuItem(
                         text = { Text(it.description) },
                         onClick = {
-                            backgroundRepeat.value = it.value
+                            paintingRepeat.value = it.value
                             expanded.value = false
                         }
                     )
@@ -672,9 +672,9 @@ enum class Alignments(val value: Alignment, val description: String) {
     BottomEnd(Alignment.BottomEnd, "BottomEnd"),
 }
 
-enum class BackgroundRepeats(val value: BackgroundRepeat, val description: String) {
-    RepeatX(BackgroundRepeat.RepeatX, "RepeatX"),
-    RepeatY(BackgroundRepeat.RepeatY, "RepeatY"),
-    Repeat(BackgroundRepeat.Repeat, "Repeat"),
-    NoRepeat(BackgroundRepeat.NoRepeat, "NoRepeat"),
+enum class BackgroundRepeats(val value: PaintingRepeat, val description: String) {
+    RepeatX(PaintingRepeat.RepeatX, "RepeatX"),
+    RepeatY(PaintingRepeat.RepeatY, "RepeatY"),
+    Repeat(PaintingRepeat.Repeat, "Repeat"),
+    NoRepeat(PaintingRepeat.NoRepeat, "NoRepeat"),
 }

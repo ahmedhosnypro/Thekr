@@ -1,8 +1,23 @@
+/*
+ * Copyright 2020 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.thekr.ui.modifier
 
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.geometry.isSpecified
 import androidx.compose.ui.graphics.ColorFilter
@@ -10,8 +25,19 @@ import androidx.compose.ui.graphics.DefaultAlpha
 import androidx.compose.ui.graphics.drawscope.ContentDrawScope
 import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.layout.*
-import androidx.compose.ui.node.*
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.IntrinsicMeasurable
+import androidx.compose.ui.layout.IntrinsicMeasureScope
+import androidx.compose.ui.layout.Measurable
+import androidx.compose.ui.layout.MeasureResult
+import androidx.compose.ui.layout.MeasureScope
+import androidx.compose.ui.layout.times
+import androidx.compose.ui.node.DrawModifierNode
+import androidx.compose.ui.node.LayoutModifierNode
+import androidx.compose.ui.node.ModifierNodeElement
+import androidx.compose.ui.node.invalidateDraw
+import androidx.compose.ui.node.invalidateLayer
+import androidx.compose.ui.node.invalidateMeasurement
 import androidx.compose.ui.platform.InspectorInfo
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.IntSize
@@ -22,62 +48,67 @@ import kotlin.math.max
 import kotlin.math.roundToInt
 
 /**
- * Paint the content using [painter] with repeat capabilities.
+ * Paints and optionally repeats the content using [painter].
  *
- * @param painter Painter representing the image to be drawn
- * @param sizeToIntrinsics `true` to size the element relative to [Painter.intrinsicSize]
- * @param alignment Alignment of the image within the layout bounds
- * @param contentScale Strategy for scaling the image if its size does not
- * @param backgroundRepeat CSS-like background repeat behavior
+ * @param painter used to paint content
+ * @param repeat defines the repetition behavior of the painter
+ * @param sizeToIntrinsics `true` to size the element relative to
+ *     [Painter.intrinsicSize]
+ * @param alignment specifies alignment of the [painter] relative to
+ *     content
+ * @param contentScale strategy for scaling [painter] if its size does not
+ *     match the content size
  * @param alpha opacity of [painter]
  * @param colorFilter optional [ColorFilter] to apply to [painter]
  */
 fun Modifier.paint(
     painter: Painter,
+    repeat: PaintingRepeat = PaintingRepeat.NoRepeat,
     sizeToIntrinsics: Boolean = true,
-    alignment: Alignment = Alignment.TopStart,
-    contentScale: ContentScale = ContentScale.None,
-    backgroundRepeat: BackgroundRepeat = BackgroundRepeat.Repeat,
+    alignment: Alignment = Alignment.Center,
+    contentScale: ContentScale = ContentScale.Inside,
     alpha: Float = DefaultAlpha,
     colorFilter: ColorFilter? = null
-): Modifier = this then PainterElement(
+) = this then PainterElement(
     painter = painter,
+    repeat = repeat,
     sizeToIntrinsics = sizeToIntrinsics,
     alignment = alignment,
     contentScale = contentScale,
-    backgroundRepeat = backgroundRepeat,
     alpha = alpha,
     colorFilter = colorFilter
 )
 
 /**
- * Customized [ModifierNodeElement] for painting content using [painter]
- * with repeat capabilities.
+ * Customized [ModifierNodeElement] for painting content using [painter].
  *
  * @param painter used to paint content
- * @param sizeToIntrinsics `true` to size the element relative to [Painter.intrinsicSize]
- * @param alignment specifies alignment of the [painter] relative to content
- * @param contentScale strategy for scaling [painter] if its size does not match the content size
- * @param backgroundRepeat CSS-like background repeat behavior
+ * @param repeat defines the repetition behavior of the painter
+ * @param sizeToIntrinsics `true` to size the element relative to
+ *     [Painter.intrinsicSize]
+ * @param alignment specifies alignment of the [painter] relative to
+ *     content
+ * @param contentScale strategy for scaling [painter] if its size does not
+ *     match the content size
  * @param alpha opacity of [painter]
  * @param colorFilter optional [ColorFilter] to apply to [painter]
  */
 private data class PainterElement(
     val painter: Painter,
+    val repeat: PaintingRepeat,
     val sizeToIntrinsics: Boolean,
     val alignment: Alignment,
     val contentScale: ContentScale,
-    val backgroundRepeat: BackgroundRepeat,
     val alpha: Float,
     val colorFilter: ColorFilter?
 ) : ModifierNodeElement<PainterNode>() {
     override fun create(): PainterNode {
         return PainterNode(
             painter = painter,
+            repeat = repeat,
             sizeToIntrinsics = sizeToIntrinsics,
             alignment = alignment,
             contentScale = contentScale,
-            backgroundRepeat = backgroundRepeat,
             alpha = alpha,
             colorFilter = colorFilter,
         )
@@ -88,10 +119,10 @@ private data class PainterElement(
                 (sizeToIntrinsics && node.painter.intrinsicSize != painter.intrinsicSize)
 
         node.painter = painter
+        node.repeat = repeat
         node.sizeToIntrinsics = sizeToIntrinsics
         node.alignment = alignment
         node.contentScale = contentScale
-        node.backgroundRepeat = backgroundRepeat
         node.alpha = alpha
         node.colorFilter = colorFilter
 
@@ -106,39 +137,40 @@ private data class PainterElement(
     override fun InspectorInfo.inspectableProperties() {
         name = "paint"
         properties["painter"] = painter
+        properties["repeat"] = repeat
         properties["sizeToIntrinsics"] = sizeToIntrinsics
         properties["alignment"] = alignment
         properties["contentScale"] = contentScale
-        properties["repeat"] = backgroundRepeat
         properties["alpha"] = alpha
         properties["colorFilter"] = colorFilter
     }
 }
 
 /**
- * [DrawModifier] used to draw the provided [Painter] followed by the contents
- * of the component itself
+ * [DrawModifier] used to draw the provided [Painter] followed by the
+ * contents of the component itself
  *
- *
- * IMPORTANT NOTE: This class sets [androidx.compose.ui.Modifier.Node.shouldAutoInvalidate]
- * to false which means it MUST invalidate both draw and the layout. It invalidates both in the
- * [PainterElement.update] method through [LayoutModifierNode.invalidateLayer]
- * (invalidates draw) and [LayoutModifierNode.invalidateLayout] (invalidates layout).
+ * IMPORTANT NOTE: This class sets
+ * [androidx.compose.ui.Modifier.Node.shouldAutoInvalidate] to false
+ * which means it MUST invalidate both draw and the layout. It
+ * invalidates both in the [PainterElement.update] method through
+ * [LayoutModifierNode.invalidateLayer] (invalidates draw) and
+ * [LayoutModifierNode.invalidateLayout] (invalidates layout).
  */
 private class PainterNode(
     var painter: Painter,
+    var repeat: PaintingRepeat,
     var sizeToIntrinsics: Boolean,
-    var alignment: Alignment = Alignment.TopStart,
-    var contentScale: ContentScale = ContentScale.None,
-    var backgroundRepeat: BackgroundRepeat = BackgroundRepeat.Repeat,
+    var alignment: Alignment = Alignment.Center,
+    var contentScale: ContentScale = ContentScale.Inside,
     var alpha: Float = DefaultAlpha,
     var colorFilter: ColorFilter? = null
 ) : LayoutModifierNode, Modifier.Node(), DrawModifierNode {
 
     /**
      * Helper property to determine if we should size content to the intrinsic
-     * size of the Painter or not. This is only done if [sizeToIntrinsics] is true
-     * and the Painter has an intrinsic size
+     * size of the Painter or not. This is only done if [sizeToIntrinsics] is
+     * true and the Painter has an intrinsic size
      */
     private val useIntrinsicSize: Boolean
         get() = sizeToIntrinsics && painter.intrinsicSize.isSpecified
@@ -284,39 +316,88 @@ private class PainterNode(
 
     override fun ContentDrawScope.draw() {
         val intrinsicSize = painter.intrinsicSize
-        val srcWidth = if (intrinsicSize.hasSpecifiedAndFiniteWidth()) {
-            intrinsicSize.width
-        } else {
-            size.width
-        }
+        println("intrinsicSize: $intrinsicSize")
+        println("size: $size")
 
-        val srcHeight = if (intrinsicSize.hasSpecifiedAndFiniteHeight()) {
-            intrinsicSize.height
-        } else {
-            size.height
-        }
+        val srcWidth =
+            if (intrinsicSize.hasSpecifiedAndFiniteWidth()) {
+                intrinsicSize.width
+            } else {
+                size.width
+            }
+
+        val srcHeight =
+            if (intrinsicSize.hasSpecifiedAndFiniteHeight()) {
+                intrinsicSize.height
+            } else {
+                size.height
+            }
 
         val srcSize = Size(srcWidth, srcHeight)
 
         // Compute the offset to translate the content based on the given alignment
         // and size to draw based on the ContentScale parameter
-        val scaledSize = if (size.width != 0f && size.height != 0f) {
-            srcSize * contentScale.computeScaleFactor(srcSize, size)
-        } else {
-            Size.Zero
-        }
+        val scaledSize =
+            if (size.width != 0f && size.height != 0f) {
+                srcSize * contentScale.computeScaleFactor(srcSize, size)
+            } else {
+                Size.Zero
+            }
 
-        // Draw the image with repeat
-        drawTiledImage(
-            painter = painter,
-            imageSize = scaledSize, // Use scaled image size for tiling
-            spaceSize = size, // Destination size
-            alignment = alignment,
-            backgroundRepeat = backgroundRepeat,
-            layoutDirection = layoutDirection,
-            alpha = alpha,
-            colorFilter = colorFilter,
+        println("scaledSize: $scaledSize")
+
+        val alignedPosition = alignment.align(
+            IntSize(scaledSize.width.roundToInt(), scaledSize.height.roundToInt()),
+            IntSize(size.width.roundToInt(), size.height.roundToInt()),
+            layoutDirection
         )
+
+        println("alignedPosition: $alignedPosition")
+
+        val tileWidth = scaledSize.width
+        val tileHeight = scaledSize.height
+        var dx = alignedPosition.x.toFloat()
+        var dy = alignedPosition.y.toFloat()
+
+        if (repeat == PaintingRepeat.NoRepeat) {
+            translate(dx, dy) {
+                with(painter) {
+                    draw(size = scaledSize, alpha = alpha, colorFilter = colorFilter)
+                }
+            }
+        } else {
+            while (true) {
+                while (dy < size.height) {
+                    println("Repeat Ltr dx: $dx dy: $dy")
+                    translate(dx, dy) {
+                        with(painter) {
+                            draw(scaledSize, alpha, colorFilter)
+                        }
+                    }
+                    if (repeat == PaintingRepeat.RepeatX) break
+                    dy += tileHeight
+                }
+                if (repeat == PaintingRepeat.RepeatY) break
+
+                when (layoutDirection) {
+                    LayoutDirection.Ltr -> if (dx > size.width) {
+                        println("dx: $dx > size.width : ${size.width}")
+                        break
+                    }
+
+                    LayoutDirection.Rtl -> if (dx < 0) {
+                        println("dx: $dx <0")
+                        break
+                    }
+                }
+                dx += if (layoutDirection == LayoutDirection.Ltr) {
+                    tileWidth
+                } else {
+                    -tileWidth
+                }
+                dy = alignedPosition.y.toFloat()
+            }
+        }
 
         // Maintain the same pattern as Modifier.drawBehind to allow chaining of DrawModifiers
         drawContent()
@@ -328,66 +409,17 @@ private class PainterNode(
     override fun toString(): String =
         "PainterModifier(" +
                 "painter=$painter, " +
+                "repeat=$repeat, " +
                 "sizeToIntrinsics=$sizeToIntrinsics, " +
                 "alignment=$alignment, " +
                 "alpha=$alpha, " +
                 "colorFilter=$colorFilter)"
 }
 
-/**
- * Draws a tiled image on the canvas based on the specified repeat mode,
- * respecting the aspect ratio defined by the contentScale.
- */
-private fun ContentDrawScope.drawTiledImage(
-    painter: Painter,
-    imageSize: Size,
-    spaceSize: Size,
-    alignment: Alignment,
-    backgroundRepeat: BackgroundRepeat,
-    layoutDirection: LayoutDirection,
-    alpha: Float,
-    colorFilter: ColorFilter?,
-) {
-    val alignedPosition = alignment.align(
-        IntSize(imageSize.width.roundToInt(), imageSize.height.roundToInt()),
-        IntSize(spaceSize.width.roundToInt(), spaceSize.height.roundToInt()),
-        layoutDirection
-    )
-
-    val floatAlignedPosition = Offset(alignedPosition.x.toFloat(), alignedPosition.y.toFloat())
-
-    if (backgroundRepeat == BackgroundRepeat.NoRepeat) {
-        val dx = floatAlignedPosition.x
-        val dy = floatAlignedPosition.y
-        translate(dx, dy) {
-            with(painter) {
-                draw(imageSize, alpha, colorFilter)
-            }
-        }
-    } else {
-        var x = floatAlignedPosition.x
-        while (true) {
-            var y = floatAlignedPosition.y
-            while (y < spaceSize.height) {
-                translate(x, y) {
-                    with(painter) {
-                        draw(imageSize, alpha, colorFilter)
-                    }
-                }
-                if (backgroundRepeat == BackgroundRepeat.RepeatX) break
-                y += imageSize.height
-            }
-            if (backgroundRepeat == BackgroundRepeat.RepeatY) break
-
-            when (layoutDirection) {
-                LayoutDirection.Ltr -> if (x > spaceSize.width) break
-                LayoutDirection.Rtl -> if (x < 0) break
-            }
-            x += if (layoutDirection == LayoutDirection.Ltr) {
-                imageSize.width
-            } else {
-                -imageSize.width
-            }
-        }
-    }
+/** Enum class representing painting repeat behavior. */
+enum class PaintingRepeat {
+    Repeat,
+    RepeatX,
+    RepeatY,
+    NoRepeat
 }

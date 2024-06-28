@@ -1,6 +1,7 @@
 package com.thekr.ui.bar.top
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
@@ -41,8 +42,8 @@ import com.thekr.ui.home.bar.top.HeaderTabsRow
 import com.thekr.ui.home.bar.top.HeaderText
 import com.thekr.ui.home.bar.top.HomeBarCreateAction
 import com.thekr.ui.home.bar.top.SearchUi
-import com.thekr.ui.modifier.BackgroundRepeat
-import com.thekr.ui.modifier.backgroundImage
+import com.thekr.ui.modifier.PaintingRepeat
+import com.thekr.ui.modifier.paint
 import com.thekr.ui.navigation.NavigationActions
 import com.thekr.ui.navigation.route.SettingsRoute
 import com.thekr.ui.theme.AppTheme
@@ -74,33 +75,29 @@ fun ZekrBar(
 
         Column(
             modifier = Modifier
-                .backgroundImage(
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(
+                            zekrColors.mainHeaderBackgroundStart,
+                            zekrColors.mainHeaderBackgroundEnd,
+                            zekrColors.mainHeaderBackgroundEnd,
+                        )
+                    )
+                )
+                .paint(
                     painterResource(Res.drawable.header_background),
                     colorFilter = ColorFilter.tint(zekrColors.mainHeaderBackgroundImageTint),
                     contentScale = ContentScale.FillHeight,
-                    backgroundRepeat = BackgroundRepeat.RepeatX,
-                    drawBehind = {
-                        drawRect(
-                            brush = Brush.verticalGradient(
-                                colors = listOf(
-                                    zekrColors.mainHeaderBackgroundStart,
-                                    zekrColors.mainHeaderBackgroundEnd,
-                                    zekrColors.mainHeaderBackgroundEnd,
-                                )
-                            )
-                        )
-                    },
-                    drawFront = {
-                        drawRect(
-                            brush = Brush.verticalGradient(
-                                colors = listOf(
-                                    Color.Transparent,
-                                    zekrColors.mainHeaderBackgroundEnd.copy(alpha = 0.5f),
-                                    zekrColors.mainHeaderBackgroundEnd.copy(alpha = 0.7f),
-                                ),
-                            )
-                        )
-                    }
+                    repeat = PaintingRepeat.RepeatX,
+                )
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(
+                            Color.Transparent,
+                            zekrColors.mainHeaderBackgroundEnd.copy(alpha = 0.5f),
+                            zekrColors.mainHeaderBackgroundEnd.copy(alpha = 0.7f),
+                        ),
+                    )
                 )
                 .constrainAs(content) {
                     top.linkTo(parent.top)
