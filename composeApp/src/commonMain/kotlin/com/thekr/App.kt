@@ -15,15 +15,14 @@ import com.thekr.resources.*
 import com.thekr.theme.AppTheme
 import com.thekr.theme.LocalThemeIsDark
 import com.thekr.ui.CounterApp
-import com.thekr.ui.modifier.BackgroundImageShowCase
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 
 @Composable
 internal fun App() = AppTheme {
-//    CounterApp()
-    BackgroundImageShowCase()
+    CounterApp()
+//    BackgroundImageShowCase()
 }
 
 @Composable
