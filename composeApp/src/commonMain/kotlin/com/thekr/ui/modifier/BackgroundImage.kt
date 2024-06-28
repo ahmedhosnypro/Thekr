@@ -38,7 +38,7 @@ import kotlin.math.roundToInt
  * @param shape desired shape of the background
  * @param alignment Alignment of the image within the layout bounds
  * @param contentScale Strategy for scaling the image if its size does not
- * @param repeat CSS-like background repeat behavior
+ * @param backgroundRepeat CSS-like background repeat behavior
  * @param alpha Opacity to be applied to [painter], with `0` being
  *     completely transparent and `1` being completely opaque. The value
  *     must be between `0` and `1`.
@@ -53,7 +53,7 @@ fun Modifier.backgroundImage(
     shape: Shape = RectangleShape,
     alignment: Alignment = Alignment.TopStart,
     contentScale: ContentScale = ContentScale.None,
-    repeat: BackgroundRepeat = BackgroundRepeat.Repeat,
+    backgroundRepeat: BackgroundRepeat = BackgroundRepeat.Repeat,
     @FloatRange(from = 0.0, to = 1.0) alpha: Float = 1.0f,
     colorFilter: ColorFilter? = null,
     drawBehind: ContentDrawScope.() -> Unit = {},
@@ -65,7 +65,7 @@ fun Modifier.backgroundImage(
         shape = shape,
         alignment = alignment,
         contentScale = contentScale,
-        repeat = repeat,
+        backgroundRepeat = backgroundRepeat,
         alpha = alpha,
         colorFilter = colorFilter,
         drawBehind = drawBehind,
@@ -76,7 +76,7 @@ fun Modifier.backgroundImage(
             properties["shape"] = shape
             properties["alignment"] = alignment
             properties["contentScale"] = contentScale
-            properties["repeat"] = repeat
+            properties["repeat"] = backgroundRepeat
             properties["alpha"] = alpha
             properties["colorFilter"] = colorFilter
             properties["drawBehind"] = drawBehind
@@ -91,7 +91,7 @@ private class ImageBackgroundElement(
     private val shape: Shape,
     private val alignment: Alignment,
     private val contentScale: ContentScale,
-    private val repeat: BackgroundRepeat,
+    private val backgroundRepeat: BackgroundRepeat,
     private val alpha: Float,
     private val colorFilter: ColorFilter?,
     private val drawBehind: ContentDrawScope.() -> Unit,
@@ -104,7 +104,7 @@ private class ImageBackgroundElement(
             shape,
             alignment,
             contentScale,
-            repeat,
+            backgroundRepeat,
             alpha,
             colorFilter,
             drawBehind,
@@ -117,7 +117,7 @@ private class ImageBackgroundElement(
         node.shape = shape
         node.alignment = alignment
         node.contentScale = contentScale
-        node.repeat = repeat
+        node.backgroundRepeat = backgroundRepeat
         node.alpha = alpha
         node.colorFilter = colorFilter
         node.drawBehind = drawBehind
@@ -133,7 +133,7 @@ private class ImageBackgroundElement(
         result = 31 * result + shape.hashCode()
         result = 31 * result + alignment.hashCode()
         result = 31 * result + contentScale.hashCode()
-        result = 31 * result + repeat.hashCode()
+        result = 31 * result + backgroundRepeat.hashCode()
         result = 31 * result + alpha.hashCode()
         result = 31 * result + (colorFilter?.hashCode() ?: 0)
         result = 31 * result + drawBehind.hashCode()
@@ -146,7 +146,7 @@ private class ImageBackgroundElement(
         return painter == otherModifier.painter &&
                 alignment == otherModifier.alignment &&
                 contentScale == otherModifier.contentScale &&
-                repeat == otherModifier.repeat &&
+                backgroundRepeat == otherModifier.backgroundRepeat &&
                 shape == otherModifier.shape &&
                 alpha == otherModifier.alpha &&
                 colorFilter == otherModifier.colorFilter &&
@@ -160,7 +160,7 @@ private class ImageBackgroundNode(
     var shape: Shape,
     var alignment: Alignment,
     var contentScale: ContentScale,
-    var repeat: BackgroundRepeat,
+    var backgroundRepeat: BackgroundRepeat,
     var alpha: Float,
     var colorFilter: ColorFilter?,
     var drawBehind: ContentDrawScope.() -> Unit,
@@ -192,7 +192,7 @@ private class ImageBackgroundNode(
                 spaceSize = spaceSize, // Destination size
                 alignment = alignment,
                 contentScale = contentScale,
-                repeat = repeat,
+                backgroundRepeat = backgroundRepeat,
                 layoutDirection = layoutDirection,
                 alpha = alpha,
                 colorFilter = colorFilter,
@@ -219,7 +219,7 @@ private fun drawTiledImage(
     spaceSize: Size,
     alignment: Alignment,
     contentScale: ContentScale,
-    repeat: BackgroundRepeat,
+    backgroundRepeat: BackgroundRepeat,
     layoutDirection: LayoutDirection,
     alpha: Float,
     colorFilter: ColorFilter?,
@@ -234,7 +234,7 @@ private fun drawTiledImage(
 
     val floatAlignedPosition = Offset(alignedPosition.x.toFloat(), alignedPosition.y.toFloat())
 
-    if (repeat == BackgroundRepeat.NoRepeat) {
+    if (backgroundRepeat == BackgroundRepeat.NoRepeat) {
         val dx = floatAlignedPosition.x
         val dy = floatAlignedPosition.y
         drawScope.translate(dx, dy) {
@@ -253,10 +253,10 @@ private fun drawTiledImage(
                         draw(tileDstSize, alpha, colorFilter)
                     }
                 }
-                if (repeat == BackgroundRepeat.RepeatX) break
+                if (backgroundRepeat == BackgroundRepeat.RepeatX) break
                 y += tileDstSize.height.toInt()
             }
-            if (repeat == BackgroundRepeat.RepeatY) break
+            if (backgroundRepeat == BackgroundRepeat.RepeatY) break
 
             when (layoutDirection) {
                 LayoutDirection.Ltr -> if (x > spaceSize.width) break

@@ -5,9 +5,6 @@ import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -20,7 +17,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredWidth
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.rememberScrollState
@@ -58,7 +54,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.RectangleShape
@@ -73,7 +68,14 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.thekr.data.proto.ThemeMode
-import com.thekr.resources.*
+import com.thekr.resources.Res
+import com.thekr.resources.background1
+import com.thekr.resources.black_hex_pattern
+import com.thekr.resources.block
+import com.thekr.resources.dark_fabric
+import com.thekr.resources.golden_vector
+import com.thekr.resources.mono_vector
+import com.thekr.resources.wood
 import com.thekr.ui.component.MultiLang
 import com.thekr.ui.component.bottomBorder
 import com.thekr.ui.theme.AppTheme
@@ -160,17 +162,24 @@ fun BackgroundImageShowCase() {
                             .fillMaxWidth(widthFraction.value)
                             .fillMaxHeight(heightFraction.value)
                             .verticalScroll(rememberScrollState())
-
-                            .backgroundImage(
+//                            .backgroundImage(
+//                                painter = painterResource(drawableResource.value),
+//                                contentScale = contentScale.value,
+//                                shape = shape.value,
+//                                alignment = alignment.value,
+//                                repeat = repeat.value,
+//                                alpha = alpha.value,
+//                                colorFilter = colorFilter.value,
+//                                drawBehind = drawBehind.value,
+//                                drawFront = drawFront.value
+//                            )
+                            .paint(
                                 painter = painterResource(drawableResource.value),
                                 contentScale = contentScale.value,
-                                shape = shape.value,
-                                alignment = alignment.value,
-                                repeat = repeat.value,
                                 alpha = alpha.value,
                                 colorFilter = colorFilter.value,
-                                drawBehind = drawBehind.value,
-                                drawFront = drawFront.value
+                                alignment = alignment.value,
+                                backgroundRepeat = repeat.value,
                             )
 
                     ) {
@@ -558,12 +567,12 @@ fun Alignments(
 
 @Composable
 fun Repeats(
-    repeat: MutableState<BackgroundRepeat>
+    backgroundRepeat: MutableState<BackgroundRepeat>
 ) {
     CustomDropDownMenu(
         leadingIcon = {
             Icon(
-                when (repeat.value) {
+                when (backgroundRepeat.value) {
                     BackgroundRepeat.RepeatX -> Icons.Filled.SwipeLeft
                     BackgroundRepeat.RepeatY -> Icons.Filled.SwipeVertical
                     BackgroundRepeat.Repeat -> Icons.Filled.Repeat
@@ -574,7 +583,7 @@ fun Repeats(
         },
         label = "Repeat",
         value = BackgroundRepeats.entries.find {
-            it.value == repeat.value
+            it.value == backgroundRepeat.value
         }?.description ?: "",
         dropDownMenu = { expanded ->
             DropdownMenu(
@@ -585,7 +594,7 @@ fun Repeats(
                     DropdownMenuItem(
                         text = { Text(it.description) },
                         onClick = {
-                            repeat.value = it.value
+                            backgroundRepeat.value = it.value
                             expanded.value = false
                         }
                     )
