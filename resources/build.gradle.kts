@@ -1,6 +1,5 @@
 import kotlinx.validation.ExperimentalBCVApi
 import org.jetbrains.compose.ExperimentalComposeLibrary
-import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -17,6 +16,7 @@ kotlin {
         publishLibraryVariants("release")
         compilations.all {
             kotlinOptions {
+                // Use this syntax to set the JVM target
                 jvmTarget = "11"
             }
         }
@@ -31,7 +31,6 @@ kotlin {
             })
         }
     }
-    @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         browser {
             testTask(Action {

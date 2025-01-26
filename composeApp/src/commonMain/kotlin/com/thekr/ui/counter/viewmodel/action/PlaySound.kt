@@ -3,11 +3,7 @@ package com.thekr.ui.counter.viewmodel.action
 import com.thekr.resources.Res
 import com.thekr.ui.counter.viewmodel.ZekrCounterViewModel
 import com.thekr.ui.settings.SettingActions.currentSettings
-import korlibs.audio.sound.Sound
-import korlibs.audio.sound.SoundAudioStream
-import korlibs.audio.sound.SoundChannel
-import korlibs.audio.sound.nativeSoundProvider
-import korlibs.audio.sound.playing
+import korlibs.audio.sound.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

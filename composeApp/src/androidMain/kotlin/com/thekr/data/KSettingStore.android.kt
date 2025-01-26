@@ -13,9 +13,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import okio.Path.Companion.toPath
+import kotlinx.io.files.Path as KxPath
 
 actual val settingsStore: KStore<Settings> by lazy {
-    storeOf("$appStorage/$settingsFile".toPath())
+//    storeOf("$appStorage/$settingsFile".toPath())
+    storeOf(KxPath("$appStorage/$settingsFile".toPath().toString()))
 }
 
 actual suspend fun initAppData() {
