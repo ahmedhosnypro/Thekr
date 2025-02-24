@@ -36,7 +36,6 @@ import androidx.compose.ui.node.DrawModifierNode
 import androidx.compose.ui.node.LayoutModifierNode
 import androidx.compose.ui.node.ModifierNodeElement
 import androidx.compose.ui.node.invalidateDraw
-import androidx.compose.ui.node.invalidateLayer
 import androidx.compose.ui.node.invalidateMeasurement
 import androidx.compose.ui.platform.InspectorInfo
 import androidx.compose.ui.unit.Constraints
@@ -356,50 +355,53 @@ private class PainterNode(
 
         val tileWidth = scaledSize.width
         val tileHeight = scaledSize.height
-        var dx = alignedPosition.x.toFloat()
-        var dy = alignedPosition.y.toFloat()
-
+        
         if (repeat == PaintingRepeat.NoRepeat) {
-            translate(dx, dy) {
+            translate(alignedPosition.x.toFloat(), alignedPosition.y.toFloat()) {
                 with(painter) {
                     draw(size = scaledSize, alpha = alpha, colorFilter = colorFilter)
                 }
             }
         } else {
+            // Calculate start position based on layout direction
+            val startX = if (layoutDirection == LayoutDirection.Ltr) {
+                alignedPosition.x.toFloat()
+            } else {
+                size.width - alignedPosition.x.toFloat()
+            }
+            
+            var currentX = startX
+            
+            // Handle X-axis repetition
             while (true) {
-                while (dy < size.height) {
-                    println("Repeat Ltr dx: $dx dy: $dy")
-                    translate(dx, dy) {
+                var currentY = alignedPosition.y.toFloat()
+                
+                // Handle Y-axis repetition
+                while (currentY < size.height) {
+                    translate(currentX, currentY) {
                         with(painter) {
                             draw(scaledSize, alpha, colorFilter)
                         }
                     }
                     if (repeat == PaintingRepeat.RepeatX) break
-                    dy += tileHeight
+                    currentY += tileHeight
                 }
+                
                 if (repeat == PaintingRepeat.RepeatY) break
-
-                when (layoutDirection) {
-                    LayoutDirection.Ltr -> if (dx > size.width) {
-                        println("dx: $dx > size.width : ${size.width}")
-                        break
-                    }
-
-                    LayoutDirection.Rtl -> if (dx < 0) {
-                        println("dx: $dx <0")
-                        break
-                    }
-                }
-                dx += if (layoutDirection == LayoutDirection.Ltr) {
-                    tileWidth
+                
+                // Move to next X position based on direction
+                if (layoutDirection == LayoutDirection.Ltr) {
+                    currentX += tileWidth
+                    // Continue until we've covered the entire width plus one tile
+                    if (currentX > size.width + tileWidth) break
                 } else {
-                    -tileWidth
+                    currentX -= tileWidth
+                    // Continue until we've covered the entire width plus one tile
+                    if (currentX < -2 * tileWidth) break
                 }
-                dy = alignedPosition.y.toFloat()
             }
         }
 
-        // Maintain the same pattern as Modifier.drawBehind to allow chaining of DrawModifiers
         drawContent()
     }
 
