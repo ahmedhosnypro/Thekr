@@ -10,7 +10,7 @@ import com.thekr.util.TimeHelper.now
 data class ZekrDetails(
     val id: Long = 1,
     val text: String = "",
-    val bsmalaType: Int = 0,
+    val basmlaType: Int = 0,
     // min time between clicks
     val coolDown: Long = 400,
     val soundFileName: String? = null,

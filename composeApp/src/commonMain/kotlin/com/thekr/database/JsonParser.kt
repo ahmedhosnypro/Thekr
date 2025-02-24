@@ -27,7 +27,7 @@ object JsonParser {
                 val categoryList = readJsonFile<Category>("category.json")
 
                 insertDataIntoDatabase(zekrList, zekrInstanceList, categoryList)
-                settingsStore.update { it ->
+                settingsStore.update {
                     it?.copy(
                         dbInitialized = true,
                         lastUpdate = now()

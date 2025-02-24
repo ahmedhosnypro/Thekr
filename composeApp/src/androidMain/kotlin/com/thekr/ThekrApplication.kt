@@ -2,22 +2,14 @@ package com.thekr
 
 import android.app.Application
 import android.content.Context
-import com.thekr.data.proto.Settings
-import com.thekr.data.settingsStore
 import com.thekr.database.AppContainer
 import com.thekr.database.AppDataContainer
 import com.thekr.di.DatabaseProvider
-import com.thekr.database.JsonParser.importDataFromJson
 import com.thekr.database.getDatabaseBuilder
 import com.thekr.di.appStorage
 import com.topjohnwu.superuser.Shell
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
-
 class ThekrApplication : Application() {
-    /** AppContainer instance used by the rest of classes to obtain dependencies */
+    /** AppContainer instance used by the rest of classes to get dependencies */
     lateinit var container: AppContainer
 
     companion object {
@@ -27,10 +19,10 @@ class ThekrApplication : Application() {
     init {
         // Initialize Shell only once
         if (Shell.isAppGrantedRoot() == false) {
-
+            Shell.enableLegacyStderrRedirection = true
             Shell.setDefaultBuilder(
                 Shell.Builder.create()
-                    .setFlags(Shell.FLAG_REDIRECT_STDERR)
+//                    .setFlags(Shell.FLAG_REDIRECT_STDERR)
                     .setTimeout(10)
             )
         }

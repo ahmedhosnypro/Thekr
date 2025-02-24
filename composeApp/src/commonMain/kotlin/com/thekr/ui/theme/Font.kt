@@ -3,31 +3,8 @@ package com.thekr.ui.theme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import com.thekr.resources.*
 import org.jetbrains.compose.resources.Font
-import com.thekr.resources.Res
-import com.thekr.resources.abdo_master_demi_bold
-import com.thekr.resources.abdo_master_regular
-import com.thekr.resources.alrafidain_art
-import com.thekr.resources.arial_bold
-import com.thekr.resources.arial_narrow
-import com.thekr.resources.arial_regular
-import com.thekr.resources.battar_font
-import com.thekr.resources.droid_kufi
-import com.thekr.resources.droid_kufi_bold
-import com.thekr.resources.ge_ss_two_bold
-import com.thekr.resources.ge_ss_two_light
-import com.thekr.resources.ge_ss_two_medium
-import com.thekr.resources.hacen_liner_print_out
-import com.thekr.resources.hacen_liner_print_out_light
-import com.thekr.resources.hacen_tunisia_lt
-import com.thekr.resources.helvetica_world_bold
-import com.thekr.resources.jf_flat_regular
-import com.thekr.resources.kfgqpchafs_uthmanic_script_regula_svg
-import com.thekr.resources.montserrat_bold
-import com.thekr.resources.nassim_arabic_regular
-import com.thekr.resources.roboto_bold
-import com.thekr.resources.roboto_light
-import com.thekr.resources.roboto_regular
 
 @Composable
 fun abdoMaster() =  FontFamily(
@@ -140,7 +117,14 @@ fun jfFlat () = FontFamily(
 @Composable
 fun uthmanicScript () = FontFamily(
     Font(
-        Res.font.kfgqpchafs_uthmanic_script_regula_svg
+        Res.font.Kfgqpc_hafs_uthmanic_script_regular,
+    )
+)
+
+@Composable
+fun uthmanTahaNaskh () = FontFamily(
+    Font(
+        Res.font.uthman_tn_v2
     )
 )
 

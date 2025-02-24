@@ -15,4 +15,6 @@ plugins {
     alias(libs.plugins.binary.compatibility.validator).apply(false)
 
 //    alias(libs.plugins.korge).apply(false)
+
+    id("org.jetbrains.compose.hot-reload") version "1.0.0-dev-63" // <- add this additionally
 }

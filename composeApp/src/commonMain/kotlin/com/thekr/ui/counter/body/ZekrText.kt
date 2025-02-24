@@ -68,7 +68,8 @@ fun ZekrText(
                 Text(
                     text = zekr.text,
                     style = textStyle,
-                    fontFamily = if (zekr.bsmalaType != 0) uthmanicScript() else hacenTunisiaLt(),
+                    fontFamily = if (zekr.basmlaType != 0) uthmanicScript() else hacenTunisiaLt(),
+//                    fontFamily = uthmanicScript(),
                 )
             }
             if (categoryDetails.value.fadlList.any { it.zekrId == counterUiState.currentZekrInstance.value.id }) {
@@ -78,7 +79,7 @@ fun ZekrText(
                     Text(
                         text = fadl.fadl,
                         style = textStyle,
-                        lineHeight = if (zekr.bsmalaType != 0) (settingsDetails.fontSize + 28).sp
+                        lineHeight = if (zekr.basmlaType != 0) (settingsDetails.fontSize + 28).sp
                         else (settingsDetails.fontSize + 16).sp,
                         color = zekrColors.fadlText
                     )

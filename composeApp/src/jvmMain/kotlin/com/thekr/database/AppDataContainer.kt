@@ -22,7 +22,7 @@ import com.thekr.di.DatabaseProvider.database
  * [AppContainer] implementation that provides instance of
  * [OfflineZekrRepository]
  */
-actual class AppDataContainer() : AppContainer {
+actual class AppDataContainer : AppContainer {
     override val categoryRepository: CategoryRepository by lazy {
         OfflineCategoryRepository(database.categoryDao())
     }

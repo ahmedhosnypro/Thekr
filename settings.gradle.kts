@@ -15,6 +15,7 @@ pluginManagement {
         
         maven("https://jitpack.io")
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+        maven("https://packages.jetbrains.team/maven/p/firework/dev")
     }
 }
 
@@ -34,6 +35,7 @@ dependencyResolutionManagement {
         maven("https://jitpack.io")
         maven("https://maven.pkg.github.com/bumble-org/appyx")
         maven("https://androidx.dev/storage/compose-compiler/repository/")
+        maven("https://packages.jetbrains.team/maven/p/firework/dev")
     }
 }
 plugins {

@@ -5,10 +5,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.thekr.data.zekr.zekr.ZekrDetails
 import com.thekr.data.zekr.zekr.ZekrEntry
-import com.thekr.database.JsonParser
 import com.thekr.util.TimeHelper.now
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.UseContextualSerialization
 
 @Serializable
 @Entity(tableName = "zekr")
@@ -42,7 +40,7 @@ data class Zekr(
     var contentIn: String? = null,
     var fadlIn: String? = null,
 
-    var bsmalaType: Int = 0,
+    var basmlaType: Int = 0,
     var priority: Int = 0,
     var specialTime: Int = 0,
     var coolDown: Long = 0,
@@ -68,7 +66,7 @@ data class Zekr(
         return ZekrDetails(
             id = id,
             text = content,
-            bsmalaType = bsmalaType,
+            basmlaType = basmlaType,
             coolDown = coolDown,
             soundFileName = soundFileName,
             shortSoundFileName = shortSoundFileName,

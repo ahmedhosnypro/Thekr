@@ -1,5 +1,6 @@
 package com.thekr.util
 
+import korlibs.time.Year
 import kotlinx.datetime.*
 
 object TimeHelper {
@@ -140,16 +141,16 @@ object TimeHelper {
             .toLocalDateTime(timeZone)
             .date
             .let {
-                LocalDate(it.year, it.monthNumber, it.month.maxLength())
+                LocalDate(it.year, it.monthNumber, it.month.maxLength(it.year))
                     .plus(1, DateTimeUnit.DAY)
                     .atStartOfDayIn(timeZone)
                     .toEpochMilliseconds()
             }
     }
 
-    private fun Month.maxLength(): Int {
+    private fun Month.maxLength(year: Int): Int {
         return when (this) {
-            Month.FEBRUARY -> 29
+            Month.FEBRUARY -> if (Year(year).isLeap) 29 else 28
             Month.APRIL, Month.JUNE, Month.SEPTEMBER, Month.NOVEMBER -> 30
             else -> 31
         }

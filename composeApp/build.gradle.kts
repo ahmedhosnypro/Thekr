@@ -5,6 +5,7 @@ import org.jetbrains.compose.ExperimentalComposeLibrary
 import com.android.build.api.dsl.ManagedVirtualDevice
 import com.android.build.gradle.internal.lint.AndroidLintAnalysisTask
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
+import org.jetbrains.kotlin.compose.compiler.gradle.ComposeFeatureFlag
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -18,6 +19,7 @@ plugins {
     alias(libs.plugins.ksp)
 
 //    alias(libs.plugins.korge)
+    id("org.jetbrains.compose.hot-reload") version "1.0.0-dev-63"
 }
 
 val nameSpace = "com.thekr"
@@ -256,4 +258,8 @@ dependencies {
         //        add("kspIosArm64", this)
         //        add("kspIosSimulatorArm64", this)
     }
+}
+
+composeCompiler {
+    featureFlags.add(ComposeFeatureFlag.OptimizeNonSkippingGroups)
 }

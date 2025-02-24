@@ -7,6 +7,7 @@ import androidx.compose.ui.window.rememberWindowState
 import java.awt.Dimension
 import com.thekr.App
 import com.thekr.JvmApplication
+import org.jetbrains.compose.reload.DevelopmentEntryPoint
 
 fun main() = application {
     JvmApplication // static initialization for dataStores
@@ -19,7 +20,9 @@ fun main() = application {
         ),
         onCloseRequest = ::exitApplication,
     ) {
-        window.minimumSize = Dimension(1920,1080)
-        App()
+//        window.minimumSize = Dimension(1920,1080)
+        DevelopmentEntryPoint {
+            App()
+        }
     }
 }
