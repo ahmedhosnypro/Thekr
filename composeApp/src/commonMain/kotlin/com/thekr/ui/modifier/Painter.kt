@@ -265,51 +265,43 @@ private class PainterNode(
     }
 
     private fun modifyConstraints(constraints: Constraints): Constraints {
+        // When repeating, don't let intrinsic size influence constraints
+        if (repeat != PaintingRepeat.NoRepeat) {
+            return constraints
+        }
+
         val hasBoundedDimens = constraints.hasBoundedWidth && constraints.hasBoundedHeight
         val hasFixedDimens = constraints.hasFixedWidth && constraints.hasFixedHeight
         if ((!useIntrinsicSize && hasBoundedDimens) || hasFixedDimens) {
-            // If we have fixed constraints or we are not attempting to size the
-            // composable based on the size of the Painter, do not attempt to
-            // modify them. Otherwise rely on Alignment and ContentScale
-            // to determine how to position the drawing contents of the Painter within
-            // the provided bounds
             return constraints.copy(
                 minWidth = constraints.maxWidth,
                 minHeight = constraints.maxHeight
             )
         }
 
+        // Rest of constraint logic only applies for NoRepeat
         val intrinsicSize = painter.intrinsicSize
-        val intrinsicWidth =
-            if (intrinsicSize.hasSpecifiedAndFiniteWidth()) {
-                intrinsicSize.width.roundToInt()
-            } else {
-                constraints.minWidth
-            }
+        val intrinsicWidth = if (intrinsicSize.hasSpecifiedAndFiniteWidth()) {
+            intrinsicSize.width.roundToInt()
+        } else {
+            constraints.minWidth
+        }
 
-        val intrinsicHeight =
-            if (intrinsicSize.hasSpecifiedAndFiniteHeight()) {
-                intrinsicSize.height.roundToInt()
-            } else {
-                constraints.minHeight
-            }
+        val intrinsicHeight = if (intrinsicSize.hasSpecifiedAndFiniteHeight()) {
+            intrinsicSize.height.roundToInt()
+        } else {
+            constraints.minHeight
+        }
 
-        // Scale the width and height appropriately based on the given constraints
-        // and ContentScale
         val constrainedWidth = constraints.constrainWidth(intrinsicWidth)
         val constrainedHeight = constraints.constrainHeight(intrinsicHeight)
         val scaledSize = calculateScaledSize(
             Size(constrainedWidth.toFloat(), constrainedHeight.toFloat())
         )
 
-        // For both width and height constraints, consume the minimum of the scaled width
-        // and the maximum constraint as some scale types can scale larger than the maximum
-        // available size (ex ContentScale.Crop)
-        // In this case the larger of the 2 dimensions is used and the aspect ratio is
-        // maintained. Even if the size of the composable is smaller, the painter will
-        // draw its content clipped
         val minWidth = constraints.constrainWidth(scaledSize.width.roundToInt())
         val minHeight = constraints.constrainHeight(scaledSize.height.roundToInt())
+        
         return constraints.copy(minWidth = minWidth, minHeight = minHeight)
     }
 
@@ -353,52 +345,36 @@ private class PainterNode(
 
         println("alignedPosition: $alignedPosition")
 
-        val tileWidth = scaledSize.width
-        val tileHeight = scaledSize.height
-        
+        val tileSize = if (repeat != PaintingRepeat.NoRepeat) {
+            // Calculate tile size that maintains aspect ratio and fits within bounds
+            val targetWidth = (size.width / (size.width / scaledSize.width).roundToInt())
+            val targetHeight = (size.height / (size.height / scaledSize.height).roundToInt())
+            Size(targetWidth, targetHeight)
+        } else {
+            scaledSize
+        }
+
         if (repeat == PaintingRepeat.NoRepeat) {
             translate(alignedPosition.x.toFloat(), alignedPosition.y.toFloat()) {
                 with(painter) {
-                    draw(size = scaledSize, alpha = alpha, colorFilter = colorFilter)
+                    draw(size = tileSize, alpha = alpha, colorFilter = colorFilter)
                 }
             }
         } else {
-            // Calculate start position based on layout direction
-            val startX = if (layoutDirection == LayoutDirection.Ltr) {
-                alignedPosition.x.toFloat()
-            } else {
-                size.width - alignedPosition.x.toFloat()
-            }
-            
-            var currentX = startX
-            
-            // Handle X-axis repetition
-            while (true) {
-                var currentY = alignedPosition.y.toFloat()
-                
-                // Handle Y-axis repetition
+            var currentX = 0f
+            while (currentX < size.width) {
+                var currentY = 0f
                 while (currentY < size.height) {
                     translate(currentX, currentY) {
                         with(painter) {
-                            draw(scaledSize, alpha, colorFilter)
+                            draw(tileSize, alpha, colorFilter)
                         }
                     }
                     if (repeat == PaintingRepeat.RepeatX) break
-                    currentY += tileHeight
+                    currentY += tileSize.height
                 }
-                
                 if (repeat == PaintingRepeat.RepeatY) break
-                
-                // Move to next X position based on direction
-                if (layoutDirection == LayoutDirection.Ltr) {
-                    currentX += tileWidth
-                    // Continue until we've covered the entire width plus one tile
-                    if (currentX > size.width + tileWidth) break
-                } else {
-                    currentX -= tileWidth
-                    // Continue until we've covered the entire width plus one tile
-                    if (currentX < -2 * tileWidth) break
-                }
+                currentX += tileSize.width
             }
         }
 

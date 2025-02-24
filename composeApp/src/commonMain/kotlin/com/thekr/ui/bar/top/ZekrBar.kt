@@ -87,7 +87,7 @@ fun ZekrBar(
                 .paint(
                     painterResource(Res.drawable.header_background),
                     colorFilter = ColorFilter.tint(zekrColors.mainHeaderBackgroundImageTint),
-                    contentScale = ContentScale.None,
+                    contentScale = ContentScale.Inside,
                     repeat = PaintingRepeat.Repeat,
                 )
                 .background(
