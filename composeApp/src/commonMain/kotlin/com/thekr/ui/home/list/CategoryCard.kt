@@ -37,6 +37,7 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import com.thekr.resources.Res
 import com.thekr.resources.zekr_indicator
+import network.chaintech.sdpcomposemultiplatform.sdp
 
 /**
  * Displays a list of categories in a grid layout.
@@ -95,9 +96,8 @@ private fun CategoryListItem(
                 Image(
                     painterResource(Res.drawable.zekr_indicator),
                     contentDescription = null,
-                    contentScale = ContentScale.Crop,
+                    contentScale = ContentScale.Inside,
                     colorFilter = ColorFilter.tint(indicatorColor),
-                    modifier = Modifier.height(12.dp),
                 )
             },
             settingsDetails = settingsDetails
@@ -152,8 +152,8 @@ fun CategoryCard(
                 Image(
                     painter = painterResource(iconResId),
                     contentDescription = null,
-                    modifier = Modifier.fillMaxWidth(.1f),
-                    contentScale = ContentScale.Crop,
+//                    modifier = Modifier.fillMaxWidth(.1f),
+                    contentScale = ContentScale.Inside,
                     colorFilter = if (isDark(settingsDetails)) ColorFilter.tint(zekrColors.cardIconTint) else null
                 )
             }

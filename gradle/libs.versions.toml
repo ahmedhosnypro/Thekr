@@ -49,7 +49,7 @@ kotlinx-io = "0.6.0"
 
 korge= "6.0.0-beta4"
 
-sdp-ssp-compose-multiplatform= "1.0.4"
+sdp-ssp-compose-multiplatform= "1.0.5"
 constraintlayout-compose-multiplatform= "0.5.0-shaded-core"
 ## Android only
 ui-tooling-preview = "1.7.0-beta03"
