@@ -43,7 +43,6 @@ fun HomeBar(
     pagerState: PagerState,
     azkarState: AzkarState,
 ) {
-    println("HomeBar: ${pagerState.currentPage}")
     val headerText= stringResource(HomeTab.entries[pagerState.currentPage].stringResource)
     assert(headerText.isNotEmpty())
     ZekrBar(

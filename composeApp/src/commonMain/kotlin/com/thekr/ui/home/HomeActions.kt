@@ -20,7 +20,6 @@ object HomeActions {
         uiCoroutine: CoroutineScope,
         snackBarHostState: SnackbarHostState
     ) {
-        println("HomeActions.initActions")
         onThekrClick = { tabIndex, categoryId, zekrId ->
             homeViewModel.onZekrClick(tabIndex, categoryId, zekrId)
         }

@@ -9,12 +9,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 
+
 expect suspend fun SoundAudioStream.platformPlay(player: SoundPlayer)
 expect suspend fun Sound.platformPlay(): SoundChannel
 
 interface SoundPlayer {
     var soundChannel: SoundChannel?
-
     fun stopPlayer()
 }
 
@@ -25,10 +25,13 @@ object ThekrSoundPlayer : SoundPlayer {
     private var stream: SoundAudioStream? = null
 
     @OptIn(ExperimentalResourceApi::class)
-    fun ZekrCounterViewModel.playZekrAudio() {
+    fun ZekrCounterViewModel.onPlayAudio() {
+        if (soundChannel?.playing == true) {
+            stopPlayer()
+            return
+        }
         val soundFileName = getCurrentZekr().value.soundFileName
         val filePath = "files/thekr/${currentSettings().currentSheikh}/${soundFileName}.mp3"
-
         scope.launch {
             val bytes = try {
                 Res.readBytes(filePath)
@@ -36,15 +39,12 @@ object ThekrSoundPlayer : SoundPlayer {
                 return@launch
             }
             val sound = nativeSoundProvider.createSound(data = bytes)
-            val audioStream = sound.toStream()
-            val soundAudioStream = SoundAudioStream(
-                stream = audioStream,
-                coroutineContext = scope.coroutineContext,
-                soundProvider = nativeSoundProvider
-            )
-            stopPlayer()
-            soundAudioStream.platformPlay(this@ThekrSoundPlayer)
-            stream = soundAudioStream
+            soundChannel = sound.play()
+            updateUiState(uiState.value.copy(isAudioPlaying = true))
+            soundChannel?.onCompleted(coroutineContext = scope.coroutineContext) {
+                stopPlayer()
+                updateUiState(uiState.value.copy(isAudioPlaying = false))
+            }
         }
     }
 
@@ -66,17 +66,15 @@ object ClickSoundPlayer : SoundPlayer {
     private val scope = CoroutineScope(Dispatchers.Main)
     override var soundChannel: SoundChannel? = null
 
-//    private var stream: SoundAudioStream? = null
-
     private lateinit var sound: Sound
 
     // todo: dynamic click sound
-    private const val filePath = "files/alert/click_1.mp3"
+    private const val PATH = "files/alert/click_1.mp3"
 
     init {
         scope.launch {
             val bytes = try {
-                Res.readBytes(filePath)
+                Res.readBytes(PATH)
             } catch (e: Exception) {
                 return@launch
             }

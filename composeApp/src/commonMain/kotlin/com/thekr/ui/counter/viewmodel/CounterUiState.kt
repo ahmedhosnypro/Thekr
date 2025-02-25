@@ -27,8 +27,7 @@ data class CounterUiState(
 
     val showStatistics: Boolean = false,
 
-//    val playState: Int = Player.STATE_IDLE,
-    val playState: Int = 0,
+    val isAudioPlaying: Boolean = false,
 
     val lockEnabled: Boolean = false,
 )

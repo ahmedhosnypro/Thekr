@@ -1,10 +1,6 @@
-@file:OptIn(ExperimentalFoundationApi::class)
-
 package com.thekr.ui.counter.header
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
@@ -19,6 +15,7 @@ import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBackIos
 import androidx.compose.material.icons.filled.BrightnessAuto
@@ -50,8 +47,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
@@ -69,6 +64,7 @@ import com.thekr.data.settings.SettingsDetails
 import com.thekr.data.zekr.category.CategoryDetails
 import com.thekr.data.zekr.zekr.ZekrDetails
 import com.thekr.model.ZekrTargetStatus
+import com.thekr.resources.*
 import com.thekr.ui.bar.top.ZekrBar
 import com.thekr.ui.counter.CounterHelper
 import com.thekr.ui.counter.viewmodel.CounterUiState
@@ -83,26 +79,10 @@ import com.thekr.ui.home.list.categoryDetailsPreviewState
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.theme.ZekrTheme
 import com.thekr.ui.component.RtlView
-import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import com.thekr.resources.Res
-import com.thekr.resources.about_zekr
-import com.thekr.resources.back
-import com.thekr.resources.counter_visibility
-import com.thekr.resources.daily
-import com.thekr.resources.listen_to_zekr
-import com.thekr.resources.monthly
-import com.thekr.resources.pause_sound
-import com.thekr.resources.play_sound
-import com.thekr.resources.session
-import com.thekr.resources.settings
-import com.thekr.resources.total
-import com.thekr.resources.weekly
-import com.thekr.resources.yearly
-import com.thekr.resources.zekr_list
+import com.thekr.ui.component.IconWrapper
 
 /** Represents the top app bar for the Zekr counter-screen. */
 @Composable
@@ -197,7 +177,6 @@ private fun ZekrAppBarNavigationIcon() {
 
 /** Displays the app bar in a locked state. */
 @Composable
-@OptIn(ExperimentalFoundationApi::class)
 private fun UnlockAppBar(
     counterUiState: CounterUiState,
     settingsDetails: SettingsDetails,
@@ -479,14 +458,22 @@ private fun SoundPlayer(
 ) {
     if (CounterHelper.getZekr(pagerState.currentPage).value.soundFileName != null) {
         IconButton(
-            onClick = {CounterHelper.onClickSound()},
+            onClick = {CounterHelper.onPlayAudio()},
             modifier = Modifier.requiredWidth(width)
+                .then(
+                    if (counterUiState.isAudioPlaying) {
+                        Modifier.background(
+                            color = tint.copy(alpha = 0.1f),
+                            shape = CircleShape
+                        )
+                    } else Modifier
+                )
         ) {
-            HeaderImage(
-//                imageRes = if (counterUiState.playState == Player.STATE_IDLE) R.drawable.play_sound else R.drawable.pause_sound,
-                drawableResource = if (counterUiState.playState == 0) Res.drawable.play_sound else Res.drawable.pause_sound,
+            IconWrapper(
+                icon = if (counterUiState.isAudioPlaying) Res.drawable.pause_sound else Res.drawable.play_sound,
                 contentDescription = stringResource(Res.string.listen_to_zekr),
-                tint = tint
+                tint = tint,
+                modifier = Modifier.size(24.dp)
             )
         }
     }
@@ -551,35 +538,21 @@ private fun ThemeMode(
         onClick = CounterHelper.onClickThemeMode,
         modifier = Modifier.requiredWidth(width)
     ) {
-        if (settingsDetails.themeMode == ThemeMode.System) {
-            Icon(
-                imageVector = Icons.Filled.BrightnessAuto,
-                contentDescription = "System Theme Mode",
-            )
-        } else {
-            HeaderImage(
-                drawableResource = ZekrTheme.resources(settingsDetails).themeMode,
-                contentDescription = stringResource(Res.string.about_zekr),
-                tint = tint
-            )
-        }
+        IconWrapper(
+            icon = if (settingsDetails.themeMode == ThemeMode.System) {
+                Icons.Filled.BrightnessAuto
+            } else {
+                ZekrTheme.resources(settingsDetails).themeMode
+            },
+            contentDescription = if (settingsDetails.themeMode == ThemeMode.System) {
+                "System Theme Mode"
+            } else {
+                stringResource(Res.string.theme_mode)
+            },
+            tint = tint,
+            modifier = Modifier.size(24.dp)
+        )
     }
-}
-
-/** Displays an image within the header. */
-@Composable
-fun HeaderImage(
-    drawableResource: DrawableResource,
-    tint: Color? = null,
-    contentDescription: String,
-) {
-    Image(
-        painter = painterResource(drawableResource),
-        contentDescription = contentDescription,
-        contentScale = ContentScale.Crop,
-        colorFilter = tint?.let { ColorFilter.tint(it) },
-        modifier = Modifier.height(24.dp)
-    )
 }
 
 /**
@@ -708,7 +681,7 @@ fun HomeBarPreviewDark() {
                     categoryDetails = categoryDetailsPreviewState(),
                     counterUiState = CounterUiState(
 //                        playState = Player.STATE_READY,
-                        playState = 1,
+                        isAudioPlaying = false,
                         categoryDetails = categoryDetailsPreviewState()
                     ),
                     pagerState = rememberPagerState(

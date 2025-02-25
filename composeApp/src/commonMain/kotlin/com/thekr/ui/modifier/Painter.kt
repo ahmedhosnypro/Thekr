@@ -307,8 +307,6 @@ private class PainterNode(
 
     override fun ContentDrawScope.draw() {
         val intrinsicSize = painter.intrinsicSize
-        println("intrinsicSize: $intrinsicSize")
-        println("size: $size")
 
         val srcWidth =
             if (intrinsicSize.hasSpecifiedAndFiniteWidth()) {
@@ -335,15 +333,11 @@ private class PainterNode(
                 Size.Zero
             }
 
-        println("scaledSize: $scaledSize")
-
         val alignedPosition = alignment.align(
             IntSize(scaledSize.width.roundToInt(), scaledSize.height.roundToInt()),
             IntSize(size.width.roundToInt(), size.height.roundToInt()),
             layoutDirection
         )
-
-        println("alignedPosition: $alignedPosition")
 
         val tileSize = if (repeat != PaintingRepeat.NoRepeat) {
             // Calculate tile size that maintains aspect ratio and fits within bounds

@@ -18,7 +18,7 @@ import com.thekr.data.zekr.zekr.ZekrDetails
 import com.thekr.ui.counter.viewmodel.CounterUiState
 import com.thekr.ui.counter.viewmodel.ZekrCounterViewModel
 import com.thekr.ui.counter.viewmodel.action.ThekrSoundPlayer
-import com.thekr.ui.counter.viewmodel.action.ThekrSoundPlayer.playZekrAudio
+import com.thekr.ui.counter.viewmodel.action.ThekrSoundPlayer.onPlayAudio
 import com.thekr.ui.counter.viewmodel.action.onZekrCounterCount
 import com.thekr.ui.settings.SettingActions
 import com.thekr.ui.settings.SettingActions.currentSettings
@@ -62,7 +62,7 @@ object CounterHelper {
     lateinit var onNavigateUp: () -> Unit
     lateinit var showCategoryZekrListMenu: () -> Unit
     lateinit var showZekrStatistics: () -> Unit
-    lateinit var onClickSound: () -> Unit
+    lateinit var onPlayAudio: () -> Unit
     lateinit var updateUiState: (CounterUiState) -> Unit
     lateinit var updateOnCount: () -> Unit
 
@@ -178,7 +178,7 @@ object CounterHelper {
                     )
                 }
                 if (ThekrSoundPlayer.isPlaying) {
-                    counterViewModel.playZekrAudio()
+                    counterViewModel.onPlayAudio()
                 }
             }
         }
@@ -191,8 +191,8 @@ object CounterHelper {
             //todo: initialize
         }
 
-        onClickSound = {
-            counterViewModel.playZekrAudio()
+        onPlayAudio = {
+            counterViewModel.onPlayAudio()
         }
 
         updateUiState = counterViewModel::updateUiState

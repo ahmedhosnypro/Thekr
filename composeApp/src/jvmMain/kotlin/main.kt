@@ -21,8 +21,8 @@ fun main() = application {
         onCloseRequest = ::exitApplication,
     ) {
 //        window.minimumSize = Dimension(1920,1080)
-        DevelopmentEntryPoint {
+//        DevelopmentEntryPoint {
             App()
-        }
+//        }
     }
 }
