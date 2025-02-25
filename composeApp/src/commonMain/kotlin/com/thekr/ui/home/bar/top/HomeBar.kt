@@ -26,7 +26,7 @@ import com.thekr.ui.home.tab.sebha.CreateCategoryDialog
 import com.thekr.ui.navigation.NavigationActions
 import com.thekr.ui.navigation.route.SettingsRoute
 import com.thekr.ui.theme.AppTheme
-import com.thekr.ui.component.RtlView
+import com.thekr.ui.component.LocalizedApp
 import com.thekr.ui.viewmodel.AzkarState
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -122,7 +122,7 @@ fun HomeBarCreateAction(
 fun HomeBarPreview() {
     AppTheme {
         Surface {
-            RtlView {
+            LocalizedApp {
                 HomeBar(
                     pagerState = rememberPagerState(pageCount = { 3 }),
                     settingsDetails = SettingsDetails(),
@@ -138,7 +138,7 @@ fun HomeBarPreview() {
 fun HomeBarPreviewDark() {
     AppTheme(ThemeMode.Dark) {
         Surface {
-            RtlView {
+            LocalizedApp {
                 HomeBar(
                     pagerState = rememberPagerState(pageCount = { 3 }),
                     settingsDetails = SettingsDetails(),

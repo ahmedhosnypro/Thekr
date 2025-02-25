@@ -20,8 +20,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
@@ -35,7 +35,7 @@ import com.thekr.ui.counter.viewmodel.ZekrCounterViewModel
 import com.thekr.ui.counter.viewmodel.action.configSleepJop
 import com.thekr.ui.home.list.categoryDetailsPreviewState
 import com.thekr.ui.theme.AppTheme
-import com.thekr.ui.component.RtlView
+import com.thekr.ui.component.LocalizedApp
 import com.thekr.ui.viewmodel.AppViewModelProvider
 import korlibs.platform.Platform
 import kotlinx.coroutines.launch
@@ -158,7 +158,7 @@ fun ZekrScreen(
 }
 
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ZekrScreenBody(
     settingsDetails: SettingsDetails,
@@ -193,7 +193,7 @@ fun ZekrScreenBody(
 @Preview
 @Composable
 fun ZekrScreenBodyPreview() {
-    RtlView {
+    LocalizedApp {
         AppTheme {
             Surface {
                 ZekrScreenPreviewOnly(
@@ -211,7 +211,7 @@ fun ZekrScreenBodyPreview() {
 @Preview
 @Composable
 fun ZekrScreenBodyPreviewDark() {
-    RtlView {
+    LocalizedApp {
         AppTheme(ThemeMode.Dark) {
             Surface {
                 ZekrScreenPreviewOnly(

@@ -14,7 +14,7 @@ import com.thekr.ui.home.list.CategoryList
 import com.thekr.ui.home.list.ZekrList
 import com.thekr.ui.home.list.categoryDetailsPreviewState
 import com.thekr.ui.theme.AppTheme
-import com.thekr.ui.component.RtlView
+import com.thekr.ui.component.LocalizedApp
 import com.thekr.ui.home.HomeActions
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -65,7 +65,7 @@ fun ZekrTab(
 fun ZekrTabPreview() {
     AppTheme {
         Surface {
-            RtlView {
+            LocalizedApp {
                 ZekrTab(
                     categoryDetails = categoryDetailsPreviewState(),
                     settingsDetails = SettingsDetails(),
@@ -81,7 +81,7 @@ fun ZekrTabPreview() {
 fun ZekrTabPreviewZekrList() {
     AppTheme {
         Surface {
-            RtlView {
+            LocalizedApp {
                 ZekrTab(
                     categoryDetails = categoryDetailsPreviewState(
                         childCategories = remember { mutableStateListOf() }

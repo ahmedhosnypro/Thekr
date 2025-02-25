@@ -22,7 +22,7 @@ import com.thekr.data.settings.SettingsDetails
 import com.thekr.ui.values.Dimensions.medium
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.theme.ZekrTheme
-import com.thekr.ui.component.RtlView
+import com.thekr.ui.component.LocalizedApp
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
@@ -79,7 +79,7 @@ fun HeaderControlCard(
 fun TopBarHeaderControlsPreview() {
     AppTheme(themeMode = ThemeMode.Light) {
         Surface {
-            RtlView {
+            LocalizedApp {
                 TopBarHeaderControls(
                     settingsDetails = SettingsDetails(
                         themeMode = ThemeMode.Light
@@ -104,7 +104,7 @@ fun TopBarHeaderControlsPreview() {
 fun TopBarHeaderControlsPreviewDark() {
     AppTheme(themeMode = ThemeMode.Dark) {
         Surface {
-            RtlView {
+            LocalizedApp {
                 TopBarHeaderControls(
                     settingsDetails = SettingsDetails(
                         themeMode = ThemeMode.Dark
@@ -126,7 +126,7 @@ fun TopBarHeaderControlsPreviewDark() {
 @Preview
 @Composable
 fun HeaderControlCardPreview() {
-    RtlView {
+    LocalizedApp {
         Surface {
             Row(
                 modifier = Modifier.fillMaxWidth()

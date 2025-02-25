@@ -1,5 +1,5 @@
 @file:OptIn(
-    ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class,
+    ExperimentalMaterial3Api::class,
     InternalVoyagerApi::class
 )
 
@@ -7,6 +7,7 @@ package com.thekr.ui.counter
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.LocalIndication
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -39,6 +40,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.annotation.InternalVoyagerApi
 import cafe.adriel.voyager.navigator.internal.BackHandler
@@ -59,7 +61,7 @@ import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.theme.ZekrTheme
 import com.thekr.ui.util.KeepScreenOn
 import com.thekr.ui.util.NoRippleInteractionSource
-import com.thekr.ui.component.RtlView
+import com.thekr.ui.component.LocalizedApp
 import com.thekr.ui.util.customOnKeyEvent
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -72,12 +74,8 @@ fun ZekrHome(
     countSheetState: BottomSheetScaffoldState,
     modifier: Modifier = Modifier,
 ) {
-//    val context = LocalContext.current
-//    val activity = context.findActivity()
-
     BackHandler(true) {
         if (counterUiState.lockEnabled) {
-//            Log.d("CounterScreen", "lock enabled")
             // todo: show a snackbar
         } else {
             CounterHelper.onNavigateUp()
@@ -86,9 +84,7 @@ fun ZekrHome(
 
     DisposableEffect(Unit) { onDispose { CounterHelper.onCounterDispose() } }
 
-    // todo:
     KeepScreenOn(
-//        activity,
         settingsDetails.screenAlwaysOn,
     ) {
         val focusRequester = remember { FocusRequester() }
@@ -142,41 +138,36 @@ fun ZekrHomeBody(
     modifier: Modifier = Modifier,
     tabIndex: Int = 0,
 ) {
-    BoxWithConstraints(
-        modifier = modifier
-            .fillMaxSize()
-    ) {
-        val maxHeight = maxHeight
-        val peak = if (categoryDetails.value.zekrList.size > 1) 72.dp else 0.dp
-        val colors = ZekrTheme.colors(settingsDetails)
-        BottomSheetScaffold(
-            scaffoldState = countSheetState,
-            sheetSwipeEnabled = false,
-            sheetContent = {
-                if (settingsDetails.showCount) {
-                    ZekrCount(
-                        settingsDetails = settingsDetails,
-                        modifier = Modifier.heightIn(max = maxHeight / 3),
-                        tabIndex = tabIndex
-                    )
-                }
-            },
-            sheetDragHandle = {
-                if (categoryDetails.value.zekrList.size > 1) {
-                    Column(
-                        modifier = modifier
-                            .fillMaxWidth()
-                            .padding(top = small)
-                            .requiredHeight(peak),
 
-                        verticalArrangement = Arrangement.spacedBy(normal, Alignment.Top),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        CurrentZekrIndicator(
-                            categoryDetails = categoryDetails,
-                            tabIndex = tabIndex,
-                            settingsDetails = settingsDetails,
-                        )
+    val peak = if (categoryDetails.value.zekrList.size > 1) 72.dp else 0.dp
+    val colors = ZekrTheme.colors(settingsDetails)
+    BottomSheetScaffold(
+        scaffoldState = countSheetState,
+        sheetSwipeEnabled = false,
+        sheetContent = {
+            if (settingsDetails.showCount) {
+                ZekrCount(
+                    settingsDetails = settingsDetails,
+                    tabIndex = tabIndex
+                )
+            }
+        },
+        sheetDragHandle = {
+            if (categoryDetails.value.zekrList.size > 1) {
+                Column(
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .padding(top = small)
+                        .requiredHeight(peak),
+
+                    verticalArrangement = Arrangement.spacedBy(normal, Alignment.Top),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    CurrentZekrIndicator(
+                        categoryDetails = categoryDetails,
+                        tabIndex = tabIndex,
+                        settingsDetails = settingsDetails,
+                    )
 //                        if (isDailyTargetEnabled) {
 //                            DailyTarget(
 //                                zekrInstanceDetails = counterUiState.currentZekrInstance,
@@ -184,27 +175,19 @@ fun ZekrHomeBody(
 //                                settingsDetails = settingsDetails,
 //                            )
 //                        }
-                    }
                 }
-            },
-            sheetPeekHeight = peak,
-            sheetContainerColor = colors.sheetBackgroundColor
-        ) {
-//            if (CounterHelper.isPlayingSound()) {
-                //todo:
-//            }
-            ZekrText(
-                settingsDetails = settingsDetails,
-                categoryDetails = categoryDetails,
-                tabIndex = tabIndex,
-                counterUiState = counterUiState,
-                modifier = Modifier
-                    .requiredHeight(
-                        if (settingsDetails.showCount) maxHeight - (maxHeight / 3) - peak
-                        else maxHeight - peak
-                    ),
-            )
-        }
+            }
+        },
+        sheetPeekHeight = peak,
+        sheetContainerColor = colors.sheetBackgroundColor,
+        modifier = Modifier.background(color = Color.Green),
+    ) {
+        ZekrText(
+            settingsDetails = settingsDetails,
+            categoryDetails = categoryDetails,
+            tabIndex = tabIndex,
+            counterUiState = counterUiState,
+        )
     }
 }
 
@@ -242,7 +225,7 @@ fun SheikhCard(
 @Preview
 @Composable
 fun CounterScreenPreviewDark() {
-    RtlView {
+    LocalizedApp {
         AppTheme(ThemeMode.Dark) {
             Surface {
                 with(CounterHelper) {
@@ -301,7 +284,7 @@ fun CounterScreenPreviewDark() {
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun CounterScreenPreviewLight() {
-    RtlView {
+    LocalizedApp {
         AppTheme(ThemeMode.Light) {
             Surface {
                 ZekrHomeBody(

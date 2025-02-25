@@ -23,7 +23,7 @@ import com.thekr.resources.Res
 import com.thekr.resources.back
 import com.thekr.resources.header_background
 import com.thekr.resources.settings
-import com.thekr.ui.component.RtlView
+import com.thekr.ui.component.LocalizedApp
 import com.thekr.ui.home.HomeTab
 import com.thekr.ui.home.bar.top.HeaderTabsRow
 import com.thekr.ui.home.bar.top.HeaderText
@@ -58,7 +58,7 @@ fun ZekrBar(
     val sTiny = sTiny
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
@@ -128,7 +128,7 @@ fun ZekrBarPreviewTemplate(
 ) {
     AppTheme(ThemeMode.Dark) {
         Surface {
-            RtlView {
+            LocalizedApp {
                 ZekrBar(
                     title = {
                         HeaderText(

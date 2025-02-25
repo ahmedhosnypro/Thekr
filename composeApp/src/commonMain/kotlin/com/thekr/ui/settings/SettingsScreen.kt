@@ -29,7 +29,6 @@ import com.thekr.ui.settings.component.SwitchSetting
 import com.thekr.ui.settings.language.LanguageSettings
 import com.thekr.ui.settings.theme.ThemeModeSetting
 import com.thekr.ui.theme.AppTheme
-import com.thekr.ui.component.RtlView
 import com.thekr.ui.values.Dimensions.medium
 import com.thekr.ui.values.Dimensions.small
 import org.jetbrains.compose.resources.stringResource
@@ -48,7 +47,8 @@ import com.thekr.resources.speech_name
 import com.thekr.resources.speech_value
 import com.thekr.resources.vibration
 import com.thekr.resources.volume_key
-import org.jetbrains.compose.resources.DefaultComposeEnvironment
+import com.thekr.ui.component.LocalizedApp
+import com.thekr.util.changeLang
 
 @Composable
 fun SettingsScreen(
@@ -269,8 +269,8 @@ fun DisplaySettings(
                 } catch (e: Exception) {
                     null
                 }
-                locale?.let { it ->
-                    DefaultComposeEnvironment.setLocale(it)
+                locale?.let {
+                    changeLang(it.language)
                 }
                 onSettingUpdate(
                     settingsDetails.copy(
@@ -325,7 +325,7 @@ fun DisplaySettings(
 fun SettingsBodyPreview() {
     AppTheme {
         Surface {
-            RtlView {
+            LocalizedApp {
                 SettingsBody()
             }
         }
@@ -337,7 +337,7 @@ fun SettingsBodyPreview() {
 fun SettingsBodyPreviewDark() {
     AppTheme(ThemeMode.Dark) {
         Surface {
-            RtlView {
+            LocalizedApp {
                 SettingsBody(
                     settingsDetails = SettingsDetails(
                         themeMode = ThemeMode.Dark

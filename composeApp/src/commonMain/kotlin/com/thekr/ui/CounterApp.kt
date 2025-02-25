@@ -16,15 +16,20 @@ import androidx.navigation.compose.rememberNavController
 import com.thekr.data.proto.Settings
 import com.thekr.data.settingsStore
 import com.thekr.ui.component.LoadScreen
-import com.thekr.ui.component.MultiLang
+import com.thekr.ui.component.LocalizedApp
 import com.thekr.ui.navigation.NavigationActions
 import com.thekr.ui.viewmodel.AppViewModelProvider
 import com.thekr.ui.viewmodel.AzkarStateHelper
+import com.thekr.util.changeLang
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 
 @Composable
 fun CounterApp(
     azkarViewModel: AzkarViewModel = viewModel(factory = AppViewModelProvider.Factory),
 ) {
+    var currentLang by remember { mutableStateOf("") }
     val settings by settingsStore.updates.collectAsState(Settings())
     val azkarState by azkarViewModel.azkarState.collectAsState()
 
@@ -42,7 +47,6 @@ fun CounterApp(
         NavigationActions.initNavController(navController)
     }
 
-    // todo:
     val initialized = azkarViewModel.initialized
     if (settings == null ||
         settings!!.initialized.not() ||
@@ -55,11 +59,23 @@ fun CounterApp(
 
     val settingsDetails = settings!!.toSettingsDetails()
 
+    LaunchedEffect(settingsDetails) {
+        changeLang(settingsDetails.language)
+        if (currentLang != settingsDetails.language) {
+            currentLang = settingsDetails.language
+        }
+    }
+
+    if (currentLang.isEmpty()) {
+        LoadScreen()
+        return
+    }
+
     AppTheme(
         themeMode = settingsDetails.themeMode,
     ) {
-        MultiLang(
-            language = settingsDetails.language,
+        LocalizedApp(
+            language = currentLang,
         ) {
             Surface(
                 modifier = Modifier.fillMaxSize(),

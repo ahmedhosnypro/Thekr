@@ -13,7 +13,7 @@ import com.thekr.data.proto.ThemeMode
 import com.thekr.ui.AzkarActions
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.theme.hacenTunisiaLt
-import com.thekr.ui.component.RtlView
+import com.thekr.ui.component.LocalizedApp
 import com.thekr.ui.values.Dimensions.medium
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -208,7 +208,7 @@ fun isValidCategoryName(categoryName: String): Boolean {
 fun CreateCategoryDialogContentPreviewDark() {
     AppTheme(themeMode = ThemeMode.Dark) {
         Surface {
-            RtlView {
+            LocalizedApp {
                 CreateCategoryDialogContent(
                     onCategorySave = {},
                     onDismissRequest = {}
@@ -223,7 +223,7 @@ fun CreateCategoryDialogContentPreviewDark() {
 fun CreateCategoryDialogContentPreview() {
     AppTheme(themeMode = ThemeMode.Light) {
         Surface {
-            RtlView {
+            LocalizedApp {
                 CreateCategoryDialogContent(
                     onCategorySave = {},
                     onDismissRequest = {}

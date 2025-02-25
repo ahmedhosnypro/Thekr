@@ -6,7 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.thekr.ui.component.isRtlLanguage
+import com.thekr.util.isRtlLanguage
 
 @Composable
 fun LanguageIconMirrored(

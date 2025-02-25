@@ -41,7 +41,7 @@ import com.thekr.ui.home.bar.top.HeaderText
 import com.thekr.ui.navigation.NavigationActions
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.theme.ZekrTheme
-import com.thekr.ui.component.RtlView
+import com.thekr.ui.component.LocalizedApp
 import com.thekr.ui.values.Dimensions.large
 import com.thekr.ui.values.Dimensions.medium
 import com.thekr.ui.values.Dimensions.normal
@@ -319,7 +319,7 @@ fun ZekrGoalItem(
 private fun CounterEntryScreenPreview() {
     AppTheme {
         Surface {
-            RtlView {
+            LocalizedApp {
                 CounterEntry(
                     uiState = ZekrEntryUiState(),
                 )

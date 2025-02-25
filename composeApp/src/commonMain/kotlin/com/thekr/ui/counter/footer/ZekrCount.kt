@@ -44,7 +44,7 @@ import com.thekr.ui.home.list.ProgressState
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.theme.ZekrColors
 import com.thekr.ui.theme.ZekrTheme
-import com.thekr.ui.component.RtlView
+import com.thekr.ui.component.LocalizedApp
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 
@@ -215,7 +215,7 @@ fun ZekrCountPreview() {
             ).sheetBackgroundColor,
             contentColor = Color.White
         ) {
-            RtlView {
+            LocalizedApp {
                 with(CounterHelper) {
                     getZekrCount = {
                         mutableStateOf(

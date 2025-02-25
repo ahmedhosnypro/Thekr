@@ -19,7 +19,7 @@ import com.thekr.data.zekr.category.CategoryDetails
 import com.thekr.resources.Res
 import com.thekr.resources.back
 import com.thekr.ui.bar.top.ZekrBar
-import com.thekr.ui.component.RtlView
+import com.thekr.ui.component.LocalizedApp
 import com.thekr.ui.home.bar.top.HeaderText
 import com.thekr.ui.home.list.ZekrList
 import com.thekr.ui.theme.AppTheme
@@ -73,7 +73,7 @@ fun CategoryZekrList(
 fun CategoryZekrListPreview() {
     AppTheme {
         Surface {
-            RtlView {
+            LocalizedApp {
                 CategoryZekrList(
                     category = mutableStateOf(
                         CategoryDetails(
@@ -93,7 +93,7 @@ fun CategoryZekrListPreview() {
 fun CategoryZekrListPreviewDark() {
     AppTheme(ThemeMode.Dark) {
         Surface {
-            RtlView {
+            LocalizedApp {
                 CategoryZekrList(
                     category = mutableStateOf(
                         CategoryDetails(

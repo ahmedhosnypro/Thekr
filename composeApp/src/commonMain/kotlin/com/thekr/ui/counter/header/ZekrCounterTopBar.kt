@@ -78,7 +78,7 @@ import com.thekr.ui.home.bar.top.TopBarHeaderControls
 import com.thekr.ui.home.list.categoryDetailsPreviewState
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.theme.ZekrTheme
-import com.thekr.ui.component.RtlView
+import com.thekr.ui.component.LocalizedApp
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -661,7 +661,7 @@ private fun FontSizeSlider(settingsDetails: SettingsDetails) {
 fun HomeBarPreviewDark() {
     AppTheme(ThemeMode.Dark) {
         Surface {
-            RtlView {
+            LocalizedApp {
                 with(CounterHelper) {
                     getZekr = {
                         mutableStateOf(
@@ -698,7 +698,7 @@ fun HomeBarPreviewDark() {
 @Composable
 fun FontSizeSliderPreview() {
     Surface {
-        RtlView {
+        LocalizedApp {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -728,7 +728,7 @@ fun FontSizeSliderPreview() {
 fun HomeBarPreviewLight() {
     AppTheme {
         Surface {
-            RtlView {
+            LocalizedApp {
                 ZekrCounterTopBar(
                     categoryDetails = categoryDetailsPreviewState(),
                     counterUiState = CounterUiState(),
@@ -750,7 +750,7 @@ fun HomeBarPreviewLight() {
 fun HomeBarPreviewLockEnabled() {
     AppTheme(themeMode = ThemeMode.Dark) {
         Surface {
-            RtlView {
+            LocalizedApp {
                 ZekrCounterTopBar(
                     categoryDetails = categoryDetailsPreviewState(),
                     counterUiState = CounterUiState(
@@ -774,7 +774,7 @@ fun HomeBarPreviewLockEnabled() {
 fun CountVisibilityDropdownMenuPreview() {
     AppTheme {
         Surface {
-            RtlView {
+            LocalizedApp {
                 CountVisibilityDropdownMenu(
                     showCountSettingsMenu = remember { mutableStateOf(true) },
                     secondaryHeaderSize = DpSize(100.dp, 100.dp),

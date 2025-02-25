@@ -2,8 +2,8 @@
 <resources>
     <!-- App Info -->
     <string name="app_name">واصبر نفسك</string>
-    <string name="knooz">Knooz</string>
-    <string name="mesbaha">Mesbaha</string>
+    <string name="knooz">كنوز</string>
+    <string name="mesbaha">المسبحة</string>
 
     <!-- Navigation -->
     <string name="details">التفاصيل</string>
@@ -61,6 +61,7 @@
     <string name="hesn_almuslim">حصن المسلم</string>
     <string name="dua">الدعاء</string>
     <string name="coolDown">مهلة الذكر</string>
+    <string name="create_zekr_group">إنشاء مجموعة أذكار</string>
 
     <!-- Counter & Statistics -->
     <string name="counter">العداد</string>

@@ -5,7 +5,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import com.thekr.data.proto.ThemeMode
-import com.thekr.ui.component.RtlView
+import com.thekr.ui.component.LocalizedApp
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 val md_theme_light_primary = Color(0xFF026E10)
@@ -87,7 +87,7 @@ val seed = Color(0xFFFF8400)
 @Composable
 fun AppPreview() {
     AppTheme {
-        RtlView {
+        LocalizedApp {
             Surface {
                 Column {
 //                    Home(
@@ -104,7 +104,7 @@ fun AppPreview() {
 @Composable
 fun AppDarkPreview() {
     AppTheme(ThemeMode.Dark) {
-        RtlView {
+        LocalizedApp {
             Surface {
                 Column {
 //                    Home(

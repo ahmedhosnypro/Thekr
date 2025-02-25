@@ -55,22 +55,38 @@
     <string name="yearly_goal">Yearly Goal</string>
 
     <!-- Time Units -->
+    <string name="day">Day</string>
+    <string name="week">Week</string>
+    <string name="month">Month</string>
     <string name="minute">Minute</string>
     <string name="hour">Hour</string>
     <string name="daily">Daily</string>
+    <string name="weekly">Weekly</string>
+    <string name="monthly">Monthly</string>
+    <string name="yearly">Yearly</string>
+    <string name="total">Total</string>
+    <string name="am">AM</string>
+    <string name="pm">PM</string>
 
     <!-- Days of Week -->
-    <string name="wed">wed</string>
-    <string name="thu">thu</string>
-    <string name="fri">fri</string>
+    <string name="sat">Sat</string>
+    <string name="sun">Sun</string>
+    <string name="mon">Mon</string>
+    <string name="tue">Tue</string>
+    <string name="wed">Wed</string>
+    <string name="thu">Thu</string>
+    <string name="fri">Fri</string>
 
     <!-- Actions -->
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="create">Create</string>
+    <string name="group_name">Group Name</string>
+
+    <!-- Display Settings -->
     <string name="click_sound">Click Sound</string>
     <string name="speak_name">Thekr Alert</string>
-    <string name="input">input</string>
+    <string name="input">Input</string>
     <string name="volume_key">Volume Keys</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="sound">Sound</string>

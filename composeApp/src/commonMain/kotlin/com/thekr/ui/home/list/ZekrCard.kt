@@ -8,7 +8,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -16,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -30,14 +28,13 @@ import com.thekr.ui.theme.ZekrTheme
 import com.thekr.ui.theme.droidKufi
 import com.thekr.ui.theme.hacenTunisia
 import com.thekr.ui.util.NoRippleInteractionSource
-import com.thekr.ui.component.RtlView
+import com.thekr.ui.component.LocalizedApp
 import com.thekr.ui.values.Dimensions.small
 import com.thekr.ui.values.Dimensions.tiny
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import com.thekr.resources.Res
 import com.thekr.resources.zekr_indicator
-import com.thekr.ui.component.isRtlLanguage
 
 /**
  * Displays a card representing a Zekr item.
@@ -264,7 +261,7 @@ private fun DailyCount(
 @Preview
 @Composable
 fun CounterCardPreviewDarkMode() {
-    RtlView {
+    LocalizedApp {
         AppTheme(ThemeMode.Dark) {
             Surface {
                 ZekrCard(
@@ -293,7 +290,7 @@ fun CounterCardPreviewDarkMode() {
 fun CounterCardPreview() {
     AppTheme {
         Surface {
-            RtlView {
+            LocalizedApp {
                 ZekrCard(
                     text = "سبحان الله وبحمده سبحان الله العظيم سبحان الله وبحمده سبحان الله العظيم",
                     count = 50,

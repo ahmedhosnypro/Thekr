@@ -15,7 +15,7 @@ import com.thekr.data.zekr.category.CategoryDetails
 import com.thekr.ui.AzkarActions
 import com.thekr.ui.home.list.categoryDetailsListPreviewState
 import com.thekr.ui.theme.AppTheme
-import com.thekr.ui.component.RtlView
+import com.thekr.ui.component.LocalizedApp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
@@ -116,7 +116,7 @@ private fun handleNewCategorySave(
 fun SebhaTabPreview() {
     AppTheme(themeMode = ThemeMode.Dark) {
         Surface {
-            RtlView {
+            LocalizedApp {
                 SebhaTab(
                     userAzkar = categoryDetailsListPreviewState(),
                     settingsDetails = SettingsDetails(),
@@ -131,7 +131,7 @@ fun SebhaTabPreview() {
 fun SebhaTabPreviewEmptyCategoryList() {
     AppTheme(themeMode = ThemeMode.Dark) {
         Surface {
-            RtlView {
+            LocalizedApp {
                 SebhaTab(
                     userAzkar = remember { mutableStateListOf() },
                     settingsDetails = SettingsDetails(),

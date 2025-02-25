@@ -1,5 +1,6 @@
 package com.thekr.ui.counter.body
 
+import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,7 +17,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import com.thekr.data.settings.SettingsDetails
 import com.thekr.data.zekr.category.CategoryDetails
-import com.thekr.ui.component.RtlView
+import com.thekr.ui.component.LocalizedApp
 import com.thekr.ui.theme.ZekrTheme
 import com.thekr.ui.counter.CounterHelper
 import com.thekr.ui.counter.viewmodel.CounterUiState
@@ -25,6 +26,12 @@ import com.thekr.ui.values.Dimensions.medium
 import com.thekr.ui.values.Dimensions.small
 import com.thekr.ui.theme.hacenTunisiaLt
 import com.thekr.ui.theme.uthmanicScript
+import androidx.compose.foundation.gestures.detectDragGestures
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.launch
 
 @Composable
 fun ZekrText(
@@ -48,15 +55,29 @@ fun ZekrText(
         return
     }
 
-//            todo: dynamic language
-    RtlView {
+    val listState = rememberLazyListState()
+//    val coroutineScope = rememberCoroutineScope()
+
+    //  todo: dynamic language
+    LocalizedApp {
         LazyColumn(
+            state = listState,
             modifier = modifier
                 .fillMaxWidth()
                 .padding(
                     start = large,
                     end = large,
-                ),
+                )
+//                .pointerInput(Unit) {
+//                    detectDragGestures { change, dragAmount ->
+//                        change.consume()
+//                        coroutineScope.launch {
+//                            // Multiply by 2.5 for more natural feeling scroll speed
+//                            listState.animateScrollBy(-dragAmount.y * 10f)
+//                        }
+//                    }
+//                }
+                ,
             verticalArrangement = Arrangement.spacedBy(large)
         ) {
 
@@ -69,7 +90,6 @@ fun ZekrText(
                     text = zekr.text,
                     style = textStyle,
                     fontFamily = if (zekr.basmlaType != 0) uthmanicScript() else hacenTunisiaLt(),
-//                    fontFamily = uthmanicScript(),
                 )
             }
             if (categoryDetails.value.fadlList.any { it.zekrId == counterUiState.currentZekrInstance.value.id }) {
@@ -86,7 +106,7 @@ fun ZekrText(
                 }
             }
             item {
-                Spacer(Modifier.height(medium))
+                Spacer(Modifier.height(360.dp))
             }
         }
     }

@@ -45,4 +45,4 @@ plugins {
 
 
 include(":composeApp")
-include(":resources")
+//include(":resources")

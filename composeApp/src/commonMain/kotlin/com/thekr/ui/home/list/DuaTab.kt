@@ -2,6 +2,7 @@ package com.thekr.ui.home.list
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -17,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import com.thekr.data.proto.ThemeMode
@@ -28,7 +30,7 @@ import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.theme.ImageResourceHelper
 import com.thekr.ui.theme.droidKufi
 import com.thekr.ui.util.NoRippleInteractionSource
-import com.thekr.ui.component.RtlView
+import com.thekr.ui.component.LocalizedApp
 import com.thekr.ui.home.HomeActions
 import com.thekr.ui.values.Colors.listDivider
 import org.jetbrains.compose.resources.painterResource
@@ -70,7 +72,7 @@ fun DuaTab(
                     tabIndex = tabIndex,
                     categoryDetails = categoryDetails,
                     settingsDetails = settingsDetails,
-                    homeOnClick = {tabIndex1: Int, categoryId: Long, zekrId: Long ->
+                    homeOnClick = { tabIndex1: Int, categoryId: Long, zekrId: Long ->
                         HomeActions.onThekrClick(tabIndex1, categoryId, zekrId)
                     }
                 )
@@ -91,19 +93,23 @@ private fun DuaCategoryList(
     categoryDetails: MutableState<CategoryDetails>,
     onCategoryClick: (MutableState<CategoryDetails>) -> Unit
 ) {
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = medium),
-        verticalArrangement = Arrangement.Center
-    ) {
-        items(categoryDetails.value.childCategories, key = { it.value.id }) { childCategory ->
-            DuaCategoryCard(
-                category = childCategory,
-                onClick = { onCategoryClick(childCategory) }
-            )
-            if (childCategory != categoryDetails.value.childCategories.last()) {
-                DefaultHorizontalDivider(thickness = 2.dp, color = listDivider)
+    BoxWithConstraints {
+        val height = maxHeight / 2 - 2.dp
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = medium),
+            verticalArrangement = Arrangement.Center
+        ) {
+            items(categoryDetails.value.childCategories, key = { it.value.id }) { childCategory ->
+                DuaCategoryCard(
+                    modifier = Modifier.heightIn(max = height),
+                    category = childCategory,
+                    onClick = { onCategoryClick(childCategory) }
+                )
+                if (childCategory != categoryDetails.value.childCategories.last()) {
+                    DefaultHorizontalDivider(thickness = 2.dp, color = listDivider)
+                }
             }
         }
     }
@@ -116,7 +122,6 @@ private fun DuaCategoryList(
  * @param category The state of the category details.
  * @param onClick Callback function invoked when the card is clicked.
  */
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun DuaCategoryCard(
     modifier: Modifier = Modifier,
@@ -124,40 +129,48 @@ fun DuaCategoryCard(
     onClick: () -> Unit = {},
 ) {
     val contentColor = MaterialTheme.colorScheme.onSurface
-
-    Column(
-        modifier = modifier
-            .combinedClickable(
-                interactionSource = NoRippleInteractionSource(),
-                indication = null,
-                onClick = onClick
-            )
-            .fillMaxWidth()
-            .padding(horizontal = medium, vertical = medium),
-        verticalArrangement = Arrangement.spacedBy(medium),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        val iconFileName = category.value.iconFileName
-        if (iconFileName != null) {
-            val iconResId =
-                ImageResourceHelper.getDrawableResourceIdFromFileName(fileName = iconFileName)
-            if (iconResId != null) {
-                Image(
-                    painter = painterResource(iconResId),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .fillMaxWidth(0.3f)
-                        .aspectRatio(1f), // Default aspect ratio if image not available
-                    contentScale = ContentScale.Crop,
+    BoxWithConstraints {
+        val maxImageHeight = maxHeight * 0.7f
+        Column(
+            modifier = modifier
+                .combinedClickable(
+                    interactionSource = NoRippleInteractionSource(),
+                    indication = null,
+                    onClick = onClick
                 )
+                .fillMaxWidth()
+                .padding(horizontal = medium, vertical = medium),
+            verticalArrangement = Arrangement.spacedBy(medium),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Box(
+                modifier = Modifier
+                    .heightIn(max = maxImageHeight)
+            ){
+                val iconFileName = category.value.iconFileName
+                if (iconFileName != null) {
+                    val iconResId =
+                        ImageResourceHelper.getDrawableResourceIdFromFileName(fileName = iconFileName)
+                    if (iconResId != null) {
+                        Image(
+                            painter = painterResource(iconResId),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .fillMaxWidth(0.3f)
+                                .aspectRatio(1f)
+                                .background(color = Color(0x123)), // Default aspect ratio if image not available
+                            contentScale = ContentScale.Inside,
+                        )
+                    }
+                }
             }
+            Text(
+                text = category.value.name,
+                color = contentColor,
+                fontFamily = droidKufi(),
+                maxLines = 2,
+            )
         }
-        Text(
-            text = category.value.name,
-            color = contentColor,
-            fontFamily = droidKufi(),
-            maxLines = 2,
-        )
     }
 }
 
@@ -166,7 +179,7 @@ fun DuaCategoryCard(
 fun ZekrTabPreview() {
     AppTheme(themeMode = ThemeMode.Dark) {
         Surface {
-            RtlView {
+            LocalizedApp {
                 DuaTab(
                     duaStack = duaStackPreview(),
                     settingsDetails = SettingsDetails(),

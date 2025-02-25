@@ -19,7 +19,7 @@ import com.thekr.data.settings.SettingsDetails
 import com.thekr.data.zekr.category.CategoryDetails
 import com.thekr.resources.Res
 import com.thekr.resources.zekr_indicator
-import com.thekr.ui.component.RtlView
+import com.thekr.ui.component.LocalizedApp
 import com.thekr.ui.counter.CounterHelper
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.values.Dimensions.medium
@@ -102,7 +102,7 @@ fun ZekrList(
 fun ZekrListPreview() {
     AppTheme {
         Surface {
-            RtlView {
+            LocalizedApp {
                 ZekrList(
                     categoryDetails = categoryDetailsPreviewState(),
                     settingsDetails = SettingsDetails(),

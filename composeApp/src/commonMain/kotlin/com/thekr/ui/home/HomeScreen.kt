@@ -1,9 +1,7 @@
-@file:OptIn(ExperimentalFoundationApi::class, InternalVoyagerApi::class)
+@file:OptIn(InternalVoyagerApi::class)
 
 package com.thekr.ui.home
 
-
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -30,12 +28,12 @@ import com.thekr.data.settings.SettingsDetails
 import com.thekr.ui.AzkarActions
 import com.thekr.ui.AzkarActions.canNavigateToPreviousCategory
 import com.thekr.ui.AzkarActions.navigateToParentCategory
+import com.thekr.ui.component.LocalizedApp
 import com.thekr.ui.home.bar.top.HomeBar
 import com.thekr.ui.home.list.DuaTab
 import com.thekr.ui.home.tab.ZekrTab
 import com.thekr.ui.home.tab.sebha.SebhaTab
 import com.thekr.ui.theme.AppTheme
-import com.thekr.ui.component.RtlView
 import com.thekr.ui.viewmodel.AzkarState
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -66,7 +64,7 @@ fun HomeScreen(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
+@OptIn(ExperimentalMaterial3Api::class, InternalVoyagerApi::class)
 @Composable
 private fun HomeContent(
     settingsDetails: SettingsDetails,
@@ -145,7 +143,7 @@ private fun HomeContent(
 fun HomeScreenPreview() {
     AppTheme(themeMode = ThemeMode.Dark) {
         Surface {
-            RtlView {
+            LocalizedApp {
                 HomeContent(
                     settingsDetails = SettingsDetails(
                         themeMode = ThemeMode.Dark,
@@ -163,7 +161,7 @@ fun HomeScreenPreview() {
 @Composable
 fun EmptyHomeScreenPreview() {
     AppTheme(ThemeMode.Dark) {
-        RtlView {
+        LocalizedApp {
             Surface {
                 with(AzkarActions) {
                     canNavigateToPreviousCategory = { true }
