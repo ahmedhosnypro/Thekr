@@ -86,13 +86,12 @@ kotlin {
     sourceSets {
 
         androidMain.dependencies {
-            implementation(compose.preview)
+//            implementation(compose.preview)
             implementation(compose.uiTooling)
             implementation(libs.androidx.activity.compose)
             implementation(libs.kotlinx.coroutines.android)
             implementation(libs.ktor.client.okhttp)
             implementation(libs.bundles.libsu)
-            implementation(libs.bundles.vico)
             implementation(libs.androidx.appcompat)
 
             implementation(libs.androidx.ui.tooling.preview)
@@ -108,7 +107,6 @@ kotlin {
 
 
             implementation(compose.components.resources)
-//            implementation(project(":resources"))
             implementation(compose.components.uiToolingPreview)
 
             implementation(libs.voyager.navigator)
@@ -142,6 +140,7 @@ kotlin {
             implementation(libs.sdp.ssp.compose.multiplatform)
 
             implementation(libs.constraintlayout.compose.multiplatform)
+            implementation(libs.bundles.vico)
         }
 
         commonTest.dependencies {
@@ -171,7 +170,7 @@ android {
     sourceSets["main"].apply {
         manifest.srcFile("src/androidMain/AndroidManifest.xml")
         res.srcDirs("src/androidMain/res")
-        resources.srcDirs("src/commonMain/resources")
+//        resources.srcDirs("src/commonMain/resources")
     }
 
     defaultConfig {
@@ -232,7 +231,7 @@ compose.desktop {
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "org.preview"
+            packageName = "com.thekr"
             packageVersion = "1.0.0"
         }
     }

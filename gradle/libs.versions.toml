@@ -3,7 +3,7 @@
 kotlin = "2.1.20-RC"
 compose = "1.7.3"
 compose-full = "1.8.0-alpha02"
-agp = "8.7.3"
+agp = "8.8.1"
 android-compileSdk = "35"
 android-minSdk = "24"
 android-targetSdk = "35"
@@ -51,10 +51,11 @@ korge= "6.0.0-beta4"
 
 sdp-ssp-compose-multiplatform= "1.0.5"
 constraintlayout-compose-multiplatform= "0.5.0-shaded-core"
+vico = "2.1.0-alpha.5"
+
 ## Android only
-ui-tooling-preview = "1.7.0-beta03"
+ui-tooling-preview = "1.8.0-beta02"
 libsu = "6.0.0"
-vico = "2.1.0-alpha.1"
 
 ## JVM only
 
@@ -129,27 +130,26 @@ korge-core = { module = "com.soywiz.korge:korge", version.ref = "korge" }
 sdp-ssp-compose-multiplatform = { module = "network.chaintech:sdp-ssp-compose-multiplatform", version.ref = "sdp-ssp-compose-multiplatform" }
 
 constraintlayout-compose-multiplatform = { module = "tech.annexflow.compose:constraintlayout-compose-multiplatform", version.ref = "constraintlayout-compose-multiplatform" }
+
+# vico
+vico-multiplatform = { group = "com.patrykandpatrick.vico", name = "multiplatform", version.ref = "vico" }
+vico-multiplatform-m3 = { group = "com.patrykandpatrick.vico", name = "multiplatform-m3", version.ref = "vico" }
 ## Android only
-androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "ui-tooling-preview" }
 # libsu
 libsu-core = { module = "com.github.topjohnwu.libsu:core", version.ref = "libsu" }
 libsu-io = { module = "com.github.topjohnwu.libsu:io", version.ref = "libsu" }
 libsu-service = { module = "com.github.topjohnwu.libsu:service", version.ref = "libsu" }
-# vico
-vico-compose-m3 = { group = "com.patrykandpatrick.vico", name = "compose-m3", version.ref = "vico" }
-vico-core = { module = "com.patrykandpatryk.vico:core", version.ref = "vico" }
-
 ## JVM ONLY
 
 
 [bundles]
-
 ## Android only
 libsu = ["libsu-core", "libsu-io", "libsu-service"]
 vico = [
-#    "vico-compose-m3",
-    "vico-core"]
-material = ["material-icons-core", "material-icons-extended", "material-ripple"]
+    "vico-multiplatform",
+    "vico-multiplatform-m3",
+]
 
 
 

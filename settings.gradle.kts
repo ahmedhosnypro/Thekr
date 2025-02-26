@@ -1,4 +1,4 @@
-rootProject.name = "Preview"
+rootProject.name = "Thekr"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
@@ -45,4 +45,3 @@ plugins {
 
 
 include(":composeApp")
-//include(":resources")

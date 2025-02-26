@@ -6,7 +6,6 @@ import android.os.Build
 import android.os.Vibrator
 import android.os.VibratorManager
 import com.thekr.ThekrApplication.Companion.appContext
-//import com.thekr.ui.util.TTSSpeaker.textToSpeech
 
 actual fun vibrate(){
     vibrator().vibrate(longArrayOf(0, 16), -1)

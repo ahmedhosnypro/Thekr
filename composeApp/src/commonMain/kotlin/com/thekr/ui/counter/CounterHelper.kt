@@ -15,6 +15,7 @@ import com.thekr.data.settings.SettingsDetails
 import com.thekr.data.zekr.count.ZekrCount
 import com.thekr.data.zekr.instance.ZekrInstanceDetails
 import com.thekr.data.zekr.zekr.ZekrDetails
+import com.thekr.ui.counter.stats.DayStatisticsType
 import com.thekr.ui.counter.viewmodel.CounterUiState
 import com.thekr.ui.counter.viewmodel.ZekrCounterViewModel
 import com.thekr.ui.counter.viewmodel.action.ThekrSoundPlayer
@@ -24,6 +25,9 @@ import com.thekr.ui.settings.SettingActions
 import com.thekr.ui.settings.SettingActions.currentSettings
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import com.thekr.stats.CountStatistics
+import com.thekr.ui.counter.viewmodel.statistics.calcDayStatistics
+import com.thekr.ui.counter.viewmodel.statistics.calcWeekStatistics
 
 /**
  * Helper object for managing actions and data related to the Counter
@@ -49,10 +53,9 @@ object CounterHelper {
     lateinit var showSheikhSelectorList: () -> Unit
 
     // Statistics
-//    lateinit var getDayStatistics: (Long, DayStatisticsType) -> CountStatistics =
-//        { _, _ -> CountStatistics() }
-//    lateinit var getWeekStatistics: (Long) -> CountStatistics = { CountStatistics() }
-//    lateinit var getMonthStatistics: (Long) -> CountStatistics = { CountStatistics() }
+    lateinit var dayStatistics: (Long, DayStatisticsType) -> CountStatistics
+    lateinit var weekStatistics: (Long) -> CountStatistics
+//    lateinit var monthStatistics: (Long) -> CountStatistics = { CountStatistics() }
 
     // Navigation and UI
     lateinit var onCounterDispose: () -> Unit
@@ -149,10 +152,10 @@ object CounterHelper {
 
     // --- Statistics Actions ---
     private fun initStatisticsActions(counterViewModel: ZekrCounterViewModel) {
-//        getDayStatistics = { midnight, dayStatisticsType ->
-//            getDayStatistics(counterViewModel, midnight, dayStatisticsType)
-//        }
-//        getWeekStatistics = { time -> getWeekStatistics(counterViewModel, time) }
+        dayStatistics = { midnight, dayStatisticsType ->
+            calcDayStatistics(counterViewModel, midnight, dayStatisticsType)
+        }
+        weekStatistics = { time -> calcWeekStatistics(counterViewModel, time) }
         // TODO: Implement month statistics
         // getMonthStatistics = { time -> getMonthStatistics(counterViewModel, time) }
     }

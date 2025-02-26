@@ -1,0 +1,4 @@
+{
+    "backend.maxHeapSizeMb": 32768,
+    "prettier.mode": "Enabled",
+}

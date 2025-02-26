@@ -36,6 +36,7 @@ import com.thekr.ui.counter.viewmodel.action.configSleepJop
 import com.thekr.ui.home.list.categoryDetailsPreviewState
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.component.LocalizedApp
+import com.thekr.ui.counter.stats.ZekrStats
 import com.thekr.ui.viewmodel.AppViewModelProvider
 import korlibs.platform.Platform
 import kotlinx.coroutines.launch
@@ -139,13 +140,12 @@ fun ZekrScreen(
             settingsDetails = settingsDetails,
         )
     } else if (counterUiState.showStatistics) {
-        // todo:
-        //        ZekrStats(
-//            settingsDetails = settingsDetails,
-//            onNavigateUp = {
-//                viewModel.hideStatistics()
-//            }
-//        )
+        ZekrStats(
+            settingsDetails = settingsDetails,
+            onNavigateUp = {
+                viewModel.hideStatistics()
+            }
+        )
     } else {
         ZekrScreenBody(
             settingsDetails = settingsDetails,

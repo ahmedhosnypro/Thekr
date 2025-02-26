@@ -29,7 +29,9 @@ import androidx.compose.runtime.setValue
 fun CounterApp(
     azkarViewModel: AzkarViewModel = viewModel(factory = AppViewModelProvider.Factory),
 ) {
+    // important for the first render
     var currentLang by remember { mutableStateOf("") }
+
     val settings by settingsStore.updates.collectAsState(Settings())
     val azkarState by azkarViewModel.azkarState.collectAsState()
 
