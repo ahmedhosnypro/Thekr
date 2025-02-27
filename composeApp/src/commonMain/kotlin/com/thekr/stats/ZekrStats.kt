@@ -36,6 +36,9 @@ import com.thekr.resources.back
 import com.thekr.resources.daily
 import com.thekr.resources.monthly
 import com.thekr.resources.weekly
+import com.thekr.stats.tab.DayStats
+import com.thekr.stats.tab.MonthlyStats
+import com.thekr.stats.tab.WeekStats
 import com.thekr.ui.bar.top.ZekrBar
 import com.thekr.ui.values.Dimensions.xLarge
 import com.thekr.util.TimeHelper.calcMidnight

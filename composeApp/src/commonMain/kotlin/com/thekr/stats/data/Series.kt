@@ -4,14 +4,12 @@ import com.patrykandpatrick.vico.multiplatform.cartesian.data.ColumnCartesianLay
 import com.patrykandpatrick.vico.multiplatform.cartesian.data.LineCartesianLayerModel
 
 fun lineSeries(groupedCount: MutableMap<Int, Int>) =
-    listOf(
         groupedCount.values.mapIndexed { index, value ->
             LineCartesianLayerModel.Entry(
                 x = index,
                 y = value
             )
         }
-    )
 
 fun columnSeries(groupedCount: MutableMap<Int, Int>) =
     listOf(

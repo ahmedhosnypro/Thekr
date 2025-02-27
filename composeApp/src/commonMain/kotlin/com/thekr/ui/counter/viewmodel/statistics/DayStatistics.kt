@@ -1,9 +1,9 @@
 package com.thekr.ui.counter.viewmodel.statistics
 
 import com.thekr.model.Count
-import com.thekr.stats.CountStatistics
-import com.thekr.stats.DayStatistics
-import com.thekr.ui.counter.stats.DayStatisticsType
+import com.thekr.stats.data.CountStatistics
+import com.thekr.stats.data.DayStatistics
+import com.thekr.stats.DayStatisticsType
 import com.thekr.ui.counter.viewmodel.ZekrCounterViewModel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking

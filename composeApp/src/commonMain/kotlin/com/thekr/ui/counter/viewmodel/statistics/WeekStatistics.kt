@@ -1,10 +1,10 @@
 package com.thekr.ui.counter.viewmodel.statistics
 
 import com.thekr.model.Count
-import com.thekr.stats.CountStatistics
-import com.thekr.stats.SeriesType
-import com.thekr.stats.WeekStatistics
-import com.thekr.stats.maxY
+import com.thekr.stats.data.CountStatistics
+import com.thekr.stats.data.SeriesType
+import com.thekr.stats.data.WeekStatistics
+import com.thekr.stats.data.maxY
 import com.thekr.ui.counter.viewmodel.ZekrCounterViewModel
 import com.thekr.util.TimeHelper.calcWeekEnd
 import com.thekr.util.TimeHelper.calcWeekStart

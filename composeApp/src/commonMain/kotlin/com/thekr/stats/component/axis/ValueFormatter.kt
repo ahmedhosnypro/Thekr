@@ -1,4 +1,4 @@
-package com.thekr.stats.axis
+package com.thekr.stats.component.axis
 
 import com.patrykandpatrick.vico.multiplatform.cartesian.CartesianMeasuringContext
 import com.patrykandpatrick.vico.multiplatform.cartesian.axis.Axis

@@ -22,7 +22,7 @@ import com.thekr.ui.viewmodel.AppViewModelProvider
 import com.thekr.ui.viewmodel.AzkarStateHelper
 import com.thekr.util.changeLang
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 
 @Composable
@@ -30,7 +30,7 @@ fun CounterApp(
     azkarViewModel: AzkarViewModel = viewModel(factory = AppViewModelProvider.Factory),
 ) {
     // important for the first render
-    var currentLang by remember { mutableStateOf("") }
+    var currentLang by rememberSaveable { mutableStateOf("") }
 
     val settings by settingsStore.updates.collectAsState(Settings())
     val azkarState by azkarViewModel.azkarState.collectAsState()

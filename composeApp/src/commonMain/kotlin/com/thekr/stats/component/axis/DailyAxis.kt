@@ -1,4 +1,4 @@
-package com.thekr.stats.axis
+package com.thekr.stats.component.axis
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -21,7 +21,7 @@ import com.thekr.resources.pm
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-private fun hourlyBottomAxis(): HorizontalAxis<Axis.Position.Horizontal.Bottom> {
+fun hourlyBottomAxis(): HorizontalAxis<Axis.Position.Horizontal.Bottom> {
     val am = stringResource(Res.string.am)
     val pm = stringResource(Res.string.pm)
 

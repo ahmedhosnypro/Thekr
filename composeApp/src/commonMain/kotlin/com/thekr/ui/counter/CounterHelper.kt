@@ -15,7 +15,7 @@ import com.thekr.data.settings.SettingsDetails
 import com.thekr.data.zekr.count.ZekrCount
 import com.thekr.data.zekr.instance.ZekrInstanceDetails
 import com.thekr.data.zekr.zekr.ZekrDetails
-import com.thekr.ui.counter.stats.DayStatisticsType
+import com.thekr.stats.DayStatisticsType
 import com.thekr.ui.counter.viewmodel.CounterUiState
 import com.thekr.ui.counter.viewmodel.ZekrCounterViewModel
 import com.thekr.ui.counter.viewmodel.action.ThekrSoundPlayer
@@ -25,7 +25,7 @@ import com.thekr.ui.settings.SettingActions
 import com.thekr.ui.settings.SettingActions.currentSettings
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import com.thekr.stats.CountStatistics
+import com.thekr.stats.data.CountStatistics
 import com.thekr.ui.counter.viewmodel.statistics.calcDayStatistics
 import com.thekr.ui.counter.viewmodel.statistics.calcWeekStatistics
 

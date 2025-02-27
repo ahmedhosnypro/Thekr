@@ -24,11 +24,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.patrykandpatrick.vico.multiplatform.cartesian.CartesianChartHost
 import com.patrykandpatrick.vico.multiplatform.cartesian.data.CartesianChartModelProducer
+import com.patrykandpatrick.vico.multiplatform.cartesian.data.LineCartesianLayerModel
 import com.patrykandpatrick.vico.multiplatform.cartesian.rememberCartesianChart
 import com.patrykandpatrick.vico.multiplatform.cartesian.rememberVicoScrollState
 import com.patrykandpatrick.vico.multiplatform.cartesian.rememberVicoZoomState
@@ -40,7 +42,6 @@ import com.thekr.stats.component.axis.minuteBottomAxis
 import com.thekr.stats.component.axis.startAxis
 import com.thekr.stats.component.getColumnLayer
 import com.thekr.stats.component.getLineLayer
-import com.thekr.stats.data.CountStatistics
 import com.thekr.stats.data.addStatistics
 import com.thekr.ui.counter.CounterHelper.dayStatistics
 import com.thekr.ui.values.Dimensions.medium
@@ -64,50 +65,41 @@ fun DayStats(
         // Day name and Date
         DayNavigator(midnight)
         // chart
-        StatisticsProvider(midnight, dayStatisticsType)
+        ChartDataProvider(midnight, dayStatisticsType)
         // Hourly or Minute stats
         HourMinuteSwitch(dayStatisticsType)
     }
 }
 
 @Composable
-private fun StatisticsProvider(
+private fun ChartDataProvider(
     midnight: MutableLongState,
     dayStatisticsType: MutableState<DayStatisticsType>,
     modifier: Modifier = Modifier,
 ) {
-    var dayStatistics: CountStatistics = remember {
-        dayStatistics(
-            midnight.longValue,
-            dayStatisticsType.value,
+    val modelProducer = rememberSaveable { CartesianChartModelProducer() }
+    val dayStatistics = rememberSaveable {
+        mutableStateOf(
+            dayStatistics(
+                midnight.longValue,
+                dayStatisticsType.value,
+            )
         )
     }
     LaunchedEffect(key1 = midnight.longValue) {
-        dayStatistics = dayStatistics(
+        dayStatistics.value = dayStatistics(
             midnight.longValue,
             dayStatisticsType.value,
         )
-    }
-
-    ModelProducerProvider(modifier, dayStatistics, dayStatisticsType)
-}
-
-
-@Composable
-fun ModelProducerProvider(
-    modifier: Modifier = Modifier,
-    dayStatistics: CountStatistics,
-    dayStatisticsType: MutableState<DayStatisticsType>,
-) {
-    val modelProducer = remember { CartesianChartModelProducer() }
-    LaunchedEffect(key1 = Unit) {
+        val  l = LineCartesianLayerModel.Entry(
+            5,6
+        )
         modelProducer.runTransaction {
-            addStatistics(dayStatistics)
+            addStatistics(dayStatistics.value)
         }
     }
-
     DayChart(
-        modifier, dayStatistics.maxY, modelProducer, dayStatisticsType
+        modifier, dayStatistics.value.maxY, modelProducer, dayStatisticsType
     )
 }
 

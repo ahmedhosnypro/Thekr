@@ -22,14 +22,9 @@ import com.thekr.ui.theme.AppTheme
 import kotlinx.coroutines.runBlocking
 import kotlin.random.Random
 
-
-@Preview(
-    locale = "ar"
-)
-@Preview(
-    locale = "en"
-)
 @Composable
+@Preview(locale = "ar", group = "DayChartHourly")
+@Preview(locale = "en", group = "DayChartHourly")
 private fun DayChartPreview() {
     // Create sample data
     val sampleData = CountStatistics(
@@ -45,7 +40,6 @@ private fun DayChartPreview() {
         mutableStateOf(DayStatisticsType.Hourly)
     }
 
-
     val modelProducer = remember { CartesianChartModelProducer() }
     runBlocking {
         modelProducer.runTransaction {
@@ -53,10 +47,9 @@ private fun DayChartPreview() {
         }
     }
 
-
-    LocalizedApp (
+    LocalizedApp(
         language = Locale.current.language
-    ){
+    ) {
         AppTheme(ThemeMode.Dark) {
             Surface {
                 DayChart(

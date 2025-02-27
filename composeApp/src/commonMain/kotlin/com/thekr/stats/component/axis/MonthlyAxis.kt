@@ -1,4 +1,4 @@
-package com.thekr.stats.axis
+package com.thekr.stats.component.axis
 
 class MonthlyAxis {
 }

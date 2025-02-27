@@ -1,4 +1,4 @@
-package com.thekr.stats.axis
+package com.thekr.stats.component.axis
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
