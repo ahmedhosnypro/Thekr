@@ -20,6 +20,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,8 +33,6 @@ import com.thekr.stats.component.axis.startAxis
 import com.thekr.stats.component.axis.weeklyBottomAxis
 import com.thekr.stats.component.getColumnLayer
 import com.thekr.stats.component.getLineLayer
-import com.thekr.stats.data.CountStatistics
-import com.thekr.stats.data.addStatistics
 import com.thekr.ui.counter.CounterHelper
 import com.thekr.ui.values.Dimensions.medium
 import com.thekr.ui.values.Dimensions.small
@@ -53,7 +52,7 @@ fun WeekStats(
             .padding(top = medium)
     ) {
         WeekNavigator(time)
-        WeekChart(
+        WeeklyChartWrapper(
             time = time
         )
     }
@@ -135,29 +134,37 @@ private fun WeekNavigator(time: MutableLongState) {
 }
 
 @Composable
-private fun WeekChart(
-    modifier: Modifier = Modifier,
+private fun WeeklyChartWrapper(
     time: MutableLongState = mutableLongStateOf(System.currentTimeMillis()),
 ) {
-    var weekStatistics: CountStatistics = remember {
-        CounterHelper.weekStatistics(time.longValue)
+    val modelProducer = rememberSaveable { CartesianChartModelProducer() }
+    var weekStatisticsData = rememberSaveable {
+        mutableStateOf(CounterHelper.weekStatisticsData(time.longValue))
     }
 
-    val dailyModelProducer = remember {
-        CartesianChartModelProducer()
+    LaunchedEffect(key1 = time.longValue) {
+        weekStatisticsData = mutableStateOf(CounterHelper.weekStatisticsData(time.longValue))
+        modelProducer.runTransaction {
+            add(weekStatisticsData.value.partial)
+        }
     }
 
+    WeekChart(
+        modelProducer = modelProducer,
+        maxY = weekStatisticsData.value.maxY,
+    )
+}
+
+@Composable
+private fun WeekChart(
+    modifier: Modifier = Modifier,
+    maxY: Double?,
+    modelProducer: CartesianChartModelProducer,
+) {
     val scrollState = rememberVicoScrollState()
     val zoomState = rememberVicoZoomState(
         zoomEnabled = false
     )
-
-    LaunchedEffect(key1 = time.longValue) {
-        weekStatistics =  CounterHelper.weekStatistics(time.longValue)
-        dailyModelProducer.runTransaction {
-            addStatistics(weekStatistics)
-        }
-    }
 
     Box(
         modifier = modifier.padding(medium),
@@ -165,11 +172,11 @@ private fun WeekChart(
         CartesianChartHost(
             chart = rememberCartesianChart(
                 getLineLayer(),
-                getColumnLayer(maxY = weekStatistics.maxY),
+                getColumnLayer(maxY = maxY),
                 startAxis = startAxis,
                 bottomAxis = weeklyBottomAxis(),
             ),
-            modelProducer = dailyModelProducer,
+            modelProducer = modelProducer,
             scrollState = scrollState,
             zoomState = zoomState,
         )

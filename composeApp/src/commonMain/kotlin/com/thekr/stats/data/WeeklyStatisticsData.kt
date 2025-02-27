@@ -1,10 +1,41 @@
 package com.thekr.stats.data
 
 import com.thekr.model.Count
+import com.thekr.ui.counter.viewmodel.ZekrCounterViewModel
+import com.thekr.util.TimeHelper.calcWeekEnd
+import com.thekr.util.TimeHelper.calcWeekStart
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.runBlocking
 import java.util.Calendar
 
-object WeekStatistics {
-    fun weekModelSeries(
+object WeeklyStatisticsData {
+
+    fun calcWeekStatistics(
+        viewModel: ZekrCounterViewModel,
+        time: Long
+    ): StatisticsData {
+        // find all count items between weekStart and weekend
+        var countItems: List<Count>
+        val weekStart = calcWeekStart(time)
+        val weekEnd = calcWeekEnd(time)
+
+        with(viewModel) {
+            runBlocking {
+                countItems =
+                    countRepository.findCounts(zekrId, weekStart, weekEnd).firstOrNull()
+                        ?: listOf()
+            }
+        }
+
+        val countByDay= weekModelSeries(countItems)
+
+        return StatisticsData(
+            partial = columnPartial(countByDay),
+            maxY = maxY(countByDay)
+        )
+    }
+
+    private fun weekModelSeries(
         countItems: List<Count>,
     ): MutableMap<Int, Int> {
         val calendar: Calendar = Calendar.getInstance()

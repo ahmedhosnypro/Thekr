@@ -1,40 +1,46 @@
 package com.thekr.stats.data
 
-import com.patrykandpatrick.vico.multiplatform.cartesian.data.CartesianChartModelProducer
-import com.patrykandpatrick.vico.multiplatform.cartesian.data.columnSeries
-import com.patrykandpatrick.vico.multiplatform.cartesian.data.lineSeries
+import com.patrykandpatrick.vico.multiplatform.cartesian.data.CartesianLayerModel
 
-enum class SeriesType {
-    LINEAR,
-    COLUMN
-}
+import com.patrykandpatrick.vico.multiplatform.cartesian.data.ColumnCartesianLayerModel
+import com.patrykandpatrick.vico.multiplatform.cartesian.data.LineCartesianLayerModel
 
-data class CountStatistics(
-    val type: SeriesType,
-    val x: Collection<Number>,
-    val y: Collection<Number>,
+data class StatisticsData(
+    val partial: CartesianLayerModel.Partial,
     val maxY: Double? = null,
     val minY: Double? = null,
 )
 
+fun linePartial(data: MutableMap<Int, Int>) =
+    LineCartesianLayerModel.Partial(
+        listOf(
+            data.values.mapIndexed { index, value ->
+                LineCartesianLayerModel.Entry(
+                    x = index,
+                    y = value
+                )
+            }
+        )
+    )
 
-fun  CartesianChartModelProducer.Transaction.addStatistics(statistics: CountStatistics) {
-    when (statistics.type) {
-        SeriesType.LINEAR -> {
-            lineSeries {
-                series(
-                    x = statistics.x,
-                    y = statistics.y,
+
+fun columnPartial(data: MutableMap<Int, Int>) =
+    ColumnCartesianLayerModel.Partial(
+        listOf(
+            data.values.mapIndexed { index, value ->
+                ColumnCartesianLayerModel.Entry(
+                    x = index,
+                    y = value
                 )
             }
-        }
-        SeriesType.COLUMN -> {
-            columnSeries {
-                series(
-                    x = statistics.x,
-                    y = statistics.y,
-                )
-            }
-        }
-    }
+        )
+    )
+
+fun maxY(
+    currentCountGroup: MutableMap<Int, Int>,
+): Double {
+    val maxCount = currentCountGroup.values.maxOrNull()
+    val max = maxCount?.times(1.2) ?: 0.0
+    val maxDivisibleBy5 = (max / 5 + 1) * 5
+    return maxDivisibleBy5
 }

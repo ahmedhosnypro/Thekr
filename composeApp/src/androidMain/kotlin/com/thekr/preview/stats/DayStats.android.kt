@@ -13,8 +13,6 @@ import androidx.compose.ui.unit.dp
 import com.patrykandpatrick.vico.multiplatform.cartesian.data.CartesianChartModelProducer
 import com.patrykandpatrick.vico.multiplatform.cartesian.data.columnSeries
 import com.thekr.data.proto.ThemeMode
-import com.thekr.stats.data.CountStatistics
-import com.thekr.stats.data.SeriesType
 import com.thekr.ui.component.LocalizedApp
 import com.thekr.stats.tab.DayChart
 import com.thekr.stats.DayStatisticsType
@@ -26,15 +24,10 @@ import kotlin.random.Random
 @Preview(locale = "ar", group = "DayChartHourly")
 @Preview(locale = "en", group = "DayChartHourly")
 private fun DayChartPreview() {
-    // Create sample data
-    val sampleData = CountStatistics(
-        type = SeriesType.COLUMN,
-        x = (0..23).toList(),  // 24 hours
-        y = List(24) {
-            Random.nextInt(0, 5000)
-        },
-        maxY = 5000.0
-    )
+    val x = (0..23).toList()  // 24 hours
+    val y = List(24) {
+        Random.nextInt(0, 5000)
+    }
 
     val dayStatisticsType = remember {
         mutableStateOf(DayStatisticsType.Hourly)
@@ -43,7 +36,7 @@ private fun DayChartPreview() {
     val modelProducer = remember { CartesianChartModelProducer() }
     runBlocking {
         modelProducer.runTransaction {
-            columnSeries { series(sampleData.x, sampleData.y) }
+            columnSeries { series(x, y) }
         }
     }
 
@@ -56,7 +49,7 @@ private fun DayChartPreview() {
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(300.dp),
-                    maxY = sampleData.maxY,
+                    maxY = 5000.0,
                     modelProducer = modelProducer,
                     dayStatisticsType = dayStatisticsType
                 )

@@ -30,7 +30,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.patrykandpatrick.vico.multiplatform.cartesian.CartesianChartHost
 import com.patrykandpatrick.vico.multiplatform.cartesian.data.CartesianChartModelProducer
-import com.patrykandpatrick.vico.multiplatform.cartesian.data.LineCartesianLayerModel
 import com.patrykandpatrick.vico.multiplatform.cartesian.rememberCartesianChart
 import com.patrykandpatrick.vico.multiplatform.cartesian.rememberVicoScrollState
 import com.patrykandpatrick.vico.multiplatform.cartesian.rememberVicoZoomState
@@ -42,8 +41,7 @@ import com.thekr.stats.component.axis.minuteBottomAxis
 import com.thekr.stats.component.axis.startAxis
 import com.thekr.stats.component.getColumnLayer
 import com.thekr.stats.component.getLineLayer
-import com.thekr.stats.data.addStatistics
-import com.thekr.ui.counter.CounterHelper.dayStatistics
+import com.thekr.ui.counter.CounterHelper.dayStatisticsData
 import com.thekr.ui.values.Dimensions.medium
 import com.thekr.ui.values.Dimensions.small
 import com.thekr.util.TimeHelper.calcMidnight
@@ -65,37 +63,30 @@ fun DayStats(
         // Day name and Date
         DayNavigator(midnight)
         // chart
-        ChartDataProvider(midnight, dayStatisticsType)
+        DailyChartWrapper(midnight, dayStatisticsType)
         // Hourly or Minute stats
         HourMinuteSwitch(dayStatisticsType)
     }
 }
 
 @Composable
-private fun ChartDataProvider(
+private fun DailyChartWrapper(
     midnight: MutableLongState,
     dayStatisticsType: MutableState<DayStatisticsType>,
     modifier: Modifier = Modifier,
 ) {
     val modelProducer = rememberSaveable { CartesianChartModelProducer() }
     val dayStatistics = rememberSaveable {
-        mutableStateOf(
-            dayStatistics(
-                midnight.longValue,
-                dayStatisticsType.value,
-            )
-        )
+        mutableStateOf(dayStatisticsData(midnight.longValue, dayStatisticsType.value))
     }
     LaunchedEffect(key1 = midnight.longValue) {
-        dayStatistics.value = dayStatistics(
+        dayStatistics.value = dayStatisticsData(
             midnight.longValue,
             dayStatisticsType.value,
         )
-        val  l = LineCartesianLayerModel.Entry(
-            5,6
-        )
+
         modelProducer.runTransaction {
-            addStatistics(dayStatistics.value)
+            add(dayStatistics.value.partial)
         }
     }
     DayChart(

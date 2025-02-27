@@ -16,6 +16,7 @@ import com.thekr.data.zekr.count.ZekrCount
 import com.thekr.data.zekr.instance.ZekrInstanceDetails
 import com.thekr.data.zekr.zekr.ZekrDetails
 import com.thekr.stats.DayStatisticsType
+import com.thekr.stats.data.DailyStatisticsData.calcDayStatistics
 import com.thekr.ui.counter.viewmodel.CounterUiState
 import com.thekr.ui.counter.viewmodel.ZekrCounterViewModel
 import com.thekr.ui.counter.viewmodel.action.ThekrSoundPlayer
@@ -25,9 +26,8 @@ import com.thekr.ui.settings.SettingActions
 import com.thekr.ui.settings.SettingActions.currentSettings
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import com.thekr.stats.data.CountStatistics
-import com.thekr.ui.counter.viewmodel.statistics.calcDayStatistics
-import com.thekr.ui.counter.viewmodel.statistics.calcWeekStatistics
+import com.thekr.stats.data.StatisticsData
+import com.thekr.stats.data.WeeklyStatisticsData.calcWeekStatistics
 
 /**
  * Helper object for managing actions and data related to the Counter
@@ -53,8 +53,8 @@ object CounterHelper {
     lateinit var showSheikhSelectorList: () -> Unit
 
     // Statistics
-    lateinit var dayStatistics: (Long, DayStatisticsType) -> CountStatistics
-    lateinit var weekStatistics: (Long) -> CountStatistics
+    lateinit var dayStatisticsData: (Long, DayStatisticsType) -> StatisticsData
+    lateinit var weekStatisticsData: (Long) -> StatisticsData
 //    lateinit var monthStatistics: (Long) -> CountStatistics = { CountStatistics() }
 
     // Navigation and UI
@@ -152,10 +152,10 @@ object CounterHelper {
 
     // --- Statistics Actions ---
     private fun initStatisticsActions(counterViewModel: ZekrCounterViewModel) {
-        dayStatistics = { midnight, dayStatisticsType ->
+        dayStatisticsData = { midnight, dayStatisticsType ->
             calcDayStatistics(counterViewModel, midnight, dayStatisticsType)
         }
-        weekStatistics = { time -> calcWeekStatistics(counterViewModel, time) }
+        weekStatisticsData = { time -> calcWeekStatistics(counterViewModel, time) }
         // TODO: Implement month statistics
         // getMonthStatistics = { time -> getMonthStatistics(counterViewModel, time) }
     }

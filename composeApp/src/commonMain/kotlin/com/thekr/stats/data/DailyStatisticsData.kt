@@ -1,15 +1,40 @@
 package com.thekr.stats.data
 
 import com.thekr.model.Count
+import com.thekr.stats.DayStatisticsType
+import com.thekr.ui.counter.viewmodel.ZekrCounterViewModel
 import com.thekr.util.TimeHelper.calcMidnight
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 import java.util.*
 
-object DayStatistics {
+object DailyStatisticsData {
     private val dayMinuteStatistics = mutableMapOf<Long, MutableMap<Int, Int>>()
 
-    fun hourDayStatistics(
+    fun calcDayStatistics(
+        viewModel: ZekrCounterViewModel, midnight: Long, dayStatisticsType: DayStatisticsType
+    ): StatisticsData {
+        val nextMidnight = midnight + 24 * 60 * 60 * 1000
+        val todayCountItems: List<Count>
+
+        with(viewModel) {
+            runBlocking {
+                todayCountItems =
+                    countRepository.findCounts(zekrId, midnight, nextMidnight).first()
+            }
+        }
+
+        return when (dayStatisticsType) {
+            DayStatisticsType.Hourly -> hourDayStatistics(todayCountItems)
+            DayStatisticsType.Minute -> minuteDayStatistics(
+                todayCountItems, currentDayMidnight = midnight
+            )
+        }
+    }
+
+    private fun hourDayStatistics(
         todayCountItems: List<Count>,
-    ): CountStatistics {
+    ): StatisticsData {
         val todayCountByHour = mutableMapOf<Int, Int>()
         (0..23).forEach { hour ->
             todayCountByHour[hour] = 0
@@ -18,18 +43,16 @@ object DayStatistics {
         groupDayCountByHour(todayCountItems, todayCountByHour)
 
         val maxY = maxY(todayCountByHour)
-        return CountStatistics(
-            type = SeriesType.COLUMN,
-            x = todayCountByHour.keys,
-            y = todayCountByHour.values,
+        return StatisticsData(
+            partial = columnPartial(todayCountByHour),
             maxY = maxY
         )
     }
 
-    fun minuteDayStatistics(
+    private fun minuteDayStatistics(
         currentDayCountItems: List<Count>,
         currentDayMidnight: Long = calcMidnight()
-    ): CountStatistics {
+    ): StatisticsData {
         val currentDayCountByMinute = mutableMapOf<Int, Int>()
 
         (0..24 * 60).forEach { minute ->
@@ -39,10 +62,8 @@ object DayStatistics {
         dayMinuteStatistics[currentDayMidnight] = currentDayCountByMinute
 
         val maxY = maxY(currentDayCountByMinute)
-        return CountStatistics(
-            type = SeriesType.LINEAR,
-            x = currentDayCountByMinute.keys,
-            y = currentDayCountByMinute.values,
+        return StatisticsData(
+            partial = linePartial(currentDayCountByMinute),
             maxY = maxY
         )
     }
