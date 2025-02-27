@@ -1,4 +1,4 @@
-package com.thekr.ui.counter.stats
+package com.thekr.stats.tab
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -27,43 +27,21 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.LayoutDirection
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.patrykandpatrick.vico.multiplatform.cartesian.CartesianChartHost
-import com.patrykandpatrick.vico.multiplatform.cartesian.axis.Axis
-import com.patrykandpatrick.vico.multiplatform.cartesian.axis.BaseAxis
-import com.patrykandpatrick.vico.multiplatform.cartesian.axis.HorizontalAxis
-import com.patrykandpatrick.vico.multiplatform.cartesian.axis.VerticalAxis
-import com.patrykandpatrick.vico.multiplatform.cartesian.axis.rememberAxisLineComponent
-import com.patrykandpatrick.vico.multiplatform.cartesian.axis.rememberAxisTickComponent
 import com.patrykandpatrick.vico.multiplatform.cartesian.data.CartesianChartModelProducer
-import com.patrykandpatrick.vico.multiplatform.cartesian.data.CartesianLayerRangeProvider.Companion.fixed
-import com.patrykandpatrick.vico.multiplatform.cartesian.layer.ColumnCartesianLayer
-import com.patrykandpatrick.vico.multiplatform.cartesian.layer.LineCartesianLayer
-import com.patrykandpatrick.vico.multiplatform.cartesian.layer.rememberColumnCartesianLayer
-import com.patrykandpatrick.vico.multiplatform.cartesian.layer.rememberLine
-import com.patrykandpatrick.vico.multiplatform.cartesian.layer.rememberLineCartesianLayer
 import com.patrykandpatrick.vico.multiplatform.cartesian.rememberCartesianChart
 import com.patrykandpatrick.vico.multiplatform.cartesian.rememberVicoScrollState
 import com.patrykandpatrick.vico.multiplatform.cartesian.rememberVicoZoomState
-import com.patrykandpatrick.vico.multiplatform.common.Fill
-import com.patrykandpatrick.vico.multiplatform.common.Insets
-import com.patrykandpatrick.vico.multiplatform.common.component.TextComponent.MinWidth
-import com.patrykandpatrick.vico.multiplatform.common.component.rememberLineComponent
-import com.patrykandpatrick.vico.multiplatform.common.component.rememberShapeComponent
-import com.patrykandpatrick.vico.multiplatform.common.component.rememberTextComponent
-import com.patrykandpatrick.vico.multiplatform.common.shape.CorneredShape
 import com.thekr.resources.Res
-import com.thekr.resources.am
 import com.thekr.resources.minute
-import com.thekr.resources.pm
-import com.thekr.stats.CountStatistics
-import com.thekr.stats.addStatistics
+import com.thekr.stats.DayStatisticsType
+import com.thekr.stats.component.axis.hourlyBottomAxis
+import com.thekr.stats.component.axis.minuteBottomAxis
+import com.thekr.stats.component.axis.startAxis
+import com.thekr.stats.component.getColumnLayer
+import com.thekr.stats.component.getLineLayer
+import com.thekr.stats.data.CountStatistics
+import com.thekr.stats.data.addStatistics
 import com.thekr.ui.counter.CounterHelper.dayStatistics
 import com.thekr.ui.values.Dimensions.medium
 import com.thekr.ui.values.Dimensions.small
@@ -271,149 +249,3 @@ private fun HourMinuteSwitch(dayStatisticsType: MutableState<DayStatisticsType>)
     }
 }
 
-@Composable
-private fun getColumnLayer(
-    verticalAxisPosition: Axis.Position.Vertical? = null,
-    maxY: Double? = null
-) = rememberColumnCartesianLayer(
-    columnProvider = ColumnCartesianLayer.ColumnProvider.series(
-        listOf(
-            rememberLineComponent(
-                fill = Fill(MaterialTheme.colorScheme.primary),
-                thickness = 4.dp,
-                shape = CorneredShape.Pill
-            ),
-        )
-    ),
-    verticalAxisPosition = verticalAxisPosition,
-    rangeProvider = fixed(
-        maxY = maxY,
-    )
-)
-
-@Composable
-private fun getLineLayer(verticalAxisPosition: Axis.Position.Vertical? = null) =
-    rememberLineCartesianLayer(
-        LineCartesianLayer.LineProvider.series(
-            LineCartesianLayer.rememberLine(
-                fill = LineCartesianLayer.LineFill.single(
-                    Fill(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f))
-                ),
-                pointProvider =
-                LineCartesianLayer.PointProvider.single(
-                    LineCartesianLayer.Point(
-                        rememberShapeComponent(
-                            Fill(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)),
-                            CorneredShape.Pill
-                        )
-                    )
-                ),
-            ),
-        ),
-        verticalAxisPosition = verticalAxisPosition,
-    )
-
-private val startAxis: Axis<Axis.Position.Vertical.Start>
-    @Composable get() = VerticalAxis.rememberStart(
-        line = rememberAxisLineComponent(),
-        label = rememberTextComponent(
-            style = TextStyle(
-                color = MaterialTheme.colorScheme.onBackground,
-                fontSize = 10.sp,
-            ),
-            margins = Insets(
-                start = 0.dp,
-                end = 8.dp,
-                top = 0.dp,
-                bottom = 0.dp,
-            ),
-        ),
-        itemPlacer = remember {
-            VerticalAxis.ItemPlacer.count(
-                count = { _ -> 5 },
-                shiftTopLines = false,
-            )
-        },
-        valueFormatter = remember { intFormatter() },
-        tickLength = 1.dp,
-    )
-
-
-@Composable
-private fun hourlyBottomAxis(): HorizontalAxis<Axis.Position.Horizontal.Bottom> {
-    val am = stringResource(Res.string.am)
-    val pm = stringResource(Res.string.pm)
-
-    val layoutDirection = LocalLayoutDirection.current
-    return HorizontalAxis.rememberBottom(
-        labelRotationDegrees = when (layoutDirection) {
-            LayoutDirection.Ltr -> 90f
-            LayoutDirection.Rtl -> -90f
-        },
-
-        label = rememberTextComponent(
-            style = TextStyle(
-                color = MaterialTheme.colorScheme.onBackground,
-                fontSize = 10.sp,
-                textAlign = TextAlign.Start
-            ),
-            margins = Insets(
-                start = 0.dp,
-                end = 0.dp,
-                top = 8.dp,
-                bottom = 0.dp,
-            ),
-            minWidth = MinWidth.text("24 $am"),
-            overflow = TextOverflow.Visible
-        ),
-
-        itemPlacer = remember {
-            HorizontalAxis.ItemPlacer.aligned(
-                shiftExtremeLines = false,
-                addExtremeLabelPadding = true,
-                offset = { _ -> 0 }
-            )
-        },
-        guideline = null,
-        valueFormatter = remember { hourFormatter(am, pm) },
-        tickLength = 1.dp,
-    )
-}
-
-@Composable
-fun minuteBottomAxis(): HorizontalAxis<Axis.Position.Horizontal.Bottom> {
-    val am = stringResource(Res.string.am)
-    val pm = stringResource(Res.string.pm)
-
-    val layoutDirection = LocalLayoutDirection.current
-    return HorizontalAxis.rememberBottom(
-        label = rememberTextComponent(
-            style = TextStyle(
-                color = MaterialTheme.colorScheme.onBackground,
-                fontSize = 10.sp,
-                textAlign = TextAlign.Center
-            ),
-            lineCount = 8,
-            margins = Insets(
-                start = 0.dp,
-                end = 0.dp,
-                top = 8.dp,
-                bottom = 0.dp,
-            ),
-        ),
-        itemPlacer = remember {
-            HorizontalAxis.ItemPlacer.aligned(
-                shiftExtremeLines = false,
-                addExtremeLabelPadding = true,
-                offset = { _ -> 4 }
-            )
-        },
-        labelRotationDegrees = when (layoutDirection) {
-            LayoutDirection.Ltr -> 90f
-            LayoutDirection.Rtl -> -90f
-        },
-        guideline = null,
-        valueFormatter = remember { minuteFormatter(am, pm) },
-        tickLength = 8.dp,
-    )
-}

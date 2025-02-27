@@ -1,4 +1,4 @@
-package com.thekr.preview
+package com.thekr.preview.stats
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -13,13 +13,14 @@ import androidx.compose.ui.unit.dp
 import com.patrykandpatrick.vico.multiplatform.cartesian.data.CartesianChartModelProducer
 import com.patrykandpatrick.vico.multiplatform.cartesian.data.columnSeries
 import com.thekr.data.proto.ThemeMode
-import com.thekr.stats.CountStatistics
-import com.thekr.stats.SeriesType
+import com.thekr.stats.data.CountStatistics
+import com.thekr.stats.data.SeriesType
 import com.thekr.ui.component.LocalizedApp
-import com.thekr.ui.counter.stats.DayChart
-import com.thekr.ui.counter.stats.DayStatisticsType
+import com.thekr.stats.tab.DayChart
+import com.thekr.stats.DayStatisticsType
 import com.thekr.ui.theme.AppTheme
 import kotlinx.coroutines.runBlocking
+import kotlin.random.Random
 
 
 @Preview(
@@ -35,7 +36,7 @@ private fun DayChartPreview() {
         type = SeriesType.COLUMN,
         x = (0..23).toList(),  // 24 hours
         y = List(24) {
-            kotlin.random.Random.nextInt(0, 5000)
+            Random.nextInt(0, 5000)
         },
         maxY = 5000.0
     )

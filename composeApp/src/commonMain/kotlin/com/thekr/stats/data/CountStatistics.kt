@@ -1,4 +1,4 @@
-package com.thekr.stats
+package com.thekr.stats.data
 
 import com.patrykandpatrick.vico.multiplatform.cartesian.data.CartesianChartModelProducer
 import com.patrykandpatrick.vico.multiplatform.cartesian.data.columnSeries
@@ -18,7 +18,7 @@ data class CountStatistics(
 )
 
 
-fun  CartesianChartModelProducer.Transaction.addStatistics(statistics:  CountStatistics) {
+fun  CartesianChartModelProducer.Transaction.addStatistics(statistics: CountStatistics) {
     when (statistics.type) {
         SeriesType.LINEAR -> {
             lineSeries {

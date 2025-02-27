@@ -1,4 +1,4 @@
-package com.thekr.ui.counter.stats
+package com.thekr.stats
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.layout.Arrangement

@@ -1,4 +1,4 @@
-package com.thekr.stats
+package com.thekr.stats.series
 
 import com.thekr.model.Count
 import java.util.Calendar
