@@ -156,7 +156,7 @@ private fun WeeklyChartWrapper(
 }
 
 @Composable
-private fun WeekChart(
+fun WeekChart(
     modifier: Modifier = Modifier,
     maxY: Double?,
     modelProducer: CartesianChartModelProducer,

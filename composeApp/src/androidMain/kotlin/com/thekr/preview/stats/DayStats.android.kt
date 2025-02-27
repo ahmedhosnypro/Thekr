@@ -57,3 +57,41 @@ private fun DayChartPreview() {
         }
     }
 }
+
+@Composable
+@Preview(locale = "ar", group = "DayChartMinute")
+@Preview(locale = "en", group = "DayChartMinute")
+private fun DayChartMinutePreview() {
+    val x = (0..1440).toList()  // 24 hours * 60 minutes
+    val y = List(1440) {
+        Random.nextInt(0, 20)
+    }
+
+    val dayStatisticsType = remember {
+        mutableStateOf(DayStatisticsType.Minute)
+    }
+
+    val modelProducer = remember { CartesianChartModelProducer() }
+    runBlocking {
+        modelProducer.runTransaction {
+            columnSeries { series(x, y) }
+        }
+    }
+
+    LocalizedApp(
+        language = Locale.current.language
+    ) {
+        AppTheme(ThemeMode.Dark) {
+            Surface {
+                DayChart(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(300.dp),
+                    maxY = 25.0,
+                    modelProducer = modelProducer,
+                    dayStatisticsType = dayStatisticsType
+                )
+            }
+        }
+    }
+}
