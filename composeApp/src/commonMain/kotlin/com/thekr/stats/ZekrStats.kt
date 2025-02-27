@@ -22,6 +22,7 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -66,6 +67,11 @@ fun ZekrStats(
     val tabs = listOf("Count", "Miss")
     val countMissPagerState = rememberPagerState(pageCount = { tabs.size })
     val scope = rememberCoroutineScope()
+
+    val dayStatisticsType = remember {
+        mutableStateOf(DayStatisticsType.Hourly)
+    }
+
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -102,7 +108,9 @@ fun ZekrStats(
             modifier = Modifier.padding(innerPadding),
         ) { page ->
             when (page) {
-                0 -> CountStats()
+                0 -> CountStats(
+                    dayStatisticsType = dayStatisticsType
+                )
                 1 -> MissStats()
             }
         }
@@ -117,6 +125,7 @@ fun MissStats() {
 @Composable
 fun CountStats(
     modifier: Modifier = Modifier,
+    dayStatisticsType: MutableState<DayStatisticsType>
 ) {
     val countPagerState = rememberPagerState(pageCount = { StatisticsType.entries.size })
 
@@ -139,9 +148,7 @@ fun CountStats(
                 )
             }
         }
-        val dayStatisticsType = remember {
-            mutableStateOf(DayStatisticsType.Hourly)
-        }
+
         HorizontalPager(
             modifier = Modifier
                 .fillMaxSize(),

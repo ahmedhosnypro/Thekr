@@ -14,12 +14,7 @@ data class StatisticsData(
 fun linePartial(data: MutableMap<Int, Int>) =
     LineCartesianLayerModel.Partial(
         listOf(
-            data.values.mapIndexed { index, value ->
-                LineCartesianLayerModel.Entry(
-                    x = index,
-                    y = value
-                )
-            }
+            data.values.mapIndexed { x, y -> LineCartesianLayerModel.Entry(x, y) }
         )
     )
 
@@ -27,12 +22,7 @@ fun linePartial(data: MutableMap<Int, Int>) =
 fun columnPartial(data: MutableMap<Int, Int>) =
     ColumnCartesianLayerModel.Partial(
         listOf(
-            data.values.mapIndexed { index, value ->
-                ColumnCartesianLayerModel.Entry(
-                    x = index,
-                    y = value
-                )
-            }
+            data.values.mapIndexed { x, y -> ColumnCartesianLayerModel.Entry(x, y) }
         )
     )
 

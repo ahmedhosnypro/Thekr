@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.patrykandpatrick.vico.multiplatform.cartesian.axis.Axis
+import com.patrykandpatrick.vico.multiplatform.cartesian.axis.BaseAxis.Size
 import com.patrykandpatrick.vico.multiplatform.cartesian.axis.HorizontalAxis
 import com.patrykandpatrick.vico.multiplatform.common.Insets
 import com.patrykandpatrick.vico.multiplatform.common.component.TextComponent.MinWidth
@@ -72,7 +73,7 @@ fun minuteBottomAxis(): HorizontalAxis<Axis.Position.Horizontal.Bottom> {
             style = TextStyle(
                 color = MaterialTheme.colorScheme.onBackground,
                 fontSize = 10.sp,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Start
             ),
             lineCount = 8,
             margins = Insets(
@@ -81,12 +82,15 @@ fun minuteBottomAxis(): HorizontalAxis<Axis.Position.Horizontal.Bottom> {
                 top = 8.dp,
                 bottom = 0.dp,
             ),
+            minWidth = MinWidth.text("12:59 $pm"),
+            overflow = TextOverflow.Visible
         ),
+        size = Size.Text("12:59 $am "),
         itemPlacer = remember {
             HorizontalAxis.ItemPlacer.aligned(
                 shiftExtremeLines = false,
                 addExtremeLabelPadding = true,
-                offset = { _ -> 4 }
+                offset = { _ -> 0 }
             )
         },
         labelRotationDegrees = when (layoutDirection) {
@@ -94,7 +98,7 @@ fun minuteBottomAxis(): HorizontalAxis<Axis.Position.Horizontal.Bottom> {
             LayoutDirection.Rtl -> -90f
         },
         guideline = null,
-        valueFormatter = remember { minuteFormatter(am, pm) },
-        tickLength = 8.dp,
+        valueFormatter = remember { extendedMinuteFormatter(am, pm) },
+        tickLength = 1.dp,
     )
 }

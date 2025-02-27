@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBackIos
 import androidx.compose.material.icons.automirrored.filled.ArrowForwardIos
 import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material3.MaterialTheme
@@ -20,7 +21,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -59,7 +59,7 @@ fun WeekStats(
 }
 
 @Composable
-private fun WeekNavigator(time: MutableLongState) {
+fun WeekNavigator(time: MutableLongState) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -72,7 +72,7 @@ private fun WeekNavigator(time: MutableLongState) {
             time.longValue -= 604800000
         }) {
             Icon(
-                imageVector = Icons.AutoMirrored.Filled.ArrowForwardIos,
+                imageVector = Icons.AutoMirrored.Filled.ArrowBackIos,
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.onBackground
             )
@@ -121,7 +121,7 @@ private fun WeekNavigator(time: MutableLongState) {
             }, enabled = !isCurrentWeek
         ) {
             Icon(
-                imageVector = Icons.Filled.ArrowBackIosNew,
+                imageVector = Icons.AutoMirrored.Filled.ArrowForwardIos,
                 contentDescription = null,
                 tint = if (isCurrentWeek) {
                     MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)
@@ -137,8 +137,8 @@ private fun WeekNavigator(time: MutableLongState) {
 private fun WeeklyChartWrapper(
     time: MutableLongState = mutableLongStateOf(System.currentTimeMillis()),
 ) {
-    val modelProducer = rememberSaveable { CartesianChartModelProducer() }
-    var weekStatisticsData = rememberSaveable {
+    val modelProducer = remember { CartesianChartModelProducer() }
+    var weekStatisticsData = remember {
         mutableStateOf(CounterHelper.weekStatisticsData(time.longValue))
     }
 

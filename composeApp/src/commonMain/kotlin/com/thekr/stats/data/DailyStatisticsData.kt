@@ -49,7 +49,7 @@ object DailyStatisticsData {
         )
     }
 
-    private fun minuteDayStatistics(
+     fun minuteDayStatistics(
         currentDayCountItems: List<Count>,
         currentDayMidnight: Long = calcMidnight()
     ): StatisticsData {
@@ -68,7 +68,7 @@ object DailyStatisticsData {
         )
     }
 
-    private fun groupDayCountByHour(
+     private fun groupDayCountByHour(
         todayCountItems: List<Count>,
         todayCountByHour: MutableMap<Int, Int>
     ) {
@@ -82,7 +82,7 @@ object DailyStatisticsData {
         }
     }
 
-    private fun groupDayCountByMinute(
+     private fun groupDayCountByMinute(
         todayCountItems: List<Count>,
         todayCountByMinute: MutableMap<Int, Int>
     ) {

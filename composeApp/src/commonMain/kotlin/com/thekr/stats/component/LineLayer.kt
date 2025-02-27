@@ -2,6 +2,7 @@ package com.thekr.stats.component
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.unit.dp
 import com.patrykandpatrick.vico.multiplatform.cartesian.axis.Axis
 import com.patrykandpatrick.vico.multiplatform.cartesian.data.CartesianLayerRangeProvider.Companion.fixed
@@ -40,16 +41,11 @@ fun getLineLayer(verticalAxisPosition: Axis.Position.Vertical? = null) =
         LineCartesianLayer.LineProvider.series(
             LineCartesianLayer.rememberLine(
                 fill = LineCartesianLayer.LineFill.single(
-                    Fill(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f))
+                    Fill(MaterialTheme.colorScheme.primary),
                 ),
-                pointProvider =
-                LineCartesianLayer.PointProvider.single(
-                    LineCartesianLayer.Point(
-                        rememberShapeComponent(
-                            Fill(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)),
-                            CorneredShape.Pill
-                        )
-                    )
+                stroke = LineCartesianLayer.LineStroke.Continuous(
+                    thickness = 0.5.dp,
+                    cap = StrokeCap.Round
                 ),
             ),
         ),

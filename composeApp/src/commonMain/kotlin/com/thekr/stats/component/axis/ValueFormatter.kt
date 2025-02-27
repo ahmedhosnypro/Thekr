@@ -66,7 +66,7 @@ private class MinuteFormatter(
         720 -> "12 $pm"
         960 -> "4 $pm"
         1200 -> "8 $pm"
-        1410 -> "12 $am"
+        1380 -> "11 $pm"
         else -> " "
     }
 
@@ -81,6 +81,55 @@ fun minuteFormatter(
     am: String = "am",
     pm: String = "pm",
 ): CartesianValueFormatter = MinuteFormatter(am, pm)
+
+enum class HourFormat {
+    HOURS_12,
+    HOURS_24
+}
+
+private class ExtendedMinuteFormatter(
+    private val am: String,
+    private val pm: String,
+    private val hourFormat: HourFormat = HourFormat.HOURS_12
+) : CartesianValueFormatter {
+    override fun format(
+        context: CartesianMeasuringContext,
+        value: Double,
+        verticalAxisPosition: Axis.Position.Vertical?,
+    ): CharSequence {
+        val totalMinutes = value.toInt()
+        val hours = totalMinutes / 60
+        val minutes = totalMinutes % 60
+
+        return when (hourFormat) {
+            HourFormat.HOURS_12 -> {
+                val period = if (hours < 12) am else pm
+                val hour12 = when (hours) {
+                    0 -> 12
+                    in 13..23 -> hours - 12
+                    else -> hours
+                }
+                "$hour12:$minutes $period"
+            }
+
+            HourFormat.HOURS_24 -> {
+                "$hours:$minutes"
+            }
+        }
+    }
+
+    override fun equals(other: Any?) =
+        this === other || other is ExtendedMinuteFormatter
+
+    override fun hashCode() = javaClass.hashCode()
+}
+
+/** Enhanced formatter that formats minutes as HH:MM. */
+fun extendedMinuteFormatter(
+    am: String = "am",
+    pm: String = "pm",
+    hourFormat: HourFormat = HourFormat.HOURS_12
+): CartesianValueFormatter = ExtendedMinuteFormatter(am, pm, hourFormat)
 
 private class WeekdayFormatter(
     private val saturday: String,

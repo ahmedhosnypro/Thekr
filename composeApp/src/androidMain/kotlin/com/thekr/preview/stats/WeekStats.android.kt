@@ -1,7 +1,6 @@
 package com.thekr.preview.stats
 
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -17,6 +16,25 @@ import com.thekr.ui.component.LocalizedApp
 import com.thekr.ui.theme.AppTheme
 import kotlinx.coroutines.runBlocking
 import kotlin.random.Random
+import androidx.compose.runtime.mutableLongStateOf
+import com.thekr.stats.tab.WeekNavigator
+
+@Composable
+@Preview(locale = "ar", group = "WeekNavigator")
+@Preview(locale = "en", group = "WeekNavigator")
+private fun WeekNavigatorPreview() {
+    val time = remember { mutableLongStateOf(System.currentTimeMillis()) }
+
+    LocalizedApp(
+        language = Locale.current.language
+    ) {
+        AppTheme(ThemeMode.Dark) {
+            Surface {
+                WeekNavigator(time = time)
+            }
+        }
+    }
+}
 
 @Composable
 @Preview(locale = "ar", group = "WeekChart")
@@ -40,9 +58,7 @@ private fun WeekChartPreview() {
         AppTheme(ThemeMode.Dark) {
             Surface {
                 WeekChart(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(300.dp),
+                    modifier = Modifier.fillMaxWidth(),
                     maxY = 60.0,
                     modelProducer = modelProducer
                 )
@@ -50,4 +66,3 @@ private fun WeekChartPreview() {
         }
     }
 }
-

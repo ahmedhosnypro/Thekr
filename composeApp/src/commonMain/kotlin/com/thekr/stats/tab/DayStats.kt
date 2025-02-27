@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBackIos
 import androidx.compose.material.icons.automirrored.filled.ArrowForwardIos
 import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material3.ButtonColors
@@ -24,16 +25,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.patrykandpatrick.vico.multiplatform.cartesian.CartesianChartHost
+import com.patrykandpatrick.vico.multiplatform.cartesian.Zoom
 import com.patrykandpatrick.vico.multiplatform.cartesian.data.CartesianChartModelProducer
 import com.patrykandpatrick.vico.multiplatform.cartesian.rememberCartesianChart
 import com.patrykandpatrick.vico.multiplatform.cartesian.rememberVicoScrollState
 import com.patrykandpatrick.vico.multiplatform.cartesian.rememberVicoZoomState
 import com.thekr.resources.Res
+import com.thekr.resources.hour
 import com.thekr.resources.minute
 import com.thekr.stats.DayStatisticsType
 import com.thekr.stats.component.axis.hourlyBottomAxis
@@ -75,11 +77,14 @@ private fun DailyChartWrapper(
     dayStatisticsType: MutableState<DayStatisticsType>,
     modifier: Modifier = Modifier,
 ) {
-    val modelProducer = rememberSaveable { CartesianChartModelProducer() }
-    val dayStatistics = rememberSaveable {
+    val modelProducer = remember { CartesianChartModelProducer() }
+    val dayStatistics = remember {
         mutableStateOf(dayStatisticsData(midnight.longValue, dayStatisticsType.value))
     }
-    LaunchedEffect(key1 = midnight.longValue) {
+    LaunchedEffect(
+        key1 = midnight.longValue,
+        key2 = dayStatisticsType.value
+    ) {
         dayStatistics.value = dayStatisticsData(
             midnight.longValue,
             dayStatisticsType.value,
@@ -106,7 +111,8 @@ fun DayChart(
     ) {
         val scrollState = rememberVicoScrollState()
         val zoomState = rememberVicoZoomState(
-            zoomEnabled = false
+            zoomEnabled = true,
+            initialZoom = remember { Zoom.min(Zoom.fixed(), Zoom.Content) },
         )
         CartesianChartHost(
             modifier = modifier,
@@ -127,7 +133,7 @@ fun DayChart(
 }
 
 @Composable
-private fun DayNavigator(midnight: MutableLongState) {
+fun DayNavigator(midnight: MutableLongState) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -140,7 +146,7 @@ private fun DayNavigator(midnight: MutableLongState) {
             midnight.longValue -= 86400000
         }) {
             Icon(
-                imageVector = Icons.AutoMirrored.Filled.ArrowForwardIos,
+                imageVector = Icons.AutoMirrored.Filled.ArrowBackIos,
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.onBackground
             )
@@ -178,7 +184,7 @@ private fun DayNavigator(midnight: MutableLongState) {
             enabled = !isToday
         ) {
             Icon(
-                imageVector = Icons.Filled.ArrowBackIosNew,
+                imageVector = Icons.AutoMirrored.Filled.ArrowForwardIos,
                 contentDescription = null,
                 tint = if (isToday) {
                     MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)
@@ -213,7 +219,7 @@ private fun HourMinuteSwitch(dayStatisticsType: MutableState<DayStatisticsType>)
             },
             border = ButtonDefaults.outlinedButtonBorder(enabled = dayStatisticsType.value == DayStatisticsType.Hourly)
         ) {
-            Text(text = stringResource(Res.string.minute))
+            Text(text = stringResource(Res.string.hour))
         }
         OutlinedButton(
             onClick = {

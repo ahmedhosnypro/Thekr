@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.patrykandpatrick.vico.multiplatform.cartesian.axis.Axis
+import com.patrykandpatrick.vico.multiplatform.cartesian.axis.BaseAxis.Size
 import com.patrykandpatrick.vico.multiplatform.cartesian.axis.HorizontalAxis
 import com.patrykandpatrick.vico.multiplatform.common.Insets
 import com.patrykandpatrick.vico.multiplatform.common.component.TextComponent.MinWidth
@@ -58,9 +59,8 @@ fun weeklyBottomAxis(): HorizontalAxis<Axis.Position.Horizontal.Bottom> {
                 bottom = 0.dp,
             ),
             minWidth = MinWidth.text("Wednesday"),
-            overflow = TextOverflow.Visible
         ),
-
+        size = Size.Text("Wednesday"),
         itemPlacer = remember {
             HorizontalAxis.ItemPlacer.aligned(
                 shiftExtremeLines = false,
