@@ -1,4 +1,4 @@
-package com.thekr.ui.zekr.entry
+package com.thekr.ui.thekr.entry
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -32,7 +32,7 @@ import com.thekr.data.settings.SettingsDetails
 
 @Composable
 fun ThemeEditor(
-    actions: ZekrEntryActions,
+    actions: ThekrEntryActions,
     settingsState: SettingsDetails,
 ) {
     val showColorPicker = rememberSaveable {

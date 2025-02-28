@@ -1,8 +1,5 @@
-@file:OptIn(ExperimentalFoundationApi::class)
-
 package com.thekr.ui.home.bar.top
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
@@ -18,8 +15,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
-import com.thekr.ui.AzkarActions
-import com.thekr.ui.bar.top.ZekrBar
+import com.thekr.ui.AppActions
+import com.thekr.ui.component.bar.AppTopBar
 import com.thekr.ui.home.HomeActions
 import com.thekr.ui.home.HomeTab
 import com.thekr.ui.home.tab.sebha.CreateCategoryDialog
@@ -27,25 +24,24 @@ import com.thekr.ui.navigation.NavigationActions
 import com.thekr.ui.navigation.route.SettingsRoute
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.component.LocalizedApp
-import com.thekr.ui.viewmodel.AzkarState
+import com.thekr.ui.viewmodel.AppState
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import com.thekr.resources.Res
-import com.thekr.resources.add_zekr
+import com.thekr.resources.add_thekr
 import com.thekr.resources.back
-import com.thekr.resources.create_zekr_group
+import com.thekr.resources.create_thekr_group
 import com.thekr.resources.settings
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeBar(
     settingsDetails: SettingsDetails,
     pagerState: PagerState,
-    azkarState: AzkarState,
+    appState: AppState,
 ) {
     val headerText= stringResource(HomeTab.entries[pagerState.currentPage].stringResource)
     assert(headerText.isNotEmpty())
-    ZekrBar(
+    AppTopBar(
         title = {
             HeaderText(
                 text = headerText,
@@ -53,12 +49,11 @@ fun HomeBar(
         },
         actions = {
             if (pagerState.currentPage == 0) {
-                HomeBarCreateAction(azkarState)
+                HomeBarCreateAction(appState)
             }
             // settings icon
             IconButton(onClick = {
                 NavigationActions.navigate(SettingsRoute.route)
-//                NavigationActions.navigate(SettingsRoute)
             }) {
                 Icon(
                     imageVector = Icons.Filled.Settings,
@@ -68,9 +63,9 @@ fun HomeBar(
             }
         },
         navigationIcon = {
-            if (AzkarActions.canNavigateToPreviousCategory(pagerState.currentPage)) {
+            if (AppActions.canNavigateToPreviousCategory(pagerState.currentPage)) {
                 IconButton(onClick = {
-                    AzkarActions.navigateToParentCategory(pagerState.currentPage)
+                    AppActions.navigateToParentCategory(pagerState.currentPage)
                 }) {
                     Icon(
                         Icons.AutoMirrored.Filled.ArrowBackIos,
@@ -92,11 +87,11 @@ fun HomeBar(
 
 @Composable
 fun HomeBarCreateAction(
-    azkarState: AzkarState,
+    appState: AppState,
 ) {
     val showCreateNewCategoryDialog = remember { mutableStateOf(false) }
     IconButton(
-        onClick = if (azkarState.userAzkar.value.childCategories.isEmpty()) {
+        onClick = if (appState.userThekr.value.childCategories.isEmpty()) {
             { showCreateNewCategoryDialog.value = true }
         } else {
             { HomeActions.onThekrCategoryClick() }
@@ -104,9 +99,9 @@ fun HomeBarCreateAction(
     ) {
         Icon(
             Icons.Outlined.Create,
-            contentDescription = if (azkarState.userAzkar.value.childCategories.isEmpty()) {
-                stringResource(Res.string.create_zekr_group)
-            } else stringResource(Res.string.add_zekr),
+            contentDescription = if (appState.userThekr.value.childCategories.isEmpty()) {
+                stringResource(Res.string.create_thekr_group)
+            } else stringResource(Res.string.add_thekr),
             tint = Color.White
         )
     }
@@ -126,7 +121,7 @@ fun HomeBarPreview() {
                 HomeBar(
                     pagerState = rememberPagerState(pageCount = { 3 }),
                     settingsDetails = SettingsDetails(),
-                    azkarState = AzkarState(),
+                    appState = AppState(),
                 )
             }
         }
@@ -142,7 +137,7 @@ fun HomeBarPreviewDark() {
                 HomeBar(
                     pagerState = rememberPagerState(pageCount = { 3 }),
                     settingsDetails = SettingsDetails(),
-                    azkarState = AzkarState(),
+                    appState = AppState(),
                 )
             }
         }

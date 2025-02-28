@@ -1,17 +1,17 @@
-package com.thekr.data.zekr.fadl
+package com.thekr.data.thekr.fadl
 
-import com.thekr.model.ZekrFadl
+import com.thekr.model.ThekrFadl
 
 class OfflineFadlRepository(private val fadlDAO: FadlDAO) : FadlRepository {
-    override suspend fun insert(zekrFadl: ZekrFadl) = fadlDAO.insert(zekrFadl)
+    override suspend fun insert(thekrFadl: ThekrFadl) = fadlDAO.insert(thekrFadl)
 
-    override suspend fun insertAll(zekrFadl: List<ZekrFadl>) = fadlDAO.insertAll(zekrFadl)
+    override suspend fun insertAll(thekrFadl: List<ThekrFadl>) = fadlDAO.insertAll(thekrFadl)
 
-    override suspend fun update(zekrFadl: ZekrFadl) = fadlDAO.update(zekrFadl)
+    override suspend fun update(thekrFadl: ThekrFadl) = fadlDAO.update(thekrFadl)
 
     override fun findAll() = fadlDAO.findAll()
 
-    override fun findByZekrId(zekrId: Long) = fadlDAO.findByZekrId(zekrId)
+    override fun findByThekrId(thekrId: Long) = fadlDAO.findByThekrId(thekrId)
 
     override fun findByCategoryId(id: Long) = fadlDAO.findByCategoryId(id)
 }

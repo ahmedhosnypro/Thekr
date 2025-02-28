@@ -25,23 +25,23 @@ import cafe.adriel.voyager.core.annotation.InternalVoyagerApi
 import cafe.adriel.voyager.navigator.internal.BackHandler
 import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
-import com.thekr.ui.AzkarActions
-import com.thekr.ui.AzkarActions.canNavigateToPreviousCategory
-import com.thekr.ui.AzkarActions.navigateToParentCategory
+import com.thekr.ui.AppActions
+import com.thekr.ui.AppActions.canNavigateToPreviousCategory
+import com.thekr.ui.AppActions.navigateToParentCategory
 import com.thekr.ui.component.LocalizedApp
 import com.thekr.ui.home.bar.top.HomeBar
 import com.thekr.ui.home.list.DuaTab
-import com.thekr.ui.home.tab.ZekrTab
+import com.thekr.ui.home.tab.ThekrTab
 import com.thekr.ui.home.tab.sebha.SebhaTab
 import com.thekr.ui.theme.AppTheme
-import com.thekr.ui.viewmodel.AzkarState
+import com.thekr.ui.viewmodel.AppState
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 
 // stack of cat nav
 @Composable
 fun HomeScreen(
-    azkarState: AzkarState,
+    appState: AppState,
     settingsDetails: SettingsDetails,
     homeViewModel: HomeViewModel = viewModel { HomeViewModel() },
 ) {
@@ -58,7 +58,7 @@ fun HomeScreen(
     }
 
     HomeContent(
-        azkarState = azkarState,
+        appState = appState,
         settingsDetails = settingsDetails,
         snackBarHostState = snackBarHostState
     )
@@ -68,7 +68,7 @@ fun HomeScreen(
 @Composable
 private fun HomeContent(
     settingsDetails: SettingsDetails,
-    azkarState: AzkarState,
+    appState: AppState,
     snackBarHostState: SnackbarHostState,
     modifier: Modifier = Modifier,
 ) {
@@ -88,7 +88,7 @@ private fun HomeContent(
             HomeBar(
                 pagerState = pagerState,
                 settingsDetails = settingsDetails,
-                azkarState = azkarState,
+                appState = appState,
             )
         },
         modifier = modifier
@@ -108,26 +108,26 @@ private fun HomeContent(
                 // Display the appropriate tab content based on the selected tab
                 when (HomeTab.entries[tabIndex]) {
                     HomeTab.Mesbaha -> SebhaTab(
-                        userAzkar = azkarState.userAzkar.value.childCategories,
+                        userAzkar = appState.userThekr.value.childCategories,
                         settingsDetails = settingsDetails,
                     )
 
-                    HomeTab.HesnAlMuslim -> ZekrTab(
-                        categoryDetails = azkarState.hesnAlmuslimStack.last(),
+                    HomeTab.HesnAlMuslim -> ThekrTab(
+                        categoryDetails = appState.hesnAlmuslimStack.last(),
                         onCategoryClick = { HomeActions.onCategoryClick(tabIndex, it) },
                         settingsDetails = settingsDetails,
                         tabIndex = tabIndex,
                     )
 
-                    HomeTab.Knooz -> ZekrTab(
-                        categoryDetails = azkarState.knoozStack.last(),
+                    HomeTab.Knooz -> ThekrTab(
+                        categoryDetails = appState.knoozStack.last(),
                         onCategoryClick = { HomeActions.onCategoryClick(tabIndex, it) },
                         settingsDetails = settingsDetails,
                         tabIndex = tabIndex,
                     )
 
                     HomeTab.Dua -> DuaTab(
-                        duaStack = azkarState.duaCategoryStack,
+                        duaStack = appState.duaCategoryStack,
                         onCategoryClick = { HomeActions.onCategoryClick(tabIndex, it) },
                         settingsDetails = settingsDetails,
                     )
@@ -149,7 +149,7 @@ fun HomeScreenPreview() {
                         themeMode = ThemeMode.Dark,
                     ),
                     snackBarHostState = SnackbarHostState(),
-                    azkarState = AzkarState(),
+                    appState = AppState(),
                 )
             }
         }
@@ -163,7 +163,7 @@ fun EmptyHomeScreenPreview() {
     AppTheme(ThemeMode.Dark) {
         LocalizedApp {
             Surface {
-                with(AzkarActions) {
+                with(AppActions) {
                     canNavigateToPreviousCategory = { true }
                 }
                 HomeContent(
@@ -171,7 +171,7 @@ fun EmptyHomeScreenPreview() {
                         themeMode = ThemeMode.Dark,
                     ),
                     snackBarHostState = SnackbarHostState(),
-                    azkarState = AzkarState(),
+                    appState = AppState(),
                 )
             }
         }

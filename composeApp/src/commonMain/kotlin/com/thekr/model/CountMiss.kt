@@ -9,15 +9,15 @@ import com.thekr.util.TimeHelper.now
 data class CountMiss(
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0,
-    var zekrCategoryId: Long = 0,
-    var zekrInstanceId: Long = 0,
+    var thekrCategoryId: Long = 0,
+    var thekrInstanceId: Long = 0,
     var value: Long = 0,
     var timeCreated: Long = now(),
 ) {
     fun toCountMissDetails() = CountMissDetails(
         id = id,
-        zekrCategoryId = zekrCategoryId,
-        zekrInstanceId = zekrInstanceId,
+        thekrCategoryId = thekrCategoryId,
+        thekrInstanceId = thekrInstanceId,
         value = value,
         timeCreated = timeCreated,
     )

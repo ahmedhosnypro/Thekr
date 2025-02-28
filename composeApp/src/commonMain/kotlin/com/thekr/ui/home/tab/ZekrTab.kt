@@ -9,9 +9,9 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.thekr.data.settings.SettingsDetails
-import com.thekr.data.zekr.category.CategoryDetails
+import com.thekr.data.thekr.category.CategoryDetails
 import com.thekr.ui.home.list.CategoryList
-import com.thekr.ui.home.list.ZekrList
+import com.thekr.ui.home.list.ThekrList
 import com.thekr.ui.home.list.categoryDetailsPreviewState
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.component.LocalizedApp
@@ -19,7 +19,7 @@ import com.thekr.ui.home.HomeActions
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 /**
- * Displays a tab content containing either a list of categories or a list of Zekrs,
+ * Displays a tab content containing either a list of categories or a list of Thekrs,
  * depending on the content of the provided [categoryDetails].
  *
  * @param categoryDetails The state of the current category details.
@@ -28,7 +28,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
  * @param onCategoryClick Callback invoked when a category is clicked.
  */
 @Composable
-fun ZekrTab(
+fun ThekrTab(
     categoryDetails: MutableState<CategoryDetails>,
     settingsDetails: SettingsDetails,
     tabIndex: Int,
@@ -45,15 +45,15 @@ fun ZekrTab(
                 settingsDetails = settingsDetails,
             )
         }
-        // Show ZekrList if there are Zekr items
-        if (category.zekrList.isNotEmpty()) {
-            ZekrList(
+        // Show ThekrList if there are Thekr items
+        if (category.thekrList.isNotEmpty()) {
+            ThekrList(
                 categoryDetails = categoryDetails,
                 modifier = Modifier.fillMaxSize(),
                 settingsDetails = settingsDetails,
                 tabIndex = tabIndex,
-                homeOnClick = {tabIndex1: Int, categoryId: Long, zekrId: Long ->
-                    HomeActions.onThekrClick(tabIndex1, categoryId, zekrId)
+                homeOnClick = {tabIndex1: Int, categoryId: Long, thekrId: Long ->
+                    HomeActions.onThekrClick(tabIndex1, categoryId, thekrId)
                 }
             )
         }
@@ -62,11 +62,11 @@ fun ZekrTab(
 
 @Preview
 @Composable
-fun ZekrTabPreview() {
+fun ThekrTabPreview() {
     AppTheme {
         Surface {
             LocalizedApp {
-                ZekrTab(
+                ThekrTab(
                     categoryDetails = categoryDetailsPreviewState(),
                     settingsDetails = SettingsDetails(),
                     tabIndex = 0,
@@ -78,11 +78,11 @@ fun ZekrTabPreview() {
 
 @Preview
 @Composable
-fun ZekrTabPreviewZekrList() {
+fun ThekrTabPreviewThekrList() {
     AppTheme {
         Surface {
             LocalizedApp {
-                ZekrTab(
+                ThekrTab(
                     categoryDetails = categoryDetailsPreviewState(
                         childCategories = remember { mutableStateListOf() }
                     ),

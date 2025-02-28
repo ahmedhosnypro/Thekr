@@ -1,4 +1,4 @@
-//package com.thekr.ui.zekr.entry
+//package com.thekr.ui.thekr.entry
 //
 //import androidx.compose.foundation.background
 //import androidx.compose.foundation.border
@@ -51,7 +51,7 @@
 //
 ////@Composable
 ////fun ColorPickerDialog(
-////    actions: ZekrEntryActions,
+////    actions: ThekrEntryActions,
 ////    showColorPicker: MutableState<Boolean> = mutableStateOf(true),
 ////    settingsState: SettingsUiState
 ////) {
@@ -117,7 +117,7 @@
 //@Composable
 //fun StyleModeContrast(
 //    settingsState: SettingsUiState,
-//    actions: ZekrEntryActions
+//    actions: ThekrEntryActions
 //) {
 //    StyleAndMode(settingsState = settingsState, actions)
 //    ContrastSlider(settingsState.colorSchemeDetails, actions)
@@ -127,7 +127,7 @@
 //@Composable
 //private fun StyleAndMode(
 //    settingsState: SettingsUiState,
-//    actions: ZekrEntryActions,
+//    actions: ThekrEntryActions,
 //) {
 //    val borderColor = MaterialTheme.colorScheme.onPrimaryContainer
 //
@@ -237,7 +237,7 @@
 //@Composable
 //private fun ContrastSlider(
 //    colorSchemeDetails: ColorSchemeDetails,
-//    actions: ZekrEntryActions,
+//    actions: ThekrEntryActions,
 //) {
 //    Column(
 //        modifier = Modifier
@@ -332,7 +332,7 @@
 //    AppTheme {
 //        Surface {
 //            ColorPickerDialog(
-//                actions = ZekrEntryActions(),
+//                actions = ThekrEntryActions(),
 //                showColorPicker = mutableStateOf(true),
 //                settingsState = SettingsUiState(),
 //            )
@@ -346,7 +346,7 @@
 //    AppTheme(ThemeMode.Dark) {
 //        Surface {
 //            ColorPickerDialog(
-//                actions = ZekrEntryActions(),
+//                actions = ThekrEntryActions(),
 //                showColorPicker = mutableStateOf(true),
 //                settingsState = SettingsUiState(),
 //            )
@@ -360,7 +360,7 @@
 //    AppTheme {
 //        Surface {
 //            ColorPickerDialog(
-//                actions = ZekrEntryActions(),
+//                actions = ThekrEntryActions(),
 //                showColorPicker = mutableStateOf(true),
 //                settingsState = SettingsUiState(),
 //            )

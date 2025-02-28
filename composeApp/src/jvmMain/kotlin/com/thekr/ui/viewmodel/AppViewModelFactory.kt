@@ -4,18 +4,18 @@ import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.thekr.JvmApplication
-import com.thekr.ui.counter.viewmodel.ZekrCounterViewModel
-import com.thekr.ui.zekr.edit.ZekrEditViewModel
-import com.thekr.ui.zekr.entry.ZekrEntryViewModel
+import com.thekr.ui.counter.viewmodel.ThekrCounterViewModel
+import com.thekr.ui.thekr.edit.ThekrEditViewModel
+import com.thekr.ui.thekr.entry.ThekrEntryViewModel
 
 actual class AppViewModelFactory {
     actual val factory = viewModelFactory {
 
-        /** Initializer for [AzkarViewModel] */
+        /** Initializer for [AppViewModel] */
         initializer {
-            AzkarViewModel(
-               JvmApplication.container.zekrRepository,
-               JvmApplication.container.zekrInstanceRepository,
+            AppViewModel(
+               JvmApplication.container.thekrRepository,
+               JvmApplication.container.thekrInstanceRepository,
                JvmApplication.container.countRepository,
                JvmApplication.container.countMissRepository,
                JvmApplication.container.categoryRepository,
@@ -24,28 +24,28 @@ actual class AppViewModelFactory {
         }
 
 
-        /** Initializer for [ZekrEditViewModel] */
+        /** Initializer for [ThekrEditViewModel] */
         initializer {
-            ZekrEditViewModel(
+            ThekrEditViewModel(
                 this.createSavedStateHandle(),
-               JvmApplication.container.zekrRepository,
+               JvmApplication.container.thekrRepository,
             )
         }
 
 
-        /** Initializer for [ZekrEntryViewModel] */
+        /** Initializer for [ThekrEntryViewModel] */
         initializer {
-            ZekrEntryViewModel(
-               JvmApplication.container.zekrRepository,
-               JvmApplication.container.zekrInstanceRepository,
+            ThekrEntryViewModel(
+               JvmApplication.container.thekrRepository,
+               JvmApplication.container.thekrInstanceRepository,
             )
         }
 
-        /** Initializer for [ZekrCounterViewModel] */
+        /** Initializer for [ThekrCounterViewModel] */
         initializer {
-            ZekrCounterViewModel(
+            ThekrCounterViewModel(
                 this.createSavedStateHandle(),
-               JvmApplication.container.zekrRepository,
+               JvmApplication.container.thekrRepository,
                JvmApplication.container.countRepository,
                JvmApplication.container.countMissRepository,
             )

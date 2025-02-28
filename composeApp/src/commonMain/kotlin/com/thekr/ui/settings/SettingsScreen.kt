@@ -19,7 +19,7 @@ import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.unit.dp
 import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
-import com.thekr.ui.bar.top.ZekrBar
+import com.thekr.ui.component.bar.AppTopBar
 import com.thekr.ui.component.DefaultHorizontalDivider
 import com.thekr.ui.home.bar.top.HeaderText
 import com.thekr.ui.navigation.NavigationActions
@@ -29,8 +29,8 @@ import com.thekr.ui.settings.component.SwitchSetting
 import com.thekr.ui.settings.language.LanguageSettings
 import com.thekr.ui.settings.theme.ThemeModeSetting
 import com.thekr.ui.theme.AppTheme
-import com.thekr.ui.values.Dimensions.medium
-import com.thekr.ui.values.Dimensions.small
+import com.thekr.values.Dimensions.medium
+import com.thekr.values.Dimensions.small
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import com.thekr.resources.Res
@@ -70,7 +70,7 @@ private fun SettingsBody(
 
     Scaffold(
         topBar = {
-            ZekrBar(
+            AppTopBar(
                 title = { HeaderText(stringResource(Res.string.settings)) },
                 navigationIcon = {
 //                    IconButton(onClick = { NavigationActions.navigateUp(HomeRoute::class) }) {

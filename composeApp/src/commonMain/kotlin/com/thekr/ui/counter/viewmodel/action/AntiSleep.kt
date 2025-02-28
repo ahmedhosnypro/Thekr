@@ -2,7 +2,7 @@ package com.thekr.ui.counter.viewmodel.action
 
 
 import com.thekr.ui.counter.viewmodel.SuspendRunnable
-import com.thekr.ui.counter.viewmodel.ZekrCounterViewModel
+import com.thekr.ui.counter.viewmodel.ThekrCounterViewModel
 import com.thekr.ui.counter.viewmodel.action.AntiSleep.alertSleepRunnable
 import com.thekr.ui.counter.viewmodel.action.AntiSleep.detectSleepingJob
 import kotlinx.coroutines.CoroutineScope
@@ -49,18 +49,18 @@ object AntiSleep {
 }
 
 fun configSleepJop(
-    viewModel: ZekrCounterViewModel
+    viewModel: ThekrCounterViewModel
 ) {
     // if user didn't click for 5 seconds, then slept  =true, and start the alert,
     // use detectSleepingJob to cancel the job if user clicked
     with(viewModel) {
-        val currentZekr = getCurrentZekr().value
+        val currentThekr = getCurrentThekr().value
         alertSleepRunnable = SuspendRunnable {
-            delay(60000 + currentZekr.coolDown)
+            delay(60000 + currentThekr.coolDown)
             while (true) {
 //                todo:
 //                alertSleep(
-//                    AntiSleep.soundPlayer, appContext(), currentZekr.soundFileName
+//                    AntiSleep.soundPlayer, appContext(), currentThekr.soundFileName
 //                )
                 delay(30000)
             }

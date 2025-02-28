@@ -2,12 +2,12 @@ package com.thekr.ui.home
 
 import androidx.compose.runtime.MutableState
 import androidx.lifecycle.ViewModel
-import com.thekr.data.zekr.category.CategoryDetails
-import com.thekr.model.ZekrCategoryType
-import com.thekr.ui.AzkarActions
+import com.thekr.data.thekr.category.CategoryDetails
+import com.thekr.model.ThekrCategoryType
+import com.thekr.ui.AppActions
 import com.thekr.ui.navigation.NavigationActions
-import com.thekr.ui.navigation.route.ZekrScreenRoute
-import com.thekr.ui.viewmodel.AzkarStateHelper.azkarState
+import com.thekr.ui.navigation.route.ThekrScreenRoute
+import com.thekr.ui.viewmodel.AppStateHolder.appState
 
 /**
  * ViewModel for the Home screen. Handles navigation logic and data
@@ -16,38 +16,29 @@ import com.thekr.ui.viewmodel.AzkarStateHelper.azkarState
 class HomeViewModel : ViewModel() {
 
     /**
-     * Handles the click event on a Zekr item. Navigates to the ZekrDetails
-     * screen with information about the selected Zekr.
+     * Handles the click event on a Thekr item. Navigates to the ThekrDetails
+     * screen with information about the selected Thekr.
      *
-     * @param tabIndex The index of the tab where the Zekr was clicked.
-     * @param categoryId The ID of the category containing the Zekr.
-     * @param zekrId The ID of the clicked Zekr.
+     * @param tabIndex The index of the tab where the Thekr was clicked.
+     * @param categoryId The ID of the category containing the Thekr.
+     * @param thekrId The ID of the clicked Thekr.
      */
-    fun onZekrClick(
+    fun onThekrClick(
         tabIndex: Int,
         categoryId: Long,
-        zekrId: Long,
+        thekrId: Long,
     ) {
-        val initialPage = getZekrPageIndex(tabIndex, zekrId) ?: 0
-        val pageCount = getZekrPageCount(tabIndex) ?: 0
+        val initialPage = getThekrPageIndex(tabIndex, thekrId) ?: 0
+        val pageCount = getThekrPageCount(tabIndex) ?: 0
 
-//       NavigationActions.navigate(
-//            ZekrScreenRoute(
-//                categoryId = categoryId,
-//                zekrId = zekrId,
-//                initialPage = initialPage,
-//                pageCount = pageCount
-//            )
-//        )
-
-        val route: String =
-            "${ZekrScreenRoute.route}/${categoryId.toInt()}/${zekrId.toInt()}/$initialPage/$pageCount"
+        val route =
+            "${ThekrScreenRoute.route}/${categoryId.toInt()}/${thekrId.toInt()}/$initialPage/$pageCount"
         NavigationActions.navigate(route)
     }
 
     /**
      * Handles the click event on a Category item. Navigates to either a
-     * subcategory or the ZekrDetails screen based on the category content.
+     * subcategory or the ThekrDetails screen based on the category content.
      *
      * @param tabIndex The index of the tab where the Category was clicked.
      * @param categoryDetails The state holder for the clicked Category's
@@ -63,7 +54,7 @@ class HomeViewModel : ViewModel() {
         if (category.childCategories.isEmpty()) {
             handleEmptyCategoryClick(category, showSnackBar)
         } else {
-            AzkarActions.navigateToCategory(tabIndex, categoryDetails)
+            AppActions.navigateToCategory(tabIndex, categoryDetails)
         }
     }
 
@@ -77,85 +68,77 @@ class HomeViewModel : ViewModel() {
         category: CategoryDetails,
         showSnackBar: (String) -> Unit
     ) {
-        if (category.zekrList.isNotEmpty()) {
-            navigateToZekrScreen(category)
+        if (category.thekrList.isNotEmpty()) {
+            navigateToThekrScreen(category)
         } else {
-            showSnackBar("No Zekr found in this category")
+            showSnackBar("No Thekr found in this category")
         }
     }
 
     /**
-     * Retrieves the index of a Zekr within its category based on the tab and
-     * Zekr ID.
+     * Retrieves the index of a Thekr within its category based on the tab and
+     * Thekr ID.
      *
      * @param tabIndex The index of the tab.
-     * @param zekrId The ID of the Zekr.
-     * @return The index of the Zekr within its category, or null if not found.
+     * @param thekrId The ID of the Thekr.
+     * @return The index of the Thekr within its category, or null if not found.
      */
-    private fun getZekrPageIndex(tabIndex: Int, zekrId: Long): Int? {
+    private fun getThekrPageIndex(tabIndex: Int, thekrId: Long): Int? {
         return when (tabIndex) {
-            ZekrCategoryType.User.tabIndex -> azkarState.currentViewedSebhaCategory
-                ?.value?.zekrInstanceList?.indexOfFirst { it.value.zekrId == zekrId }
+            ThekrCategoryType.User.tabIndex -> appState.currentViewedSebhaCategory
+                ?.value?.thekrInstanceList?.indexOfFirst { it.value.thekrId == thekrId }
 
-            ZekrCategoryType.HesnAlMuslim.tabIndex -> azkarState.hesnAlmuslimStack.last().value.zekrInstanceList.indexOfFirst { it.value.zekrId == zekrId }
+            ThekrCategoryType.HesnAlMuslim.tabIndex -> appState.hesnAlmuslimStack.last().value.thekrInstanceList.indexOfFirst { it.value.thekrId == thekrId }
 
-            ZekrCategoryType.Knooz.tabIndex -> azkarState.knoozStack.last().value
-                .zekrInstanceList.indexOfFirst { it.value.zekrId == zekrId }
+            ThekrCategoryType.Knooz.tabIndex -> appState.knoozStack.last().value
+                .thekrInstanceList.indexOfFirst { it.value.thekrId == thekrId }
 
-            ZekrCategoryType.Dua.tabIndex -> azkarState.duaCategoryStack.last().value
-                .zekrInstanceList.indexOfFirst { it.value.zekrId == zekrId }
+            ThekrCategoryType.Dua.tabIndex -> appState.duaCategoryStack.last().value
+                .thekrInstanceList.indexOfFirst { it.value.thekrId == thekrId }
 
             else -> null
         }
     }
 
     /**
-     * Retrieves the total number of Zekr pages within a category based on the
+     * Retrieves the total number of Thekr pages within a category based on the
      * tab index.
      *
      * @param tabIndex The index of the tab.
-     * @return The total number of Zekr pages, or null if the category is
+     * @return The total number of Thekr pages, or null if the category is
      *     invalid.
      */
-    private fun getZekrPageCount(tabIndex: Int): Int? {
+    private fun getThekrPageCount(tabIndex: Int): Int? {
         return when (tabIndex) {
-            ZekrCategoryType.User.tabIndex ->
-                azkarState.currentViewedSebhaCategory?.value?.zekrList?.size
+            ThekrCategoryType.User.tabIndex ->
+                appState.currentViewedSebhaCategory?.value?.thekrList?.size
 
-            ZekrCategoryType.HesnAlMuslim.tabIndex ->
-                azkarState.hesnAlmuslimStack.last().value.zekrList.size
+            ThekrCategoryType.HesnAlMuslim.tabIndex ->
+                appState.hesnAlmuslimStack.last().value.thekrList.size
 
-            ZekrCategoryType.Knooz.tabIndex ->
-                azkarState.knoozStack.last().value.zekrList.size
+            ThekrCategoryType.Knooz.tabIndex ->
+                appState.knoozStack.last().value.thekrList.size
 
-            ZekrCategoryType.Dua.tabIndex ->
-                azkarState.duaCategoryStack.last().value.zekrList.size
+            ThekrCategoryType.Dua.tabIndex ->
+                appState.duaCategoryStack.last().value.thekrList.size
 
             else -> null
         }
     }
 
     /**
-     * Navigates to the ZekrDetails screen for the first Zekr in the given
+     * Navigates to the ThekrDetails screen for the first Thekr in the given
      * category.
      *
      * @param category The CategoryDetails of the selected category.
      */
-    private fun navigateToZekrScreen(
+    private fun navigateToThekrScreen(
         category: CategoryDetails,
     ) {
-        val zekrId = category.zekrInstanceList.firstOrNull()?.value?.zekrId ?: 0L
+        val thekrId = category.thekrInstanceList.firstOrNull()?.value?.thekrId ?: 0L
 
-//        NavigationActions.navigate(
-//            ZekrScreenRoute(
-//                categoryId = category.id,
-//                zekrId = zekrId,
-//                pageCount = category.zekrInstanceList.size
-//            )
-//        )
-
-        val route: String =
-            "${ZekrScreenRoute.route}/${category.id.toInt()}/${zekrId.toInt()}/0/${category.zekrInstanceList.size}"
+        val route =
+            "${ThekrScreenRoute.route}/${category.id.toInt()}/${thekrId.toInt()}/0/${category.thekrInstanceList.size}"
         NavigationActions.navigate(route)
 
     }

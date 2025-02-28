@@ -8,8 +8,8 @@ import com.thekr.util.TimeHelper.now
 data class Count(
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0,
-    var zekrCategoryId: Long = 1,
-    var zekrInstanceId: Long,
+    var thekrCategoryId: Long = 1,
+    var thekrInstanceId: Long,
     var value: Long = 0,
     var timeCreated: Long = now(),
 )

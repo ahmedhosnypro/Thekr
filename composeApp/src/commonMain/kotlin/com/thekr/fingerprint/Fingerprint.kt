@@ -1,12 +1,12 @@
 package com.thekr.fingerprint
 
-import com.thekr.ui.counter.viewmodel.ZekrCounterViewModel
-import com.thekr.ui.counter.viewmodel.action.onZekrCounterCount
+import com.thekr.ui.counter.viewmodel.ThekrCounterViewModel
+import com.thekr.ui.counter.viewmodel.action.onThekrCounterCount
 
 object Fingerprint {
     private var fingerprintEventListener: FingerprintEventListener? = null
 
-    fun ZekrCounterViewModel.setFingerprintListener(enabled: Boolean) {
+    fun ThekrCounterViewModel.setFingerprintListener(enabled: Boolean) {
 
         if (fingerprintEventListener != null) {
             FingerprintEventDispatcher.removeListener(fingerprintEventListener!!)
@@ -15,7 +15,7 @@ object Fingerprint {
         if (enabled) {
             val listener = FingerprintEventListener { fingerprintEvent ->
                 if (fingerprintEvent.type == FingerprintEventType.TouchUp) {
-                    onZekrCounterCount()
+                    onThekrCounterCount()
                 }
             }
             fingerprintEventListener = listener

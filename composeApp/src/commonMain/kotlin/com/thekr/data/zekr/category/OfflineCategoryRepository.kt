@@ -1,4 +1,4 @@
-package com.thekr.data.zekr.category
+package com.thekr.data.thekr.category
 
 import com.thekr.model.Category
 

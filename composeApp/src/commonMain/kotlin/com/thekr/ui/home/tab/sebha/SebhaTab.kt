@@ -11,8 +11,8 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
-import com.thekr.data.zekr.category.CategoryDetails
-import com.thekr.ui.AzkarActions
+import com.thekr.data.thekr.category.CategoryDetails
+import com.thekr.ui.AppActions
 import com.thekr.ui.home.list.categoryDetailsListPreviewState
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.component.LocalizedApp
@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import com.thekr.resources.Res
-import com.thekr.resources.create_zekr_group
+import com.thekr.resources.create_thekr_group
 
 /**
  * Represents the Sebha tab content on the Home screen.
@@ -35,7 +35,7 @@ fun SebhaTab(
     settingsDetails: SettingsDetails,
 ) {
     val pagerState = rememberPagerState(
-        initialPage = AzkarActions.sebhaTabSubTabsInitialPage(),
+        initialPage = AppActions.sebhaTabSubTabsInitialPage(),
         pageCount = { userAzkar.size }
     )
     val coroutineScope = rememberCoroutineScope()
@@ -48,7 +48,7 @@ fun SebhaTab(
     }
 
     LaunchedEffect(pagerState.currentPage) {
-        AzkarActions.updateCurrentSebhaViewedCategory(pagerState.currentPage)
+        AppActions.updateCurrentSebhaViewedCategory(pagerState.currentPage)
     }
 
     Column {
@@ -81,7 +81,7 @@ private fun ShowCreateCategoryDialog(
     val showCreateNewDialog = remember { mutableStateOf(false) }
     SebhaAddNewButton(
         onCLick = { showCreateNewDialog.value = true },
-        text = stringResource(Res.string.create_zekr_group)
+        text = stringResource(Res.string.create_thekr_group)
     )
     CreateCategoryDialog(
         showCreateCategoryDialog = showCreateNewDialog,

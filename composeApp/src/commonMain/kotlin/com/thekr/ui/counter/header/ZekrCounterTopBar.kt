@@ -61,32 +61,31 @@ import androidx.compose.ui.window.Popup
 import com.thekr.data.proto.SwapDirection
 import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
-import com.thekr.data.zekr.category.CategoryDetails
-import com.thekr.data.zekr.zekr.ZekrDetails
-import com.thekr.model.ZekrTargetStatus
+import com.thekr.data.thekr.category.CategoryDetails
+import com.thekr.data.thekr.thekr.ThekrDetails
+import com.thekr.model.ThekrTargetStatus
 import com.thekr.resources.*
-import com.thekr.ui.bar.top.ZekrBar
+import com.thekr.ui.component.bar.AppTopBar
 import com.thekr.ui.counter.CounterHelper
 import com.thekr.ui.counter.viewmodel.CounterUiState
-import com.thekr.ui.values.Dimensions.normal
-import com.thekr.ui.values.Dimensions.small
-import com.thekr.ui.values.Dimensions.xLarge
-import com.thekr.ui.values.Dimensions.xxLarge
+import com.thekr.values.Dimensions.normal
+import com.thekr.values.Dimensions.small
+import com.thekr.values.Dimensions.xLarge
+import com.thekr.values.Dimensions.xxLarge
 import com.thekr.ui.home.bar.top.HeaderControlCard
 import com.thekr.ui.home.bar.top.HeaderText
 import com.thekr.ui.home.bar.top.TopBarHeaderControls
 import com.thekr.ui.home.list.categoryDetailsPreviewState
 import com.thekr.ui.theme.AppTheme
-import com.thekr.ui.theme.ZekrTheme
 import com.thekr.ui.component.LocalizedApp
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import com.thekr.ui.component.IconWrapper
 
-/** Represents the top app bar for the Zekr counter-screen. */
+/** Represents the top app bar for the Thekr counter-screen. */
 @Composable
-fun ZekrCounterTopBar(
+fun ThekrCounterTopBar(
     settingsDetails: SettingsDetails,
     categoryDetails: MutableState<CategoryDetails>,
     counterUiState: CounterUiState,
@@ -96,29 +95,29 @@ fun ZekrCounterTopBar(
     if (counterUiState.lockEnabled) {
         UnlockAppBar(counterUiState, settingsDetails)
     } else {
-        MainZekrAppBar(settingsDetails, categoryDetails, counterUiState, pagerState, modifier)
+        MainThekrAppBar(settingsDetails, categoryDetails, counterUiState, pagerState, modifier)
     }
 }
 
 /**
- * Displays the main Zekr app bar with navigation, actions, and secondary
+ * Displays the main Thekr app bar with navigation, actions, and secondary
  * header.
  */
 @Composable
-private fun MainZekrAppBar(
+private fun MainThekrAppBar(
     settingsDetails: SettingsDetails,
     categoryDetails: MutableState<CategoryDetails>,
     counterUiState: CounterUiState,
     pagerState: PagerState,
     modifier: Modifier = Modifier
 ) {
-    ZekrBar(
+    AppTopBar(
         modifier = modifier,
         title = { HeaderText(text = categoryDetails.value.name) },
-        actions = { ZekrAppBarActions(counterUiState, categoryDetails) },
-        navigationIcon = { ZekrAppBarNavigationIcon() },
+        actions = { ThekrAppBarActions(counterUiState, categoryDetails) },
+        navigationIcon = { ThekrAppBarNavigationIcon() },
         secondaryHeader = {
-            ZekrTopBarFeatures(
+            ThekrTopBarFeatures(
                 settingsDetails = settingsDetails,
                 counterUiState = counterUiState,
                 pagerState = pagerState
@@ -128,14 +127,14 @@ private fun MainZekrAppBar(
     )
 }
 
-/** Displays the actions within the Zekr app bar. */
+/** Displays the actions within the Thekr app bar. */
 @Composable
-private fun ZekrAppBarActions(
+private fun ThekrAppBarActions(
     counterUiState: CounterUiState,
     categoryDetails: MutableState<CategoryDetails>
 ) {
     Row(verticalAlignment = Alignment.CenterVertically) {
-        if (counterUiState.currentZekrInstance.value.editable) {
+        if (counterUiState.currentThekrInstance.value.editable) {
             IconButton(onClick = { CounterHelper.onEditClick() }) {
                 Icon(
                     imageVector = Icons.Filled.EditNote,
@@ -145,18 +144,18 @@ private fun ZekrAppBarActions(
             }
         }
 
-        IconButton(onClick = { CounterHelper.showZekrStatistics() }) {
+        IconButton(onClick = { CounterHelper.showThekrStatistics() }) {
             Icon(
                 imageVector = Icons.Filled.StackedBarChart,
                 contentDescription = "Statistics"
             )
         }
 
-        if (categoryDetails.value.zekrList.size > 1) {
-            IconButton(onClick = {CounterHelper.showCategoryZekrListMenu()}) {
+        if (categoryDetails.value.thekrList.size > 1) {
+            IconButton(onClick = {CounterHelper.showCategoryThekrListMenu()}) {
                 Icon(
                     imageVector = Icons.Filled.MoreHoriz,
-                    contentDescription = stringResource(Res.string.zekr_list),
+                    contentDescription = stringResource(Res.string.thekr_list),
                     modifier = Modifier.size(36.dp)
                 )
             }
@@ -164,9 +163,9 @@ private fun ZekrAppBarActions(
     }
 }
 
-/** Displays the navigation icon (back button) in the Zekr app bar. */
+/** Displays the navigation icon (back button) in the Thekr app bar. */
 @Composable
-private fun ZekrAppBarNavigationIcon() {
+private fun ThekrAppBarNavigationIcon() {
     IconButton(onClick = { CounterHelper.onNavigateUp() }) {
         Icon(
             Icons.AutoMirrored.Filled.ArrowBackIos,
@@ -181,7 +180,7 @@ private fun UnlockAppBar(
     counterUiState: CounterUiState,
     settingsDetails: SettingsDetails,
 ) {
-    ZekrBar(
+    AppTopBar(
         settingsDetails = settingsDetails,
         title = { },
         actions = {
@@ -203,9 +202,9 @@ private fun UnlockAppBar(
     )
 }
 
-/** Groups the features and controls available in the Zekr top bar. */
+/** Groups the features and controls available in the Thekr top bar. */
 @Composable
-fun ZekrTopBarFeatures(
+fun ThekrTopBarFeatures(
     settingsDetails: SettingsDetails,
     counterUiState: CounterUiState,
     pagerState: PagerState,
@@ -215,7 +214,7 @@ fun ZekrTopBarFeatures(
         settingsDetails = settingsDetails,
         modifier = modifier,
     ) {
-        ZekrControlHeader(
+        ThekrControlHeader(
             settingsDetails = settingsDetails,
             counterUiState = counterUiState,
             pagerState = pagerState
@@ -223,9 +222,9 @@ fun ZekrTopBarFeatures(
     }
 }
 
-/** Displays the controls and features within the Zekr top bar header. */
+/** Displays the controls and features within the Thekr top bar header. */
 @Composable
-fun ZekrControlHeader(
+fun ThekrControlHeader(
     pagerState: PagerState,
     settingsDetails: SettingsDetails,
     counterUiState: CounterUiState,
@@ -244,7 +243,7 @@ fun ZekrControlHeader(
                 modifier = modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                val tint = ZekrTheme.colors(settingsDetails).onSecondaryHeader
+                val tint = AppTheme.colors(settingsDetails).onSecondaryHeader
                 CountVisibility(settingsDetails, width, tint)
                 SwapDirection(settingsDetails, width, counterUiState)
                 Lock(counterUiState, width)
@@ -336,7 +335,7 @@ private fun CountVisibilityDropdownMenu(
  */
 @Composable
 private fun CountVisibilityOptions(settingsDetails: SettingsDetails) {
-    val zekrInstanceDetails = CounterHelper.getCurrentZekrInstance().value
+    val thekrInstanceDetails = CounterHelper.getCurrentThekrInstance().value
 
     RadioMenuItem(
         text = stringResource(Res.string.counter_visibility),
@@ -346,7 +345,7 @@ private fun CountVisibilityOptions(settingsDetails: SettingsDetails) {
 
     // Display checkboxes for each count type
 
-    if (zekrInstanceDetails.dailyTargetStatus == ZekrTargetStatus.Enabled) {
+    if (thekrInstanceDetails.dailyTargetStatus == ThekrTargetStatus.Enabled) {
         CountVisibilityCheckbox(
             Res.string.daily,
             settingsDetails.showDailyCount,
@@ -355,7 +354,7 @@ private fun CountVisibilityOptions(settingsDetails: SettingsDetails) {
         )
     }
 
-    if (zekrInstanceDetails.weeklyTargetStatus == ZekrTargetStatus.Enabled) {
+    if (thekrInstanceDetails.weeklyTargetStatus == ThekrTargetStatus.Enabled) {
         CountVisibilityCheckbox(
             Res.string.weekly,
             settingsDetails.showWeeklyCount,
@@ -364,7 +363,7 @@ private fun CountVisibilityOptions(settingsDetails: SettingsDetails) {
         )
     }
 
-    if (zekrInstanceDetails.monthlyTargetStatus == ZekrTargetStatus.Enabled) {
+    if (thekrInstanceDetails.monthlyTargetStatus == ThekrTargetStatus.Enabled) {
         CountVisibilityCheckbox(
             Res.string.monthly,
             settingsDetails.showMonthlyCount,
@@ -373,7 +372,7 @@ private fun CountVisibilityOptions(settingsDetails: SettingsDetails) {
         )
     }
 
-    if (zekrInstanceDetails.yearlyTargetStatus == ZekrTargetStatus.Enabled) {
+    if (thekrInstanceDetails.yearlyTargetStatus == ThekrTargetStatus.Enabled) {
         CountVisibilityCheckbox(
             Res.string.yearly,
             settingsDetails.showYearlyCount,
@@ -456,7 +455,7 @@ private fun SoundPlayer(
     counterUiState: CounterUiState,
     tint: Color
 ) {
-    if (CounterHelper.getZekr(pagerState.currentPage).value.soundFileName != null) {
+    if (CounterHelper.getThekr(pagerState.currentPage).value.soundFileName != null) {
         IconButton(
             onClick = {CounterHelper.onPlayAudio()},
             modifier = Modifier.requiredWidth(width)
@@ -471,7 +470,7 @@ private fun SoundPlayer(
         ) {
             IconWrapper(
                 icon = if (counterUiState.isAudioPlaying) Res.drawable.pause_sound else Res.drawable.play_sound,
-                contentDescription = stringResource(Res.string.listen_to_zekr),
+                contentDescription = stringResource(Res.string.listen_to_thekr),
                 tint = tint,
                 modifier = Modifier.size(24.dp)
             )
@@ -486,7 +485,7 @@ private fun SwapDirection(
     width: Dp,
     counterUiState: CounterUiState,
 ) {
-    if (counterUiState.categoryDetails.value.zekrList.size > 1) {
+    if (counterUiState.categoryDetails.value.thekrList.size > 1) {
         IconButton(
             onClick = {
                 val swapDirection =
@@ -542,7 +541,7 @@ private fun ThemeMode(
             icon = if (settingsDetails.themeMode == ThemeMode.System) {
                 Icons.Filled.BrightnessAuto
             } else {
-                ZekrTheme.resources(settingsDetails).themeMode
+                AppTheme.resources(settingsDetails).themeMode
             },
             contentDescription = if (settingsDetails.themeMode == ThemeMode.System) {
                 "System Theme Mode"
@@ -619,13 +618,13 @@ private fun FontSizeSlider(settingsDetails: SettingsDetails) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             val colors = MaterialTheme.colorScheme
-            val zekrColors = ZekrTheme.colors(settingsDetails)
+            val thekrColors = AppTheme.colors(settingsDetails)
 
             Text(
                 text = "T",
                 fontWeight = FontWeight.Bold,
                 fontSize = 16.sp,
-                color = zekrColors.onSecondaryHeader
+                color = thekrColors.onSecondaryHeader
             )
 
             Slider(
@@ -637,10 +636,10 @@ private fun FontSizeSlider(settingsDetails: SettingsDetails) {
                 steps = 24,
                 valueRange = 4f..96f,
                 colors = SliderDefaults.colors(
-                    thumbColor = zekrColors.onSecondaryHeader,
-                    activeTrackColor = zekrColors.onSecondaryHeader,
+                    thumbColor = thekrColors.onSecondaryHeader,
+                    activeTrackColor = thekrColors.onSecondaryHeader,
                     inactiveTrackColor = colors.surfaceVariant,
-                    activeTickColor = zekrColors.onSecondaryHeader,
+                    activeTickColor = thekrColors.onSecondaryHeader,
                     inactiveTickColor = colors.surfaceVariant,
                 )
             )
@@ -649,7 +648,7 @@ private fun FontSizeSlider(settingsDetails: SettingsDetails) {
                 text = "T",
                 fontWeight = FontWeight.Bold,
                 fontSize = 24.sp,
-                color = zekrColors.onSecondaryHeader
+                color = thekrColors.onSecondaryHeader
             )
         }
     }
@@ -663,9 +662,9 @@ fun HomeBarPreviewDark() {
         Surface {
             LocalizedApp {
                 with(CounterHelper) {
-                    getZekr = {
+                    getThekr = {
                         mutableStateOf(
-                            ZekrDetails(
+                            ThekrDetails(
                                 id = 1,
                                 text = "سبحان الله وبحمده سبحان الله العظيم",
                                 editable = true,
@@ -674,7 +673,7 @@ fun HomeBarPreviewDark() {
                         )
                     }
                 }
-                ZekrCounterTopBar(
+                ThekrCounterTopBar(
                     settingsDetails = SettingsDetails(
                         themeMode = ThemeMode.Dark
                     ),
@@ -729,7 +728,7 @@ fun HomeBarPreviewLight() {
     AppTheme {
         Surface {
             LocalizedApp {
-                ZekrCounterTopBar(
+                ThekrCounterTopBar(
                     categoryDetails = categoryDetailsPreviewState(),
                     counterUiState = CounterUiState(),
                     settingsDetails = SettingsDetails(
@@ -751,7 +750,7 @@ fun HomeBarPreviewLockEnabled() {
     AppTheme(themeMode = ThemeMode.Dark) {
         Surface {
             LocalizedApp {
-                ZekrCounterTopBar(
+                ThekrCounterTopBar(
                     categoryDetails = categoryDetailsPreviewState(),
                     counterUiState = CounterUiState(
                         lockEnabled = true

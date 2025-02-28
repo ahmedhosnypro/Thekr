@@ -16,35 +16,35 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import com.thekr.data.settings.SettingsDetails
-import com.thekr.data.zekr.category.CategoryDetails
+import com.thekr.data.thekr.category.CategoryDetails
 import com.thekr.resources.Res
-import com.thekr.resources.zekr_indicator
+import com.thekr.resources.thekr_indicator
 import com.thekr.ui.component.LocalizedApp
 import com.thekr.ui.counter.CounterHelper
 import com.thekr.ui.theme.AppTheme
-import com.thekr.ui.values.Dimensions.medium
-import com.thekr.ui.values.Dimensions.xLarge
+import com.thekr.values.Dimensions.medium
+import com.thekr.values.Dimensions.xLarge
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 /**
- * Displays a list of Zekr items within a category.
+ * Displays a list of Thekr items within a category.
  *
  * @param categoryDetails The state of the category details containing the
- *     Zekr items.
+ *     Thekr items.
  * @param settingsDetails Settings details for theming and customization.
  * @param modifier Modifier to be applied to the LazyVerticalGrid.
  * @param tabIndex The index of the current tab.
- * @param homeOnClick Callback invoked when a Zekr item is clicked in the
+ * @param homeOnClick Callback invoked when a Thekr item is clicked in the
  *     Category context.
  */
 @Composable
-fun ZekrList(
+fun ThekrList(
     categoryDetails: MutableState<CategoryDetails>,
     settingsDetails: SettingsDetails,
     modifier: Modifier = Modifier,
     tabIndex: Int = 0,
-    homeOnClick: (tabIndex: Int, categoryId: Long, zekrId: Long) -> Unit = { _, _, _ -> },
+    homeOnClick: (tabIndex: Int, categoryId: Long, thekrId: Long) -> Unit = { _, _, _ -> },
     categoryListOnClick: (tabIndex: Int) -> Unit = {},
 ) {
     val category = categoryDetails.value // Access the value once for optimization
@@ -55,25 +55,25 @@ fun ZekrList(
             .padding(top = medium),
     ) {
         items(
-            items = category.zekrInstanceList,
+            items = category.thekrInstanceList,
             key = { it.value.id }
         ) { item ->
-            val index = category.zekrInstanceList.indexOf(item)
+            val index = category.thekrInstanceList.indexOf(item)
             val colorIndex = if (index < 6) index else index % 6
 
             // Simplify data retrieval using associateBy
-            val zekrMap = category.zekrList.associateBy { it.value.id }
-            val countMap = category.countList.associateBy { it.value.zekrInstanceId }
+            val thekrMap = category.thekrList.associateBy { it.value.id }
+            val countMap = category.countList.associateBy { it.value.thekrInstanceId }
 
-            val zekr = zekrMap[item.value.zekrId]?.value
-            val count = countMap[item.value.zekrId]?.value?.dailyCount
+            val thekr = thekrMap[item.value.thekrId]?.value
+            val count = countMap[item.value.thekrId]?.value?.dailyCount
 
-            ZekrCard(
-                text = zekr?.text ?: "",
+            ThekrCard(
+                text = thekr?.text ?: "",
                 count = count ?: 0L,
                 target = item.value.dailyTarget,
                 homeOnClick = {
-                    homeOnClick(tabIndex, item.value.categoryId, item.value.zekrId)
+                    homeOnClick(tabIndex, item.value.categoryId, item.value.thekrId)
                 },
                 categoryListOnClick = {
                     categoryListOnClick(CounterHelper.tabIndexOf(item.value.id))
@@ -81,10 +81,10 @@ fun ZekrList(
                 modifier = Modifier.padding(horizontal = medium),
                 leadingIcon = {
                     Image(
-                        painterResource(Res.drawable.zekr_indicator),
+                        painterResource(Res.drawable.thekr_indicator),
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
-                        colorFilter = ColorFilter.tint(zekrIndicatorColor(colorIndex)),
+                        colorFilter = ColorFilter.tint(thekrIndicatorColor(colorIndex)),
                         modifier = Modifier.height(12.dp),
                     )
                 },
@@ -99,11 +99,11 @@ fun ZekrList(
 
 @Preview
 @Composable
-fun ZekrListPreview() {
+fun ThekrListPreview() {
     AppTheme {
         Surface {
             LocalizedApp {
-                ZekrList(
+                ThekrList(
                     categoryDetails = categoryDetailsPreviewState(),
                     settingsDetails = SettingsDetails(),
                 )

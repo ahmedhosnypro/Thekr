@@ -1,4 +1,4 @@
-package com.thekr.data.zekr.category
+package com.thekr.data.thekr.category
 
 import androidx.room.Dao
 import androidx.room.Delete

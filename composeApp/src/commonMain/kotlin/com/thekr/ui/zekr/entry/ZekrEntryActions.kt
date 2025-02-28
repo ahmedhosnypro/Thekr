@@ -1,9 +1,9 @@
-package com.thekr.ui.zekr.entry
+package com.thekr.ui.thekr.entry
 
-import com.thekr.data.zekr.zekr.ZekrEntry
-import com.thekr.ui.viewmodel.AzkarStateHelper.azkarState
+import com.thekr.data.thekr.thekr.ThekrEntry
+import com.thekr.ui.viewmodel.AppStateHolder.appState
 
-object ZekrEntryActions {
+object ThekrEntryActions {
     var onSaveClick: () -> Unit = {}
     var onLabelChange: (String) -> Unit = {}
     var onCoolDownChange: (String) -> Unit = {}
@@ -11,11 +11,11 @@ object ZekrEntryActions {
     var onWeeklyGoalChange: (String) -> Unit = {}
     var onMonthlyGoalChange: (String) -> Unit = {}
     var onYearlyGoalChange: (String) -> Unit = {}
-    var updateZekrEntry: (ZekrEntry) -> Unit = {}
+    var updateThekrEntry: (ThekrEntry) -> Unit = {}
     
-    fun initActions(viewModel: ZekrEntryViewModel){
+    fun initActions(viewModel: ThekrEntryViewModel){
         onSaveClick = {
-            viewModel.saveItem(azkarState.currentViewedSebhaCategory?.value!!)
+            viewModel.saveItem(appState.currentViewedSebhaCategory?.value!!)
         }
         onLabelChange = viewModel::updateLabel
         onCoolDownChange = viewModel::updateCoolDown
@@ -23,6 +23,6 @@ object ZekrEntryActions {
         onWeeklyGoalChange = viewModel::updateWeeklyGoal
         onMonthlyGoalChange = viewModel::updateMonthlyGoal
         onYearlyGoalChange = viewModel::updateYearlyGoal
-        updateZekrEntry = viewModel::updateZekrEntry
+        updateThekrEntry = viewModel::updateThekrEntry
     }
 }

@@ -4,9 +4,9 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
-import com.thekr.Constants
-import com.thekr.data.zekr.category.CategoryDetails
-import com.thekr.data.zekr.count.ZekrCount
+import com.thekr.values.Constants
+import com.thekr.data.thekr.category.CategoryDetails
+import com.thekr.data.thekr.count.ThekrCount
 import com.thekr.model.Count
 import com.thekr.ui.viewmodel.TimeHelper.midnight
 import com.thekr.ui.viewmodel.TimeHelper.monthEnd
@@ -38,84 +38,84 @@ object Fetcher {
      * @param categoryDetails The MutableState holding the [CategoryDetails] to
      *     be updated.
      */
-    fun AzkarViewModel.fetchCategory(
+    fun AppViewModel.fetchCategory(
         categoryDetails: MutableState<CategoryDetails>,
     ) {
-        fetchZekrList(categoryDetails)
-        fetchZekrInstanceListAndCounts(categoryDetails)
+        fetchThekrList(categoryDetails)
+        fetchThekrInstanceListAndCounts(categoryDetails)
         fetchFadlList(categoryDetails)
     }
 
     /**
-     * Fetches and updates the Zekr list for the given category.
+     * Fetches and updates the Thekr list for the given category.
      *
      * @param categoryDetails The MutableState holding the [CategoryDetails] to
      *     be updated.
      */
-    private fun AzkarViewModel.fetchZekrList(categoryDetails: MutableState<CategoryDetails>) {
+    private fun AppViewModel.fetchThekrList(categoryDetails: MutableState<CategoryDetails>) {
         viewModelScope.launch(ioDispatcher) {
-            val zekrList = zekrRepository.findByCategoryId(categoryDetails.value.id)
-                .map { zekrList -> zekrList.map { zekr -> zekr.toZekrDetails() } }
+            val thekrList = thekrRepository.findByCategoryId(categoryDetails.value.id)
+                .map { thekrList -> thekrList.map { thekr -> thekr.toThekrDetails() } }
                 .stateIn(
                     scope = viewModelScope,
                     started = SharingStarted.WhileSubscribed(Constants.TIMEOUT_MILLIS),
                     initialValue = mutableStateListOf()
                 )
 
-            zekrList.collect { zekrDetailsList ->
-                updateZekrList(
-                    toUpdateZekrList = categoryDetails.value.zekrList,
-                    updatedZekrList = zekrDetailsList,
+            thekrList.collect { thekrDetailsList ->
+                updateThekrList(
+                    toUpdateThekrList = categoryDetails.value.thekrList,
+                    updatedThekrList = thekrDetailsList,
                 )
             }
         }
     }
 
     /**
-     * Fetches and updates the Zekr instance list and their associated counts
+     * Fetches and updates the Thekr instance list and their associated counts
      * for the given category.
      *
      * @param categoryDetails The MutableState holding the [CategoryDetails] to
      *     be updated.
      */
-    private fun AzkarViewModel.fetchZekrInstanceListAndCounts(categoryDetails: MutableState<CategoryDetails>) {
+    private fun AppViewModel.fetchThekrInstanceListAndCounts(categoryDetails: MutableState<CategoryDetails>) {
         viewModelScope.launch(ioDispatcher) {
-            val zekrInstanceList = zekrInstanceRepository.findByCategoryId(categoryDetails.value.id)
-                .map { zekrInstanceList ->
-                    zekrInstanceList.map { zekrInstance -> zekrInstance.toZekrInstanceDetails() }
+            val thekrInstanceList = thekrInstanceRepository.findByCategoryId(categoryDetails.value.id)
+                .map { thekrInstanceList ->
+                    thekrInstanceList.map { thekrInstance -> thekrInstance.toThekrInstanceDetails() }
                 }.stateIn(
                     scope = viewModelScope,
                     started = SharingStarted.WhileSubscribed(Constants.TIMEOUT_MILLIS),
                     initialValue = mutableStateListOf()
                 )
 
-            zekrInstanceList.collect { zekrInstanceDetailsList ->
-                updateZekrInstanceList(
-                    toUpdateZekrInstanceList = categoryDetails.value.zekrInstanceList,
-                    updatedZekrInstanceList = zekrInstanceDetailsList
+            thekrInstanceList.collect { thekrInstanceDetailsList ->
+                updateThekrInstanceList(
+                    toUpdateThekrInstanceList = categoryDetails.value.thekrInstanceList,
+                    updatedThekrInstanceList = thekrInstanceDetailsList
                 )
 
-                zekrInstanceDetailsList.forEach { zekrInstanceDetails ->
-                    fetchZekrCounts(zekrInstanceDetails.zekrId, categoryDetails)
+                thekrInstanceDetailsList.forEach { thekrInstanceDetails ->
+                    fetchThekrCounts(thekrInstanceDetails.thekrId, categoryDetails)
                 }
             }
         }
     }
 
     /**
-     * Fetches and updates the counts for a specific Zekr instance.
+     * Fetches and updates the counts for a specific Thekr instance.
      *
-     * @param zekrInstanceId The ID of the Zekr instance.
+     * @param thekrInstanceId The ID of the Thekr instance.
      * @param categoryDetails The MutableState holding the [CategoryDetails] to
      *     be updated.
      */
-    private fun AzkarViewModel.fetchZekrCounts(
-        zekrInstanceId: Long,
+    private fun AppViewModel.fetchThekrCounts(
+        thekrInstanceId: Long,
         categoryDetails: MutableState<CategoryDetails>
     ) {
         viewModelScope.launch {
             val countList: StateFlow<List<Count>> =
-                countRepository.findAllByZekrInstanceSync(zekrInstanceId)
+                countRepository.findAllByThekrInstanceSync(thekrInstanceId)
                     .stateIn(
                         scope = viewModelScope,
                         started = SharingStarted.WhileSubscribed(Constants.TIMEOUT_MILLIS),
@@ -123,12 +123,12 @@ object Fetcher {
                     )
 
             countList.collect { updatedCountList ->
-                // Update ZekrCount item
-                updateZekrCountItem(
-                    toUpdateZekrCountList = categoryDetails.value.countList,
-                    updatedZekrCountItem = mutableStateOf(
-                        ZekrCount(
-                            zekrInstanceId = zekrInstanceId,
+                // Update ThekrCount item
+                updateThekrCountItem(
+                    toUpdateThekrCountList = categoryDetails.value.countList,
+                    updatedThekrCountItem = mutableStateOf(
+                        ThekrCount(
+                            thekrInstanceId = thekrInstanceId,
                             dailyCount = updatedCountList.count { it.timeCreated in midnight() until nextMidnight() }
                                 .toLong(),
                             weeklyCount = updatedCountList.count { it.timeCreated in weekStart() until weekEnd() }
@@ -152,7 +152,7 @@ object Fetcher {
      * @param categoryDetails The MutableState holding the [CategoryDetails] to
      *     be updated.
      */
-    private fun AzkarViewModel.fetchFadlList(categoryDetails: MutableState<CategoryDetails>) {
+    private fun AppViewModel.fetchFadlList(categoryDetails: MutableState<CategoryDetails>) {
         viewModelScope.launch(ioDispatcher) {
             val fadlList =
                 fadlRepository.findByCategoryId(categoryDetails.value.id).map { fadlList ->
@@ -203,7 +203,7 @@ object TimeHelper {
 
 //  todo: countMiss List
 //                    viewModelScope.launch {
-//                        val countMissList = countMissRepository.findByZekrInstanceId(zekrInstanceId).map {
+//                        val countMissList = countMissRepository.findByThekrInstanceId(thekrInstanceId).map {
 //                            it.map { countMiss ->
 //                                countMiss.toCountMissDetails()
 //                            }

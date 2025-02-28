@@ -1,5 +1,5 @@
 package com.thekr.data.goal.completion
 
-class OfflineZekrGoalCompletionRepository(private val zekrGoalCompletionDAO: ZekrGoalCompletionDAO) :
-    ZekrGoalCompletionRepository {
+class OfflineThekrGoalCompletionRepository(private val thekrGoalCompletionDAO: ThekrGoalCompletionDAO) :
+    ThekrGoalCompletionRepository {
 }

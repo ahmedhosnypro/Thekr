@@ -3,8 +3,8 @@ package com.thekr.database
 import com.thekr.data.settingsStore
 import com.thekr.di.DatabaseProvider.database
 import com.thekr.model.Category
-import com.thekr.model.Zekr
-import com.thekr.model.ZekrInstance
+import com.thekr.model.Thekr
+import com.thekr.model.ThekrInstance
 import com.thekr.resources.Res
 import com.thekr.util.TimeHelper.now
 import kotlinx.coroutines.Dispatchers
@@ -22,11 +22,11 @@ object JsonParser {
     suspend fun importDataFromJson() {
         withContext(Dispatchers.IO) {
             try {
-                val zekrList = readJsonFile<Zekr>("zekr.json")
-                val zekrInstanceList = readJsonFile<ZekrInstance>("zekr_instance.json")
+                val thekrList = readJsonFile<Thekr>("thekr.json")
+                val thekrInstanceList = readJsonFile<ThekrInstance>("thekr_instance.json")
                 val categoryList = readJsonFile<Category>("category.json")
 
-                insertDataIntoDatabase(zekrList, zekrInstanceList, categoryList)
+                insertDataIntoDatabase(thekrList, thekrInstanceList, categoryList)
                 settingsStore.update {
                     it?.copy(
                         dbInitialized = true,
@@ -49,11 +49,11 @@ object JsonParser {
     }
 
     private suspend fun insertDataIntoDatabase(
-        zekrList: List<Zekr>, zekrInstanceList: List<ZekrInstance>, categoryList: List<Category>
+        thekrList: List<Thekr>, thekrInstanceList: List<ThekrInstance>, categoryList: List<Category>
     ) {
         withContext(Dispatchers.IO) {
-            database.zekrDAO().insertAll(zekrList)
-            database.zekrInstanceDao().insertAll(zekrInstanceList)
+            database.thekrDAO().insertAll(thekrList)
+            database.thekrInstanceDao().insertAll(thekrInstanceList)
             database.categoryDao().insertAll(categoryList)
         }
     }

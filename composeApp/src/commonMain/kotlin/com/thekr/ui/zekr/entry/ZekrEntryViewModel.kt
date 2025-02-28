@@ -1,14 +1,14 @@
-package com.thekr.ui.zekr.entry
+package com.thekr.ui.thekr.entry
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.thekr.data.zekr.category.CategoryDetails
-import com.thekr.data.zekr.count.ZekrCount
-import com.thekr.data.zekr.instance.ZekrInstanceRepository
-import com.thekr.data.zekr.zekr.ZekrEntry
-import com.thekr.data.zekr.zekr.ZekrEntryUiState
-import com.thekr.data.zekr.zekr.ZekrRepository
+import com.thekr.data.thekr.category.CategoryDetails
+import com.thekr.data.thekr.count.ThekrCount
+import com.thekr.data.thekr.instance.ThekrInstanceRepository
+import com.thekr.data.thekr.thekr.ThekrEntry
+import com.thekr.data.thekr.thekr.ThekrEntryUiState
+import com.thekr.data.thekr.thekr.ThekrRepository
 import com.thekr.ui.navigation.NavigationActions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,50 +19,50 @@ import kotlinx.coroutines.runBlocking
 
 
 /**
- * ViewModel for the Zekr entry screen.
- * Handles saving new Zekrs and managing the UI state.
+ * ViewModel for the Thekr entry screen.
+ * Handles saving new Thekrs and managing the UI state.
  */
-class ZekrEntryViewModel(
-    private val zekrRepository: ZekrRepository,
-    private val zekrInstanceRepository: ZekrInstanceRepository,
+class ThekrEntryViewModel(
+    private val thekrRepository: ThekrRepository,
+    private val thekrInstanceRepository: ThekrInstanceRepository,
 ) : ViewModel() {
 
-    private val _viewState = MutableStateFlow(ZekrEntryUiState())
+    private val _viewState = MutableStateFlow(ThekrEntryUiState())
     val viewState = _viewState.asStateFlow()
 
     /**
-     * Saves the current Zekr entry.
+     * Saves the current Thekr entry.
      *
-     * @param parentCategory The category to which the Zekr belongs.
+     * @param parentCategory The category to which the Thekr belongs.
      */
     fun saveItem(parentCategory: CategoryDetails) {
         if (!viewState.value.saved && validateInput(viewState.value)) {
             _viewState.update { it.copy(saved = true) }
             viewModelScope.launch {
-                saveZekrAndInstance(parentCategory)
+                saveThekrAndInstance(parentCategory)
             }
             NavigationActions.navigateUp()
         }
     }
 
     /**
-     * Saves the Zekr and ZekrInstance entities to the database.
+     * Saves the Thekr and ThekrInstance entities to the database.
      *
-     * @param parentCategory The category to which the Zekr belongs.
+     * @param parentCategory The category to which the Thekr belongs.
      */
-    private suspend fun saveZekrAndInstance(parentCategory: CategoryDetails) {
-        val zekr = viewState.value.zekrEntry.toZekr().copy(categoryId = parentCategory.id)
+    private suspend fun saveThekrAndInstance(parentCategory: CategoryDetails) {
+        val thekr = viewState.value.thekrEntry.toThekr().copy(categoryId = parentCategory.id)
         runBlocking(Dispatchers.IO) {
-            val insertedZekrId = zekrRepository.insert(zekr)
+            val insertedThekrId = thekrRepository.insert(thekr)
 
-            val zekrInstance = viewState.value.zekrEntry.toZekrInstance()
-                .copy(zekrId = insertedZekrId, categoryId = parentCategory.id)
-            val zekrInstanceId = zekrInstanceRepository.insert(zekrInstance)
+            val thekrInstance = viewState.value.thekrEntry.toThekrInstance()
+                .copy(thekrId = insertedThekrId, categoryId = parentCategory.id)
+            val thekrInstanceId = thekrInstanceRepository.insert(thekrInstance)
 
             parentCategory.countList.add(
                 mutableStateOf(
-                    ZekrCount(
-                        zekrInstanceId = zekrInstanceId,
+                    ThekrCount(
+                        thekrInstanceId = thekrInstanceId,
                         categoryId = parentCategory.id,
                         timeUpdated = System.currentTimeMillis(),
                     )
@@ -72,19 +72,19 @@ class ZekrEntryViewModel(
     }
 
     /**
-     * Updates the label of the Zekr entry.
+     * Updates the label of the Thekr entry.
      *
      * @param label The new label value.
      */
     fun updateLabel(label: String) {
         val isLabelValid = label.isNotBlank()
         val isEntryValid = validateInput(
-            viewState.value.copy(zekrEntry = viewState.value.zekrEntry.copy(text = label))
+            viewState.value.copy(thekrEntry = viewState.value.thekrEntry.copy(text = label))
         )
 
         _viewState.update { currentState ->
             currentState.copy(
-                zekrEntry = currentState.zekrEntry.copy(text = label),
+                thekrEntry = currentState.thekrEntry.copy(text = label),
                 isLabelValid = isLabelValid,
                 isEntryValid = isEntryValid
             )
@@ -92,102 +92,102 @@ class ZekrEntryViewModel(
     }
 
     /**
-     * Updates the cool-down time for the Zekr entry.
+     * Updates the cool-down time for the Thekr entry.
      *
      * @param coolDown The new cool down value as a string.
      */
     fun updateCoolDown(coolDown: String) {
         val updatedCoolDown = if (coolDown.isBlank()) 400L else coolDown.toLongOrNull()
         val isEntryValid = validateInput(
-            viewState.value.copy(zekrEntry = viewState.value.zekrEntry.copy(coolDown = updatedCoolDown ?: 0))
+            viewState.value.copy(thekrEntry = viewState.value.thekrEntry.copy(coolDown = updatedCoolDown ?: 0))
         )
 
         _viewState.update { currentState ->
             currentState.copy(
-                zekrEntry = currentState.zekrEntry.copy(coolDown = updatedCoolDown ?: 400),
+                thekrEntry = currentState.thekrEntry.copy(coolDown = updatedCoolDown ?: 400),
                 isEntryValid = isEntryValid
             )
         }
     }
 
     /**
-     * Updates a target value for the Zekr entry and validates input.
+     * Updates a target value for the Thekr entry and validates input.
      *
      * @param targetValue The new target value as a string.
      * @param updateStateLambda A lambda function to update the specific target value in the state.
      */
     private fun updateTargetValue(
         targetValue: String,
-        updateStateLambda: (ZekrEntry, Long) -> ZekrEntry
+        updateStateLambda: (ThekrEntry, Long) -> ThekrEntry
     ) {
         val updatedTarget = if (targetValue.isBlank()) 0L else targetValue.toLongOrNull()
         val isEntryValid = validateInput(
-            viewState.value.copy(zekrEntry = updateStateLambda(viewState.value.zekrEntry, updatedTarget ?: 0))
+            viewState.value.copy(thekrEntry = updateStateLambda(viewState.value.thekrEntry, updatedTarget ?: 0))
         )
         _viewState.update { currentState ->
             currentState.copy(
-                zekrEntry = updateStateLambda(currentState.zekrEntry, updatedTarget ?: 0),
+                thekrEntry = updateStateLambda(currentState.thekrEntry, updatedTarget ?: 0),
                 isEntryValid = isEntryValid
             )
         }
     }
 
     /**
-     * Updates the daily target for the Zekr entry.
+     * Updates the daily target for the Thekr entry.
      *
      * @param dailyTarget The new daily target value as a string.
      */
-    fun updateDailyTarget(dailyTarget: String) = updateTargetValue(dailyTarget) { zekrEntry, target ->
-        zekrEntry.copy(dailyTarget = target)
+    fun updateDailyTarget(dailyTarget: String) = updateTargetValue(dailyTarget) { thekrEntry, target ->
+        thekrEntry.copy(dailyTarget = target)
     }
 
     /**
-     * Updates the weekly target for the Zekr entry.
+     * Updates the weekly target for the Thekr entry.
      *
      * @param weeklyTarget The new weekly target value as a string.
      */
-    fun updateWeeklyGoal(weeklyTarget: String) = updateTargetValue(weeklyTarget) { zekrEntry, target ->
-        zekrEntry.copy(weeklyTarget = target)
+    fun updateWeeklyGoal(weeklyTarget: String) = updateTargetValue(weeklyTarget) { thekrEntry, target ->
+        thekrEntry.copy(weeklyTarget = target)
     }
 
     /**
-     * Updates the monthly target for the Zekr entry.
+     * Updates the monthly target for the Thekr entry.
      *
      * @param monthlyTarget The new monthly target value as a string.
      */
-    fun updateMonthlyGoal(monthlyTarget: String) = updateTargetValue(monthlyTarget) { zekrEntry, target ->
-        zekrEntry.copy(monthlyTarget = target)
+    fun updateMonthlyGoal(monthlyTarget: String) = updateTargetValue(monthlyTarget) { thekrEntry, target ->
+        thekrEntry.copy(monthlyTarget = target)
     }
 
     /**
-     * Updates the yearly target for the Zekr entry.
+     * Updates the yearly target for the Thekr entry.
      *
      * @param yearlyTarget The new yearly target value as a string.
      */
-    fun updateYearlyGoal(yearlyTarget: String) = updateTargetValue(yearlyTarget) { zekrEntry, target ->
-        zekrEntry.copy(yearlyTarget = target)
+    fun updateYearlyGoal(yearlyTarget: String) = updateTargetValue(yearlyTarget) { thekrEntry, target ->
+        thekrEntry.copy(yearlyTarget = target)
     }
 
     /**
-     * Updates the entire ZekrEntry object in the UI state.
+     * Updates the entire ThekrEntry object in the UI state.
      *
-     * @param zekrEntry The new ZekrEntry object.
+     * @param thekrEntry The new ThekrEntry object.
      */
-    fun updateZekrEntry(zekrEntry: ZekrEntry) {
+    fun updateThekrEntry(thekrEntry: ThekrEntry) {
         _viewState.update { currentState ->
-            currentState.copy(zekrEntry = zekrEntry)
+            currentState.copy(thekrEntry = thekrEntry)
         }
     }
 }
 
 /**
- * Validates the input of the ZekrEntryUiState.
+ * Validates the input of the ThekrEntryUiState.
  *
- * @param zekrEntryUiState The UI state to validate.
+ * @param thekrEntryUiState The UI state to validate.
  * @return True if the input is valid, false otherwise.
  */
-fun validateInput(zekrEntryUiState: ZekrEntryUiState): Boolean {
-    return with(zekrEntryUiState) {
-        zekrEntry.text.isNotBlank()
+fun validateInput(thekrEntryUiState: ThekrEntryUiState): Boolean {
+    return with(thekrEntryUiState) {
+        thekrEntry.text.isNotBlank()
     }
 }

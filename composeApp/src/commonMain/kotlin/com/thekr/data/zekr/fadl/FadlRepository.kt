@@ -1,18 +1,18 @@
-package com.thekr.data.zekr.fadl
+package com.thekr.data.thekr.fadl
 
-import com.thekr.model.ZekrFadl
+import com.thekr.model.ThekrFadl
 import kotlinx.coroutines.flow.Flow
 
 interface FadlRepository {
-    suspend fun insert(zekrFadl: ZekrFadl)
+    suspend fun insert(thekrFadl: ThekrFadl)
 
-    suspend fun insertAll(zekrFadl: List<ZekrFadl>)
+    suspend fun insertAll(thekrFadl: List<ThekrFadl>)
 
-    suspend fun update(zekrFadl: ZekrFadl)
+    suspend fun update(thekrFadl: ThekrFadl)
 
-    fun findAll(): Flow<List<ZekrFadl>>
+    fun findAll(): Flow<List<ThekrFadl>>
 
-    fun findByZekrId(zekrId: Long): Flow<List<ZekrFadl>>
+    fun findByThekrId(thekrId: Long): Flow<List<ThekrFadl>>
 
-    fun findByCategoryId(id: Long): Flow<List<ZekrFadl>>
+    fun findByCategoryId(id: Long): Flow<List<ThekrFadl>>
 }

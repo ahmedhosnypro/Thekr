@@ -1,30 +1,30 @@
-package com.thekr.data.zekr.zekr
+package com.thekr.data.thekr.thekr
 
 import androidx.compose.runtime.Stable
-import com.thekr.model.Zekr
-import com.thekr.model.ZekrInstance
-import com.thekr.model.ZekrTargetStatus
+import com.thekr.model.Thekr
+import com.thekr.model.ThekrInstance
+import com.thekr.model.ThekrTargetStatus
 import com.thekr.util.TimeHelper.now
 
 
 @Stable
-data class ZekrEntry(
+data class ThekrEntry(
     val id: Long = 0,
     val text: String = "أستغفر الله",
     val coolDown: Long = 400,
     // target
     val yearlyTarget: Long = 0,
-    val yearlyTargetStatus: ZekrTargetStatus = ZekrTargetStatus.Disabled,
+    val yearlyTargetStatus: ThekrTargetStatus = ThekrTargetStatus.Disabled,
     val monthlyTarget: Long = 0,
-    val monthlyTargetStatus: ZekrTargetStatus = ZekrTargetStatus.Disabled,
+    val monthlyTargetStatus: ThekrTargetStatus = ThekrTargetStatus.Disabled,
     val weeklyTarget: Long = 0,
-    val weeklyTargetStatus: ZekrTargetStatus = ZekrTargetStatus.Disabled,
+    val weeklyTargetStatus: ThekrTargetStatus = ThekrTargetStatus.Disabled,
     val dailyTarget: Long = 0,
-    val dailyTargetStatus: ZekrTargetStatus = ZekrTargetStatus.Disabled,
+    val dailyTargetStatus: ThekrTargetStatus = ThekrTargetStatus.Disabled,
 ) {
-    fun toZekr(): Zekr = this.let {
+    fun toThekr(): Thekr = this.let {
         val now = now()
-        Zekr(
+        Thekr(
             id = id,
             content = text,
             coolDown = coolDown,
@@ -33,10 +33,10 @@ data class ZekrEntry(
         )
     }
 
-    fun toZekrInstance(): ZekrInstance {
+    fun toThekrInstance(): ThekrInstance {
         val now = now()
-        return ZekrInstance(
-            zekrId = id,
+        return ThekrInstance(
+            thekrId = id,
             categoryId = 1,
             yearlyTarget = yearlyTarget,
             yearlyTargetStatus = yearlyTargetStatus,

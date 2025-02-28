@@ -9,28 +9,28 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
 import com.thekr.data.settings.SettingsDetails
-import com.thekr.data.zekr.category.CategoryDetails
-import com.thekr.data.zekr.instance.ZekrInstanceDetails
-import com.thekr.model.ZekrCategoryType
-import com.thekr.ui.theme.ZekrTheme
+import com.thekr.data.thekr.category.CategoryDetails
+import com.thekr.data.thekr.instance.ThekrInstanceDetails
+import com.thekr.model.ThekrCategoryType
+import com.thekr.ui.theme.AppTheme
 
 @Composable
 fun DailyTarget(
-    zekrInstanceDetails: MutableState<ZekrInstanceDetails>,
+    thekrInstanceDetails: MutableState<ThekrInstanceDetails>,
     settingsDetails: SettingsDetails,
     category: MutableState<CategoryDetails>,
     modifier: Modifier = Modifier,
 ) {
-    val targetName = if (category.value.id == ZekrCategoryType.User.id ||
-        category.value.parent == ZekrCategoryType.User.id
+    val targetName = if (category.value.id == ThekrCategoryType.User.id ||
+        category.value.parent == ThekrCategoryType.User.id
     ) "الهدف اليومي:" else "عدد مرات الذكر:"
-    val color = ZekrTheme.colors(settingsDetails).primary
+    val color = AppTheme.colors(settingsDetails).primary
     Box(
         modifier = Modifier.fillMaxWidth(),
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "$targetName ${zekrInstanceDetails.value.dailyTarget}",
+            text = "$targetName ${thekrInstanceDetails.value.dailyTarget}",
             fontSize = 16.sp,
             color = color,
             modifier = modifier

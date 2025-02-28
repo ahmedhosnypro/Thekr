@@ -13,6 +13,6 @@ class OfflineSessionRepository(
 
     override fun findById(id: Long) = sessionDAO.findById(id)
 
-    override fun findActiveSession(zekrCategoryId: Long, zekrInstanceId: Long) =
-        sessionDAO.findActiveSession(zekrCategoryId, zekrInstanceId)
+    override fun findActiveSession(thekrCategoryId: Long, thekrInstanceId: Long) =
+        sessionDAO.findActiveSession(thekrCategoryId, thekrInstanceId)
 }

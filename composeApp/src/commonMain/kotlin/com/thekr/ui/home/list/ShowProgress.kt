@@ -11,7 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.RectangleShape
-import com.thekr.ui.theme.ZekrColors
+import com.thekr.ui.theme.AppColors
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 
@@ -23,7 +23,7 @@ enum class ProgressState {
 fun ShowProgress(
     score: Long = 100,
     targetScore: Long = 100,
-    zekrColors: ZekrColors = ZekrColors()
+    appColors: AppColors = AppColors()
 ) {
     val progressState = when {
         targetScore == 0L -> ProgressState.TargetIsZero
@@ -34,9 +34,9 @@ fun ShowProgress(
 
 
     val color = when (progressState) {
-        ProgressState.EQUAL, ProgressState.BIGGER -> zekrColors.successColor
-        ProgressState.SMALLER -> zekrColors.progressColor
-        else -> zekrColors.listDivider
+        ProgressState.EQUAL, ProgressState.BIGGER -> appColors.successColor
+        ProgressState.SMALLER -> appColors.progressColor
+        else -> appColors.listDivider
     }
 
     val progressFactor by remember(score) {
@@ -61,7 +61,7 @@ fun ShowProgress(
             progress = { progressFactor },
             modifier = Modifier.fillMaxWidth(),
             color = color,
-            trackColor = zekrColors.listDivider,
+            trackColor = appColors.listDivider,
         )
     }
 }

@@ -11,7 +11,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
-import com.thekr.data.zekr.category.CategoryDetails
+import com.thekr.data.thekr.category.CategoryDetails
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)

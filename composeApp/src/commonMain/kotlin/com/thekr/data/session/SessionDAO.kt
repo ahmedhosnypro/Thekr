@@ -23,13 +23,13 @@ interface SessionDAO {
     fun findById(id: Long): Flow<Session>
 
     /**
-     * Finds an active session for the given zekrCategoryId and zekrInstanceId.
+     * Finds an active session for the given thekrCategoryId and thekrInstanceId.
      * An active session is defined as one where timeEnded is 0.
      *
-     * @param zekrCategoryId The ID of the Zekr category.
-     * @param zekrInstanceId The ID of the Zekr instance.
+     * @param thekrCategoryId The ID of the Thekr category.
+     * @param thekrInstanceId The ID of the Thekr instance.
      * @return Flow emitting the active session, if any.
      */
-    @Query("SELECT * from session WHERE zekrCategoryId = :zekrCategoryId AND zekrInstanceId = :zekrInstanceId AND timeEnded = 0")
-    fun findActiveSession(zekrCategoryId: Long, zekrInstanceId: Long): Flow<Session>
+    @Query("SELECT * from session WHERE thekrCategoryId = :thekrCategoryId AND thekrInstanceId = :thekrInstanceId AND timeEnded = 0")
+    fun findActiveSession(thekrCategoryId: Long, thekrInstanceId: Long): Flow<Session>
 }

@@ -3,8 +3,8 @@ package com.thekr.ui.navigation.route
 import com.thekr.ui.navigation.NavigationRoute
 import kotlinx.serialization.Serializable
 
-object ZekrScreenRoute : NavigationRoute {
-    override val route = "zekr_screen"
+object ThekrScreenRoute : NavigationRoute {
+    override val route = "thekr_screen"
     override val titleRes = "Counter Details"
     const val CATEGORY_ID_ARG = "categoryId"
     const val ZEKR_ID_ARG = "itemId"
@@ -15,9 +15,9 @@ object ZekrScreenRoute : NavigationRoute {
 }
 
 //@Serializable
-//data class ZekrScreenRoute(
+//data class ThekrScreenRoute(
 //    val categoryId: Long = 1,
-//    val zekrId: Long = 1,
+//    val thekrId: Long = 1,
 //    val initialPage: Int = 0,
 //    val pageCount: Int = 1,
 //) : NavigationRoute(

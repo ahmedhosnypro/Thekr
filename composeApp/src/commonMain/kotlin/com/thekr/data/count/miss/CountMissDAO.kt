@@ -15,9 +15,9 @@ interface CountMissDAO {
     @Query("SELECT * FROM count_miss")
     fun findAll(): Flow<List<CountMiss>>
 
-    @Query("SELECT * FROM count_miss where zekrInstanceId= :zekrInstanceId")
-    fun findByZekrInstanceId(zekrInstanceId: Long): Flow<List<CountMiss>>
+    @Query("SELECT * FROM count_miss where thekrInstanceId= :thekrInstanceId")
+    fun findByThekrInstanceId(thekrInstanceId: Long): Flow<List<CountMiss>>
 
-    @Query("SELECT COUNT(*) FROM count_miss WHERE zekrInstanceId= :zekrInstanceId")
-    fun getTotalCountByZekrInstanceId(zekrInstanceId: Long): Flow<Long>
+    @Query("SELECT COUNT(*) FROM count_miss WHERE thekrInstanceId= :thekrInstanceId")
+    fun getTotalCountByThekrInstanceId(thekrInstanceId: Long): Flow<Long>
 }

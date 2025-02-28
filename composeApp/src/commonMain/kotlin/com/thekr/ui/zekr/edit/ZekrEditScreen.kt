@@ -1,4 +1,4 @@
-package com.thekr.ui.zekr.edit
+package com.thekr.ui.thekr.edit
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,23 +15,23 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.thekr.ui.component.DefaultHorizontalDivider
 import com.thekr.ui.viewmodel.AppViewModelProvider
-import com.thekr.ui.zekr.entry.MyTextField
+import com.thekr.ui.thekr.entry.MyTextField
 
 @Composable
 fun CounterEditScreen(
     navigateBack: () -> Unit,
     onNavigateUp: () -> Unit,
-    viewModel: ZekrEditViewModel = viewModel {
-        AppViewModelProvider.Factory.create(ZekrEditViewModel::class, this)
+    viewModel: ThekrEditViewModel = viewModel {
+        AppViewModelProvider.Factory.create(ThekrEditViewModel::class, this)
     },
 ) {
     val uiState = viewModel.counterEditUiState.value
-    val counterEntry = uiState.zekrEntry
+    val counterEntry = uiState.thekrEntry
 
     Scaffold(topBar = {
 //        CounterEntryAppBar(
-//            actions = ZekrEntryActions(),
-//            title = uiState.zekrEntry.text,
+//            actions = ThekrEntryActions(),
+//            title = uiState.thekrEntry.text,
 //            enableSave = uiState.isEntryValid,
 //        )
     }) { innerPadding ->

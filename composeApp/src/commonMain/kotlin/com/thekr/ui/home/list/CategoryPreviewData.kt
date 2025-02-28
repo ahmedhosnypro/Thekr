@@ -6,26 +6,26 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshots.SnapshotStateList
-import com.thekr.data.zekr.category.CategoryDetails
-import com.thekr.data.zekr.count.ZekrCount
-import com.thekr.data.zekr.fadl.FadlDetails
-import com.thekr.data.zekr.instance.ZekrInstanceDetails
-import com.thekr.data.zekr.zekr.ZekrDetails
-import com.thekr.model.ZekrTargetStatus
+import com.thekr.data.thekr.category.CategoryDetails
+import com.thekr.data.thekr.count.ThekrCount
+import com.thekr.data.thekr.fadl.FadlDetails
+import com.thekr.data.thekr.instance.ThekrInstanceDetails
+import com.thekr.data.thekr.thekr.ThekrDetails
+import com.thekr.model.ThekrTargetStatus
 
 @Composable
 fun categoryDetailsPreviewState(
-    zekrList: SnapshotStateList<MutableState<ZekrDetails>> = zekrPreviewList(),
-    zekrInstanceList: SnapshotStateList<MutableState<ZekrInstanceDetails>> = zekrInstanceList(),
+    thekrList: SnapshotStateList<MutableState<ThekrDetails>> = thekrPreviewList(),
+    thekrInstanceList: SnapshotStateList<MutableState<ThekrInstanceDetails>> = thekrInstanceList(),
     fadlList: SnapshotStateList<FadlDetails> = fadlPreviewList(),
     childCategories: SnapshotStateList<MutableState<CategoryDetails>> = categoryDetailsListPreviewState(),
-    countList: SnapshotStateList<MutableState<ZekrCount>> = countPreviewList()
+    countList: SnapshotStateList<MutableState<ThekrCount>> = countPreviewList()
 ): MutableState<CategoryDetails> {
     return remember {
         mutableStateOf(
             CategoryDetails(
-                zekrList = zekrList,
-                zekrInstanceList = zekrInstanceList,
+                thekrList = thekrList,
+                thekrInstanceList = thekrInstanceList,
                 fadlList = fadlList,
                 childCategories = childCategories,
                 countList = countList
@@ -36,10 +36,10 @@ fun categoryDetailsPreviewState(
 
 
 @Composable
-fun zekrPreviewList() = remember {
+fun thekrPreviewList() = remember {
     mutableStateListOf(
         mutableStateOf(
-            ZekrDetails(
+            ThekrDetails(
                 id = 1,
                 text = "سبحان الله وبحمده سبحان الله العظيم",
                 editable = true,
@@ -47,7 +47,7 @@ fun zekrPreviewList() = remember {
             )
         ),
         mutableStateOf(
-            ZekrDetails(
+            ThekrDetails(
                 id = 2,
                 text = "اللهم صل وسلم على سيدنا محمد",
             )
@@ -57,31 +57,31 @@ fun zekrPreviewList() = remember {
 
 
 @Composable
-fun zekrInstanceList(): SnapshotStateList<MutableState<ZekrInstanceDetails>> = remember {
+fun thekrInstanceList(): SnapshotStateList<MutableState<ThekrInstanceDetails>> = remember {
     mutableStateListOf(
         mutableStateOf(
-            ZekrInstanceDetails(
+            ThekrInstanceDetails(
                 id = 1,
-                zekrId = 1,
+                thekrId = 1,
                 categoryId = 1,
                 dailyTarget = 100,
-                dailyTargetStatus = ZekrTargetStatus.Enabled,
+                dailyTargetStatus = ThekrTargetStatus.Enabled,
                 weeklyTarget = 200,
-                weeklyTargetStatus = ZekrTargetStatus.Enabled,
+                weeklyTargetStatus = ThekrTargetStatus.Enabled,
                 monthlyTarget = 300,
-                monthlyTargetStatus = ZekrTargetStatus.Enabled,
+                monthlyTargetStatus = ThekrTargetStatus.Enabled,
                 yearlyTarget = 400,
-                yearlyTargetStatus = ZekrTargetStatus.Enabled,
+                yearlyTargetStatus = ThekrTargetStatus.Enabled,
 
                 )
         ),
         mutableStateOf(
-            ZekrInstanceDetails(
+            ThekrInstanceDetails(
                 id = 2,
-                zekrId = 2,
+                thekrId = 2,
                 categoryId = 1,
                 dailyTarget = 100,
-                dailyTargetStatus = ZekrTargetStatus.Enabled,
+                dailyTargetStatus = ThekrTargetStatus.Enabled,
             )
         )
     )
@@ -92,7 +92,7 @@ fun fadlPreviewList() = remember {
     mutableStateListOf(
         FadlDetails(
             id = 1,
-            zekrId = 1,
+            thekrId = 1,
             fadl = "الفضل الأول",
         )
     )
@@ -123,11 +123,11 @@ fun categoryDetailsListPreviewState(): SnapshotStateList<MutableState<CategoryDe
 }
 
 @Composable
-fun countPreviewList(): SnapshotStateList<MutableState<ZekrCount>> = remember {
+fun countPreviewList(): SnapshotStateList<MutableState<ThekrCount>> = remember {
     mutableStateListOf(
         mutableStateOf(
-            ZekrCount(
-                zekrInstanceId = 1,
+            ThekrCount(
+                thekrInstanceId = 1,
                 dailyCount = 100,
                 weeklyCount = 200,
                 monthlyCount = 300,
@@ -136,8 +136,8 @@ fun countPreviewList(): SnapshotStateList<MutableState<ZekrCount>> = remember {
             )
         ),
         mutableStateOf(
-            ZekrCount(
-                zekrInstanceId = 2,
+            ThekrCount(
+                thekrInstanceId = 2,
                 dailyCount = 100,
                 weeklyCount = 200,
                 monthlyCount = 300,

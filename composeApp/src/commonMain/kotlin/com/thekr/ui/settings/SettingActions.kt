@@ -2,7 +2,7 @@ package com.thekr.ui.settings
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import com.thekr.Constants
+import com.thekr.values.Constants
 import com.thekr.data.proto.Settings
 import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails

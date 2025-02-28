@@ -7,7 +7,7 @@ object NavigationActions {
 
     fun initNavController(navController: NavController) {
         if (this::navController.isInitialized.not()) {
-            this.navController = navController
+            NavigationActions.navController = navController
         }
     }
 

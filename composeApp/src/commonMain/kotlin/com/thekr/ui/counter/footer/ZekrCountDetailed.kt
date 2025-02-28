@@ -16,19 +16,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
-import com.thekr.data.zekr.count.ZekrCount
-import com.thekr.data.zekr.instance.ZekrInstanceDetails
-import com.thekr.data.zekr.zekr.ZekrDetails
-import com.thekr.model.ZekrTargetStatus
+import com.thekr.data.thekr.count.ThekrCount
+import com.thekr.data.thekr.instance.ThekrInstanceDetails
+import com.thekr.data.thekr.thekr.ThekrDetails
+import com.thekr.model.ThekrTargetStatus
 import com.thekr.ui.component.AutoSizeText
-import com.thekr.ui.values.Dimensions.normal
-import com.thekr.ui.values.Dimensions.small
-import com.thekr.ui.values.Dimensions.tiny
-import com.thekr.ui.home.list.zekrInstanceList
-import com.thekr.ui.home.list.zekrPreviewList
+import com.thekr.values.Dimensions.normal
+import com.thekr.values.Dimensions.small
+import com.thekr.values.Dimensions.tiny
+import com.thekr.ui.home.list.thekrInstanceList
+import com.thekr.ui.home.list.thekrPreviewList
 import com.thekr.ui.theme.AppTheme
-import com.thekr.ui.theme.ZekrColors
-import com.thekr.ui.theme.ZekrTheme
+import com.thekr.ui.theme.AppColors
 import com.thekr.ui.component.LocalizedApp
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -40,26 +39,26 @@ import com.thekr.resources.weekly
 import com.thekr.resources.yearly
 
 /**
- * Displays detailed Zekr count information.
+ * Displays detailed Thekr count information.
  *
- * @param zekrCount The state of the Zekr count data.
- * @param zekrInstanceDetailsMutableState The state of the Zekr instance
+ * @param thekrCount The state of the Thekr count data.
+ * @param thekrInstanceDetailsMutableState The state of the Thekr instance
  *     details.
- * @param zekrDetails The state of the Zekr details.
+ * @param thekrDetails The state of the Thekr details.
  * @param settingsDetails Settings details for theming and customization.
  * @param modifier Modifier to be applied to the layout.
  */
 @Composable
-fun DetailedZekrCount(
-    zekrCount: MutableState<ZekrCount>,
-    zekrInstanceDetailsMutableState: MutableState<ZekrInstanceDetails>,
-    zekrDetails: MutableState<ZekrDetails>,
+fun DetailedThekrCount(
+    thekrCount: MutableState<ThekrCount>,
+    thekrInstanceDetailsMutableState: MutableState<ThekrInstanceDetails>,
+    thekrDetails: MutableState<ThekrDetails>,
     settingsDetails: SettingsDetails,
     modifier: Modifier = Modifier
 ) {
-    val count = zekrCount.value
-    val zekrInstanceDetails = zekrInstanceDetailsMutableState.value
-    val colors = ZekrTheme.colors(settingsDetails)
+    val count = thekrCount.value
+    val thekrInstanceDetails = thekrInstanceDetailsMutableState.value
+    val colors = AppTheme.colors(settingsDetails)
 
     Column(
         modifier = modifier
@@ -75,9 +74,9 @@ fun DetailedZekrCount(
             CountItem(
                 count = count.dailyCount,
                 countLabel = stringResource(Res.string.daily),
-                target = zekrInstanceDetails.dailyTarget,
-                targetStatus = zekrInstanceDetails.dailyTargetStatus,
-                zekrDetails = zekrDetails,
+                target = thekrInstanceDetails.dailyTarget,
+                targetStatus = thekrInstanceDetails.dailyTargetStatus,
+                thekrDetails = thekrDetails,
                 colors = colors
             )
         }
@@ -86,9 +85,9 @@ fun DetailedZekrCount(
             CountItem(
                 count = count.weeklyCount,
                 countLabel = stringResource(Res.string.weekly),
-                target = zekrInstanceDetails.weeklyTarget,
-                targetStatus = zekrInstanceDetails.weeklyTargetStatus,
-                zekrDetails = zekrDetails,
+                target = thekrInstanceDetails.weeklyTarget,
+                targetStatus = thekrInstanceDetails.weeklyTargetStatus,
+                thekrDetails = thekrDetails,
                 colors = colors
             )
         }
@@ -97,9 +96,9 @@ fun DetailedZekrCount(
             CountItem(
                 count = count.monthlyCount,
                 countLabel = stringResource(Res.string.monthly),
-                target = zekrInstanceDetails.monthlyTarget,
-                targetStatus = zekrInstanceDetails.monthlyTargetStatus,
-                zekrDetails = zekrDetails,
+                target = thekrInstanceDetails.monthlyTarget,
+                targetStatus = thekrInstanceDetails.monthlyTargetStatus,
+                thekrDetails = thekrDetails,
                 colors = colors
             )
         }
@@ -108,29 +107,29 @@ fun DetailedZekrCount(
             CountItem(
                 count = count.yearlyCount,
                 countLabel = stringResource(Res.string.yearly),
-                target = zekrInstanceDetails.yearlyTarget,
-                targetStatus = zekrInstanceDetails.yearlyTargetStatus,
-                zekrDetails = zekrDetails,
+                target = thekrInstanceDetails.yearlyTarget,
+                targetStatus = thekrInstanceDetails.yearlyTargetStatus,
+                thekrDetails = thekrDetails,
                 colors = colors
             )
         }
 
         if (settingsDetails.showTotalCount) {
-            TotalCount(zekrCount = zekrCount, colors = colors)
+            TotalCount(thekrCount = thekrCount, colors = colors)
         }
     }
 }
 
 /**
- * Displays the total count for the Zekr.
+ * Displays the total count for the Thekr.
  *
- * @param zekrCount The state of the Zekr count data.
- * @param colors The color palette for the Zekr theme.
+ * @param thekrCount The state of the Thekr count data.
+ * @param colors The color palette for the Thekr theme.
  */
 @Composable
 fun TotalCount(
-    zekrCount: MutableState<ZekrCount>,
-    colors: ZekrColors
+    thekrCount: MutableState<ThekrCount>,
+    colors: AppColors
 ) {
     Row(
         modifier = Modifier
@@ -148,7 +147,7 @@ fun TotalCount(
         Spacer(modifier = Modifier.weight(1f))
 
         Text(
-            text = "${zekrCount.value.totalCount}",
+            text = "${thekrCount.value.totalCount}",
             color = colors.primary,
             fontSize = 12.sp,
         )
@@ -163,8 +162,8 @@ fun TotalCount(
  * @param countLabel The label for the count (e.g., "Daily", "Weekly").
  * @param target The target count value.
  * @param targetStatus The status of the target (Enabled or Disabled).
- * @param zekrDetails The state of the Zekr details.
- * @param colors The color palette for the Zekr theme.
+ * @param thekrDetails The state of the Thekr details.
+ * @param colors The color palette for the Thekr theme.
  * @param modifier Modifier to be applied to the layout.
  */
 @Composable
@@ -172,19 +171,19 @@ fun CountItem(
     count: Long,
     countLabel: String,
     target: Long,
-    targetStatus: ZekrTargetStatus,
-    zekrDetails: MutableState<ZekrDetails>,
-    colors: ZekrColors,
+    targetStatus: ThekrTargetStatus,
+    thekrDetails: MutableState<ThekrDetails>,
+    colors: AppColors,
     modifier: Modifier = Modifier,
 ) {
-    if (targetStatus == ZekrTargetStatus.Enabled) {
+    if (targetStatus == ThekrTargetStatus.Enabled) {
         var progressTarget by rememberSaveable { mutableFloatStateOf(0f) }
         val progressState = progressState(target, count)
         val progressColor = progressColor(colors, progressState)
 
         val progressAnimate = animateFloatAsState(
             targetValue = progressTarget,
-            animationSpec = tween(durationMillis = zekrDetails.value.coolDown.toInt()),
+            animationSpec = tween(durationMillis = thekrDetails.value.coolDown.toInt()),
             label = "progressAnimate"
         )
 
@@ -229,7 +228,7 @@ fun CountItem(
  *
  * @param count The current count value.
  * @param target The target count value.
- * @param colors The color palette for the Zekr theme.
+ * @param colors The color palette for the Thekr theme.
  * @param progressColor The color for the progress bar and current count
  *     text.
  */
@@ -237,7 +236,7 @@ fun CountItem(
 private fun CountValues(
     count: Long,
     target: Long,
-    colors: ZekrColors,
+    colors: AppColors,
     progressColor: Color
 ) {
     BoxWithConstraints(modifier = Modifier.fillMaxWidth(0.4f)) {
@@ -274,9 +273,9 @@ fun CountPreview() {
                     count = 50,
                     countLabel = "العدد",
                     target = 100,
-                    targetStatus = ZekrTargetStatus.Enabled,
-                    zekrDetails = zekrPreviewList()[0],
-                    colors = ZekrTheme.colors(SettingsDetails())
+                    targetStatus = ThekrTargetStatus.Enabled,
+                    thekrDetails = thekrPreviewList()[0],
+                    colors = AppTheme.colors(SettingsDetails())
                 )
             }
         }
@@ -293,9 +292,9 @@ fun CountPreviewDark() {
                     count = 100,
                     countLabel = "العدد",
                     target = 100,
-                    targetStatus = ZekrTargetStatus.Enabled,
-                    zekrDetails = zekrPreviewList()[0],
-                    colors = ZekrTheme.colors(SettingsDetails(themeMode = ThemeMode.Dark))
+                    targetStatus = ThekrTargetStatus.Enabled,
+                    thekrDetails = thekrPreviewList()[0],
+                    colors = AppTheme.colors(SettingsDetails(themeMode = ThemeMode.Dark))
                 )
             }
         }
@@ -304,12 +303,12 @@ fun CountPreviewDark() {
 
 @Preview
 @Composable
-fun DetailedZekrCountPreviewDark() {
+fun DetailedThekrCountPreviewDark() {
     LocalizedApp {
         Column {
             AppTheme(themeMode = ThemeMode.Dark) {
                 Surface {
-                    DetailedZekrCountPreview(
+                    DetailedThekrCountPreview(
                         settingsDetails = SettingsDetails(
                             themeMode = ThemeMode.Dark
                         )
@@ -317,7 +316,7 @@ fun DetailedZekrCountPreviewDark() {
                 }
                 AppTheme(themeMode = ThemeMode.Light) {
                     Surface {
-                        DetailedZekrCountPreview(
+                        DetailedThekrCountPreview(
                             settingsDetails = SettingsDetails(
                                 themeMode = ThemeMode.Light
                             )
@@ -330,14 +329,14 @@ fun DetailedZekrCountPreviewDark() {
 }
 
 @Composable
-fun DetailedZekrCountPreview(
+fun DetailedThekrCountPreview(
     settingsDetails: SettingsDetails = SettingsDetails()
 ) {
-    DetailedZekrCount(
+    DetailedThekrCount(
         settingsDetails = settingsDetails,
-        zekrCount = remember {
+        thekrCount = remember {
             mutableStateOf(
-                ZekrCount(
+                ThekrCount(
                     dailyCount = 50,
                     weeklyCount = 100,
                     monthlyCount = 200,
@@ -346,8 +345,8 @@ fun DetailedZekrCountPreview(
                 )
             )
         },
-        zekrInstanceDetailsMutableState = zekrInstanceList()[0],
-        zekrDetails = zekrPreviewList()[0],
+        thekrInstanceDetailsMutableState = thekrInstanceList()[0],
+        thekrDetails = thekrPreviewList()[0],
     )
 }
 

@@ -1,4 +1,4 @@
-package com.thekr.data.zekr.count
+package com.thekr.data.thekr.count
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
@@ -6,8 +6,8 @@ import com.thekr.util.TimeHelper.now
 
 @Stable
 @Immutable
-data class ZekrCount(
-    val zekrInstanceId: Long = 0,
+data class ThekrCount(
+    val thekrInstanceId: Long = 0,
     val categoryId: Long = 0,
     var dailyCount: Long = 0,
     var weeklyCount: Long = 0,

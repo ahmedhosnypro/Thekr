@@ -1,6 +1,5 @@
 package com.thekr.ui.counter.body
 
-import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,25 +15,20 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import com.thekr.data.settings.SettingsDetails
-import com.thekr.data.zekr.category.CategoryDetails
+import com.thekr.data.thekr.category.CategoryDetails
 import com.thekr.ui.component.LocalizedApp
-import com.thekr.ui.theme.ZekrTheme
+import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.counter.CounterHelper
 import com.thekr.ui.counter.viewmodel.CounterUiState
-import com.thekr.ui.values.Dimensions.large
-import com.thekr.ui.values.Dimensions.medium
-import com.thekr.ui.values.Dimensions.small
+import com.thekr.values.Dimensions.large
+import com.thekr.values.Dimensions.small
 import com.thekr.ui.theme.hacenTunisiaLt
 import com.thekr.ui.theme.uthmanicScript
-import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.launch
 
 @Composable
-fun ZekrText(
+fun ThekrText(
     tabIndex: Int,
     counterUiState: CounterUiState,
     categoryDetails: MutableState<CategoryDetails>,
@@ -43,15 +37,15 @@ fun ZekrText(
 ) {
     // todo: implement layout direction for english text
     // check if text start with rtl letter, or ltr letter
-    val zekrColors = ZekrTheme.colors(settingsDetails)
-    val zekr = CounterHelper.getZekr(tabIndex).value
+    val thekrColors = AppTheme.colors(settingsDetails)
+    val thekr = CounterHelper.getThekr(tabIndex).value
 
     val textStyle = TextStyle(
         fontSize = settingsDetails.fontSize.sp,
 
         textAlign = TextAlign.Start,
     )
-    if (zekr.text.isEmpty()) {
+    if (thekr.text.isEmpty()) {
         return
     }
 
@@ -87,21 +81,21 @@ fun ZekrText(
 
             item {
                 Text(
-                    text = zekr.text,
+                    text = thekr.text,
                     style = textStyle,
-                    fontFamily = if (zekr.basmlaType != 0) uthmanicScript() else hacenTunisiaLt(),
+                    fontFamily = if (thekr.basmlaType != 0) uthmanicScript() else hacenTunisiaLt(),
                 )
             }
-            if (categoryDetails.value.fadlList.any { it.zekrId == counterUiState.currentZekrInstance.value.id }) {
+            if (categoryDetails.value.fadlList.any { it.thekrId == counterUiState.currentThekrInstance.value.id }) {
                 val fadlList =
-                    categoryDetails.value.fadlList.filter { it.zekrId == counterUiState.currentZekrInstance.value.id }
+                    categoryDetails.value.fadlList.filter { it.thekrId == counterUiState.currentThekrInstance.value.id }
                 items(fadlList) { fadl ->
                     Text(
                         text = fadl.fadl,
                         style = textStyle,
-                        lineHeight = if (zekr.basmlaType != 0) (settingsDetails.fontSize + 28).sp
+                        lineHeight = if (thekr.basmlaType != 0) (settingsDetails.fontSize + 28).sp
                         else (settingsDetails.fontSize + 16).sp,
-                        color = zekrColors.fadlText
+                        color = thekrColors.fadlText
                     )
                 }
             }

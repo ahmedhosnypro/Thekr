@@ -6,19 +6,19 @@ import kotlinx.coroutines.flow.Flow
 interface CountRepository {
     suspend fun insert(count: Count)
     fun findCounts(
-        zekrInstanceId: Long? = null,
+        thekrInstanceId: Long? = null,
         timeCreatedAfter: Long? = null,
         timeCreatedBefore: Long? = null
     ): Flow<List<Count>>
 
     fun getCount(
-        zekrInstanceId: Long? = null,
+        thekrInstanceId: Long? = null,
         timeCreatedAfter: Long? = null,
         timeCreatedBefore: Long? = null
     ): Flow<Int>
 
-    fun getLastCountByZekrInstanceId(zekrInstanceId: Long): Flow<Count?>
+    fun getLastCountByThekrInstanceId(thekrInstanceId: Long): Flow<Count?>
     suspend fun findAllSync(): List<Count>
     fun findAllByCategorySync(categoryId: Long): Flow<List<Count>>
-    fun findAllByZekrInstanceSync(zekrInstanceId: Long): Flow<List<Count>>
+    fun findAllByThekrInstanceSync(thekrInstanceId: Long): Flow<List<Count>>
 }

@@ -17,8 +17,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.thekr.ui.theme.AppTheme
-import com.thekr.ui.values.Dimensions.medium
-import com.thekr.ui.values.Dimensions.normal
+import com.thekr.values.Dimensions.medium
+import com.thekr.values.Dimensions.normal
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable

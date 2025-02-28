@@ -10,9 +10,9 @@ class OfflineCountMissRepository(
 
     override fun findAll(): Flow<List<CountMiss>> = countMissDAO.findAll()
 
-    override fun findByZekrInstanceId(zekrId: Long): Flow<List<CountMiss>> =
-        countMissDAO.findByZekrInstanceId(zekrId)
+    override fun findByThekrInstanceId(thekrId: Long): Flow<List<CountMiss>> =
+        countMissDAO.findByThekrInstanceId(thekrId)
 
-    override fun getTotalCountByZekrId(zekrId: Long): Flow<Long> =
-        countMissDAO.getTotalCountByZekrInstanceId(zekrId)
+    override fun getTotalCountByThekrId(thekrId: Long): Flow<Long> =
+        countMissDAO.getTotalCountByThekrInstanceId(thekrId)
 }

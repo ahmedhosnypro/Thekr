@@ -23,28 +23,27 @@ import androidx.compose.ui.unit.sp
 import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
 import com.thekr.ui.theme.AppTheme
-import com.thekr.ui.theme.ZekrColors
-import com.thekr.ui.theme.ZekrTheme
+import com.thekr.ui.theme.AppColors
 import com.thekr.ui.theme.droidKufi
 import com.thekr.ui.theme.hacenTunisia
 import com.thekr.ui.util.NoRippleInteractionSource
 import com.thekr.ui.component.LocalizedApp
-import com.thekr.ui.values.Dimensions.small
-import com.thekr.ui.values.Dimensions.tiny
+import com.thekr.values.Dimensions.small
+import com.thekr.values.Dimensions.tiny
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import com.thekr.resources.Res
-import com.thekr.resources.zekr_indicator
+import com.thekr.resources.thekr_indicator
 
 /**
- * Displays a card representing a Zekr item.
+ * Displays a card representing a Thekr item.
  *
  * @param settingsDetails The settings detail for theming and
  *     customization.
  * @param modifier Modifier to be applied to the card layout.
- * @param text The text of the Zekr.
- * @param count The current count for the Zekr.
- * @param target The target count for the Zekr.
+ * @param text The text of the Thekr.
+ * @param count The current count for the Thekr.
+ * @param target The target count for the Thekr.
  * @param homeOnClick Callback function invoked when the card is clicked.
  * @param onLongCLick Callback function invoked when the card is
  *     long-clicked.
@@ -55,7 +54,7 @@ import com.thekr.resources.zekr_indicator
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ZekrCard(
+fun ThekrCard(
     settingsDetails: SettingsDetails,
     modifier: Modifier = Modifier,
     text: String = "",
@@ -67,7 +66,7 @@ fun ZekrCard(
     leadingIcon: (@Composable () -> Unit)? = null,
     trailingIcon: (@Composable () -> Unit)? = null,
 ) {
-    val zekrColors = ZekrTheme.colors(settingsDetails)
+    val thekrColors = AppTheme.colors(settingsDetails)
 
     Card(
         onClick = {
@@ -89,38 +88,38 @@ fun ZekrCard(
         shape = CardDefaults.shape,
         interactionSource = NoRippleInteractionSource(),
     ) {
-        ZekrCardContent(
+        ThekrCardContent(
             text = text,
             count = count,
             target = target,
             leadingIcon = leadingIcon,
             trailingIcon = trailingIcon,
-            zekrColors = zekrColors,
+            appColors = thekrColors,
             settingsDetails = settingsDetails
         )
     }
 }
 
 /**
- * Displays the content of a ZekrCard.
+ * Displays the content of a ThekrCard.
  *
- * @param text The text of the Zekr.
- * @param count The current count for the Zekr.
- * @param target The target count for the Zekr.
+ * @param text The text of the Thekr.
+ * @param count The current count for the Thekr.
+ * @param target The target count for the Thekr.
  * @param leadingIcon An optional composable function to display a leading
  *     icon.
  * @param trailingIcon An optional composable function to display a
  *     trailing icon.
- * @param zekrColors The color palette for the Zekr card.
+ * @param appColors The color palette for the Thekr card.
  */
 @Composable
-private fun ZekrCardContent(
+private fun ThekrCardContent(
     text: String,
     count: Long,
     target: Long,
     leadingIcon: (@Composable () -> Unit)?,
     trailingIcon: (@Composable () -> Unit)?,
-    zekrColors: ZekrColors,
+    appColors: AppColors,
     settingsDetails: SettingsDetails,
 ) {
     Column(
@@ -134,7 +133,7 @@ private fun ZekrCardContent(
             horizontalArrangement = Arrangement.spacedBy(small),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            ZekrTextAndIcon(
+            ThekrTextAndIcon(
                 text = text,
                 leadingIcon = leadingIcon,
                 contentColor = MaterialTheme.colorScheme.onSurface,
@@ -144,9 +143,9 @@ private fun ZekrCardContent(
             DailyCount(
                 count = count,
                 target = target,
-                successColor = zekrColors.successColor,
+                successColor = appColors.successColor,
                 contentColor = MaterialTheme.colorScheme.onSurface,
-                progressColor = zekrColors.progressColor,
+                progressColor = appColors.progressColor,
                 modifier = Modifier.fillMaxWidth(0.15f)
             )
 
@@ -156,7 +155,7 @@ private fun ZekrCardContent(
                 LanguageIconMirrored(
                     imageVector = Icons.Filled.ArrowBackIosNew,
                     contentDescription = null,
-                    tint = zekrColors.cardCallToActionIcon,
+                    tint = appColors.cardCallToActionIcon,
                     languageTage = settingsDetails.language
                 )
             }
@@ -165,22 +164,22 @@ private fun ZekrCardContent(
         ShowProgress(
             score = count,
             targetScore = target,
-            zekrColors = zekrColors,
+            appColors = appColors,
         )
     }
 }
 
 
 /**
- * Displays the Zekr text and its leading icon.
+ * Displays the Thekr text and its leading icon.
  *
- * @param text The text of the Zekr.
+ * @param text The text of the Thekr.
  * @param leadingIcon An optional composable function to display a leading
  *     icon.
- * @param contentColor The color of the Zekr text.
+ * @param contentColor The color of the Thekr text.
  */
 @Composable
-private fun ZekrTextAndIcon(
+private fun ThekrTextAndIcon(
     text: String,
     leadingIcon: (@Composable () -> Unit)?,
     contentColor: Color,
@@ -209,7 +208,7 @@ private fun ZekrTextAndIcon(
 }
 
 /**
- * Displays the daily count and target for a Zekr.
+ * Displays the daily count and target for a Thekr.
  *
  * @param count The current count.
  * @param target The target count.
@@ -264,13 +263,13 @@ fun CounterCardPreviewDarkMode() {
     LocalizedApp {
         AppTheme(ThemeMode.Dark) {
             Surface {
-                ZekrCard(
+                ThekrCard(
                     text = "سبحان الله",
                     count = 50,
                     target = 100,
                     leadingIcon = {
                         Image(
-                            painterResource(Res.drawable.zekr_indicator),
+                            painterResource(Res.drawable.thekr_indicator),
                             contentDescription = null,
                             contentScale = ContentScale.Crop,
                             modifier = Modifier.height(12.dp),
@@ -291,13 +290,13 @@ fun CounterCardPreview() {
     AppTheme {
         Surface {
             LocalizedApp {
-                ZekrCard(
+                ThekrCard(
                     text = "سبحان الله وبحمده سبحان الله العظيم سبحان الله وبحمده سبحان الله العظيم",
                     count = 50,
                     target = 100,
                     leadingIcon = {
                         Image(
-                            painterResource(Res.drawable.zekr_indicator),
+                            painterResource(Res.drawable.thekr_indicator),
                             contentDescription = null,
                             contentScale = ContentScale.Crop,
                             modifier = Modifier.height(12.dp),

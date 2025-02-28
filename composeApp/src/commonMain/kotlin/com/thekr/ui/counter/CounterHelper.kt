@@ -12,16 +12,16 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.mutableStateOf
 import com.thekr.data.settings.SettingsDetails
-import com.thekr.data.zekr.count.ZekrCount
-import com.thekr.data.zekr.instance.ZekrInstanceDetails
-import com.thekr.data.zekr.zekr.ZekrDetails
+import com.thekr.data.thekr.count.ThekrCount
+import com.thekr.data.thekr.instance.ThekrInstanceDetails
+import com.thekr.data.thekr.thekr.ThekrDetails
 import com.thekr.stats.DayStatisticsType
 import com.thekr.stats.data.DailyStatisticsData.calcDayStatistics
 import com.thekr.ui.counter.viewmodel.CounterUiState
-import com.thekr.ui.counter.viewmodel.ZekrCounterViewModel
+import com.thekr.ui.counter.viewmodel.ThekrCounterViewModel
 import com.thekr.ui.counter.viewmodel.action.ThekrSoundPlayer
 import com.thekr.ui.counter.viewmodel.action.ThekrSoundPlayer.onPlayAudio
-import com.thekr.ui.counter.viewmodel.action.onZekrCounterCount
+import com.thekr.ui.counter.viewmodel.action.onThekrCounterCount
 import com.thekr.ui.settings.SettingActions
 import com.thekr.ui.settings.SettingActions.currentSettings
 import kotlinx.coroutines.CoroutineScope
@@ -59,24 +59,24 @@ object CounterHelper {
 
     // Navigation and UI
     lateinit var onCounterDispose: () -> Unit
-    lateinit var scrollToZekr: (Int) -> Unit
-    lateinit var scrollToNextZekr: () -> Unit
+    lateinit var scrollToThekr: (Int) -> Unit
+    lateinit var scrollToNextThekr: () -> Unit
     lateinit var onEditClick: () -> Unit
     lateinit var onNavigateUp: () -> Unit
-    lateinit var showCategoryZekrListMenu: () -> Unit
-    lateinit var showZekrStatistics: () -> Unit
+    lateinit var showCategoryThekrListMenu: () -> Unit
+    lateinit var showThekrStatistics: () -> Unit
     lateinit var onPlayAudio: () -> Unit
     lateinit var updateUiState: (CounterUiState) -> Unit
     lateinit var updateOnCount: () -> Unit
 
     // Data access
-    lateinit var getCurrentZekrInstance: () -> MutableState<ZekrInstanceDetails>
-    lateinit var getZekrInstance: (Int) -> MutableState<ZekrInstanceDetails>
-    lateinit var getZekrCount: (Int) -> MutableState<ZekrCount>
-    lateinit var getCurrentZekrCount: () -> MutableState<ZekrCount>
-    lateinit var getZekr: (Int) -> MutableState<ZekrDetails>
+    lateinit var getCurrentThekrInstance: () -> MutableState<ThekrInstanceDetails>
+    lateinit var getThekrInstance: (Int) -> MutableState<ThekrInstanceDetails>
+    lateinit var getThekrCount: (Int) -> MutableState<ThekrCount>
+    lateinit var getCurrentThekrCount: () -> MutableState<ThekrCount>
+    lateinit var getThekr: (Int) -> MutableState<ThekrDetails>
 
-    var tabIndexOf: (zekrInstanceId: Long) -> Int = { 0 }
+    var tabIndexOf: (thekrInstanceId: Long) -> Int = { 0 }
 
     var initialized: MutableState<Boolean> = mutableStateOf(false)
 
@@ -98,8 +98,8 @@ object CounterHelper {
     }
 
     // --- Counting Actions ---
-    private fun initCountingActions(counterViewModel: ZekrCounterViewModel) {
-        onCount = { counterViewModel.onZekrCounterCount() }
+    private fun initCountingActions(counterViewModel: ThekrCounterViewModel) {
+        onCount = { counterViewModel.onThekrCounterCount() }
         updateOnCount = counterViewModel::updateOnCount
     }
 
@@ -151,7 +151,7 @@ object CounterHelper {
     }
 
     // --- Statistics Actions ---
-    private fun initStatisticsActions(counterViewModel: ZekrCounterViewModel) {
+    private fun initStatisticsActions(counterViewModel: ThekrCounterViewModel) {
         dayStatisticsData = { midnight, dayStatisticsType ->
             calcDayStatistics(counterViewModel, midnight, dayStatisticsType)
         }
@@ -168,11 +168,11 @@ object CounterHelper {
 
         onCounterDispose = counterViewModel::onCounterDispose
 
-        scrollToZekr = { index ->
-            counterViewModel.updateCurrentZekrInstance(index)
+        scrollToThekr = { index ->
+            counterViewModel.updateCurrentThekrInstance(index)
         }
 
-        scrollToNextZekr = {
+        scrollToNextThekr = {
             if (pagerState.currentPage < pagerState.pageCount - 1) {
                 components.coroutineScope.launch {
                     pagerState.animateScrollToPage(
@@ -187,8 +187,8 @@ object CounterHelper {
         }
 
         onNavigateUp = { counterViewModel.onNavigateUp() }
-        showCategoryZekrListMenu = { counterViewModel.showCategoryZekrListMenu() }
-        showZekrStatistics = { counterViewModel.showStatistics() }
+        showCategoryThekrListMenu = { counterViewModel.showCategoryThekrListMenu() }
+        showThekrStatistics = { counterViewModel.showStatistics() }
 
         onEditClick = {
             //todo: initialize
@@ -202,13 +202,13 @@ object CounterHelper {
     }
 
     // --- Data Access ---
-    private fun initDataAccess(counterViewModel: ZekrCounterViewModel) {
-        getCurrentZekrInstance = counterViewModel::getCurrentZekrInstance
-        getZekrInstance = counterViewModel::getZekrInstance
-        getZekrCount = counterViewModel::getZekrCount
-        getCurrentZekrCount = counterViewModel::getCurrentZekrCount
-        getZekr = counterViewModel::getZekr
-        //    val tabIndex = category.value.zekrInstanceList.indexOf(zekrDetails)
+    private fun initDataAccess(counterViewModel: ThekrCounterViewModel) {
+        getCurrentThekrInstance = counterViewModel::getCurrentThekrInstance
+        getThekrInstance = counterViewModel::getThekrInstance
+        getThekrCount = counterViewModel::getThekrCount
+        getCurrentThekrCount = counterViewModel::getCurrentThekrCount
+        getThekr = counterViewModel::getThekr
+        //    val tabIndex = category.value.thekrInstanceList.indexOf(thekrDetails)
         tabIndexOf = counterViewModel::tabIndexOf
     }
 
@@ -221,12 +221,12 @@ object CounterHelper {
     private fun handleBottomSheetExpansion(components: CounterActionComponents) {
         val countVisible = currentSettings().showCount
         components.coroutineScope.launch {
-            val sheetState = components.zekrCountSheetState.bottomSheetState
+            val sheetState = components.thekrCountSheetState.bottomSheetState
             when {
                 countVisible -> sheetState.expand()
 
                 components.counterViewModel.mutableUiState.value
-                    .categoryDetails.value.zekrList.size > 1 -> sheetState.partialExpand()
+                    .categoryDetails.value.thekrList.size > 1 -> sheetState.partialExpand()
 
                 else -> sheetState.hide()
             }
@@ -237,9 +237,9 @@ object CounterHelper {
     @Stable
     @Immutable
     data class CounterActionComponents(
-        val counterViewModel: ZekrCounterViewModel,
+        val counterViewModel: ThekrCounterViewModel,
         val coroutineScope: CoroutineScope,
-        val zekrCountSheetState: BottomSheetScaffoldState,
+        val thekrCountSheetState: BottomSheetScaffoldState,
         val pagerState: PagerState,
     )
 }

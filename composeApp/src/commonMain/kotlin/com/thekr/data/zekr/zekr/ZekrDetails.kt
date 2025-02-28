@@ -1,13 +1,13 @@
-package com.thekr.data.zekr.zekr
+package com.thekr.data.thekr.thekr
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
-import com.thekr.model.Zekr
+import com.thekr.model.Thekr
 import com.thekr.util.TimeHelper.now
 
 @Stable
 @Immutable
-data class ZekrDetails(
+data class ThekrDetails(
     val id: Long = 1,
     val text: String = "",
     val basmlaType: Int = 0,
@@ -20,7 +20,7 @@ data class ZekrDetails(
     val timeCreated: Long = now(),
     val timeUpdated: Long = timeCreated,
 ) {
-    fun toZekr() = Zekr(
+    fun toThekr() = Thekr(
         id = id,
         content = text,
         coolDown = coolDown,

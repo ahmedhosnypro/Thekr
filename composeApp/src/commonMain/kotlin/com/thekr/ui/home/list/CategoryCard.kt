@@ -1,6 +1,5 @@
 package com.thekr.ui.home.list
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
@@ -9,13 +8,11 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshots.SnapshotStateList
@@ -26,18 +23,19 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
-import com.thekr.data.zekr.category.CategoryDetails
+import com.thekr.data.thekr.category.CategoryDetails
 import com.thekr.ui.component.DefaultHorizontalDivider
-import com.thekr.ui.values.Dimensions.medium
-import com.thekr.ui.theme.*
+import com.thekr.values.Dimensions.medium
 import com.thekr.ui.theme.ImageResourceHelper.getDrawableResourceIdFromFileName
 import com.thekr.ui.util.NoRippleInteractionSource
 import com.thekr.ui.component.LocalizedApp
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import com.thekr.resources.Res
-import com.thekr.resources.zekr_indicator
-import network.chaintech.sdpcomposemultiplatform.sdp
+import com.thekr.resources.thekr_indicator
+import com.thekr.ui.theme.AppTheme
+import com.thekr.ui.theme.droidKufi
+import com.thekr.ui.theme.isDark
 
 /**
  * Displays a list of categories in a grid layout.
@@ -86,7 +84,7 @@ private fun CategoryListItem(
     settingsDetails: SettingsDetails,
     onClick: (MutableState<CategoryDetails>) -> Unit
 ) {
-    val indicatorColor = zekrIndicatorColor(item.value.id.toInt())
+    val indicatorColor = thekrIndicatorColor(item.value.id.toInt())
     Column {
         CategoryCard(
             category = item,
@@ -94,7 +92,7 @@ private fun CategoryListItem(
             modifier = Modifier.padding(horizontal = medium),
             leadingIcon = {
                 Image(
-                    painterResource(Res.drawable.zekr_indicator),
+                    painterResource(Res.drawable.thekr_indicator),
                     contentDescription = null,
                     contentScale = ContentScale.Inside,
                     colorFilter = ColorFilter.tint(indicatorColor),
@@ -104,7 +102,7 @@ private fun CategoryListItem(
         )
         DefaultHorizontalDivider(
             thickness = 4.dp,
-            color = ZekrTheme.colors(settingsDetails).listDivider
+            color = AppTheme.colors(settingsDetails).listDivider
         )
     }
 }
@@ -130,7 +128,7 @@ fun CategoryCard(
     leadingIcon: (@Composable () -> Unit)? = null,
 ) {
     val contentColor = MaterialTheme.colorScheme.onSurface
-    val zekrColors = ZekrTheme.colors(settingsDetails)
+    val thekrColors = AppTheme.colors(settingsDetails)
 
     Row(
         modifier = modifier
@@ -153,7 +151,7 @@ fun CategoryCard(
                     contentDescription = null,
 //                    modifier = Modifier.fillMaxWidth(.1f),
                     contentScale = ContentScale.Inside,
-                    colorFilter = if (isDark(settingsDetails)) ColorFilter.tint(zekrColors.cardIconTint) else null
+                    colorFilter = if (isDark(settingsDetails)) ColorFilter.tint(thekrColors.cardIconTint) else null
                 )
             }
         } else {
@@ -171,7 +169,7 @@ fun CategoryCard(
         LanguageIconMirrored(
             imageVector = Icons.Filled.ArrowBackIosNew,
             contentDescription = null,
-            tint = zekrColors.cardCallToActionIcon,
+            tint = thekrColors.cardCallToActionIcon,
             languageTage = settingsDetails.language
         )
     }

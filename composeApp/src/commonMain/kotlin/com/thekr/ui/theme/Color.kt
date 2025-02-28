@@ -1,12 +1,6 @@
 package com.thekr.ui.theme
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import com.thekr.data.proto.ThemeMode
-import com.thekr.ui.component.LocalizedApp
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 val md_theme_light_primary = Color(0xFF026E10)
 val md_theme_light_onPrimary = Color(0xFFFFFFFF)
@@ -81,38 +75,3 @@ val md_theme_dark_scrim = Color(0xFF000000)
 
 
 val seed = Color(0xFFFF8400)
-
-
-@Preview
-@Composable
-fun AppPreview() {
-    AppTheme {
-        LocalizedApp {
-            Surface {
-                Column {
-//                    Home(
-//                        navController = rememberNavController(),
-//                        zekrList = zekrCardListPreviewData(),
-//                    )
-                }
-            }
-        }
-    }
-}
-
-@Preview
-@Composable
-fun AppDarkPreview() {
-    AppTheme(ThemeMode.Dark) {
-        LocalizedApp {
-            Surface {
-                Column {
-//                    Home(
-//                        navController = rememberNavController(),
-//                        zekrList = zekrCardListPreviewData(),
-//                    )
-                }
-            }
-        }
-    }
-}

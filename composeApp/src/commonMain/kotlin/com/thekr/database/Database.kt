@@ -4,29 +4,29 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.thekr.data.count.count.CountDAO
 import com.thekr.data.count.miss.CountMissDAO
-import com.thekr.data.goal.completion.ZekrGoalCompletionDAO
+import com.thekr.data.goal.completion.ThekrGoalCompletionDAO
 import com.thekr.data.session.SessionDAO
-import com.thekr.data.zekr.category.CategoryDAO
-import com.thekr.data.zekr.fadl.FadlDAO
-import com.thekr.data.zekr.instance.ZekrInstanceDAO
-import com.thekr.data.zekr.zekr.ZekrDAO
+import com.thekr.data.thekr.category.CategoryDAO
+import com.thekr.data.thekr.fadl.FadlDAO
+import com.thekr.data.thekr.instance.ThekrInstanceDAO
+import com.thekr.data.thekr.thekr.ThekrDAO
 import com.thekr.model.Category
 import com.thekr.model.Count
 import com.thekr.model.CountMiss
 import com.thekr.model.Session
-import com.thekr.model.Zekr
-import com.thekr.model.ZekrFadl
-import com.thekr.model.ZekrGoalCompletion
-import com.thekr.model.ZekrInstance
+import com.thekr.model.Thekr
+import com.thekr.model.ThekrFadl
+import com.thekr.model.ThekrGoalCompletion
+import com.thekr.model.ThekrInstance
 
 @Database(
     entities = [
-        Zekr::class,
-        ZekrInstance::class,
-        ZekrFadl::class,
+        Thekr::class,
+        ThekrInstance::class,
+        ThekrFadl::class,
         Count::class,
         CountMiss::class,
-        ZekrGoalCompletion::class,
+        ThekrGoalCompletion::class,
         Category::class,
         Session::class,
     ],
@@ -35,12 +35,12 @@ import com.thekr.model.ZekrInstance
 )
 
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun zekrDAO(): ZekrDAO
-    abstract fun zekrInstanceDao(): ZekrInstanceDAO
+    abstract fun thekrDAO(): ThekrDAO
+    abstract fun thekrInstanceDao(): ThekrInstanceDAO
     abstract fun fadlDao(): FadlDAO
     abstract fun countDao(): CountDAO
     abstract fun countMissDao(): CountMissDAO
-    abstract fun zekrGoalCompletionDao(): ZekrGoalCompletionDAO
+    abstract fun thekrGoalCompletionDao(): ThekrGoalCompletionDAO
     abstract fun categoryDao(): CategoryDAO
     abstract fun sessionDao(): SessionDAO
 

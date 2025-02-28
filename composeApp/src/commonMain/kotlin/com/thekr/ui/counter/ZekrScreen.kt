@@ -25,18 +25,18 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
-import com.thekr.data.zekr.category.CategoryDetails
+import com.thekr.data.thekr.category.CategoryDetails
 import com.thekr.fingerprint.Fingerprint.setFingerprintListener
 import com.thekr.ui.counter.CounterHelper.CounterActionComponents
-import com.thekr.ui.counter.body.CategoryZekrList
-import com.thekr.ui.counter.header.ZekrCounterTopBar
+import com.thekr.ui.counter.body.CategoryThekrList
+import com.thekr.ui.counter.header.ThekrCounterTopBar
 import com.thekr.ui.counter.viewmodel.CounterUiState
-import com.thekr.ui.counter.viewmodel.ZekrCounterViewModel
+import com.thekr.ui.counter.viewmodel.ThekrCounterViewModel
 import com.thekr.ui.counter.viewmodel.action.configSleepJop
 import com.thekr.ui.home.list.categoryDetailsPreviewState
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.component.LocalizedApp
-import com.thekr.stats.ZekrStats
+import com.thekr.stats.ThekrStats
 import com.thekr.ui.viewmodel.AppViewModelProvider
 import korlibs.platform.Platform
 import kotlinx.coroutines.launch
@@ -44,10 +44,10 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
-fun ZekrScreen(
+fun ThekrScreen(
     settingsDetails: SettingsDetails,
-    viewModel: ZekrCounterViewModel = viewModel {
-        AppViewModelProvider.Factory.create(ZekrCounterViewModel::class, this)
+    viewModel: ThekrCounterViewModel = viewModel {
+        AppViewModelProvider.Factory.create(ThekrCounterViewModel::class, this)
     },
 ) {
     val counterUiState by viewModel.uiState.collectAsState()
@@ -70,7 +70,7 @@ fun ZekrScreen(
         bottomSheetState = rememberStandardBottomSheetState(
             initialValue = if (settingsDetails.showCount) SheetValue.Expanded
             else {
-                if (category.value.zekrList.size > 1) SheetValue.PartiallyExpanded
+                if (category.value.thekrList.size > 1) SheetValue.PartiallyExpanded
                 else SheetValue.Hidden
             },
             confirmValueChange = { false },
@@ -83,7 +83,7 @@ fun ZekrScreen(
             actionComponents = CounterActionComponents(
                 counterViewModel = viewModel,
                 coroutineScope = coroutineScope,
-                zekrCountSheetState = countSheetState,
+                thekrCountSheetState = countSheetState,
                 pagerState = pagerState,
             )
         )
@@ -96,7 +96,7 @@ fun ZekrScreen(
     }
 
 
-    LaunchedEffect(counterUiState.currentZekrInstance) {
+    LaunchedEffect(counterUiState.currentThekrInstance) {
         configSleepJop(viewModel)
     }
 
@@ -125,14 +125,14 @@ fun ZekrScreen(
         }
     }
 
-    if (counterUiState.showCategoryZekrListMenu) {
-        CategoryZekrList(
+    if (counterUiState.showCategoryThekrListMenu) {
+        CategoryThekrList(
             category = category,
             onNavigateUp = {
-                viewModel.hideCategoryZekrListMenu()
+                viewModel.hideCategoryThekrListMenu()
             },
             categoryListOnClick = { tabIndex ->
-                viewModel.hideCategoryZekrListMenu()
+                viewModel.hideCategoryThekrListMenu()
                 coroutineScope.launch {
                     pagerState.animateScrollToPage(tabIndex)
                 }
@@ -140,14 +140,14 @@ fun ZekrScreen(
             settingsDetails = settingsDetails,
         )
     } else if (counterUiState.showStatistics) {
-        ZekrStats(
+        ThekrStats(
             settingsDetails = settingsDetails,
             onNavigateUp = {
                 viewModel.hideStatistics()
             }
         )
     } else {
-        ZekrScreenBody(
+        ThekrScreenBody(
             settingsDetails = settingsDetails,
             categoryDetails = category,
             counterUiState = counterUiState,
@@ -160,7 +160,7 @@ fun ZekrScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ZekrScreenBody(
+fun ThekrScreenBody(
     settingsDetails: SettingsDetails,
     counterUiState: CounterUiState,
     categoryDetails: MutableState<CategoryDetails>,
@@ -169,14 +169,14 @@ fun ZekrScreenBody(
     modifier: Modifier = Modifier,
 ) {
     Scaffold(modifier = modifier, topBar = {
-        ZekrCounterTopBar(
+        ThekrCounterTopBar(
             settingsDetails = settingsDetails,
             counterUiState = counterUiState,
             categoryDetails = categoryDetails,
             pagerState = pagerState
         )
     }) { scaffoldInnerPadding ->
-        ZekrHome(
+        ThekrHome(
             counterUiState = counterUiState,
             settingsDetails = settingsDetails,
             pagerState = pagerState,
@@ -192,11 +192,11 @@ fun ZekrScreenBody(
 
 @Preview
 @Composable
-fun ZekrScreenBodyPreview() {
+fun ThekrScreenBodyPreview() {
     LocalizedApp {
         AppTheme {
             Surface {
-                ZekrScreenPreviewOnly(
+                ThekrScreenPreviewOnly(
                     settingsDetails = SettingsDetails(
                         showCount = true,
                         fingerPrintControl = true,
@@ -210,11 +210,11 @@ fun ZekrScreenBodyPreview() {
 
 @Preview
 @Composable
-fun ZekrScreenBodyPreviewDark() {
+fun ThekrScreenBodyPreviewDark() {
     LocalizedApp {
         AppTheme(ThemeMode.Dark) {
             Surface {
-                ZekrScreenPreviewOnly(
+                ThekrScreenPreviewOnly(
                     settingsDetails = SettingsDetails(
                         showCount = true,
                         fingerPrintControl = true,
@@ -228,17 +228,17 @@ fun ZekrScreenBodyPreviewDark() {
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
-private fun ZekrScreenPreviewOnly(
+private fun ThekrScreenPreviewOnly(
     settingsDetails: SettingsDetails
 ) {
     val categoryDetails = categoryDetailsPreviewState()
     Scaffold(topBar = {
         with(CounterHelper) {
-            getZekrCount = { categoryDetails.value.countList[0] }
-            getZekr = { categoryDetails.value.zekrList[0] }
-            getZekrInstance = { categoryDetails.value.zekrInstanceList[0] }
+            getThekrCount = { categoryDetails.value.countList[0] }
+            getThekr = { categoryDetails.value.thekrList[0] }
+            getThekrInstance = { categoryDetails.value.thekrInstanceList[0] }
         }
-        ZekrCounterTopBar(
+        ThekrCounterTopBar(
             settingsDetails = settingsDetails,
             categoryDetails = categoryDetails,
             CounterUiState(),
@@ -248,7 +248,7 @@ private fun ZekrScreenPreviewOnly(
             )
         )
     }) { innerPadding ->
-        ZekrHomeBody(
+        ThekrHomeBody(
             CounterUiState(showCounter = true),
             settingsDetails = settingsDetails,
             countSheetState = rememberBottomSheetScaffoldState(),

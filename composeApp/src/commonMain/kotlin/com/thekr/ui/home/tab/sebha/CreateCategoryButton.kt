@@ -17,12 +17,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.thekr.ui.theme.AppTheme
-import com.thekr.ui.values.Dimensions.large
-import com.thekr.ui.values.Dimensions.small
+import com.thekr.values.Dimensions.large
+import com.thekr.values.Dimensions.small
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import com.thekr.resources.Res
-import com.thekr.resources.create_zekr_group
+import com.thekr.resources.create_thekr_group
 
 /**
  * A button that triggers a dialog for creating a new category.
@@ -50,7 +50,7 @@ fun CreateCategoryButton(
         Icon(
             modifier = Modifier.requiredSize(large),
             imageVector = Icons.Outlined.AddCircleOutline,
-            contentDescription = stringResource(Res.string.create_zekr_group),
+            contentDescription = stringResource(Res.string.create_thekr_group),
         )
     }
 

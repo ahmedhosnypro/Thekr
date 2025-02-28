@@ -4,10 +4,10 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.thekr.data.count.miss.CountMissDetails
-import com.thekr.data.zekr.count.ZekrCount
-import com.thekr.data.zekr.fadl.FadlDetails
-import com.thekr.data.zekr.instance.ZekrInstanceDetails
-import com.thekr.data.zekr.zekr.ZekrDetails
+import com.thekr.data.thekr.count.ThekrCount
+import com.thekr.data.thekr.fadl.FadlDetails
+import com.thekr.data.thekr.instance.ThekrInstanceDetails
+import com.thekr.data.thekr.thekr.ThekrDetails
 import kotlinx.coroutines.flow.update
 
 /**
@@ -15,100 +15,100 @@ import kotlinx.coroutines.flow.update
  *
  * @param tabIndex The index of the selected Sebha tab.
  */
-fun AzkarViewModel.updateCurrentSebhaViewedCategory(tabIndex: Int) {
-    mutableAzkarState.update { currentState ->
+fun AppViewModel.updateCurrentSebhaViewedCategory(tabIndex: Int) {
+    mutableAppState.update { currentState ->
         currentState.copy(
-            currentViewedSebhaCategory = currentState.userAzkar.value.childCategories.getOrNull(tabIndex)
+            currentViewedSebhaCategory = currentState.userThekr.value.childCategories.getOrNull(tabIndex)
         )
     }
 }
 
 /**
- * Updates a SnapshotStateList of ZekrDetails MutableStates with a new list of ZekrDetails.
+ * Updates a SnapshotStateList of ThekrDetails MutableStates with a new list of ThekrDetails.
  * This function ensures that only the changed items are updated in the list,
  * preventing unnecessary recomposition of unchanged items.
  *
- * @param toUpdateZekrList The SnapshotStateList to be updated.
- * @param updatedZekrList The new list of ZekrDetails.
+ * @param toUpdateThekrList The SnapshotStateList to be updated.
+ * @param updatedThekrList The new list of ThekrDetails.
  */
-fun updateZekrList(
-    toUpdateZekrList: SnapshotStateList<MutableState<ZekrDetails>>,
-    updatedZekrList: List<ZekrDetails>,
+fun updateThekrList(
+    toUpdateThekrList: SnapshotStateList<MutableState<ThekrDetails>>,
+    updatedThekrList: List<ThekrDetails>,
 ) {
-    val existingZekrIds = toUpdateZekrList.map { it.value.id }
+    val existingThekrIds = toUpdateThekrList.map { it.value.id }
 
     // Remove items that are no longer in the updated list
-    toUpdateZekrList.removeIf { it.value.id !in updatedZekrList.map { zekr -> zekr.id } }
+    toUpdateThekrList.removeIf { it.value.id !in updatedThekrList.map { thekr -> thekr.id } }
 
-    // Update existing Zekr items if they have been updated in the database
-    updatedZekrList.forEach { newZekr ->
-        val index = existingZekrIds.indexOf(newZekr.id)
-        if (index != -1 && toUpdateZekrList[index].value.timeUpdated < newZekr.timeUpdated) {
+    // Update existing Thekr items if they have been updated in the database
+    updatedThekrList.forEach { newThekr ->
+        val index = existingThekrIds.indexOf(newThekr.id)
+        if (index != -1 && toUpdateThekrList[index].value.timeUpdated < newThekr.timeUpdated) {
             // Update the MutableState directly
-            toUpdateZekrList[index].value = newZekr
+            toUpdateThekrList[index].value = newThekr
         }
     }
 
-    // Add new Zekr items
-    updatedZekrList.filter { it.id !in existingZekrIds }
-        .forEach { toUpdateZekrList.add(mutableStateOf(it)) }
+    // Add new Thekr items
+    updatedThekrList.filter { it.id !in existingThekrIds }
+        .forEach { toUpdateThekrList.add(mutableStateOf(it)) }
 }
 
 /**
- * Updates a SnapshotStateList of ZekrInstanceDetails MutableStates with a new list.
+ * Updates a SnapshotStateList of ThekrInstanceDetails MutableStates with a new list.
  * Ensures only changed items are updated, minimizing recomposition.
  *
- * @param toUpdateZekrInstanceList The list to be updated.
- * @param updatedZekrInstanceList The new list of ZekrInstanceDetails.
+ * @param toUpdateThekrInstanceList The list to be updated.
+ * @param updatedThekrInstanceList The new list of ThekrInstanceDetails.
  */
-fun updateZekrInstanceList(
-    toUpdateZekrInstanceList: SnapshotStateList<MutableState<ZekrInstanceDetails>>,
-    updatedZekrInstanceList: List<ZekrInstanceDetails>,
+fun updateThekrInstanceList(
+    toUpdateThekrInstanceList: SnapshotStateList<MutableState<ThekrInstanceDetails>>,
+    updatedThekrInstanceList: List<ThekrInstanceDetails>,
 ) {
-    val existingZekrInstanceIds = toUpdateZekrInstanceList.map { it.value.id }
+    val existingThekrInstanceIds = toUpdateThekrInstanceList.map { it.value.id }
 
     // Remove items that are no longer in the updated list
-    toUpdateZekrInstanceList.removeIf { it.value.id !in updatedZekrInstanceList.map { it.id } }
+    toUpdateThekrInstanceList.removeIf { it.value.id !in updatedThekrInstanceList.map { it.id } }
 
-    // Update existing ZekrInstanceDetails items
-    updatedZekrInstanceList.forEach { newZekrInstance ->
-        val index = existingZekrInstanceIds.indexOf(newZekrInstance.id)
-        if (index != -1 && toUpdateZekrInstanceList[index].value.timeUpdated < newZekrInstance.timeUpdated) {
+    // Update existing ThekrInstanceDetails items
+    updatedThekrInstanceList.forEach { newThekrInstance ->
+        val index = existingThekrInstanceIds.indexOf(newThekrInstance.id)
+        if (index != -1 && toUpdateThekrInstanceList[index].value.timeUpdated < newThekrInstance.timeUpdated) {
             // Update the MutableState directly
-            toUpdateZekrInstanceList[index].value = newZekrInstance
+            toUpdateThekrInstanceList[index].value = newThekrInstance
         }
     }
 
-    // Add new ZekrInstanceDetails items
-    updatedZekrInstanceList.filter { it.id !in existingZekrInstanceIds }
-        .forEach { toUpdateZekrInstanceList.add(mutableStateOf(it)) }
+    // Add new ThekrInstanceDetails items
+    updatedThekrInstanceList.filter { it.id !in existingThekrInstanceIds }
+        .forEach { toUpdateThekrInstanceList.add(mutableStateOf(it)) }
 }
 
 /**
- * Updates a ZekrCount item in a SnapshotStateList.
+ * Updates a ThekrCount item in a SnapshotStateList.
  * If the item exists and has an older timestamp, it's updated.
  * Otherwise, the item is added to the list.
  *
- * @param toUpdateZekrCountList The list to be updated.
- * @param updatedZekrCountItem The updated ZekrCount item.
+ * @param toUpdateThekrCountList The list to be updated.
+ * @param updatedThekrCountItem The updated ThekrCount item.
  */
-fun updateZekrCountItem(
-    toUpdateZekrCountList: SnapshotStateList<MutableState<ZekrCount>>,
-    updatedZekrCountItem: MutableState<ZekrCount>,
+fun updateThekrCountItem(
+    toUpdateThekrCountList: SnapshotStateList<MutableState<ThekrCount>>,
+    updatedThekrCountItem: MutableState<ThekrCount>,
 ) {
-    val existingItemIndex = toUpdateZekrCountList.indexOfFirst {
-        it.value.zekrInstanceId == updatedZekrCountItem.value.zekrInstanceId
+    val existingItemIndex = toUpdateThekrCountList.indexOfFirst {
+        it.value.thekrInstanceId == updatedThekrCountItem.value.thekrInstanceId
     }
 
     if (existingItemIndex != -1) {
-        val existingItem = toUpdateZekrCountList[existingItemIndex]
-        if (existingItem.value.timeUpdated < updatedZekrCountItem.value.timeUpdated) {
+        val existingItem = toUpdateThekrCountList[existingItemIndex]
+        if (existingItem.value.timeUpdated < updatedThekrCountItem.value.timeUpdated) {
             // Update the existing MutableState directly
-            existingItem.value = updatedZekrCountItem.value
+            existingItem.value = updatedThekrCountItem.value
         }
     } else {
         // Add the new item if it doesn't exist
-        toUpdateZekrCountList.add(updatedZekrCountItem)
+        toUpdateThekrCountList.add(updatedThekrCountItem)
     }
 }
 

@@ -32,18 +32,17 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
-import com.thekr.data.zekr.instance.ZekrInstanceDetails
-import com.thekr.data.zekr.zekr.ZekrDetails
-import com.thekr.model.ZekrTargetStatus
+import com.thekr.data.thekr.instance.ThekrInstanceDetails
+import com.thekr.data.thekr.thekr.ThekrDetails
+import com.thekr.model.ThekrTargetStatus
 import com.thekr.ui.component.AutoSizeText
 import com.thekr.ui.counter.CounterHelper
-import com.thekr.ui.values.Dimensions.medium
-import com.thekr.ui.values.Dimensions.normal
-import com.thekr.ui.values.Dimensions.xxLarge
+import com.thekr.values.Dimensions.medium
+import com.thekr.values.Dimensions.normal
+import com.thekr.values.Dimensions.xxLarge
 import com.thekr.ui.home.list.ProgressState
 import com.thekr.ui.theme.AppTheme
-import com.thekr.ui.theme.ZekrColors
-import com.thekr.ui.theme.ZekrTheme
+import com.thekr.ui.theme.AppColors
 import com.thekr.ui.component.LocalizedApp
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -51,18 +50,18 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 const val strokeWidth = 8
 
 @Composable
-fun ZekrCount(
+fun ThekrCount(
     settingsDetails: SettingsDetails,
     tabIndex: Int,
     modifier: Modifier = Modifier,
 ) {
-    val count = CounterHelper.getZekrCount(tabIndex)
-    val zekrInstanceDetails = CounterHelper.getZekrInstance(tabIndex)
-    val zekrDetails = CounterHelper.getZekr(tabIndex)
-    DetailedZekrCount(
-        zekrCount = count,
-        zekrInstanceDetailsMutableState = zekrInstanceDetails,
-        zekrDetails = zekrDetails,
+    val count = CounterHelper.getThekrCount(tabIndex)
+    val thekrInstanceDetails = CounterHelper.getThekrInstance(tabIndex)
+    val thekrDetails = CounterHelper.getThekr(tabIndex)
+    DetailedThekrCount(
+        thekrCount = count,
+        thekrInstanceDetailsMutableState = thekrInstanceDetails,
+        thekrDetails = thekrDetails,
         settingsDetails = settingsDetails,
         modifier = modifier
     )
@@ -86,28 +85,28 @@ fun CircularCount(
             mutableStateOf(0.dp)
         }
 
-        val zekrInstance = CounterHelper.getZekrInstance(tabIndex).value
-        val zekr = CounterHelper.getZekr(tabIndex).value
-        val count = CounterHelper.getZekrCount(tabIndex).value.dailyCount
-        val target = zekrInstance.dailyTarget
-        if (zekrInstance.dailyTargetStatus == ZekrTargetStatus.Enabled && zekrInstance.dailyTarget > 0) {
+        val thekrInstance = CounterHelper.getThekrInstance(tabIndex).value
+        val thekr = CounterHelper.getThekr(tabIndex).value
+        val count = CounterHelper.getThekrCount(tabIndex).value.dailyCount
+        val target = thekrInstance.dailyTarget
+        if (thekrInstance.dailyTargetStatus == ThekrTargetStatus.Enabled && thekrInstance.dailyTarget > 0) {
             ProgressIndicator(
                 target,
                 count,
                 settingsDetails,
-                zekr,
+                thekr,
                 circleWidthDp
             )
 
         }
-        ProgressText(count, zekrInstance, target, maxWidth, circleWidthDp)
+        ProgressText(count, thekrInstance, target, maxWidth, circleWidthDp)
     }
 }
 
 @Composable
 private fun ProgressText(
     count: Long,
-    zekrInstance: ZekrInstanceDetails,
+    thekrInstance: ThekrInstanceDetails,
     target: Long,
     maxWidth: Dp,
     circleWidthDp: MutableState<Dp>
@@ -117,7 +116,7 @@ private fun ProgressText(
         textAlign = TextAlign.Center,
         modifier = Modifier
             .width(
-                if (zekrInstance.dailyTargetStatus == ZekrTargetStatus.Enabled && target > 0)
+                if (thekrInstance.dailyTargetStatus == ThekrTargetStatus.Enabled && target > 0)
                     (maxWidth - (maxWidth - circleWidthDp.value) -
                             (2 * strokeWidth).dp - (circleWidthDp.value / 4))
                         .coerceAtMost(
@@ -136,18 +135,18 @@ private fun ProgressIndicator(
     target: Long,
     count: Long,
     settingsDetails: SettingsDetails,
-    zekr: ZekrDetails,
+    thekr: ThekrDetails,
     circleWidthDp: MutableState<Dp>,
 ) {
     var progressTarget by rememberSaveable {
         mutableFloatStateOf(0f)
     }
     val progressState = progressState(target, count)
-    val colors = ZekrTheme.colors(settingsDetails)
+    val colors = AppTheme.colors(settingsDetails)
     val progressColor = progressColor(colors, progressState)
     val progressAnimate = animateFloatAsState(
         targetValue = progressTarget, animationSpec = tween(
-            durationMillis = zekr.coolDown.toInt(),
+            durationMillis = thekr.coolDown.toInt(),
         ), label = "progressAnimate"
     )
     LaunchedEffect(count, target) {
@@ -179,7 +178,7 @@ private fun ProgressIndicator(
 
 @Composable
 fun progressColor(
-    colors: ZekrColors, progressState: ProgressState
+    colors: AppColors, progressState: ProgressState
 ): Color {
     val progressColor = when (progressState) {
         ProgressState.EQUAL, ProgressState.BIGGER -> colors.successColor
@@ -205,10 +204,10 @@ fun progressState(
 
 @Preview
 @Composable
-fun ZekrCountPreview() {
+fun ThekrCountPreview() {
     AppTheme(themeMode = ThemeMode.Dark) {
         Surface(
-            color = ZekrTheme.colors(
+            color = AppTheme.colors(
                 SettingsDetails(
                     themeMode = ThemeMode.Dark
                 )
@@ -217,17 +216,17 @@ fun ZekrCountPreview() {
         ) {
             LocalizedApp {
                 with(CounterHelper) {
-                    getZekrCount = {
+                    getThekrCount = {
                         mutableStateOf(
-                            com.thekr.data.zekr.count.ZekrCount(
-                                zekrInstanceId = 1,
+                            com.thekr.data.thekr.count.ThekrCount(
+                                thekrInstanceId = 1,
                                 dailyCount = 22,
                             )
                         )
                     }
-                    getZekr = {
+                    getThekr = {
                         mutableStateOf(
-                            ZekrDetails(
+                            ThekrDetails(
                                 id = 1,
                                 text = "سبحان الله وبحمده سبحان الله العظيم",
                                 editable = true,
@@ -235,19 +234,19 @@ fun ZekrCountPreview() {
                             )
                         )
                     }
-                    getZekrInstance = {
+                    getThekrInstance = {
                         mutableStateOf(
-                            ZekrInstanceDetails(
+                            ThekrInstanceDetails(
                                 id = 1,
-                                zekrId = 1,
+                                thekrId = 1,
                                 categoryId = 1,
                                 dailyTarget = 100,
-                                dailyTargetStatus = ZekrTargetStatus.Enabled,
+                                dailyTargetStatus = ThekrTargetStatus.Enabled,
                             )
                         )
                     }
                 }
-                ZekrCount(
+                ThekrCount(
                     settingsDetails = SettingsDetails(
                         themeMode = ThemeMode.Dark,
                         showCount = true

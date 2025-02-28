@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-fun AzkarViewModel.createNewUserCategory(categoryName: String): Int {
+fun AppViewModel.createNewUserCategory(categoryName: String): Int {
     var savedCategoryID: Long
     var savedCategoryTabIndex = -1
     if (isValidCategoryName(categoryName)) {
@@ -29,9 +29,9 @@ fun AzkarViewModel.createNewUserCategory(categoryName: String): Int {
                     val savedCategory =
                         categoryRepository.findById(savedCategoryID).firstOrNull()
                             ?.toCategoryDetails()
-                    mutableAzkarState.update {
+                    mutableAppState.update {
                         val category = mutableStateOf(savedCategory!!)
-                        it.userAzkar.value.childCategories.add(category)
+                        it.userThekr.value.childCategories.add(category)
                         it.categoryList.add(category)
                         viewModelScope.launch {
                             fetchCategory(category)
@@ -41,7 +41,7 @@ fun AzkarViewModel.createNewUserCategory(categoryName: String): Int {
                 }
             }
             savedCategoryTabIndex =
-                mutableAzkarState.value.userAzkar.value.childCategories.indexOfFirst {
+                mutableAppState.value.userThekr.value.childCategories.indexOfFirst {
                     it.value.id == savedCategoryID
                 }
         }

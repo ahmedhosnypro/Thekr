@@ -5,22 +5,22 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshots.SnapshotStateList
-import com.thekr.data.zekr.zekr.ZekrDetails
+import com.thekr.data.thekr.thekr.ThekrDetails
 
 @Composable
-fun zekrCardListPreviewData(): SnapshotStateList<ZekrDetails> {
+fun thekrCardListPreviewData(): SnapshotStateList<ThekrDetails> {
     return remember {
         mutableStateListOf(
-            ZekrDetails(
+            ThekrDetails(
                 text = "سبحان الله وبحمده سبحان الله العظيم",
             ),
-            ZekrDetails(
+            ThekrDetails(
                 text = "الحمد لله",
             ),
-            ZekrDetails(
+            ThekrDetails(
                 text = "لا إله إلا الله",
             ),
-            ZekrDetails(
+            ThekrDetails(
                 text = "الله أكبر",
             ),
         )
@@ -29,8 +29,8 @@ fun zekrCardListPreviewData(): SnapshotStateList<ZekrDetails> {
 
 
 @Composable
-fun emptyZekrCardListPreviewData() = remember {
-    mutableStateListOf<ZekrDetails>()
+fun emptyThekrCardListPreviewData() = remember {
+    mutableStateListOf<ThekrDetails>()
 }
 
 @Composable

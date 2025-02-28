@@ -2,7 +2,7 @@ package com.thekr.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.thekr.data.zekr.category.CategoryDetails
+import com.thekr.data.thekr.category.CategoryDetails
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -22,7 +22,7 @@ data class Category(
     )
 }
 
-enum class ZekrCategoryType(val id: Long, val tabIndex: Int) {
+enum class ThekrCategoryType(val id: Long, val tabIndex: Int) {
     User(1, 0),
     HesnAlMuslim(2, 1),
     Knooz(3, 2),

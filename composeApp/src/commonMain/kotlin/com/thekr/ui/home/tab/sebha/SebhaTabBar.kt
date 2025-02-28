@@ -21,7 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
-import com.thekr.data.zekr.category.CategoryDetails
+import com.thekr.data.thekr.category.CategoryDetails
 import com.thekr.ui.component.bottomBorder
 
 @Composable
@@ -68,7 +68,7 @@ fun SebhaTabBar(
             )
         }
 
-        // Create new zekr category button
+        // Create new thekr category button
         CreateCategoryButton(
             width = createNewButtonWidth,
             calculatedTabHeight = height,

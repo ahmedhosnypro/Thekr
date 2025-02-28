@@ -1,6 +1,5 @@
 package com.thekr.ui.home.list
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
@@ -23,22 +22,22 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
-import com.thekr.data.zekr.category.CategoryDetails
+import com.thekr.data.thekr.category.CategoryDetails
 import com.thekr.ui.component.DefaultHorizontalDivider
-import com.thekr.ui.values.Dimensions.medium
+import com.thekr.values.Dimensions.medium
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.theme.ImageResourceHelper
 import com.thekr.ui.theme.droidKufi
 import com.thekr.ui.util.NoRippleInteractionSource
 import com.thekr.ui.component.LocalizedApp
 import com.thekr.ui.home.HomeActions
-import com.thekr.ui.values.Colors.listDivider
+import com.thekr.values.Colors.listDivider
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 /**
  * Displays the Dua tab content, which can show a list of Dua categories or
- * a list of Zekr.
+ * a list of Thekr.
  *
  * @param duaStack The stack of Dua categories, representing the navigation
  *     hierarchy.
@@ -66,14 +65,14 @@ fun DuaTab(
                     settingsDetails = settingsDetails,
                 )
             }
-            if (categoryDetails.value.zekrList.isNotEmpty()) {
-                ZekrList(
+            if (categoryDetails.value.thekrList.isNotEmpty()) {
+                ThekrList(
                     modifier = Modifier.fillMaxSize(),
                     tabIndex = tabIndex,
                     categoryDetails = categoryDetails,
                     settingsDetails = settingsDetails,
-                    homeOnClick = { tabIndex1: Int, categoryId: Long, zekrId: Long ->
-                        HomeActions.onThekrClick(tabIndex1, categoryId, zekrId)
+                    homeOnClick = { tabIndex1: Int, categoryId: Long, thekrId: Long ->
+                        HomeActions.onThekrClick(tabIndex1, categoryId, thekrId)
                     }
                 )
             }
@@ -176,7 +175,7 @@ fun DuaCategoryCard(
 
 @Preview
 @Composable
-fun ZekrTabPreview() {
+fun ThekrTabPreview() {
     AppTheme(themeMode = ThemeMode.Dark) {
         Surface {
             LocalizedApp {

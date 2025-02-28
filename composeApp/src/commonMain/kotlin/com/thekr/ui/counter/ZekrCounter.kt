@@ -5,18 +5,15 @@
 
 package com.thekr.ui.counter
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.pager.HorizontalPager
@@ -46,19 +43,18 @@ import cafe.adriel.voyager.core.annotation.InternalVoyagerApi
 import cafe.adriel.voyager.navigator.internal.BackHandler
 import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
-import com.thekr.data.zekr.category.CategoryDetails
-import com.thekr.data.zekr.instance.ZekrInstanceDetails
-import com.thekr.model.ZekrTargetStatus
-import com.thekr.ui.counter.body.ZekrText
-import com.thekr.ui.counter.footer.CurrentZekrIndicator
-import com.thekr.ui.counter.footer.ZekrCount
+import com.thekr.data.thekr.category.CategoryDetails
+import com.thekr.data.thekr.instance.ThekrInstanceDetails
+import com.thekr.model.ThekrTargetStatus
+import com.thekr.ui.counter.body.ThekrText
+import com.thekr.ui.counter.footer.CurrentThekrIndicator
+import com.thekr.ui.counter.footer.ThekrCount
 import com.thekr.ui.counter.viewmodel.CounterUiState
-import com.thekr.ui.values.Dimensions.normal
-import com.thekr.ui.values.Dimensions.small
-import com.thekr.ui.values.Dimensions.tiny
+import com.thekr.values.Dimensions.normal
+import com.thekr.values.Dimensions.small
+import com.thekr.values.Dimensions.tiny
 import com.thekr.ui.home.list.categoryDetailsPreviewState
 import com.thekr.ui.theme.AppTheme
-import com.thekr.ui.theme.ZekrTheme
 import com.thekr.ui.util.KeepScreenOn
 import com.thekr.ui.util.NoRippleInteractionSource
 import com.thekr.ui.component.LocalizedApp
@@ -66,7 +62,7 @@ import com.thekr.ui.util.customOnKeyEvent
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-fun ZekrHome(
+fun ThekrHome(
     settingsDetails: SettingsDetails,
     counterUiState: CounterUiState,
     categoryDetails: MutableState<CategoryDetails>,
@@ -106,7 +102,7 @@ fun ZekrHome(
                 )
         ) {
             LaunchedEffect(pagerState.currentPage) {
-                CounterHelper.scrollToZekr(pagerState.currentPage)
+                CounterHelper.scrollToThekr(pagerState.currentPage)
             }
             HorizontalPager(
                 modifier = Modifier
@@ -115,7 +111,7 @@ fun ZekrHome(
                 state = pagerState,
                 userScrollEnabled = counterUiState.lockEnabled.not()
             ) { tabIndex ->
-                ZekrHomeBody(
+                ThekrHomeBody(
                     counterUiState = counterUiState,
                     settingsDetails = settingsDetails,
                     categoryDetails = categoryDetails,
@@ -130,7 +126,7 @@ fun ZekrHome(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ZekrHomeBody(
+fun ThekrHomeBody(
     counterUiState: CounterUiState,
     categoryDetails: MutableState<CategoryDetails>,
     settingsDetails: SettingsDetails,
@@ -139,21 +135,21 @@ fun ZekrHomeBody(
     tabIndex: Int = 0,
 ) {
 
-    val peak = if (categoryDetails.value.zekrList.size > 1) 72.dp else 0.dp
-    val colors = ZekrTheme.colors(settingsDetails)
+    val peak = if (categoryDetails.value.thekrList.size > 1) 72.dp else 0.dp
+    val colors = AppTheme.colors(settingsDetails)
     BottomSheetScaffold(
         scaffoldState = countSheetState,
         sheetSwipeEnabled = false,
         sheetContent = {
             if (settingsDetails.showCount) {
-                ZekrCount(
+                ThekrCount(
                     settingsDetails = settingsDetails,
                     tabIndex = tabIndex
                 )
             }
         },
         sheetDragHandle = {
-            if (categoryDetails.value.zekrList.size > 1) {
+            if (categoryDetails.value.thekrList.size > 1) {
                 Column(
                     modifier = modifier
                         .fillMaxWidth()
@@ -163,14 +159,14 @@ fun ZekrHomeBody(
                     verticalArrangement = Arrangement.spacedBy(normal, Alignment.Top),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    CurrentZekrIndicator(
+                    CurrentThekrIndicator(
                         categoryDetails = categoryDetails,
                         tabIndex = tabIndex,
                         settingsDetails = settingsDetails,
                     )
 //                        if (isDailyTargetEnabled) {
 //                            DailyTarget(
-//                                zekrInstanceDetails = counterUiState.currentZekrInstance,
+//                                thekrInstanceDetails = counterUiState.currentThekrInstance,
 //                                category = categoryDetails,
 //                                settingsDetails = settingsDetails,
 //                            )
@@ -182,7 +178,7 @@ fun ZekrHomeBody(
         sheetContainerColor = colors.sheetBackgroundColor,
         modifier = Modifier.background(color = Color.Green),
     ) {
-        ZekrText(
+        ThekrText(
             settingsDetails = settingsDetails,
             categoryDetails = categoryDetails,
             tabIndex = tabIndex,
@@ -229,35 +225,35 @@ fun CounterScreenPreviewDark() {
         AppTheme(ThemeMode.Dark) {
             Surface {
                 with(CounterHelper) {
-                    getZekrCount = {
+                    getThekrCount = {
                         mutableStateOf(
-                            com.thekr.data.zekr.count.ZekrCount(
-                                zekrInstanceId = 1,
+                            com.thekr.data.thekr.count.ThekrCount(
+                                thekrInstanceId = 1,
                                 dailyCount = 22,
                             )
                         )
                     }
-//                    getZekr = {
-//                        ZekrDetails(
+//                    getThekr = {
+//                        ThekrDetails(
 //                            id = 1,
 //                            text = "سبحان الله وبحمده سبحان الله العظيم",
 //                            editable = true,
 //                            soundFileName = "sound.mp3",
 //                        )
 //                    }
-                    getZekrInstance = {
+                    getThekrInstance = {
                         mutableStateOf(
-                            ZekrInstanceDetails(
+                            ThekrInstanceDetails(
                                 id = 1,
-                                zekrId = 1,
+                                thekrId = 1,
                                 categoryId = 1,
                                 dailyTarget = 100,
-                                dailyTargetStatus = ZekrTargetStatus.Enabled,
+                                dailyTargetStatus = ThekrTargetStatus.Enabled,
                             )
                         )
                     }
                 }
-                ZekrHomeBody(
+                ThekrHomeBody(
                     categoryDetails = categoryDetailsPreviewState(),
                     counterUiState = CounterUiState(
                         showCounter = true,
@@ -287,11 +283,11 @@ fun CounterScreenPreviewLight() {
     LocalizedApp {
         AppTheme(ThemeMode.Light) {
             Surface {
-                ZekrHomeBody(
+                ThekrHomeBody(
                     categoryDetails = categoryDetailsPreviewState(),
                     counterUiState = CounterUiState(
                         showCounter = true,
-//                        currentZekrInstance = previewList()[0],
+//                        currentThekrInstance = previewList()[0],
                     ),
                     settingsDetails = SettingsDetails(
                         fontSize = 48f,

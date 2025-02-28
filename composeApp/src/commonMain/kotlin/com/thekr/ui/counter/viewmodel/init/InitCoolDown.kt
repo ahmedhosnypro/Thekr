@@ -1,7 +1,7 @@
 package com.thekr.ui.counter.viewmodel.init
 
 import androidx.lifecycle.viewModelScope
-import com.thekr.ui.counter.viewmodel.ZekrCounterViewModel
+import com.thekr.ui.counter.viewmodel.ThekrCounterViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
@@ -9,18 +9,18 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 fun initCoolDown(
-    viewModel: ZekrCounterViewModel,
+    viewModel: ThekrCounterViewModel,
 ) {
     with(viewModel) {
         viewModelScope.launch {
             if (firstTime) {
-                val zekr = zekrRepository.findById(zekrId).firstOrNull()
-                val countItem = countRepository.getLastCountByZekrInstanceId(zekrId).first()
+                val thekr = thekrRepository.findById(thekrId).firstOrNull()
+                val countItem = countRepository.getLastCountByThekrInstanceId(thekrId).first()
                 // if a user exits the view, and returned in less than cooldown time,
                 // then cooldown
-                if (countItem != null && zekr != null) {
+                if (countItem != null && thekr != null) {
                     val lastCountItemTime = countItem.timeCreated
-                    val cooldown = zekr.coolDown
+                    val cooldown = thekr.coolDown
                     val now = System.currentTimeMillis()
                     val timeDiff = now - lastCountItemTime
                     if (timeDiff < cooldown - 500) {

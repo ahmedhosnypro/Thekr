@@ -13,12 +13,12 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.thekr.data.settings.SettingsDetails
-import com.thekr.data.zekr.category.CategoryDetails
+import com.thekr.data.thekr.category.CategoryDetails
 import com.thekr.ui.home.HomeActions
-import com.thekr.ui.home.list.ZekrList
+import com.thekr.ui.home.list.ThekrList
 import org.jetbrains.compose.resources.stringResource
 import com.thekr.resources.Res
-import com.thekr.resources.add_zekr
+import com.thekr.resources.add_thekr
 
 @Composable
 fun SebhaPages(
@@ -35,19 +35,19 @@ fun SebhaPages(
     ) { tabIndex ->
         val category = userAzkar[tabIndex]
         Column {
-            if (category.value.zekrList.isNotEmpty()) {
-                ZekrList(
+            if (category.value.thekrList.isNotEmpty()) {
+                ThekrList(
                     categoryDetails = category,
                     modifier = Modifier.fillMaxSize(),
                     settingsDetails = settingsDetails,
-                    homeOnClick = {tabIndex1: Int, categoryId: Long, zekrId: Long ->
-                        HomeActions.onThekrClick(tabIndex1, categoryId, zekrId)
+                    homeOnClick = {tabIndex1: Int, categoryId: Long, thekrId: Long ->
+                        HomeActions.onThekrClick(tabIndex1, categoryId, thekrId)
                     }
                 )
             } else {
                 SebhaAddNewButton(
                     onCLick = { HomeActions.onThekrCategoryClick() },
-                    text = stringResource(Res.string.add_zekr)
+                    text = stringResource(Res.string.add_thekr)
                 )
             }
         }

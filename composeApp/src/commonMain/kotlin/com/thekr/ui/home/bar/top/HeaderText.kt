@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import com.thekr.ui.values.Dimensions.medium
+import com.thekr.values.Dimensions.medium
 import com.thekr.ui.theme.droidKufi
 
 @Composable

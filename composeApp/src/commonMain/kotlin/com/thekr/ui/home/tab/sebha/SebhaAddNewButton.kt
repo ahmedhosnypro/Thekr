@@ -16,13 +16,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.thekr.ui.values.Dimensions.small
+import com.thekr.values.Dimensions.small
 import org.jetbrains.compose.resources.stringResource
 import com.thekr.resources.Res
-import com.thekr.resources.add_zekr
+import com.thekr.resources.add_thekr
 
 
-/** Use to add new Zekr or category */
+/** Use to add new Thekr or category */
 @Composable
 fun SebhaAddNewButton(
     onCLick: () -> Unit,
@@ -51,7 +51,7 @@ fun SebhaAddNewButton(
                 Text(text = text)
                 Icon(
                     Icons.Filled.Create,
-                    contentDescription = stringResource(Res.string.add_zekr),
+                    contentDescription = stringResource(Res.string.add_thekr),
                 )
             }
         }

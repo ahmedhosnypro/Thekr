@@ -2,14 +2,14 @@ package com.thekr.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.thekr.data.zekr.fadl.FadlDetails
+import com.thekr.data.thekr.fadl.FadlDetails
 import com.thekr.util.TimeHelper.now
 
-@Entity(tableName = "zekr_fadl")
-data class ZekrFadl(
+@Entity(tableName = "thekr_fadl")
+data class ThekrFadl(
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0,
-    var zekrId: Long = 0,
+    var thekrId: Long = 0,
     var fadl: String = "",
     var timeCreated: Long = now(),
     var timeUpdated: Long = timeCreated,
@@ -17,7 +17,7 @@ data class ZekrFadl(
     fun toFadlDetails(): FadlDetails {
         return FadlDetails(
             id = id,
-            zekrId = zekrId,
+            thekrId = thekrId,
             fadl = fadl,
             timeCreated = timeCreated,
             timeUpdated = timeUpdated,

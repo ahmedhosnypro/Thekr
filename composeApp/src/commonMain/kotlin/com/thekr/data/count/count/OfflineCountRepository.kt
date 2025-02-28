@@ -9,25 +9,25 @@ class OfflineCountRepository(private val countDao: CountDAO) : CountRepository {
     }
 
     override fun findCounts(
-        zekrInstanceId: Long?,
+        thekrInstanceId: Long?,
         timeCreatedAfter: Long?,
         timeCreatedBefore: Long?
-    ) = countDao.findCounts(zekrInstanceId, timeCreatedAfter, timeCreatedBefore)
+    ) = countDao.findCounts(thekrInstanceId, timeCreatedAfter, timeCreatedBefore)
 
     override fun getCount(
-        zekrInstanceId: Long?,
+        thekrInstanceId: Long?,
         timeCreatedAfter: Long?,
         timeCreatedBefore: Long?
-    ) = countDao.getCount(zekrInstanceId, timeCreatedAfter, timeCreatedBefore)
+    ) = countDao.getCount(thekrInstanceId, timeCreatedAfter, timeCreatedBefore)
 
-    override fun getLastCountByZekrInstanceId(zekrInstanceId: Long) =
-        countDao.getLastCountByZekrInstanceId(zekrInstanceId)
+    override fun getLastCountByThekrInstanceId(thekrInstanceId: Long) =
+        countDao.getLastCountByThekrInstanceId(thekrInstanceId)
 
     override suspend fun findAllSync() = countDao.findAllSync()
 
     override fun findAllByCategorySync(categoryId: Long) =
         countDao.findAllByCategorySync(categoryId)
 
-    override fun findAllByZekrInstanceSync(zekrInstanceId: Long) =
-        countDao.findAllByZekrInstanceSync(zekrInstanceId)
+    override fun findAllByThekrInstanceSync(thekrInstanceId: Long) =
+        countDao.findAllByThekrInstanceSync(thekrInstanceId)
 }

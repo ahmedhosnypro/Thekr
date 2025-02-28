@@ -1,4 +1,4 @@
-package com.thekr.ui.zekr.entry
+package com.thekr.ui.thekr.entry
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -33,43 +33,42 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.thekr.data.settings.SettingsDetails
-import com.thekr.data.zekr.zekr.ZekrEntry
-import com.thekr.data.zekr.zekr.ZekrEntryUiState
-import com.thekr.model.ZekrTargetStatus
-import com.thekr.ui.bar.top.ZekrBar
+import com.thekr.data.thekr.thekr.ThekrEntry
+import com.thekr.data.thekr.thekr.ThekrEntryUiState
+import com.thekr.model.ThekrTargetStatus
+import com.thekr.ui.component.bar.AppTopBar
 import com.thekr.ui.home.bar.top.HeaderText
 import com.thekr.ui.navigation.NavigationActions
 import com.thekr.ui.theme.AppTheme
-import com.thekr.ui.theme.ZekrTheme
 import com.thekr.ui.component.LocalizedApp
-import com.thekr.ui.values.Dimensions.large
-import com.thekr.ui.values.Dimensions.medium
-import com.thekr.ui.values.Dimensions.normal
-import com.thekr.ui.values.Dimensions.small
+import com.thekr.values.Dimensions.large
+import com.thekr.values.Dimensions.medium
+import com.thekr.values.Dimensions.normal
+import com.thekr.values.Dimensions.small
 import com.thekr.ui.viewmodel.AppViewModelProvider
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import com.thekr.resources.Res
-import com.thekr.resources.add_zekr
+import com.thekr.resources.add_thekr
 import com.thekr.resources.coolDown
 import com.thekr.resources.daily_goal
 import com.thekr.resources.monthly_goal
 import com.thekr.resources.save
 import com.thekr.resources.weekly_goal
 import com.thekr.resources.yearly_goal
-import com.thekr.resources.zekr_content
+import com.thekr.resources.thekr_content
 
 //todo:val c = LocalSoftwareKeyboardController.current
 @Composable
 fun CounterEntryScreen(
     settingsDetails: SettingsDetails,
-    viewModel: ZekrEntryViewModel = viewModel {
-        AppViewModelProvider.Factory.create(ZekrEntryViewModel::class, this)
+    viewModel: ThekrEntryViewModel = viewModel {
+        AppViewModelProvider.Factory.create(ThekrEntryViewModel::class, this)
     },
 ) {
     val uiState by viewModel.viewState.collectAsState()
     LaunchedEffect(Unit) {
-        ZekrEntryActions.initActions(viewModel)
+        ThekrEntryActions.initActions(viewModel)
     }
     CounterEntry(
         uiState = uiState,
@@ -79,15 +78,15 @@ fun CounterEntryScreen(
 
 @Composable
 fun CounterEntry(
-    uiState: ZekrEntryUiState,
+    uiState: ThekrEntryUiState,
     settingsDetails: SettingsDetails = SettingsDetails(),
 ) {
-    val zekrColors = ZekrTheme.colors(settingsDetails)
+    val thekrColors = AppTheme.colors(settingsDetails)
     Scaffold(topBar = {
-        ZekrBar(
+        AppTopBar(
             title = {
                 HeaderText(
-                    text = stringResource(Res.string.add_zekr),
+                    text = stringResource(Res.string.add_thekr),
                 )
             },
             navigationIcon = {
@@ -101,10 +100,10 @@ fun CounterEntry(
             actions = {
                 Button(
                     onClick = {
-                        ZekrEntryActions.onSaveClick()
+                        ThekrEntryActions.onSaveClick()
                     }, enabled = uiState.isEntryValid, colors = ButtonDefaults.textButtonColors(
-                        contentColor = zekrColors.onMainHeader,
-                        disabledContentColor = zekrColors.onMainHeaderDisabled,
+                        contentColor = thekrColors.onMainHeader,
+                        disabledContentColor = thekrColors.onMainHeaderDisabled,
                     )
                 ) {
                     Text(stringResource(Res.string.save))
@@ -119,7 +118,7 @@ fun CounterEntry(
 
 @Composable
 private fun CounterEntryBody(
-    uiState: ZekrEntryUiState,
+    uiState: ThekrEntryUiState,
     modifier: Modifier = Modifier,
 ) {
 //    val keyboardController = LocalSoftwareKeyboardController.current
@@ -138,20 +137,20 @@ private fun CounterEntryBody(
                 top = small
             ), verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        val counterEntry = uiState.zekrEntry
+        val counterEntry = uiState.thekrEntry
 
         MyTextField(
-            stringResource(Res.string.zekr_content),
+            stringResource(Res.string.thekr_content),
             counterEntry.text,
             uiState.isLabelValid,
-            { ZekrEntryActions.onLabelChange(it) },
+            { ThekrEntryActions.onLabelChange(it) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = medium),
         )
 
-        ZekrGoals(
-            zekrEntry = uiState.zekrEntry,
+        ThekrGoals(
+            thekrEntry = uiState.thekrEntry,
         )
 
 
@@ -159,7 +158,7 @@ private fun CounterEntryBody(
             stringResource(Res.string.coolDown),
             counterEntry.coolDown.toString(),
             uiState.isLabelValid,
-            { ZekrEntryActions.onCoolDownChange(it) },
+            { ThekrEntryActions.onCoolDownChange(it) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = medium)
@@ -196,8 +195,8 @@ fun MyTextField(
 
 
 @Composable
-fun ZekrGoals(
-    zekrEntry: ZekrEntry,
+fun ThekrGoals(
+    thekrEntry: ThekrEntry,
 ) {
     Column(
         modifier = Modifier
@@ -207,64 +206,64 @@ fun ZekrGoals(
             ), verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         // yearly goal
-        ZekrGoalItem(
+        ThekrGoalItem(
             label = stringResource(Res.string.yearly_goal),
-            value = zekrEntry.yearlyTarget.toString(),
+            value = thekrEntry.yearlyTarget.toString(),
             isValid = true,
-            enabled = zekrEntry.yearlyTargetStatus == ZekrTargetStatus.Enabled,
-            onValueChange = { ZekrEntryActions.onYearlyGoalChange(it) },
+            enabled = thekrEntry.yearlyTargetStatus == ThekrTargetStatus.Enabled,
+            onValueChange = { ThekrEntryActions.onYearlyGoalChange(it) },
             onCheckedChange = {
-                ZekrEntryActions.updateZekrEntry(
-                    zekrEntry.copy(
-                        yearlyTargetStatus = if (it) ZekrTargetStatus.Enabled else ZekrTargetStatus.Disabled
+                ThekrEntryActions.updateThekrEntry(
+                    thekrEntry.copy(
+                        yearlyTargetStatus = if (it) ThekrTargetStatus.Enabled else ThekrTargetStatus.Disabled
                     )
                 )
             },
         )
 
         // monthly goal
-        ZekrGoalItem(
+        ThekrGoalItem(
             label = stringResource(Res.string.monthly_goal),
-            value = zekrEntry.monthlyTarget.toString(),
+            value = thekrEntry.monthlyTarget.toString(),
             isValid = true,
-            enabled = zekrEntry.monthlyTargetStatus == ZekrTargetStatus.Enabled,
-            onValueChange = { ZekrEntryActions.onMonthlyGoalChange(it) },
+            enabled = thekrEntry.monthlyTargetStatus == ThekrTargetStatus.Enabled,
+            onValueChange = { ThekrEntryActions.onMonthlyGoalChange(it) },
             onCheckedChange = {
-                ZekrEntryActions.updateZekrEntry(
-                    zekrEntry.copy(
-                        monthlyTargetStatus = if (it) ZekrTargetStatus.Enabled else ZekrTargetStatus.Disabled
+                ThekrEntryActions.updateThekrEntry(
+                    thekrEntry.copy(
+                        monthlyTargetStatus = if (it) ThekrTargetStatus.Enabled else ThekrTargetStatus.Disabled
                     )
                 )
             },
         )
 
         // weekly goal
-        ZekrGoalItem(
+        ThekrGoalItem(
             label = stringResource(Res.string.weekly_goal),
-            value = zekrEntry.weeklyTarget.toString(),
+            value = thekrEntry.weeklyTarget.toString(),
             isValid = true,
-            enabled = zekrEntry.weeklyTargetStatus == ZekrTargetStatus.Enabled,
-            onValueChange = { ZekrEntryActions.onWeeklyGoalChange(it) },
+            enabled = thekrEntry.weeklyTargetStatus == ThekrTargetStatus.Enabled,
+            onValueChange = { ThekrEntryActions.onWeeklyGoalChange(it) },
             onCheckedChange = {
-                ZekrEntryActions.updateZekrEntry(
-                    zekrEntry.copy(
-                        weeklyTargetStatus = if (it) ZekrTargetStatus.Enabled else ZekrTargetStatus.Disabled
+                ThekrEntryActions.updateThekrEntry(
+                    thekrEntry.copy(
+                        weeklyTargetStatus = if (it) ThekrTargetStatus.Enabled else ThekrTargetStatus.Disabled
                     )
                 )
             },
         )
 
         // daily goal
-        ZekrGoalItem(
+        ThekrGoalItem(
             label = stringResource(Res.string.daily_goal),
-            value = zekrEntry.dailyTarget.toString(),
+            value = thekrEntry.dailyTarget.toString(),
             isValid = true,
-            enabled = zekrEntry.dailyTargetStatus == ZekrTargetStatus.Enabled,
-            onValueChange = { ZekrEntryActions.onDailyGoalChange(it) },
+            enabled = thekrEntry.dailyTargetStatus == ThekrTargetStatus.Enabled,
+            onValueChange = { ThekrEntryActions.onDailyGoalChange(it) },
             onCheckedChange = {
-                ZekrEntryActions.updateZekrEntry(
-                    zekrEntry.copy(
-                        dailyTargetStatus = if (it) ZekrTargetStatus.Enabled else ZekrTargetStatus.Disabled
+                ThekrEntryActions.updateThekrEntry(
+                    thekrEntry.copy(
+                        dailyTargetStatus = if (it) ThekrTargetStatus.Enabled else ThekrTargetStatus.Disabled
                     )
                 )
             },
@@ -275,7 +274,7 @@ fun ZekrGoals(
 
 
 @Composable
-fun ZekrGoalItem(
+fun ThekrGoalItem(
     label: String,
     value: String,
     isValid: Boolean,
@@ -321,7 +320,7 @@ private fun CounterEntryScreenPreview() {
         Surface {
             LocalizedApp {
                 CounterEntry(
-                    uiState = ZekrEntryUiState(),
+                    uiState = ThekrEntryUiState(),
                 )
             }
         }

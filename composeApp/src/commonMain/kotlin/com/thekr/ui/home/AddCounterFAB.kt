@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import com.thekr.resources.Res
-import com.thekr.resources.add_zekr
+import com.thekr.resources.add_thekr
 
 @Preview
 @Composable
@@ -25,6 +25,6 @@ fun AddCounterFAB(
         contentColor = MaterialTheme.colorScheme.onSurface,
         onClick = { onClick() },
     ) {
-        Icon(Icons.Filled.Create, stringResource(Res.string.add_zekr))
+        Icon(Icons.Filled.Create, stringResource(Res.string.add_thekr))
     }
 }

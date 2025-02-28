@@ -6,7 +6,7 @@ import androidx.compose.ui.graphics.Color
 
 
 @Composable
-private fun zekrIndicatorColorList(): List<Color> = remember {
+private fun thekrIndicatorColorList(): List<Color> = remember {
     listOf(
         Color(0xFFC75C5D),
         Color(0xFF70B744),
@@ -18,10 +18,10 @@ private fun zekrIndicatorColorList(): List<Color> = remember {
 }
 
 @Composable
-fun zekrIndicatorColor(
+fun thekrIndicatorColor(
     index:Int
 ): Color{
-    val colors = zekrIndicatorColorList()
+    val colors = thekrIndicatorColorList()
     return remember {
         colors[index % colors.size]
     }

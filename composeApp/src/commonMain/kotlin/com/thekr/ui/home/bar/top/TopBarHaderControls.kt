@@ -19,9 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
-import com.thekr.ui.values.Dimensions.medium
+import com.thekr.values.Dimensions.medium
 import com.thekr.ui.theme.AppTheme
-import com.thekr.ui.theme.ZekrTheme
 import com.thekr.ui.component.LocalizedApp
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -31,19 +30,19 @@ fun TopBarHeaderControls(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit
 ) {
-    val zekrColors = ZekrTheme.colors(settingsDetails)
+    val thekrColors = AppTheme.colors(settingsDetails)
     CardDefaults
     Card(
         modifier = modifier
             .fillMaxWidth()
             .padding(start = medium, end = medium)
             .border(
-                color = zekrColors.secondaryHeaderBorder,
+                color = thekrColors.secondaryHeaderBorder,
                 width = 2.dp,
                 shape = MaterialTheme.shapes.small
             ), colors = CardDefaults.cardColors(
-            containerColor = zekrColors.secondaryHeaderBackground,
-            contentColor = zekrColors.onSecondaryHeader
+            containerColor = thekrColors.secondaryHeaderBackground,
+            contentColor = thekrColors.onSecondaryHeader
         ),
         shape = MaterialTheme.shapes.small
     ) {
@@ -57,16 +56,16 @@ fun HeaderControlCard(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit
 ) {
-    val zekrColors = ZekrTheme.colors(settingsDetails)
+    val thekrColors = AppTheme.colors(settingsDetails)
     Card(
         modifier = modifier
             .border(
-                color = zekrColors.secondaryHeaderBorder,
+                color = thekrColors.secondaryHeaderBorder,
                 width = 2.dp,
                 shape = MaterialTheme.shapes.small
             ), colors = CardDefaults.cardColors(
-            containerColor = zekrColors.secondaryHeaderBackground,
-            contentColor = zekrColors.onSecondaryHeader
+            containerColor = thekrColors.secondaryHeaderBackground,
+            contentColor = thekrColors.onSecondaryHeader
         ),
         shape = MaterialTheme.shapes.small
     ) {

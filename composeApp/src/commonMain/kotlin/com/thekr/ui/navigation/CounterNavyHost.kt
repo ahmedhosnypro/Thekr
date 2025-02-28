@@ -1,30 +1,28 @@
 package com.thekr.ui.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.thekr.data.settings.SettingsDetails
-import com.thekr.ui.counter.ZekrScreen
+import com.thekr.ui.counter.ThekrScreen
 import com.thekr.ui.home.HomeScreen
 import com.thekr.ui.navigation.route.CounterEditRoute
 import com.thekr.ui.navigation.route.CounterEntryRoute
 import com.thekr.ui.navigation.route.HomeRoute
 import com.thekr.ui.navigation.route.SettingsRoute
-import com.thekr.ui.navigation.route.ZekrScreenRoute
+import com.thekr.ui.navigation.route.ThekrScreenRoute
 import com.thekr.ui.settings.SettingsScreen
-import com.thekr.ui.viewmodel.AzkarState
-import com.thekr.ui.zekr.edit.CounterEditScreen
-import com.thekr.ui.zekr.entry.CounterEntryScreen
+import com.thekr.ui.viewmodel.AppState
+import com.thekr.ui.thekr.edit.CounterEditScreen
+import com.thekr.ui.thekr.entry.CounterEntryScreen
 
 @Composable
 fun CounterNavyHost(
-    azkarState: AzkarState,
+    appState: AppState,
     settingsDetails: SettingsDetails,
     navController: NavHostController,
     modifier: Modifier = Modifier,
@@ -43,7 +41,7 @@ fun CounterNavyHost(
         // home screen
         composable(HomeRoute.route) {
             HomeScreen(
-                azkarState = azkarState,
+                appState = appState,
                 settingsDetails = settingsDetails,
             )
         }
@@ -56,23 +54,23 @@ fun CounterNavyHost(
 
         // counter details screen
         composable(
-            ZekrScreenRoute.routeWithArgs,
+            ThekrScreenRoute.routeWithArgs,
             arguments = listOf(
-                navArgument(ZekrScreenRoute.CATEGORY_ID_ARG) {
+                navArgument(ThekrScreenRoute.CATEGORY_ID_ARG) {
                     type = NavType.LongType
                 },
-                navArgument(ZekrScreenRoute.ZEKR_ID_ARG) {
+                navArgument(ThekrScreenRoute.ZEKR_ID_ARG) {
                     type = NavType.LongType
                 },
-                navArgument(ZekrScreenRoute.INITIAL_PAGE_ARG) {
+                navArgument(ThekrScreenRoute.INITIAL_PAGE_ARG) {
                     type = NavType.IntType
                 },
-                navArgument(ZekrScreenRoute.PAGE_COUNT_ARG) {
+                navArgument(ThekrScreenRoute.PAGE_COUNT_ARG) {
                     type = NavType.IntType
                 },
             )
         ) {
-            ZekrScreen(
+            ThekrScreen(
                 settingsDetails = settingsDetails,
             )
         }
@@ -148,8 +146,8 @@ fun CounterNavyHost(
 //        }
 //
 //        // counter details screen
-//        composable<ZekrScreenRoute> {
-//            ZekrScreen(
+//        composable<ThekrScreenRoute> {
+//            ThekrScreen(
 //                settingsDetails = settingsDetails,
 //            )
 //        }

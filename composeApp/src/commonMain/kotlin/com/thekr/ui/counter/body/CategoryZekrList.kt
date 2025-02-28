@@ -15,20 +15,20 @@ import cafe.adriel.voyager.core.annotation.InternalVoyagerApi
 import cafe.adriel.voyager.navigator.internal.BackHandler
 import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
-import com.thekr.data.zekr.category.CategoryDetails
+import com.thekr.data.thekr.category.CategoryDetails
 import com.thekr.resources.Res
 import com.thekr.resources.back
-import com.thekr.ui.bar.top.ZekrBar
+import com.thekr.ui.component.bar.AppTopBar
 import com.thekr.ui.component.LocalizedApp
 import com.thekr.ui.home.bar.top.HeaderText
-import com.thekr.ui.home.list.ZekrList
+import com.thekr.ui.home.list.ThekrList
 import com.thekr.ui.theme.AppTheme
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 @OptIn(InternalVoyagerApi::class)
-fun CategoryZekrList(
+fun CategoryThekrList(
     settingsDetails: SettingsDetails,
     modifier: Modifier = Modifier,
     category: MutableState<CategoryDetails> = mutableStateOf(CategoryDetails()),
@@ -42,7 +42,7 @@ fun CategoryZekrList(
     Scaffold(
         modifier = modifier,
         topBar = {
-            ZekrBar(
+            AppTopBar(
                 title = { HeaderText(text = category.value.name) },
                 navigationIcon = {
                     if (canNavigateUp()) {
@@ -58,7 +58,7 @@ fun CategoryZekrList(
             )
         },
     ) { innerPadding ->
-        ZekrList(
+        ThekrList(
             categoryDetails = category,
             categoryListOnClick = categoryListOnClick,
             modifier = Modifier.padding(innerPadding),
@@ -70,15 +70,15 @@ fun CategoryZekrList(
 
 @Preview
 @Composable
-fun CategoryZekrListPreview() {
+fun CategoryThekrListPreview() {
     AppTheme {
         Surface {
             LocalizedApp {
-                CategoryZekrList(
+                CategoryThekrList(
                     category = mutableStateOf(
                         CategoryDetails(
                             name = "الأذكار اليومية",
-//                        zekrList = previewList()
+//                        thekrList = previewList()
                         )
                     ),
                     settingsDetails = SettingsDetails()
@@ -90,15 +90,15 @@ fun CategoryZekrListPreview() {
 
 @Preview
 @Composable
-fun CategoryZekrListPreviewDark() {
+fun CategoryThekrListPreviewDark() {
     AppTheme(ThemeMode.Dark) {
         Surface {
             LocalizedApp {
-                CategoryZekrList(
+                CategoryThekrList(
                     category = mutableStateOf(
                         CategoryDetails(
                             name = "الأذكار اليومية",
-//                        zekrList = previewList(),
+//                        thekrList = previewList(),
                         )
                     ),
                     settingsDetails = SettingsDetails(

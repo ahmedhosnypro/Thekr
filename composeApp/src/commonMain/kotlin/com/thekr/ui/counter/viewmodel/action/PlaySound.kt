@@ -1,7 +1,7 @@
 package com.thekr.ui.counter.viewmodel.action
 
 import com.thekr.resources.Res
-import com.thekr.ui.counter.viewmodel.ZekrCounterViewModel
+import com.thekr.ui.counter.viewmodel.ThekrCounterViewModel
 import com.thekr.ui.settings.SettingActions.currentSettings
 import korlibs.audio.sound.*
 import kotlinx.coroutines.CoroutineScope
@@ -25,12 +25,12 @@ object ThekrSoundPlayer : SoundPlayer {
     private var stream: SoundAudioStream? = null
 
     @OptIn(ExperimentalResourceApi::class)
-    fun ZekrCounterViewModel.onPlayAudio() {
+    fun ThekrCounterViewModel.onPlayAudio() {
         if (soundChannel?.playing == true) {
             stopPlayer()
             return
         }
-        val soundFileName = getCurrentZekr().value.soundFileName
+        val soundFileName = getCurrentThekr().value.soundFileName
         val filePath = "files/thekr/${currentSettings().currentSheikh}/${soundFileName}.mp3"
         scope.launch {
             val bytes = try {

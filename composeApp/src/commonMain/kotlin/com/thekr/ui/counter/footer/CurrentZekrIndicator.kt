@@ -17,21 +17,21 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.sp
 import com.thekr.data.settings.SettingsDetails
-import com.thekr.data.zekr.category.CategoryDetails
-import com.thekr.ui.values.Dimensions.large
-import com.thekr.ui.theme.ZekrTheme
+import com.thekr.data.thekr.category.CategoryDetails
+import com.thekr.values.Dimensions.large
+import com.thekr.ui.theme.AppTheme
 import org.jetbrains.compose.resources.painterResource
 import com.thekr.resources.Res
-import com.thekr.resources.next_zekr
+import com.thekr.resources.next_thekr
 
 @Composable
-fun CurrentZekrIndicator(
+fun CurrentThekrIndicator(
     settingsDetails: SettingsDetails,
     categoryDetails: MutableState<CategoryDetails>,
     tabIndex: Int,
     modifier: Modifier = Modifier,
 ) {
-    if (categoryDetails.value.zekrList.size > 1) {
+    if (categoryDetails.value.thekrList.size > 1) {
         Box(
             modifier = modifier.fillMaxWidth(),
             contentAlignment = Alignment.Center
@@ -44,33 +44,33 @@ fun CurrentZekrIndicator(
                 val lineHeightDp = with(LocalDensity.current) {
                     fontSize.toDp()
                 }
-                val colors = ZekrTheme.colors(settingsDetails)
+                val colors = AppTheme.colors(settingsDetails)
                 Image(
-                    painter = painterResource(Res.drawable.next_zekr),
+                    painter = painterResource(Res.drawable.next_thekr),
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .height(lineHeightDp)
                         .graphicsLayer(scaleX = -1f),
                     colorFilter = ColorFilter.tint(
-                        if (tabIndex == 0) colors.disabledZekrIndicator
-                        else colors.zekrIndicator
+                        if (tabIndex == 0) colors.disabledPrevNextIndicator
+                        else colors.prevNextIndicator
                     )
                 )
                 Text(
-                    text = "${tabIndex + 1} / ${categoryDetails.value.zekrList.size}",
+                    text = "${tabIndex + 1} / ${categoryDetails.value.thekrList.size}",
                     fontSize = fontSize,
                 )
 
                 Image(
-                    painter = painterResource(Res.drawable.next_zekr),
+                    painter = painterResource(Res.drawable.next_thekr),
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .height(lineHeightDp),
                     colorFilter = ColorFilter.tint(
-                        if (tabIndex == categoryDetails.value.zekrList.size - 1) colors.disabledZekrIndicator
-                        else colors.zekrIndicator
+                        if (tabIndex == categoryDetails.value.thekrList.size - 1) colors.disabledPrevNextIndicator
+                        else colors.prevNextIndicator
                     )
                 )
             }

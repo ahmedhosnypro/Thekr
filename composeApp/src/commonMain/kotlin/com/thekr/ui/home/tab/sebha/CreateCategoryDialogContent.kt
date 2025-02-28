@@ -10,17 +10,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import com.thekr.data.proto.ThemeMode
-import com.thekr.ui.AzkarActions
+import com.thekr.ui.AppActions
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.theme.hacenTunisiaLt
 import com.thekr.ui.component.LocalizedApp
-import com.thekr.ui.values.Dimensions.medium
+import com.thekr.values.Dimensions.medium
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import com.thekr.resources.Res
 import com.thekr.resources.cancel
 import com.thekr.resources.create
-import com.thekr.resources.create_zekr_group
+import com.thekr.resources.create_thekr_group
 import com.thekr.resources.group_name
 
 /**
@@ -94,7 +94,7 @@ private fun CreateCategoryDialogContent(
             isError = isError,
             onDismissRequest = onDismissRequest,
             onCreateClick = {
-                val savedCategoryIndex = AzkarActions.createNewUserCategory(categoryName)
+                val savedCategoryIndex = AppActions.createNewUserCategory(categoryName)
                 if (savedCategoryIndex != -1) {
                     onCategorySave(savedCategoryIndex)
                 }
@@ -108,7 +108,7 @@ private fun CreateCategoryDialogContent(
 @Composable
 private fun CreateCategoryDialogTitle() {
     Text(
-        text = stringResource(Res.string.create_zekr_group),
+        text = stringResource(Res.string.create_thekr_group),
         modifier = Modifier.fillMaxWidth(),
         textAlign = TextAlign.Center,
         style = MaterialTheme.typography.headlineSmall,

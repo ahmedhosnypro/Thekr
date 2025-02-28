@@ -34,17 +34,17 @@
     <!-- Input Settings -->
     <string name="fingerprint">Fingerprint</string>
 
-    <!-- Zekr Management -->
-    <string name="zekr">Zekr</string>
-    <string name="add_zekr">Add Zekr</string>
-    <string name="zekr_content">zekr</string>
-    <string name="zekr_list">Zekr List</string>
-    <string name="empty_zekr_list_alert">Click on the pin button to add a new counter.</string>
-    <string name="listen_to_zekr">Listen to Zekr</string>
+    <!-- Thekr Management -->
+    <string name="thekr">Thekr</string>
+    <string name="add_thekr">Add Thekr</string>
+    <string name="thekr_content">thekr</string>
+    <string name="thekr_list">Thekr List</string>
+    <string name="empty_thekr_list_alert">Click on the pin button to add a new counter.</string>
+    <string name="listen_to_thekr">Listen to Thekr</string>
     <string name="hesn_almuslim">Hesn Almuslim</string>
     <string name="dua">Dua</string>
     <string name="coolDown">CoolDown</string>
-    <string name="create_zekr_group">Create Zekr Group</string>
+    <string name="create_thekr_group">Create Thekr Group</string>
 
     <!-- Counter & Statistics -->
     <string name="counter">Counter</string>
@@ -79,6 +79,7 @@
 
     <!-- Actions -->
     <string name="save">Save</string>
+    <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
     <string name="create">Create</string>
     <string name="group_name">Group Name</string>
@@ -96,7 +97,7 @@
     <string name="system_default">System</string>
     <string name="light">Light</string>
     <string name="dark">Dark</string>
-    <string name="about_zekr">About Thekr</string>
+    <string name="about_thekr">About Thekr</string>
     <string name="counter_visibility">Counter Visibility</string>
     <string name="theme_mode">Theme Mode</string>
     <string name="increase_font_size">Increase Font Size</string>

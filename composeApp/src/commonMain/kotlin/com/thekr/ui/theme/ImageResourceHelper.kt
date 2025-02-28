@@ -49,14 +49,14 @@ object ImageResourceHelper {
         fileNameToResourceIdMap["doaa_sunna.png"] = Res.drawable.doaa_sunna
         fileNameToResourceIdMap["hesn_active.png"] = Res.drawable.hesn_active
         fileNameToResourceIdMap["info_icon.png"] = Res.drawable.info_icon
-        fileNameToResourceIdMap["next_zekr.png"] = Res.drawable.next_zekr
+        fileNameToResourceIdMap["next_thekr.png"] = Res.drawable.next_thekr
         fileNameToResourceIdMap["night_mode.png"] = Res.drawable.night_mode
         fileNameToResourceIdMap["pause_sound.png"] = Res.drawable.pause_sound
         fileNameToResourceIdMap["play_sound.png"] = Res.drawable.play_sound
         fileNameToResourceIdMap["search_icon.png"] = Res.drawable.search_icon
         fileNameToResourceIdMap["sound_azkar_active.png"] = Res.drawable.sound_azkar_active
         fileNameToResourceIdMap["sound_azkar_inactive.png"] = Res.drawable.sound_azkar_inactive
-        fileNameToResourceIdMap["zekr_indicatorW.png"] = Res.drawable.zekr_indicator
+        fileNameToResourceIdMap["thekr_indicatorW.png"] = Res.drawable.thekr_indicator
     }
 
 

@@ -10,10 +10,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.thekr.data.count.count.CountRepository
 import com.thekr.data.count.miss.CountMissRepository
-import com.thekr.data.zekr.count.ZekrCount
-import com.thekr.data.zekr.instance.ZekrInstanceDetails
-import com.thekr.data.zekr.zekr.ZekrDetails
-import com.thekr.data.zekr.zekr.ZekrRepository
+import com.thekr.data.thekr.count.ThekrCount
+import com.thekr.data.thekr.instance.ThekrInstanceDetails
+import com.thekr.data.thekr.thekr.ThekrDetails
+import com.thekr.data.thekr.thekr.ThekrRepository
 import com.thekr.ui.counter.viewmodel.action.AntiSleep.killDetectSleepingJob
 import com.thekr.ui.counter.viewmodel.action.AntiSleep.stopDetectSleepingJob
 import com.thekr.ui.counter.viewmodel.action.ThekrSoundPlayer
@@ -22,37 +22,37 @@ import com.thekr.ui.counter.viewmodel.action.configSleepJop
 import com.thekr.ui.counter.viewmodel.init.initCoolDown
 import com.thekr.ui.navigation.NavigationActions
 import com.thekr.ui.navigation.route.HomeRoute
-import com.thekr.ui.navigation.route.ZekrScreenRoute
-import com.thekr.ui.viewmodel.AzkarStateHelper.azkarState
+import com.thekr.ui.navigation.route.ThekrScreenRoute
+import com.thekr.ui.viewmodel.AppStateHolder.appState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class ZekrCounterViewModel(
+class ThekrCounterViewModel(
     savedStateHandle: SavedStateHandle,
-    val zekrRepository: ZekrRepository,
+    val thekrRepository: ThekrRepository,
     val countRepository: CountRepository,
     val countMissRepository: CountMissRepository,
 ) : ViewModel() {
-    val categoryId: Long = checkNotNull(savedStateHandle[ZekrScreenRoute.CATEGORY_ID_ARG])
+    val categoryId: Long = checkNotNull(savedStateHandle[ThekrScreenRoute.CATEGORY_ID_ARG])
 
-    val zekrId: Long = checkNotNull(savedStateHandle[ZekrScreenRoute.ZEKR_ID_ARG])
+    val thekrId: Long = checkNotNull(savedStateHandle[ThekrScreenRoute.ZEKR_ID_ARG])
     val initialPage: Int = checkNotNull(
-        savedStateHandle[ZekrScreenRoute.INITIAL_PAGE_ARG]
+        savedStateHandle[ThekrScreenRoute.INITIAL_PAGE_ARG]
     )
     val pageCount: Int = checkNotNull(
-        savedStateHandle[ZekrScreenRoute.PAGE_COUNT_ARG]
+        savedStateHandle[ThekrScreenRoute.PAGE_COUNT_ARG]
     )
 
-//    val destination = savedStateHandle.toRoute<ZekrScreenRoute>()
+//    val destination = savedStateHandle.toRoute<ThekrScreenRoute>()
 //    val categoryId: Long = destination.categoryId
-//    val zekrId: Long = destination.zekrId
+//    val thekrId: Long = destination.thekrId
 //    val initialPage: Int = destination.initialPage
 //    val pageCount: Int = destination.pageCount
 
     val mutableUiState = MutableStateFlow(CounterUiState(
-        categoryDetails = azkarState.categoryList.first { it.value.id == categoryId }
+        categoryDetails = appState.categoryList.first { it.value.id == categoryId }
     ))
     val uiState = mutableUiState.asStateFlow()
 
@@ -65,9 +65,9 @@ class ZekrCounterViewModel(
 
 
     fun delete() {
-        if (uiState.value.currentZekrInstance.value.isProtected.not()) {
+        if (uiState.value.currentThekrInstance.value.isProtected.not()) {
             viewModelScope.launch {
-                zekrRepository.deleteIfNotProtected(uiState.value.currentZekrInstance.value.id)
+                thekrRepository.deleteIfNotProtected(uiState.value.currentThekrInstance.value.id)
             }
         }
     }
@@ -83,72 +83,72 @@ class ZekrCounterViewModel(
         killDetectSleepingJob()
     }
 
-    fun updateCurrentZekrInstance(index: Int) {
-        val zekrInstanceDetails =
-            uiState.value.categoryDetails.value.zekrInstanceList.getOrNull(index)
-        if (zekrInstanceDetails != null) {
+    fun updateCurrentThekrInstance(index: Int) {
+        val thekrInstanceDetails =
+            uiState.value.categoryDetails.value.thekrInstanceList.getOrNull(index)
+        if (thekrInstanceDetails != null) {
             mutableUiState.update { currentState ->
                 currentState.copy(
-                    currentZekrInstance = zekrInstanceDetails
+                    currentThekrInstance = thekrInstanceDetails
                 )
             }
         }
     }
 
 
-    fun showCategoryZekrListMenu() {
+    fun showCategoryThekrListMenu() {
         mutableUiState.update { currentState ->
             currentState.copy(
-                showCategoryZekrListMenu = true
+                showCategoryThekrListMenu = true
             )
         }
         stopDetectSleepingJob()
     }
 
-    fun hideCategoryZekrListMenu() {
+    fun hideCategoryThekrListMenu() {
         mutableUiState.update { currentState ->
             currentState.copy(
-                showCategoryZekrListMenu = false
+                showCategoryThekrListMenu = false
             )
         }
         configSleepJop(this)
     }
 
-    fun getCurrentZekrInstance(): MutableState<ZekrInstanceDetails> =
-        uiState.value.currentZekrInstance
+    fun getCurrentThekrInstance(): MutableState<ThekrInstanceDetails> =
+        uiState.value.currentThekrInstance
 
-    fun getZekrCount(tabIndex: Int): MutableState<ZekrCount> {
-        val zekrInstance = uiState.value.categoryDetails.value.zekrInstanceList.getOrNull(tabIndex)
-        return uiState.value.categoryDetails.value.countList.firstOrNull { it.value.zekrInstanceId == zekrInstance?.value?.zekrId }
-            ?: mutableStateOf(ZekrCount())
+    fun getThekrCount(tabIndex: Int): MutableState<ThekrCount> {
+        val thekrInstance = uiState.value.categoryDetails.value.thekrInstanceList.getOrNull(tabIndex)
+        return uiState.value.categoryDetails.value.countList.firstOrNull { it.value.thekrInstanceId == thekrInstance?.value?.thekrId }
+            ?: mutableStateOf(ThekrCount())
     }
 
-    fun getCurrentZekrCount(): MutableState<ZekrCount> {
-        val currentZekrInstance = uiState.value.currentZekrInstance
-        return uiState.value.categoryDetails.value.countList.firstOrNull { it.value.zekrInstanceId == currentZekrInstance.value.zekrId }
-            ?: throw IllegalStateException("getCurrentZekrCount: can't find one")
+    fun getCurrentThekrCount(): MutableState<ThekrCount> {
+        val currentThekrInstance = uiState.value.currentThekrInstance
+        return uiState.value.categoryDetails.value.countList.firstOrNull { it.value.thekrInstanceId == currentThekrInstance.value.thekrId }
+            ?: throw IllegalStateException("getCurrentThekrCount: can't find one")
     }
 
-    fun getZekr(tabIndex: Int): MutableState<ZekrDetails> {
-        val zekrInstance = uiState.value.categoryDetails.value.zekrInstanceList.getOrNull(tabIndex)
-        return uiState.value.categoryDetails.value.zekrList.firstOrNull { it.value.id == zekrInstance?.value?.zekrId }
-            ?: mutableStateOf(ZekrDetails())
+    fun getThekr(tabIndex: Int): MutableState<ThekrDetails> {
+        val thekrInstance = uiState.value.categoryDetails.value.thekrInstanceList.getOrNull(tabIndex)
+        return uiState.value.categoryDetails.value.thekrList.firstOrNull { it.value.id == thekrInstance?.value?.thekrId }
+            ?: mutableStateOf(ThekrDetails())
     }
 
-    fun getCurrentZekr(): MutableState<ZekrDetails> {
-        val currentZekrInstance = uiState.value.currentZekrInstance
-        return uiState.value.categoryDetails.value.zekrList.firstOrNull { it.value.id == currentZekrInstance.value.zekrId }
-            ?: mutableStateOf(ZekrDetails())
+    fun getCurrentThekr(): MutableState<ThekrDetails> {
+        val currentThekrInstance = uiState.value.currentThekrInstance
+        return uiState.value.categoryDetails.value.thekrList.firstOrNull { it.value.id == currentThekrInstance.value.thekrId }
+            ?: mutableStateOf(ThekrDetails())
     }
 
-    fun getZekrInstance(tabIndex: Int): MutableState<ZekrInstanceDetails> {
-        return uiState.value.categoryDetails.value.zekrInstanceList.getOrNull(tabIndex)
-            ?: mutableStateOf(ZekrInstanceDetails())
+    fun getThekrInstance(tabIndex: Int): MutableState<ThekrInstanceDetails> {
+        return uiState.value.categoryDetails.value.thekrInstanceList.getOrNull(tabIndex)
+            ?: mutableStateOf(ThekrInstanceDetails())
     }
 
-    fun tabIndexOf(zekrInstanceId: Long): Int {
-        return uiState.value.categoryDetails.value.zekrInstanceList.indexOfFirst {
-            it.value.id == zekrInstanceId
+    fun tabIndexOf(thekrInstanceId: Long): Int {
+        return uiState.value.categoryDetails.value.thekrInstanceList.indexOfFirst {
+            it.value.id == thekrInstanceId
         }
     }
 
@@ -177,7 +177,7 @@ class ZekrCounterViewModel(
     }
 
     fun updateOnCount() {
-        var count by getCurrentZekrCount()
+        var count by getCurrentThekrCount()
         count = count.copy(
             dailyCount = count.dailyCount + 1,
             weeklyCount = count.weeklyCount + 1,

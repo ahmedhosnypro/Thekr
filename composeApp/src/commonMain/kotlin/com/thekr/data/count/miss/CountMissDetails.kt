@@ -8,8 +8,8 @@ import com.thekr.util.TimeHelper.now
 @Immutable
 data class CountMissDetails(
     val id: Long = 0,
-    val zekrCategoryId: Long = 1,
-    val zekrInstanceId: Long,
+    val thekrCategoryId: Long = 1,
+    val thekrInstanceId: Long,
     val value: Long = 0,
     val timeCreated: Long = now(),
 )

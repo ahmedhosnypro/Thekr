@@ -16,13 +16,13 @@ interface CountDAO {
     @Query(
         """
         SELECT * FROM count
-        WHERE (:zekrInstanceId IS NULL OR zekrInstanceId = :zekrInstanceId)
+        WHERE (:thekrInstanceId IS NULL OR thekrInstanceId = :thekrInstanceId)
         AND (:timeCreatedAfter IS NULL OR timeCreated > :timeCreatedAfter)
         AND (:timeCreatedBefore IS NULL OR timeCreated < :timeCreatedBefore)
     """
     )
     fun findCounts(
-        zekrInstanceId: Long? = null,
+        thekrInstanceId: Long? = null,
         timeCreatedAfter: Long? = null,
         timeCreatedBefore: Long? = null
     ): Flow<List<Count>>
@@ -31,28 +31,28 @@ interface CountDAO {
     @Query(
         """
         SELECT COUNT(*) FROM count
-        WHERE (:zekrInstanceId IS NULL OR zekrInstanceId = :zekrInstanceId)
+        WHERE (:thekrInstanceId IS NULL OR thekrInstanceId = :thekrInstanceId)
         AND (:timeCreatedAfter IS NULL OR timeCreated > :timeCreatedAfter)
         AND (:timeCreatedBefore IS NULL OR timeCreated < :timeCreatedBefore)
     """
     )
     fun getCount(
-        zekrInstanceId: Long? = null,
+        thekrInstanceId: Long? = null,
         timeCreatedAfter: Long? = null,
         timeCreatedBefore: Long? = null
     ): Flow<Int>
 
     // Simplify last count retrieval
-    @Query("SELECT * FROM count WHERE zekrInstanceId = :zekrInstanceId ORDER BY timeCreated DESC LIMIT 1")
-    fun getLastCountByZekrInstanceId(zekrInstanceId: Long): Flow<Count?>
+    @Query("SELECT * FROM count WHERE thekrInstanceId = :thekrInstanceId ORDER BY timeCreated DESC LIMIT 1")
+    fun getLastCountByThekrInstanceId(thekrInstanceId: Long): Flow<Count?>
 
     // Synchronous queries (use sparingly and only when necessary)
     @Query("SELECT * FROM count")
     suspend fun findAllSync(): List<Count>
 
-    @Query("SELECT * FROM count WHERE zekrCategoryId = :categoryId")
+    @Query("SELECT * FROM count WHERE thekrCategoryId = :categoryId")
     fun findAllByCategorySync(categoryId: Long): Flow<List<Count>>
 
-    @Query("SELECT * FROM count WHERE zekrInstanceId = :zekrInstanceId")
-    fun findAllByZekrInstanceSync(zekrInstanceId: Long): Flow<List<Count>>
+    @Query("SELECT * FROM count WHERE thekrInstanceId = :thekrInstanceId")
+    fun findAllByThekrInstanceSync(thekrInstanceId: Long): Flow<List<Count>>
 }
