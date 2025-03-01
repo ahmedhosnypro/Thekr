@@ -15,8 +15,6 @@ import com.thekr.data.settings.SettingsDetails
 import com.thekr.data.thekr.count.ThekrCount
 import com.thekr.data.thekr.instance.ThekrInstanceDetails
 import com.thekr.data.thekr.thekr.ThekrDetails
-import com.thekr.stats.DayStatisticsType
-import com.thekr.stats.data.DailyStatisticsData.calcDayStatistics
 import com.thekr.ui.counter.viewmodel.CounterUiState
 import com.thekr.ui.counter.viewmodel.ThekrCounterViewModel
 import com.thekr.ui.counter.viewmodel.action.ThekrSoundPlayer
@@ -24,10 +22,12 @@ import com.thekr.ui.counter.viewmodel.action.ThekrSoundPlayer.onPlayAudio
 import com.thekr.ui.counter.viewmodel.action.onThekrCounterCount
 import com.thekr.ui.settings.SettingActions
 import com.thekr.ui.settings.SettingActions.currentSettings
+import com.thekr.ui.stats.DayStatisticsType
+import com.thekr.ui.stats.data.DailyStatisticsData.calcDayStatistics
+import com.thekr.ui.stats.data.StatisticsData
+import com.thekr.ui.stats.data.WeeklyStatisticsData.calcWeekStatistics
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import com.thekr.stats.data.StatisticsData
-import com.thekr.stats.data.WeeklyStatisticsData.calcWeekStatistics
 
 /**
  * Helper object for managing actions and data related to the Counter

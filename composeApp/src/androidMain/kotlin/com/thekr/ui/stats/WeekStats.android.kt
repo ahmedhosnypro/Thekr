@@ -1,4 +1,4 @@
-package com.thekr.preview.stats
+package com.thekr.ui.stats
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Surface
@@ -10,13 +10,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.patrykandpatrick.vico.multiplatform.cartesian.data.CartesianChartModelProducer
 import com.patrykandpatrick.vico.multiplatform.cartesian.data.columnSeries
 import com.thekr.data.proto.ThemeMode
-import com.thekr.stats.tab.WeekChart
 import com.thekr.ui.component.LocalizedApp
 import com.thekr.ui.theme.AppTheme
 import kotlinx.coroutines.runBlocking
 import kotlin.random.Random
 import androidx.compose.runtime.mutableLongStateOf
-import com.thekr.stats.tab.WeekNavigator
+import com.thekr.ui.stats.tab.WeekChart
+import com.thekr.ui.stats.tab.WeekNavigator
 
 @Composable
 @Preview(locale = "ar", group = "WeekNavigator")

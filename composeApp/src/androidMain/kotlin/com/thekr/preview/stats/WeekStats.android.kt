@@ -7,17 +7,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.patrykandpatrick.vico.multiplatform.cartesian.data.CartesianChartModelProducer
 import com.patrykandpatrick.vico.multiplatform.cartesian.data.columnSeries
 import com.thekr.data.proto.ThemeMode
-import com.thekr.stats.tab.WeekChart
 import com.thekr.ui.component.LocalizedApp
 import com.thekr.ui.theme.AppTheme
 import kotlinx.coroutines.runBlocking
 import kotlin.random.Random
 import androidx.compose.runtime.mutableLongStateOf
-import com.thekr.stats.tab.WeekNavigator
+import com.thekr.ui.stats.tab.WeekChart
+import com.thekr.ui.stats.tab.WeekNavigator
 
 @Composable
 @Preview(locale = "ar", group = "WeekNavigator")

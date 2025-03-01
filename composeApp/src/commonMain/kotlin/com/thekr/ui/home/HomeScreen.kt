@@ -29,7 +29,7 @@ import com.thekr.ui.AppActions
 import com.thekr.ui.AppActions.canNavigateToPreviousCategory
 import com.thekr.ui.AppActions.navigateToParentCategory
 import com.thekr.ui.component.LocalizedApp
-import com.thekr.ui.home.bar.top.HomeBar
+import com.thekr.ui.home.header.HomeTopBar
 import com.thekr.ui.home.list.DuaTab
 import com.thekr.ui.home.tab.ThekrTab
 import com.thekr.ui.home.tab.sebha.SebhaTab
@@ -85,7 +85,7 @@ private fun HomeContent(
     Scaffold(
         snackbarHost = { SnackbarHost(hostState = snackBarHostState) },
         topBar = {
-            HomeBar(
+            HomeTopBar(
                 pagerState = pagerState,
                 settingsDetails = settingsDetails,
                 appState = appState,

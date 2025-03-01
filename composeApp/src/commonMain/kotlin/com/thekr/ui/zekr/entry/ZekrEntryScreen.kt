@@ -37,7 +37,7 @@ import com.thekr.data.thekr.thekr.ThekrEntry
 import com.thekr.data.thekr.thekr.ThekrEntryUiState
 import com.thekr.model.ThekrTargetStatus
 import com.thekr.ui.component.bar.AppTopBar
-import com.thekr.ui.home.bar.top.HeaderText
+import com.thekr.ui.component.bar.HeaderText
 import com.thekr.ui.navigation.NavigationActions
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.component.LocalizedApp

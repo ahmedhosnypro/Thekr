@@ -13,11 +13,11 @@ import com.patrykandpatrick.vico.multiplatform.cartesian.data.CartesianChartMode
 import com.patrykandpatrick.vico.multiplatform.cartesian.data.columnSeries
 import com.thekr.data.proto.ThemeMode
 import com.thekr.model.Count
-import com.thekr.stats.DayStatisticsType
-import com.thekr.stats.data.DailyStatisticsData
-import com.thekr.stats.tab.DayChart
-import com.thekr.stats.tab.DayNavigator
 import com.thekr.ui.component.LocalizedApp
+import com.thekr.ui.stats.DayStatisticsType
+import com.thekr.ui.stats.data.DailyStatisticsData
+import com.thekr.ui.stats.tab.DayChart
+import com.thekr.ui.stats.tab.DayNavigator
 import com.thekr.ui.theme.AppTheme
 import kotlinx.coroutines.runBlocking
 import kotlin.random.Random
@@ -83,7 +83,7 @@ private fun DayChartMinutePreview() {
     val sampleCounts = List(100) { 
         Count(
             timeCreated = System.currentTimeMillis() - Random.nextLong(0, 24 * 60 * 60 * 1000),
-            zekrInstanceId = 1,
+            thekrInstanceId = 1,
         )
     }
     

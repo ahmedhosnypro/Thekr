@@ -1,8 +1,8 @@
 package com.thekr.ui.stats.data
 
 import com.thekr.model.Count
-import com.thekr.stats.DayStatisticsType
 import com.thekr.ui.counter.viewmodel.ThekrCounterViewModel
+import com.thekr.ui.stats.DayStatisticsType
 import com.thekr.util.TimeHelper.calcMidnight
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking

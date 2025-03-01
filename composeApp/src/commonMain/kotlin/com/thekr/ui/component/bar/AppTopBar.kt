@@ -25,10 +25,9 @@ import com.thekr.resources.header_background
 import com.thekr.resources.settings
 import com.thekr.ui.component.LocalizedApp
 import com.thekr.ui.home.HomeTab
-import com.thekr.ui.home.bar.top.HeaderTabsRow
-import com.thekr.ui.home.bar.top.HeaderText
-import com.thekr.ui.home.bar.top.HomeBarCreateAction
-import com.thekr.ui.home.bar.top.SearchUi
+import com.thekr.ui.home.header.HomeTopBarCreateAction
+import com.thekr.ui.home.header.AppName
+import com.thekr.ui.home.header.HeaderTabsRow
 import com.thekr.ui.modifier.PaintingRepeat
 import com.thekr.ui.modifier.paint
 import com.thekr.ui.navigation.NavigationActions
@@ -39,6 +38,7 @@ import com.thekr.ui.viewmodel.AppState
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
+
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun AppTopBar(
@@ -47,12 +47,12 @@ fun AppTopBar(
     title: @Composable () -> Unit = {},
     actions: @Composable (RowScope.() -> Unit) = {},
     navigationIcon: @Composable () -> Unit = {},
-    headerTabsRow: @Composable (() -> Unit)? = null,
-    secondaryHeader: @Composable (() -> Unit)? = null,
+    secondRow: @Composable (() -> Unit)? = null,
+    thirdRow: @Composable (() -> Unit)? = null,
 ) {
     val appColors = AppTheme.colors(settingsDetails)
     val localDensity = LocalDensity.current
-    var secondaryHeaderHeight by remember { mutableStateOf(0.dp) }
+    var thirdRowHeight by remember { mutableStateOf(0.dp) }
 
     val sTiny = sTiny
 
@@ -94,14 +94,14 @@ fun AppTopBar(
                 actionIconContentColor = appColors.onMainHeader
             ),
         )
-        if (headerTabsRow != null) headerTabsRow()
+        if (secondRow != null) secondRow()
         Box(
             modifier = Modifier.padding(top = sTiny)
         ) {
             Box(
                 modifier = Modifier
-                    .padding(top = secondaryHeaderHeight / 2)
-                    .heightIn(min = secondaryHeaderHeight / 2, max = secondaryHeaderHeight / 2)
+                    .padding(top = thirdRowHeight / 2)
+                    .heightIn(min = thirdRowHeight / 2, max = thirdRowHeight / 2)
                     .fillMaxWidth()
                     .background(
                         color = MaterialTheme.colorScheme.surface,
@@ -110,11 +110,11 @@ fun AppTopBar(
             Box(
                 modifier = Modifier
                     .onGloballyPositioned { coordinates ->
-                        secondaryHeaderHeight =
+                        thirdRowHeight =
                             with(localDensity) { coordinates.size.height.toDp() }
                     }
             ) {
-                secondaryHeader?.let { it() }
+                thirdRow?.let { it() }
             }
         }
     }
@@ -136,7 +136,7 @@ fun AppBarPreviewTemplate(
                 )
             },
             actions = {
-                HomeBarCreateAction(appState)
+                HomeTopBarCreateAction(appState)
                 // settings icon
                 IconButton(onClick = {
 //                            NavigationActions.navigate(SettingsRoute)
@@ -158,11 +158,11 @@ fun AppBarPreviewTemplate(
                     )
                 }
             },
-            headerTabsRow = {
+            secondRow = {
                 HeaderTabsRow(pagerState)
             },
-            secondaryHeader = {
-                SearchUi(settingsDetails)
+            thirdRow = {
+                AppName(settingsDetails)
             },
             settingsDetails = settingsDetails,
         )

@@ -1,6 +1,5 @@
 package com.thekr.ui.counter
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.PagerState
@@ -36,13 +35,13 @@ import com.thekr.ui.counter.viewmodel.action.configSleepJop
 import com.thekr.ui.home.list.categoryDetailsPreviewState
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.component.LocalizedApp
-import com.thekr.stats.ThekrStats
+import com.thekr.ui.stats.ThekrStats
 import com.thekr.ui.viewmodel.AppViewModelProvider
 import korlibs.platform.Platform
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ThekrScreen(
     settingsDetails: SettingsDetails,
@@ -227,7 +226,7 @@ fun ThekrScreenBodyPreviewDark() {
 }
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 private fun ThekrScreenPreviewOnly(
     settingsDetails: SettingsDetails
 ) {

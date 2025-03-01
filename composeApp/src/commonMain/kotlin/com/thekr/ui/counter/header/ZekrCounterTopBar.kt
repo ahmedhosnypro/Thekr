@@ -72,9 +72,9 @@ import com.thekr.values.Dimensions.normal
 import com.thekr.values.Dimensions.small
 import com.thekr.values.Dimensions.xLarge
 import com.thekr.values.Dimensions.xxLarge
-import com.thekr.ui.home.bar.top.HeaderControlCard
-import com.thekr.ui.home.bar.top.HeaderText
-import com.thekr.ui.home.bar.top.TopBarHeaderControls
+import com.thekr.ui.home.header.HeaderControlCard
+import com.thekr.ui.component.bar.HeaderText
+import com.thekr.ui.home.header.TopBarHeaderControls
 import com.thekr.ui.home.list.categoryDetailsPreviewState
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.component.LocalizedApp
@@ -116,7 +116,7 @@ private fun MainThekrAppBar(
         title = { HeaderText(text = categoryDetails.value.name) },
         actions = { ThekrAppBarActions(counterUiState, categoryDetails) },
         navigationIcon = { ThekrAppBarNavigationIcon() },
-        secondaryHeader = {
+        thirdRow = {
             ThekrTopBarFeatures(
                 settingsDetails = settingsDetails,
                 counterUiState = counterUiState,

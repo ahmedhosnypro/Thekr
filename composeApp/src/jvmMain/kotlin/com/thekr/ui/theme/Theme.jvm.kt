@@ -1,4 +1,4 @@
-package com.thekr.theme
+package com.thekr.ui.theme
 
 import androidx.compose.runtime.Composable
 

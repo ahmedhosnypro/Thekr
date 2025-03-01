@@ -1,4 +1,4 @@
-package com.thekr.preview.stats
+package com.thekr.ui.stats
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Surface
@@ -13,11 +13,10 @@ import com.patrykandpatrick.vico.multiplatform.cartesian.data.CartesianChartMode
 import com.patrykandpatrick.vico.multiplatform.cartesian.data.columnSeries
 import com.thekr.data.proto.ThemeMode
 import com.thekr.model.Count
-import com.thekr.stats.DayStatisticsType
-import com.thekr.stats.data.DailyStatisticsData
-import com.thekr.stats.tab.DayChart
-import com.thekr.stats.tab.DayNavigator
 import com.thekr.ui.component.LocalizedApp
+import com.thekr.ui.stats.data.DailyStatisticsData
+import com.thekr.ui.stats.tab.DayChart
+import com.thekr.ui.stats.tab.DayNavigator
 import com.thekr.ui.theme.AppTheme
 import kotlinx.coroutines.runBlocking
 import kotlin.random.Random

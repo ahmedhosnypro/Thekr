@@ -38,10 +38,10 @@ import com.thekr.resources.daily
 import com.thekr.resources.monthly
 import com.thekr.resources.statistics
 import com.thekr.resources.weekly
-import com.thekr.stats.tab.DayStats
-import com.thekr.stats.tab.MonthlyStats
-import com.thekr.stats.tab.WeekStats
 import com.thekr.ui.component.bar.AppTopBar
+import com.thekr.ui.stats.tab.DayStats
+import com.thekr.ui.stats.tab.MonthlyStats
+import com.thekr.ui.stats.tab.WeekStats
 import com.thekr.values.Dimensions.xLarge
 import com.thekr.util.TimeHelper.calcMidnight
 import kotlinx.coroutines.launch

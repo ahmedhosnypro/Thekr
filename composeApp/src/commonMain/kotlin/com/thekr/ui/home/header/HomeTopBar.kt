@@ -1,6 +1,10 @@
-package com.thekr.ui.home.bar.top
+package com.thekr.ui.home.header
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
@@ -10,14 +14,20 @@ import androidx.compose.material.icons.outlined.Create
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Surface
+import androidx.compose.material3.TabRowDefaults.SecondaryIndicator
+import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
 import com.thekr.ui.AppActions
@@ -40,9 +50,11 @@ import com.thekr.resources.create_thekr_group
 import com.thekr.resources.settings
 import com.thekr.ui.component.bar.HeaderText
 import com.thekr.ui.theme.hacenTunisia
+import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun HomeBar(
+fun HomeTopBar(
     settingsDetails: SettingsDetails,
     pagerState: PagerState,
     appState: AppState,
@@ -57,7 +69,7 @@ fun HomeBar(
         },
         actions = {
             if (pagerState.currentPage == 0) {
-                HomeBarCreateAction(appState)
+                HomeTopBarCreateAction(appState)
             }
             // settings icon
             IconButton(onClick = {
@@ -83,18 +95,18 @@ fun HomeBar(
                 }
             }
         },
-        headerTabsRow = {
+        secondRow = {
             HeaderTabsRow(pagerState)
         },
-        secondaryHeader = {
-            SearchUi(settingsDetails)
+        thirdRow = {
+            AppName(settingsDetails)
         },
         settingsDetails = settingsDetails,
     )
 }
 
 @Composable
-fun HomeBarCreateAction(
+fun HomeTopBarCreateAction(
     appState: AppState,
 ) {
     val showCreateNewCategoryDialog = remember { mutableStateOf(false) }
@@ -120,7 +132,7 @@ fun HomeBarCreateAction(
 }
 
 @Composable
-fun SearchUi(
+fun AppName(
     settingsDetails: SettingsDetails,
     modifier: Modifier = Modifier,
 ) {
@@ -139,13 +151,73 @@ fun SearchUi(
     }
 }
 
+
+@Composable
+fun PagerTabsIconOnly(
+    pagerState: PagerState,
+    modifier: Modifier = Modifier
+) {
+    val coroutineScope = rememberCoroutineScope()
+    HomeTab.entries.forEachIndexed { index, tab ->
+        val selected = (index == pagerState.currentPage)
+        Surface(
+            modifier = modifier,
+            onClick = {
+                coroutineScope.launch {
+                    pagerState.animateScrollToPage(index)
+                }
+            }, color = Color.Transparent
+        ) {
+            Icon(
+                painterResource(tab.iconRes),
+                contentDescription = null, tint = if (selected) Color.White
+                else Color.White.copy(alpha = .7f), modifier = Modifier.size(48.dp)
+            )
+        }
+    }
+}
+
+@Composable
+fun HeaderTabsRow(
+    pagerState: PagerState,
+    modifier: Modifier = Modifier,
+) {
+    BoxWithConstraints(
+        modifier = modifier
+    ) {
+        val width = maxWidth
+        ScrollableTabRow(selectedTabIndex = minOf(HomeTab.entries.size, pagerState.currentPage),
+            edgePadding = 0.dp,
+            containerColor = Color.Transparent,
+            contentColor = Color.White,
+            modifier = Modifier
+                .align(Alignment.CenterEnd)
+                .background(
+                    color = Color(0x0DFFFFFF)
+                ),
+            indicator = { tabPositions ->
+                SecondaryIndicator(
+                    Modifier.tabIndicatorOffset(
+                        tabPositions[pagerState.currentPage]
+                    ),
+                    color = Color.White
+                )
+            },
+            divider = {}) {
+            PagerTabsIconOnly(
+                pagerState, modifier = Modifier.width(width / HomeTab.entries.size)
+            )
+        }
+    }
+}
+
 @Preview
 @Composable
 fun HomeBarPreview() {
     AppTheme {
         Surface {
             LocalizedApp {
-                HomeBar(
+                HomeTopBar(
                     pagerState = rememberPagerState(pageCount = { 3 }),
                     settingsDetails = SettingsDetails(),
                     appState = AppState(),
@@ -161,7 +233,7 @@ fun HomeBarPreviewDark() {
     AppTheme(ThemeMode.Dark) {
         Surface {
             LocalizedApp {
-                HomeBar(
+                HomeTopBar(
                     pagerState = rememberPagerState(pageCount = { 3 }),
                     settingsDetails = SettingsDetails(),
                     appState = AppState(),

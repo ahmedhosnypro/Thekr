@@ -20,7 +20,7 @@ import com.thekr.resources.Res
 import com.thekr.resources.back
 import com.thekr.ui.component.bar.AppTopBar
 import com.thekr.ui.component.LocalizedApp
-import com.thekr.ui.home.bar.top.HeaderText
+import com.thekr.ui.component.bar.HeaderText
 import com.thekr.ui.home.list.ThekrList
 import com.thekr.ui.theme.AppTheme
 import org.jetbrains.compose.resources.stringResource

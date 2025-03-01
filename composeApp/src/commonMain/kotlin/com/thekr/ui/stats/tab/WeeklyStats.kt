@@ -29,11 +29,11 @@ import com.patrykandpatrick.vico.multiplatform.cartesian.data.CartesianChartMode
 import com.patrykandpatrick.vico.multiplatform.cartesian.rememberCartesianChart
 import com.patrykandpatrick.vico.multiplatform.cartesian.rememberVicoScrollState
 import com.patrykandpatrick.vico.multiplatform.cartesian.rememberVicoZoomState
-import com.thekr.stats.component.axis.startAxis
-import com.thekr.stats.component.axis.weeklyBottomAxis
-import com.thekr.stats.component.getColumnLayer
-import com.thekr.stats.component.getLineLayer
 import com.thekr.ui.counter.CounterHelper
+import com.thekr.ui.stats.component.axis.startAxis
+import com.thekr.ui.stats.component.axis.weeklyBottomAxis
+import com.thekr.ui.stats.component.getColumnLayer
+import com.thekr.ui.stats.component.getLineLayer
 import com.thekr.values.Dimensions.medium
 import com.thekr.values.Dimensions.small
 import org.jetbrains.compose.ui.tooling.preview.Preview

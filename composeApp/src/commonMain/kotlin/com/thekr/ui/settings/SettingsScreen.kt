@@ -21,7 +21,7 @@ import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
 import com.thekr.ui.component.bar.AppTopBar
 import com.thekr.ui.component.DefaultHorizontalDivider
-import com.thekr.ui.home.bar.top.HeaderText
+import com.thekr.ui.component.bar.HeaderText
 import com.thekr.ui.navigation.NavigationActions
 import com.thekr.ui.navigation.route.HomeRoute
 import com.thekr.ui.settings.component.GroupTitle
