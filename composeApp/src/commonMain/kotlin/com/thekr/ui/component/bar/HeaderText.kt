@@ -1,4 +1,4 @@
-package com.thekr.ui.home.bar.top
+package com.thekr.ui.component.bar
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme

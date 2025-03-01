@@ -1,5 +1,6 @@
 package com.thekr.ui.home.bar.top
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
@@ -8,11 +9,15 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.Create
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
 import com.thekr.ui.AppActions
@@ -29,9 +34,12 @@ import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import com.thekr.resources.Res
 import com.thekr.resources.add_thekr
+import com.thekr.resources.app_name
 import com.thekr.resources.back
 import com.thekr.resources.create_thekr_group
 import com.thekr.resources.settings
+import com.thekr.ui.component.bar.HeaderText
+import com.thekr.ui.theme.hacenTunisia
 
 @Composable
 fun HomeBar(
@@ -111,6 +119,25 @@ fun HomeBarCreateAction(
     )
 }
 
+@Composable
+fun SearchUi(
+    settingsDetails: SettingsDetails,
+    modifier: Modifier = Modifier,
+) {
+    TopBarHeaderControls(
+        settingsDetails = settingsDetails,
+        modifier = modifier
+    ) {
+        Text(
+            text = stringResource(Res.string.app_name),
+            style = MaterialTheme.typography.headlineLarge,
+            fontFamily = hacenTunisia(),
+            modifier = Modifier
+                .fillMaxWidth(),
+            textAlign = TextAlign.Center
+        )
+    }
+}
 
 @Preview
 @Composable
