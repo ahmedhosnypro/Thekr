@@ -45,3 +45,4 @@ plugins {
 
 
 include(":composeApp")
+include(":baselineprofile")

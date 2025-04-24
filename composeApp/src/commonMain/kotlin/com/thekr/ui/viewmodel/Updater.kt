@@ -42,6 +42,7 @@ fun updateThekrList(
 
     // Update existing Thekr items if they have been updated in the database
     updatedThekrList.forEach { newThekr ->
+        println("newThekr: ${newThekr.id} - ${newThekr.timeUpdated}")
         val index = existingThekrIds.indexOf(newThekr.id)
         if (index != -1 && toUpdateThekrList[index].value.timeUpdated < newThekr.timeUpdated) {
             // Update the MutableState directly
@@ -72,6 +73,7 @@ fun updateThekrInstanceList(
 
     // Update existing ThekrInstanceDetails items
     updatedThekrInstanceList.forEach { newThekrInstance ->
+        println("newThekrInstance: ${newThekrInstance.id} - ${newThekrInstance.timeUpdated}")
         val index = existingThekrInstanceIds.indexOf(newThekrInstance.id)
         if (index != -1 && toUpdateThekrInstanceList[index].value.timeUpdated < newThekrInstance.timeUpdated) {
             // Update the MutableState directly

@@ -63,6 +63,7 @@ object Fetcher {
                 )
 
             thekrList.collect { thekrDetailsList ->
+                println("thekrDetailsList: $thekrDetailsList")
                 updateThekrList(
                     toUpdateThekrList = categoryDetails.value.thekrList,
                     updatedThekrList = thekrDetailsList,
@@ -90,6 +91,7 @@ object Fetcher {
                 )
 
             thekrInstanceList.collect { thekrInstanceDetailsList ->
+                println("thekrInstanceDetailsList: $thekrInstanceDetailsList")
                 updateThekrInstanceList(
                     toUpdateThekrInstanceList = categoryDetails.value.thekrInstanceList,
                     updatedThekrInstanceList = thekrInstanceDetailsList
@@ -123,6 +125,7 @@ object Fetcher {
                     )
 
             countList.collect { updatedCountList ->
+                println("updatedCountList: $updatedCountList")
                 // Update ThekrCount item
                 updateThekrCountItem(
                     toUpdateThekrCountList = categoryDetails.value.countList,
@@ -164,6 +167,7 @@ object Fetcher {
                 )
 
             fadlList.collect { updatedFadlList ->
+                println("updatedFadlList: $updatedFadlList")
                 updateFadlList(
                     toUpdateFadlList = categoryDetails.value.fadlList,
                     updatedFadlList = updatedFadlList,

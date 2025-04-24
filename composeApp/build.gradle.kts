@@ -20,6 +20,7 @@ plugins {
 
 //    alias(libs.plugins.korge)
     id("org.jetbrains.compose.hot-reload") version "1.0.0-dev-63"
+    alias(libs.plugins.baselineprofile)
 }
 
 val nameSpace = "com.thekr"
@@ -207,7 +208,7 @@ android {
     //https://developer.android.com/studio/test/gradle-managed-devices
     @Suppress("UnstableApiUsage")
     testOptions {
-        managedDevices.devices {
+        managedDevices.allDevices {
             maybeCreate<ManagedVirtualDevice>("pixel5").apply {
                 device = "Pixel 5"
                 apiLevel = 34
@@ -248,6 +249,8 @@ room {
 }
 
 dependencies {
+    implementation(libs.androidx.profileinstaller)
+    "baselineProfile"(project(":baselineprofile"))
     //    implementation(libs.androidx.room.ktx)
 
     with(libs.room.compiler) {
