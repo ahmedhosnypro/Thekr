@@ -13,13 +13,9 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
-    kotlinOptions {
-        jvmTarget = "11"
-    }
-
     defaultConfig {
-        minSdk = 28
-        targetSdk = 35
+        minSdk = libs.versions.android.minSdk.get().toInt()
+        targetSdk = libs.versions.android.targetSdk.get().toInt()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -41,12 +37,22 @@ dependencies {
     implementation(libs.androidx.benchmark.macro.junit4)
 }
 
+@Suppress("SUSPICIOUS_INDENTATION")
 androidComponents {
     onVariants { v ->
         val artifactsLoader = v.artifacts.getBuiltArtifactsLoader()
         v.instrumentationRunnerArguments.put(
             "targetAppId",
-            v.testedApks.map { artifactsLoader.load(it)?.applicationId }
+            v.testedApks.map { it ->
+                val loaded = artifactsLoader.load(it)
+                loaded?.applicationId ?: ""
+            }
         )
+    }
+}
+
+kotlin{
+    compilerOptions {
+        jvmToolchain(11)
     }
 }
