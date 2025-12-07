@@ -9,7 +9,7 @@ ENV ANDROID_HOME=/opt/android-sdk \
 
 USER root
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends wget unzip \
+    && apt-get install -y --no-install-recommends wget unzip git-lfs \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Android command line tools and required components
