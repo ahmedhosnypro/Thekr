@@ -7,14 +7,14 @@
       "KOTLIN_LSP_VERSION": "0.253.10629"
     }
   },
-  "remoteUser": "vscode",
+  "remoteUser": "root",
   "containerEnv": {
     "ANDROID_HOME": "/opt/android-sdk",
     "ANDROID_SDK_ROOT": "/opt/android-sdk",
     "KOTLIN_LSP_VERSION": "0.253.10629"
   },
   "mounts": [
-    "type=volume,source=thekr-gradle-cache,target=/home/vscode/.gradle"
+    "type=volume,source=thekr-gradle-cache,target=/root/.gradle"
   ],
   "customizations": {
     "vscode": {

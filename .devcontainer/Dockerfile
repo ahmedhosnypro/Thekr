@@ -36,10 +36,10 @@ RUN KOTLIN_LSP_DIR=/opt/kotlin-lsp \
     && cd /tmp \
     && wget -q https://download-cdn.jetbrains.com/kotlin-lsp/${KOTLIN_LSP_VERSION}/kotlin-${KOTLIN_LSP_VERSION}.vsix \
     && wget -q https://download-cdn.jetbrains.com/kotlin-lsp/${KOTLIN_LSP_VERSION}/kotlin-${KOTLIN_LSP_VERSION}.zip \
-    && mv kotlin-${KOTLIN_LSP_VERSION}.vsix kotlin-${KOTLIN_LSP_VERSION}.zip ${KOTLIN_LSP_DIR}/ \
-    && chown -R vscode:vscode ${KOTLIN_LSP_DIR}
+    && mv kotlin-${KOTLIN_LSP_VERSION}.vsix kotlin-${KOTLIN_LSP_VERSION}.zip ${KOTLIN_LSP_DIR}/
 
-# Make SDK writable by vscode user
-RUN chown -R vscode:vscode /opt/android-sdk
+# Prepare gradle cache directory with root ownership
+RUN mkdir -p /root/.gradle && \
+    mkdir -p /opt/android-sdk
 
-USER vscode
+USER root
