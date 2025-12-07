@@ -9,8 +9,37 @@ ENV ANDROID_HOME=/opt/android-sdk \
 
 USER root
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends wget unzip git-lfs \
+    && apt-get install -y --no-install-recommends \
+    unzip git-lfs \
+    nano \
+    libwebkit2gtk-4.1-dev \
+    build-essential \
+    curl \
+    wget \
+    file \
+    libxdo-dev \
+    libssl-dev \
+    libayatana-appindicator3-dev \
+    librsvg2-dev \
+    zsh \
+    git \
+    fontconfig \
+    unzip \
+    && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
+# Copy Oh My Zsh installation script and config
+COPY scripts/install_ohmyzsh.sh /tmp/install_ohmyzsh.sh
+COPY scripts/.p10k.zsh /tmp/.p10k.zsh
+
+# Install Oh My Zsh, Powerlevel10k, and plugins
+RUN chmod +x /tmp/install_ohmyzsh.sh && \
+    /tmp/install_ohmyzsh.sh && \
+    rm /tmp/install_ohmyzsh.sh
+
+# Set zsh as default shell
+ENV SHELL=/usr/bin/zsh
+SHELL ["/usr/bin/zsh", "-c"]
 
 # Install Android command line tools and required components
 RUN mkdir -p /opt/android-sdk/cmdline-tools \

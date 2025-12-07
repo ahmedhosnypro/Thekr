@@ -1,6 +1,7 @@
 {
   "name": "Thekr Android Dev",
   "build": {
+    "context": "..",
     "dockerfile": "Dockerfile",
     "args": {
       "ANDROID_SDK_VERSION": "11076708",
