@@ -28,11 +28,11 @@
       "settings": {
         "java.configuration.runtimes": [
           {
-            "name": "JavaSE-17",
-            "path": "/usr/lib/jvm/msopenjdk-17-amd64"
+            "name": "JavaSE-21",
+            "path": "/usr/lib/jvm/msopenjdk-21-amd64"
           }
         ],
-        "kotlin.compiler.jvm.target": "17",
+        "kotlin.compiler.jvm.target": "21",
         "terminal.integrated.defaultProfile.linux": "bash"
       }
     }

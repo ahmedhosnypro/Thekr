@@ -1,5 +1,5 @@
 # Devcontainer for building Android target of the Compose Multiplatform project without Android Studio
-FROM mcr.microsoft.com/devcontainers/java:17-bookworm
+FROM mcr.microsoft.com/devcontainers/java:21-bookworm
 
 ARG ANDROID_SDK_VERSION=11076708
 ARG KOTLIN_LSP_VERSION=0.253.10629

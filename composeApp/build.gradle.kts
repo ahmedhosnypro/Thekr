@@ -41,15 +41,15 @@ kotlin {
 //    androidTarget {
 //        @OptIn(ExperimentalKotlinGradlePluginApi::class)
 //        compilerOptions {
-//            jvmTarget.set(JvmTarget.JVM_11)
+//            jvmTarget.set(JvmTarget.JVM_21)
 //        }
 //    }
 
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
-            freeCompilerArgs.add("-Xjdk-release=${JavaVersion.VERSION_11}")
+            jvmTarget.set(JvmTarget.JVM_21)
+            freeCompilerArgs.add("-Xjdk-release=${JavaVersion.VERSION_21}")
         }
 
         //https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html
@@ -191,8 +191,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
     buildFeatures {
         //enables a Compose tooling support in the AndroidStudio
