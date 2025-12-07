@@ -1,0 +1,41 @@
+{
+  "name": "Thekr Android Dev",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "ANDROID_SDK_VERSION": "11076708",
+      "KOTLIN_LSP_VERSION": "0.253.10629"
+    }
+  },
+  "remoteUser": "vscode",
+  "containerEnv": {
+    "ANDROID_HOME": "/opt/android-sdk",
+    "ANDROID_SDK_ROOT": "/opt/android-sdk",
+    "KOTLIN_LSP_VERSION": "0.253.10629"
+  },
+  "mounts": [
+    "type=volume,source=thekr-gradle-cache,target=/home/vscode/.gradle"
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-gradle",
+        "redhat.vscode-xml",
+        "mhutchie.git-graph",
+        "ms-vscode-remote.remote-containers"
+      ],
+      "settings": {
+        "java.configuration.runtimes": [
+          {
+            "name": "JavaSE-17",
+            "path": "/usr/lib/jvm/msopenjdk-17-amd64"
+          }
+        ],
+        "kotlin.compiler.jvm.target": "17",
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  },
+  "postCreateCommand": "bash -lc \"set -e; /opt/android-sdk/cmdline-tools/latest/bin/sdkmanager --sdk_root=/opt/android-sdk --update; code --install-extension /opt/kotlin-lsp/kotlin-${KOTLIN_LSP_VERSION}.vsix --force || true\"",
+  "features": {}
+}

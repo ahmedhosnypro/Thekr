@@ -1,7 +1,6 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.compose.ExperimentalComposeLibrary
 import com.android.build.api.dsl.ManagedVirtualDevice
 import com.android.build.gradle.internal.lint.AndroidLintAnalysisTask
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
@@ -54,14 +53,14 @@ kotlin {
         }
 
         //https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
-        instrumentedTestVariant {
-            sourceSetTree.set(KotlinSourceSetTree.test)
-            dependencies {
-                debugImplementation(libs.androidx.compose.ui.test.manifest)
-                implementation(libs.androidx.compose.ui.test.junit4)
-            }
-        }
+        //@OptIn(ExperimentalKotlinGradlePluginApi::class)
+        //instrumentedTestVariant {
+        //    sourceSetTree.set(KotlinSourceSetTree.test)
+        //    dependencies {
+        //       debugImplementation(libs.androidx.compose.ui.test.manifest)
+        //        implementation(libs.androidx.compose.ui.test.junit4)
+        //    }
+        //}
     }
 
 
@@ -146,9 +145,6 @@ kotlin {
 
         commonTest.dependencies {
             implementation(kotlin("test"))
-            @OptIn(ExperimentalComposeLibrary::class)
-            implementation(compose.uiTest)
-            implementation(libs.kotlinx.coroutines.test)
         }
 
 
