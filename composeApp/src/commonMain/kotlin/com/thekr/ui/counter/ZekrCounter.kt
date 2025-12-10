@@ -38,6 +38,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.annotation.InternalVoyagerApi
 import cafe.adriel.voyager.navigator.internal.BackHandler
@@ -59,7 +60,6 @@ import com.thekr.ui.util.KeepScreenOn
 import com.thekr.ui.util.NoRippleInteractionSource
 import com.thekr.ui.component.LocalizedApp
 import com.thekr.ui.util.customOnKeyEvent
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun ThekrHome(

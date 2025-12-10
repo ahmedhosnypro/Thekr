@@ -47,7 +47,7 @@ import com.thekr.values.Dimensions.normal
 import com.thekr.values.Dimensions.small
 import com.thekr.ui.viewmodel.AppViewModelProvider
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 import com.thekr.resources.Res
 import com.thekr.resources.add_thekr
 import com.thekr.resources.coolDown

@@ -16,7 +16,7 @@ import com.thekr.ui.home.list.categoryDetailsPreviewState
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.component.LocalizedApp
 import com.thekr.ui.home.HomeActions
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 
 /**
  * Displays a tab content containing either a list of categories or a list of Thekrs,

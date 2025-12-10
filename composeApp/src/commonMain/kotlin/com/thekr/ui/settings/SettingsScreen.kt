@@ -32,7 +32,7 @@ import com.thekr.ui.theme.AppTheme
 import com.thekr.values.Dimensions.medium
 import com.thekr.values.Dimensions.small
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 import com.thekr.resources.Res
 import com.thekr.resources.click_sound
 import com.thekr.resources.display

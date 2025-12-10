@@ -1,8 +1,22 @@
 package com.thekr.util
 
 import korlibs.time.Year
-import kotlinx.datetime.*
+import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.DayOfWeek
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.Month
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.atStartOfDayIn
+import kotlinx.datetime.isoDayNumber
+import kotlinx.datetime.minus
+import kotlinx.datetime.number
+import kotlinx.datetime.plus
+import kotlinx.datetime.toLocalDateTime
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
+@OptIn(ExperimentalTime::class)
 object TimeHelper {
     data class TimeHelper(
         val midnight: Long = calcMidnight(Clock.System.now().toEpochMilliseconds()),
@@ -141,7 +155,7 @@ object TimeHelper {
             .toLocalDateTime(timeZone)
             .date
             .let {
-                LocalDate(it.year, it.monthNumber, it.month.maxLength(it.year))
+                LocalDate(it.year, it.month.number, it.month.maxLength(it.year))
                     .plus(1, DateTimeUnit.DAY)
                     .atStartOfDayIn(timeZone)
                     .toEpochMilliseconds()
@@ -198,4 +212,3 @@ object TimeHelper {
     }
 
 }
-    

@@ -46,7 +46,6 @@ kotlin {
 //    }
 
     androidTarget {
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_21)
             freeCompilerArgs.add("-Xjdk-release=${JavaVersion.VERSION_21}")
@@ -87,7 +86,7 @@ kotlin {
 
         androidMain.dependencies {
 //            implementation(compose.preview)
-            implementation(compose.uiTooling)
+            implementation(libs.compose.ui.tooling)
             implementation(libs.androidx.activity.compose)
             implementation(libs.kotlinx.coroutines.android)
             implementation(libs.ktor.client.okhttp)
@@ -98,16 +97,16 @@ kotlin {
         }
         
         commonMain.dependencies {
-            implementation(compose.ui)
-            implementation(compose.runtime)
-            implementation(compose.material)
-            implementation(compose.material3)
-            implementation(compose.foundation)
-            implementation(compose.materialIconsExtended)
+            implementation(libs.compose.ui)
+            implementation(libs.compose.runtime)
+            implementation(libs.compose.material)
+            implementation(libs.compose.material3)
+            implementation(libs.compose.foundation)
+            implementation(libs.compose.material.icons.extended)
 
 
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
+            implementation(libs.compose.components.resources)
+            implementation(libs.compose.ui.tooling.preview)
 
             implementation(libs.voyager.navigator)
             implementation(libs.coil)
@@ -123,6 +122,7 @@ kotlin {
             implementation(libs.kstore)
             implementation(libs.kstore.file)
 
+            implementation(libs.lifecycle.runtime.compose)
             implementation(libs.lifecycle.viewmodel.compose)
             implementation(libs.navigation.compose)
 
@@ -199,7 +199,7 @@ android {
         compose = true
     }
     dependencies {
-        debugImplementation(compose.uiTooling)
+        debugImplementation(libs.compose.ui.tooling)
     }
     //https://developer.android.com/studio/test/gradle-managed-devices
     @Suppress("UnstableApiUsage")

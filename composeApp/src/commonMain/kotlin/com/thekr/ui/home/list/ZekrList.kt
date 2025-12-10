@@ -25,7 +25,7 @@ import com.thekr.ui.theme.AppTheme
 import com.thekr.values.Dimensions.medium
 import com.thekr.values.Dimensions.xLarge
 import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 
 /**
  * Displays a list of Thekr items within a category.

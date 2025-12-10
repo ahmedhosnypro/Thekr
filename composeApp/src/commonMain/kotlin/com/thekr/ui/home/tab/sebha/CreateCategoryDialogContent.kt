@@ -16,7 +16,7 @@ import com.thekr.ui.theme.hacenTunisiaLt
 import com.thekr.ui.component.LocalizedApp
 import com.thekr.values.Dimensions.medium
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 import com.thekr.resources.Res
 import com.thekr.resources.cancel
 import com.thekr.resources.create

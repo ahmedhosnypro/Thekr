@@ -30,7 +30,7 @@ import com.thekr.ui.settings.component.RadioButtonSetting
 import com.thekr.ui.settings.component.SettingLabel
 import com.thekr.ui.theme.AppTheme
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 import com.thekr.resources.Res
 import com.thekr.resources.all_languages
 import com.thekr.resources.app_language

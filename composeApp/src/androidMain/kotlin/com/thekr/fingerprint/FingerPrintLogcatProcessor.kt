@@ -2,12 +2,14 @@ package com.thekr.fingerprint
 
 import com.topjohnwu.superuser.CallbackList
 import com.topjohnwu.superuser.Shell
-import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 
 
 // todo add a job to be able to cancel this, add stopMonitoring()
+@OptIn(ExperimentalTime::class)
 actual fun FingerPrintLogcatProcessor.startMonitoring() {
     val callbackList = object : CallbackList<String>() {
         override fun onAddElement(s: String) {

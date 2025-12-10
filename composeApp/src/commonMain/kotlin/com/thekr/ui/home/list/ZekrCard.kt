@@ -31,7 +31,7 @@ import com.thekr.ui.component.LocalizedApp
 import com.thekr.values.Dimensions.small
 import com.thekr.values.Dimensions.tiny
 import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 import com.thekr.resources.Res
 import com.thekr.resources.thekr_indicator
 

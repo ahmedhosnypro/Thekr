@@ -36,7 +36,7 @@ import com.thekr.ui.stats.component.getColumnLayer
 import com.thekr.ui.stats.component.getLineLayer
 import com.thekr.values.Dimensions.medium
 import com.thekr.values.Dimensions.small
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 import java.util.Calendar
 import java.util.Locale
 

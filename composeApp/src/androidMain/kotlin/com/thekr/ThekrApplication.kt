@@ -7,7 +7,6 @@ import com.thekr.database.AppContainer
 import com.thekr.database.AppDataContainer
 import com.thekr.di.DatabaseProvider
 import com.thekr.database.getDatabaseBuilder
-import com.thekr.di.appStorage
 import com.topjohnwu.superuser.Shell
 import kotlin.io.path.Path
 
@@ -22,10 +21,10 @@ class ThekrApplication : Application() {
     init {
         // Initialize Shell only once
         if (Shell.isAppGrantedRoot() == false) {
-            Shell.enableLegacyStderrRedirection = true
+//            Shell.enableLegacyStderrRedirection = true
             Shell.setDefaultBuilder(
                 Shell.Builder.create()
-//                    .setFlags(Shell.FLAG_REDIRECT_STDERR)
+                    .setFlags(Shell.FLAG_REDIRECT_STDERR)
                     .setTimeout(10)
             )
         }
@@ -41,7 +40,7 @@ class ThekrApplication : Application() {
 
         // Initialize database
         DatabaseProvider.initDatabase(getDatabaseBuilder(this))
-        appStorage = filesDir.path
+        com.thekr.di.appStorage = filesDir.path
 
             // Set up global uncaught exception handler
             Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->

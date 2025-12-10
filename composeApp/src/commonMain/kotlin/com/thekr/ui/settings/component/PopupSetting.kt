@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.thekr.ui.theme.AppTheme
 import com.thekr.values.Dimensions.medium
 import com.thekr.values.Dimensions.normal
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun PopupSetting(

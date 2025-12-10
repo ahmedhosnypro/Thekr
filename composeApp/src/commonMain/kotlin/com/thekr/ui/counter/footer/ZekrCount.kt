@@ -44,7 +44,7 @@ import com.thekr.ui.home.list.ProgressState
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.theme.AppColors
 import com.thekr.ui.component.LocalizedApp
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 
 
 const val strokeWidth = 8

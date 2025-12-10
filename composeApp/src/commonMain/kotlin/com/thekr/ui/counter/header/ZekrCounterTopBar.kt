@@ -80,7 +80,7 @@ import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.component.LocalizedApp
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 import com.thekr.ui.component.IconWrapper
 
 /** Represents the top app bar for the Thekr counter-screen. */

@@ -29,7 +29,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 
 object Fetcher {
     /**
@@ -190,6 +191,7 @@ object TimeHelper {
     )
 
     private var timeHelper = TimeHelper()
+    @OptIn(ExperimentalTime::class)
     fun now() = Clock.System.now().toEpochMilliseconds()
     fun midnight() = timeHelper.midnight
     fun nextMidnight() = timeHelper.nextMidnight

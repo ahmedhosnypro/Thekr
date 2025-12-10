@@ -35,7 +35,7 @@ import com.thekr.ui.home.tab.ThekrTab
 import com.thekr.ui.home.tab.sebha.SebhaTab
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.viewmodel.AppState
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 
 
 // stack of cat nav

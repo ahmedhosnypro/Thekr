@@ -33,7 +33,7 @@ import com.thekr.ui.component.LocalizedApp
 import com.thekr.ui.home.HomeActions
 import com.thekr.values.Colors.listDivider
 import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 
 /**
  * Displays the Dua tab content, which can show a list of Dua categories or

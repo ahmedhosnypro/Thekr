@@ -6,26 +6,25 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.unit.dp
 import com.patrykandpatrick.vico.multiplatform.cartesian.axis.Axis
 import com.patrykandpatrick.vico.multiplatform.cartesian.data.CartesianLayerRangeProvider.Companion.fixed
-import com.patrykandpatrick.vico.multiplatform.cartesian.layer.ColumnCartesianLayer
+import com.patrykandpatrick.vico.multiplatform.cartesian.layer.ColumnCartesianLayer.ColumnProvider.Companion.series
 import com.patrykandpatrick.vico.multiplatform.cartesian.layer.LineCartesianLayer
 import com.patrykandpatrick.vico.multiplatform.cartesian.layer.rememberColumnCartesianLayer
 import com.patrykandpatrick.vico.multiplatform.cartesian.layer.rememberLine
 import com.patrykandpatrick.vico.multiplatform.cartesian.layer.rememberLineCartesianLayer
 import com.patrykandpatrick.vico.multiplatform.common.Fill
 import com.patrykandpatrick.vico.multiplatform.common.component.rememberLineComponent
-import com.patrykandpatrick.vico.multiplatform.common.component.rememberShapeComponent
-import com.patrykandpatrick.vico.multiplatform.common.shape.CorneredShape
+import androidx.compose.ui.graphics.RectangleShape
 
 @Composable
 fun getColumnLayer(
     verticalAxisPosition: Axis.Position.Vertical? = null, maxY: Double? = null
 ) = rememberColumnCartesianLayer(
-    columnProvider = ColumnCartesianLayer.ColumnProvider.series(
+    columnProvider = series(
         listOf(
             rememberLineComponent(
                 fill = Fill(MaterialTheme.colorScheme.primary),
                 thickness = 4.dp,
-                shape = CorneredShape.Pill
+                shape = RectangleShape
             ),
         )
     ),

@@ -2,7 +2,7 @@ package com.thekr.ui.home.header
 
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 
 
 @Preview
