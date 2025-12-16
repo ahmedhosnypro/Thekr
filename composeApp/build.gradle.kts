@@ -240,6 +240,10 @@ compose.desktop {
             packageName = "com.thekr"
             packageVersion = "1.0.0"
         }
+
+        buildTypes.release.proguard {
+            configurationFiles.from(project.file("proguard-rules.pro"))
+        }
     }
 }
 
