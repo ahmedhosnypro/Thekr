@@ -29,7 +29,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 
-# Clone awesome-shell-scripts repo and use its scripts for Oh My Zsh and Bun
+# Clone awesome-shell-scripts repo and use its scripts for Oh My Zsh
 RUN git clone https://github.com/ahmedhosnypro/awesome-shell-scripts /opt/awesome-shell-scripts
 
 # Install Oh My Zsh, Powerlevel10k, and plugins using the repo's script
@@ -57,10 +57,6 @@ RUN mkdir -p /opt/android-sdk/cmdline-tools \
         "build-tools;36.1.0" \
         "cmake;3.22.1" \
         "ndk;26.1.10909125"
-
-# Install Bun using the awesome-shell-scripts repo script
-RUN chmod +x /opt/awesome-shell-scripts/shell/install_bun.sh && \
-    /opt/awesome-shell-scripts/shell/install_bun.sh
 
 # Cache Kotlin VS Code VSIX and standalone LSP zip for offline installs
 RUN KOTLIN_LSP_DIR=/opt/kotlin-lsp \
