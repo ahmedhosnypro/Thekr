@@ -43,8 +43,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: |
-            ~/.android/sdk
-            ~/.android/avd
+            /usr/local/lib/android/sdk
           key: android-sdk-${{ runner.os }}-${{ hashFiles('**/build.gradle.kts') }}
           restore-keys: |
             android-sdk-${{ runner.os }}-
