@@ -32,5 +32,9 @@
     }
   },
   "postCreateCommand": "bash -lc \"set -e; /opt/android-sdk/cmdline-tools/latest/bin/sdkmanager --sdk_root=/opt/android-sdk --update; code --install-extension /opt/kotlin-lsp/kotlin-${KOTLIN_LSP_VERSION}.vsix --force || true\"",
-  "features": {}
+  "features": {
+    "ghcr.io/devcontainers/features/sshd:1": {
+      "version": "latest"
+    }
+  }
 }
