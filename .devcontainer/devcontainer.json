@@ -1,7 +1,7 @@
 {
   "name": "Thekr Android Dev",
   "build": {
-    "context": "..",
+    "context": ".",
     "dockerfile": "Dockerfile",
     "args": {
       "ANDROID_SDK_VERSION": "11076708",
@@ -19,12 +19,6 @@
   ],
   "customizations": {
     "vscode": {
-      "extensions": [
-        "vscjava.vscode-gradle",
-        "redhat.vscode-xml",
-        "mhutchie.git-graph",
-        "ms-vscode-remote.remote-containers"
-      ],
       "settings": {
         "java.configuration.runtimes": [
           {
