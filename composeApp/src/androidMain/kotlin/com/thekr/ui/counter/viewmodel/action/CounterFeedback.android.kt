@@ -7,6 +7,7 @@ import android.os.Vibrator
 import android.os.VibratorManager
 import com.thekr.ThekrApplication.Companion.appContext
 
+@Suppress("DEPRECATION")
 actual fun vibrate(){
     vibrator().vibrate(longArrayOf(0, 16), -1)
 }

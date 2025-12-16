@@ -1,5 +1,6 @@
 package com.thekr
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.util.Log
@@ -7,6 +8,7 @@ import com.thekr.database.AppContainer
 import com.thekr.database.AppDataContainer
 import com.thekr.di.DatabaseProvider
 import com.thekr.database.getDatabaseBuilder
+import com.thekr.di.appStorage
 import com.topjohnwu.superuser.Shell
 import kotlin.io.path.Path
 
@@ -31,6 +33,7 @@ class ThekrApplication : Application() {
         // No need to get the shell instance here
     }
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreate() {
         super.onCreate()
 
@@ -40,7 +43,7 @@ class ThekrApplication : Application() {
 
         // Initialize database
         DatabaseProvider.initDatabase(getDatabaseBuilder(this))
-        com.thekr.di.appStorage = filesDir.path
+        appStorage = filesDir.path
 
             // Set up global uncaught exception handler
             Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->

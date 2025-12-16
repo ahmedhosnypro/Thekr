@@ -15,7 +15,10 @@ object JvmApplication {
     var container: AppContainer = AppDataContainer()
     private val appCoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
-    val userDataDir = AppDirs("thekr", "thekr").getUserDataDir()
+    val userDataDir = AppDirs {
+        appName = "thekr"
+        appAuthor = "thekr"
+    }.getUserDataDir()
 
     init {
         // Initialize database

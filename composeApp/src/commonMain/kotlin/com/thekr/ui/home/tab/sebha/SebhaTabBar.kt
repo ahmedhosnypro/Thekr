@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ScrollableTabRow
+import androidx.compose.material3.PrimaryScrollableTabRow
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
@@ -47,7 +47,7 @@ fun SebhaTabBar(
     ) {
         val createNewButtonWidth = 24.dp
 
-        ScrollableTabRow(
+        PrimaryScrollableTabRow(
             selectedTabIndex = minOf(userAzkar.size, pagerState.currentPage),
             edgePadding = 0.dp,
             containerColor = colors.surface,

@@ -17,9 +17,9 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBackIos
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -67,7 +67,6 @@ fun ThekrStats(
 ) {
     val tabs = listOf("Count", "Miss")
     val countMissPagerState = rememberPagerState(pageCount = { tabs.size })
-    val scope = rememberCoroutineScope()
 
     val dayStatisticsType = remember {
         mutableStateOf(DayStatisticsType.Hourly)
@@ -139,7 +138,7 @@ fun CountStats(
     Column(modifier = modifier.fillMaxWidth()) {
         BoxWithConstraints {
             val width = maxWidth
-            TabRow(
+            PrimaryTabRow(
                 selectedTabIndex = minOf(StatisticsType.entries.size, countPagerState.currentPage),
                 modifier = Modifier
                     .padding(horizontal = xLarge)

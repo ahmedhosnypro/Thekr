@@ -14,10 +14,9 @@ import androidx.compose.material.icons.outlined.Create
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ScrollableTabRow
+import androidx.compose.material3.PrimaryScrollableTabRow
 import androidx.compose.material3.Surface
 import androidx.compose.material3.TabRowDefaults.SecondaryIndicator
-import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -186,7 +185,8 @@ fun HeaderTabsRow(
         modifier = modifier
     ) {
         val width = maxWidth
-        ScrollableTabRow(selectedTabIndex = minOf(HomeTab.entries.size, pagerState.currentPage),
+        PrimaryScrollableTabRow(
+            selectedTabIndex = minOf(HomeTab.entries.size, pagerState.currentPage),
             edgePadding = 0.dp,
             containerColor = Color.Transparent,
             contentColor = Color.White,
@@ -195,15 +195,14 @@ fun HeaderTabsRow(
                 .background(
                     color = Color(0x0DFFFFFF)
                 ),
-            indicator = { tabPositions ->
+            indicator = {
                 SecondaryIndicator(
-                    Modifier.tabIndicatorOffset(
-                        tabPositions[pagerState.currentPage]
-                    ),
+                    modifier = Modifier.fillMaxWidth(),
                     color = Color.White
                 )
             },
-            divider = {}) {
+            divider = {}
+        ) {
             PagerTabsIconOnly(
                 pagerState, modifier = Modifier.width(width / HomeTab.entries.size)
             )

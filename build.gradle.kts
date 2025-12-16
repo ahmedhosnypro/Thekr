@@ -16,7 +16,7 @@ plugins {
 
 //    alias(libs.plugins.korge).apply(false)
 
-    id("org.jetbrains.compose.hot-reload") version "1.0.0-dev-63"
+    id("org.jetbrains.compose.hot-reload") version "1.0.0"
     alias(libs.plugins.android.test) apply false
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.baselineprofile) apply false

@@ -135,7 +135,7 @@ object TimeHelper {
             .toLocalDateTime(timeZone)
             .date
             .let {
-                LocalDate(it.year, it.monthNumber, 1)
+                LocalDate(it.year, it.month.number, 1)
                     .atStartOfDayIn(timeZone)
                     .toEpochMilliseconds()
             }
