@@ -1,6 +1,7 @@
 { pkgs, ... }:
 let
   kotlinLspVersion = "0.253.10629";
+  androidSdkPath = "/home/user/android-sdk";
 in
 {
   # Which nixpkgs channel to use.
@@ -10,7 +11,7 @@ in
   packages = [
     pkgs.openjdk21
     pkgs.kotlin
-    pkgs.androidsdk
+    pkgs.android-sdk-cmdline-tools # Provides sdkmanager
     # Additional packages from Dockerfile
     pkgs.zsh
     pkgs.unzip
@@ -29,8 +30,8 @@ in
   # Sets environment variables in the workspace
   env = {
     # For Android SDK
-    ANDROID_HOME = "${pkgs.androidsdk}";
-    ANDROID_SDK_ROOT = "${pkgs.androidsdk}";
+    ANDROID_HOME = androidSdkPath;
+    ANDROID_SDK_ROOT = androidSdkPath;
 
     # For signing the Android app
     # Replace with your actual credentials, ideally using IDX secrets
@@ -79,6 +80,10 @@ in
         install-kotlin-vsix = ''
           wget -O /tmp/kotlin.vsix "https://download-cdn.jetbrains.com/kotlin-lsp/${kotlinLspVersion}/kotlin-${kotlinLspVersion}.vsix"
           code --install-extension /tmp/kotlin.vsix --force
+        '';
+        # Add Android SDK tools to the PATH for interactive shells
+        add-sdk-to-path = ''
+          echo 'export PATH="$PATH:${androidSdkPath}/platform-tools:${androidSdkPath}/emulator"' >> /home/user/.zshrc
         '';
       };
       # Runs when the workspace is (re)started
