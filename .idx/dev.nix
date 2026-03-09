@@ -22,7 +22,7 @@ in
     pkgs.gcc # For build-essential
     pkgs.openssl
     pkgs.webkitgtk
-    pkgs.libxdo
+    pkgs.xdotool
     pkgs.libayatana-appindicator
     pkgs.librsvg
     pkgs.fontconfig
