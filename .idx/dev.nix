@@ -11,8 +11,8 @@ in
   packages = [
     pkgs.openjdk21
     pkgs.kotlin
-    pkgs.androidsdk
-    pkgs.androidsdk-tools
+    pkgs.android-tools
+    pkgs.android-studio
     # Additional packages from Dockerfile
     pkgs.zsh
     pkgs.unzip
