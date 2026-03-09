@@ -11,7 +11,8 @@ in
   packages = [
     pkgs.openjdk21
     pkgs.kotlin
-    pkgs.android-sdk-cmdline-tools # Provides sdkmanager
+    pkgs.androidsdk
+    pkgs.androidsdk-tools
     # Additional packages from Dockerfile
     pkgs.zsh
     pkgs.unzip
@@ -50,13 +51,17 @@ in
     previews = {
       enable = true;
       previews = {
-        web = {
-          command = ["./gradlew" "wasmJsBrowserRun" "--no-daemon"];
-          manager = "web";
-          env = {
-            PORT = "$PORT";
-          };
-        };
+        # web = {
+        #   command = ["./gradlew" "wasmJsBrowserRun" "--no-daemon"];
+        #   manager = "web";
+        #   env = {
+        #     PORT = "$PORT";
+        #   };
+        # };
+        # android = {
+        #   command = ["flutter" "run" "--machine" "-d" "android" "-d" "localhost:5555"];
+        #   manager = "flutter";
+        # };
       };
     };
 
