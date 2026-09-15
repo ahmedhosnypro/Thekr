@@ -10,6 +10,7 @@ object Fingerprint {
 
         if (fingerprintEventListener != null) {
             FingerprintEventDispatcher.removeListener(fingerprintEventListener!!)
+            fingerprintEventListener = null
         }
 
         if (enabled) {

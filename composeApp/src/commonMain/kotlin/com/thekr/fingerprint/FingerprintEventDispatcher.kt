@@ -12,6 +12,6 @@ object FingerprintEventDispatcher {
     }
 
     fun dispatchEvent(event: FingerprintEvent) {
-        listeners.forEach { it.onFingerprintEvent(event) }
+        listeners.toList().forEach { it.onFingerprintEvent(event) }
     }
 }
