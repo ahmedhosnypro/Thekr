@@ -13,7 +13,6 @@ import com.thekr.ui.counter.viewmodel.action.ThekrSoundPlayer.onPlayAudio
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 fun ThekrCounterViewModel.onThekrCounterCount() {
     restartSleepJop()
@@ -109,16 +108,14 @@ private fun ThekrCounterViewModel.count(
 
     // push updates to db
     viewModelScope.launch {
-        runBlocking {
-            countRepository.insert(
-                Count(
-                    thekrInstanceId = thekrInstance.id,
-                    thekrCategoryId = categoryId,
-                    value = count.totalCount + 1,
-                    timeCreated = System.currentTimeMillis()
-                )
+        countRepository.insert(
+            Count(
+                thekrInstanceId = thekrInstance.id,
+                thekrCategoryId = categoryId,
+                value = count.totalCount + 1,
+                timeCreated = System.currentTimeMillis()
             )
-        }
+        )
 
         CounterHelper.updateOnCount()
     }

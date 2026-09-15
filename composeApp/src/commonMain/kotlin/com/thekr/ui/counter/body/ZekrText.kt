@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
@@ -40,11 +41,13 @@ fun ThekrText(
     val thekrColors = AppTheme.colors(settingsDetails)
     val thekr = CounterHelper.getThekr(tabIndex).value
 
-    val textStyle = TextStyle(
-        fontSize = settingsDetails.fontSize.sp,
+    val textStyle = remember(settingsDetails.fontSize) {
+        TextStyle(
+            fontSize = settingsDetails.fontSize.sp,
 
-        textAlign = TextAlign.Start,
-    )
+            textAlign = TextAlign.Start,
+        )
+    }
     if (thekr.text.isEmpty()) {
         return
     }
@@ -86,10 +89,10 @@ fun ThekrText(
                     fontFamily = if (thekr.basmlaType != 0) uthmanicScript() else hacenTunisiaLt(),
                 )
             }
-            if (categoryDetails.value.fadlList.any { it.thekrId == counterUiState.currentThekrInstance.value.id }) {
-                val fadlList =
-                    categoryDetails.value.fadlList.filter { it.thekrId == counterUiState.currentThekrInstance.value.id }
-                items(fadlList) { fadl ->
+            val currentFadlList =
+                categoryDetails.value.fadlList.filter { it.thekrId == counterUiState.currentThekrInstance.value.id }
+            if (currentFadlList.isNotEmpty()) {
+                items(currentFadlList, key = { it.id }) { fadl ->
                     Text(
                         text = fadl.fadl,
                         style = textStyle,
