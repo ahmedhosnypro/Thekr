@@ -13,6 +13,11 @@ Thekr is built as a **Kotlin Multiplatform** application, supporting:
 
 ## Technology Stack
 
+### Toolchain
+- **Kotlin** - 2.4.20
+- **Android Gradle Plugin (AGP)** - 9.4
+- **Compose Multiplatform (CMP)** - 1.12
+
 ### Core Technologies
 - **Kotlin Multiplatform (KMP)** - Shared business logic across platforms
 - **Jetpack Compose Multiplatform** - Shared UI framework

@@ -114,6 +114,11 @@ Thekr is built as a **Kotlin Multiplatform** application, supporting:
 
 ## Technology Stack
 
+### Toolchain
+- **Kotlin** - 2.4.20
+- **Android Gradle Plugin (AGP)** - 9.4
+- **Compose Multiplatform (CMP)** - 1.12
+
 ### Core Technologies
 - **Kotlin Multiplatform (KMP)** - Shared business logic across platforms
 - **Jetpack Compose Multiplatform** - Shared UI framework
@@ -719,19 +724,16 @@ data class SettingsDetails(
 
 ## Pre-loaded Content
 
-Initial data is loaded from JSON files in resources:
+The database seeds exclusively from JSON files bundled in compose resources, parsed at startup by `JsonParser` (`Res.readBytes("files/database/json/$fileName")`):
 
 ```
 composeResources/files/database/json/
-├── category.json      # 147 categories
-├── thekr.json         # All thekr texts
-└── thekr_instance.json # Default instances
+├── category.json       # 147 categories
+├── thekr.json          # 356 thekr texts
+└── thekr_instance.json # 356 default instances
 ```
 
-Plus a pre-built SQLite database:
-```
-composeResources/files/database/init.sqlite
-```
+A legacy pre-built SQLite seed (`composeResources/files/database/init.sqlite`) previously existed but was removed; the database now seeds exclusively from the JSON files above. As part of the composeResources slimming pass, the resources bundle shrank from ~99.2 MB to ~60.8 MB (−36.7 MiB) by dropping the SQLite seed and other unused assets.
 
 ---
 *Analysis continues in subsequent files...*
