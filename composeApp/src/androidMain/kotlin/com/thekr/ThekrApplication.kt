@@ -47,14 +47,8 @@ class ThekrApplication : Application() {
 
         container = AppDataContainer(this)
 
-        // Build the Room database off the main thread; first access is gated by
-        // initDatabaseIfNeeded, so this only warms the build up.
-        CoroutineScope(Dispatchers.Default).launch {
-            initDatabaseIfNeeded(applicationContext)
-        }
-        appStorage = filesDir.path
-
-            // Set up global uncaught exception handler
+            // Set up global uncaught exception handler (before any background
+            // work starts, so a warm-up failure is still logged here)
             val defaultHandler = Thread.getDefaultUncaughtExceptionHandler()
             Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
                 Log.e("ThekrApp", "Uncaught exception in thread: ${thread.name}", throwable)
@@ -70,6 +64,15 @@ class ThekrApplication : Application() {
                 // normally instead of being left running in a broken state
                 defaultHandler?.uncaughtException(thread, throwable)
             }
+
+        // Build the Room database off the main thread; first access is gated by
+        // initDatabaseIfNeeded, so this only warms the build up. A build
+        // failure must not kill the process — the first real access retries.
+        CoroutineScope(Dispatchers.Default).launch {
+            runCatching { initDatabaseIfNeeded(applicationContext) }
+                .onFailure { Log.e("ThekrApp", "Database warm-up failed", it) }
+        }
+        appStorage = filesDir.path
     }
 }
 

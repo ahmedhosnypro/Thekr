@@ -36,6 +36,7 @@ import com.thekr.ui.stats.component.axis.weeklyBottomAxis
 import com.thekr.ui.stats.component.getColumnLayer
 import com.thekr.ui.stats.component.getLineLayer
 import com.thekr.ui.stats.data.emptyStatisticsData
+import com.thekr.util.TimeHelper.calcWeekStart
 import com.thekr.values.Dimensions.medium
 import com.thekr.values.Dimensions.small
 import kotlinx.coroutines.Dispatchers
@@ -82,21 +83,25 @@ fun WeekNavigator(time: MutableLongState) {
             )
         }
 
+        // Week boundaries via the app's own Sat–Fri convention (calcWeekStart):
+        // Calendar.set(DAY_OF_WEEK, ...) resolves within the locale's calendar
+        // week and picks the wrong Saturday/Friday in Sunday-first locales.
+        val weekStartDate = calcWeekStart(time.longValue)
+
         // start day of the week, saturday of the current week
         val startDay = Calendar.getInstance(Locale.getDefault()).apply {
-            timeInMillis = time.longValue
-            set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY)
+            timeInMillis = weekStartDate
         }[Calendar.DAY_OF_MONTH]
 
         // end day of the week, friday of the current week
         val endDay = Calendar.getInstance(Locale.getDefault()).apply {
-            timeInMillis = time.longValue
-            set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY)
+            timeInMillis = weekStartDate
+            add(Calendar.DAY_OF_MONTH, 6)
         }[Calendar.DAY_OF_MONTH]
 
         // monthName of the week: String
         val monthName = Calendar.getInstance(Locale.getDefault()).apply {
-            timeInMillis = time.longValue
+            timeInMillis = weekStartDate
         }.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())
 
 
@@ -111,11 +116,7 @@ fun WeekNavigator(time: MutableLongState) {
 
         // check if time is in the current week, then disable the next button
         LaunchedEffect(key1 = time.longValue) {
-            val today = Calendar.getInstance()
-            today.timeInMillis = System.currentTimeMillis()
-            val week = Calendar.getInstance()
-            week.timeInMillis = time.longValue
-            isCurrentWeek = today[Calendar.WEEK_OF_YEAR] == week[Calendar.WEEK_OF_YEAR]
+            isCurrentWeek = calcWeekStart(System.currentTimeMillis()) == calcWeekStart(time.longValue)
         }
 
         // next week
