@@ -23,9 +23,11 @@ class ThekrApplication : Application() {
     }
 
     init {
-        // Initialize Shell only once. isAppGrantedRoot() returns null (unknown)
-        // before any shell has been created, so check for "not root" instead of
-        // "definitely not root" or the builder config below is never applied.
+        // Initialize Shell only once. Per libsu-recommended practice, configure
+        // the builder before any shell is created. isAppGrantedRoot() is FALSE
+        // on devices with no executable su on PATH, null (unknown) when su
+        // exists, and true for uid-0 — so "!= true" applies this config to
+        // rooted and non-rooted/unknown devices alike.
         if (Shell.isAppGrantedRoot() != true) {
 //            Shell.enableLegacyStderrRedirection = true
             Shell.setDefaultBuilder(
