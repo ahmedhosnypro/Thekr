@@ -1,17 +1,23 @@
 package com.thekr.fingerprint
 
+import kotlin.concurrent.Volatile
+
 object FingerprintEventDispatcher {
-    private val listeners = mutableListOf<FingerprintEventListener>()
+    // dispatchEvent runs on the libsu logcat callback thread while listeners
+    // are added/removed from the main thread; copy-on-write keeps mutation and
+    // dispatch safe to run concurrently without blocking either side.
+    @Volatile
+    private var listeners: List<FingerprintEventListener> = emptyList()
 
     fun addListener(listener: FingerprintEventListener) {
-        listeners.add(listener)
+        listeners = listeners + listener
     }
 
     fun removeListener(listener: FingerprintEventListener) {
-        listeners.remove(listener)
+        listeners = listeners - listener
     }
 
     fun dispatchEvent(event: FingerprintEvent) {
-        listeners.toList().forEach { it.onFingerprintEvent(event) }
+        listeners.forEach { it.onFingerprintEvent(event) }
     }
 }
