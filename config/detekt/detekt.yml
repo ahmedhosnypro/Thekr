@@ -1,0 +1,189 @@
+build:
+  maxIssues: 0
+  excludeCorrectable: false
+  weights:
+    # complexity: 2
+
+config:
+  warningsAsErrors: false
+
+processors:
+  active: true
+  exclude: []
+
+console-reports:
+  active: true
+  exclude:
+    - 'ProjectStatisticsReport'
+    - 'ComplexityReport'
+    - 'NotificationReport'
+    - 'FindingsReport'
+    - 'FileBasedFindingsReport'
+
+output-reports:
+  active: true
+  exclude:
+    - 'TxtOutputReport'
+    - 'XmlOutputReport'
+    - 'MdOutputReport'
+    - 'SarifOutputReport'
+    # Keep the HTML report for humans; console summary shows counts.
+    - 'LiteHtmlOutputReport'
+
+# ---------------------------------------------------------------------------
+# Thekr detekt configuration.
+#
+# Detekt ships with a full default config (detekt-formatting adds the
+# ktlint-equivalent formatting rules). Only deliberate deviations from the
+# defaults for THIS codebase are listed below — every deviation carries a
+# comment saying why. Detekt's `buildUponDefaultConfig = true` (set in
+# composeApp/build.gradle.kts) means everything not listed here stays at
+# defaults.
+#
+# Codebase idioms this config accounts for:
+#   * Compose Multiplatform UI (81 files with @Composable, 36 with @Preview)
+#   * kotlinx.datetime / kotlinx.serialization / coroutines
+#   * KMP sources: commonMain (184 files) is the live code; iosMain/wasmJsMain
+#     are only partially wired into the build and are excluded at the Gradle
+#     level, not here.
+# ---------------------------------------------------------------------------
+
+complexity:
+  LongParameterList:
+    active: true
+    # Compose composables routinely take many (mostly defaulted) parameters —
+    # see the official detekt Compose guidance:
+    # https://detekt.dev/docs/introduction/compose/
+    functionThreshold: 8
+    constructorThreshold: 7
+    ignoreDefaultParameters: true
+    ignoreDataClasses: true
+  LongMethod:
+    active: true
+    # Composable functions describe UI trees; long ones are idiomatic and
+    # splitting them hurts preview/tooling. Default is 60.
+    threshold: 120
+  LargeClass:
+    active: true
+    # Compose screens + view models can legitimately grow large; refactoring
+    # them is future hunt work, not a config-blocking decision.
+    threshold: 800
+  TooManyFunctions:
+    active: true
+    # Files holding many @Preview composables are normal in Compose projects.
+    # https://detekt.dev/docs/introduction/compose/
+    ignoreAnnotatedFunctions:
+      - 'Preview'
+    thresholdInFiles: 25
+    thresholdInClasses: 25
+    thresholdInInterfaces: 25
+    thresholdInObjects: 25
+    thresholdInEnums: 25
+    ignoreDeprecated: true
+  CyclomaticComplexMethod:
+    active: true
+    # Raised slightly from the default 15: complex Compose when{} blocks and
+    # platform branching in KMP code are common here.
+    threshold: 20
+  NamedArguments:
+    active: false
+    # Compose relies heavily on positional trailing lambdas; the rule fights
+    # the framework idiom.
+
+coroutines:
+  active: true
+  RedundantSuspendModifier:
+    active: true
+  # GlobalScope / runBlocking usages exist in preview/bridge code; those are
+  # pre-existing findings and are absorbed by config/detekt/baseline.xml
+  # rather than disabled here.
+
+exceptions:
+  active: true
+  # No deviations — default settings are fine for this codebase.
+
+formatting:
+  # Provided by detekt-formatting (added as a detektPlugins dependency in
+  # composeApp/build.gradle.kts). Kept at defaults so detekt and ktlint agree
+  # on formatting; .editorconfig at the repo root drives ktlint and detekt's
+  # formatting ruleset reads it too. Individual overrides:
+  MaximumLineLength:
+    active: true
+    maxLineLength: 140
+  # The codebase's established line length is closer to 140 than ktlint's
+  # default 120 for .kt (the root .editorconfig sets max_line_length=140).
+
+naming:
+  active: true
+  FunctionNaming:
+    active: true
+    # @Composable functions returning Unit use PascalCase per the Compose API
+    # guidelines — the default lowercase pattern would flag every composable.
+    # https://detekt.dev/docs/introduction/compose/
+    ignoreAnnotated: ['Composable']
+  TopLevelPropertyNaming:
+    active: true
+    # Compose convention is PascalCase for top-level constants (e.g.
+    # `val FooPadding = 16.dp`), unlike the SCREAMING_SNAKE default.
+    constantPattern: '[A-Z][A-Za-z0-9]*'
+  MatchingDeclarationName:
+    active: false
+    # KMP expect/actual + platform-suffixed files (e.g. DayStats.android.kt)
+    # make filename/class matching noisy; rule adds little here.
+  InvalidPackageDeclaration:
+    active: false
+    # iosMain/wasmJsMain dirs are only partially wired into the build; their
+    # package layout may not resolve cleanly during analysis.
+
+performance:
+  active: true
+  ForEachOnRange:
+    active: true
+  SpreadOperator:
+    active: true
+
+potential-bugs:
+  active: true
+  # Defaults are fine; pre-existing findings go to the baseline.
+
+style:
+  active: true
+  MagicNumber:
+    active: true
+    # Compose property declarations hold constants like Color(0xFFEA6D7E) and
+    # dp values at class/top-level scope — flagging them is noise.
+    # https://detekt.dev/docs/docs/rules/style#magicnumber (Compose guidance)
+    ignorePropertyDeclaration: true
+    ignoreCompanionObjectPropertyDeclaration: true
+  UnusedPrivateMember:
+    active: true
+    # @Preview composables are "unused" from detekt's view but are required by
+    # tooling. https://detekt.dev/docs/introduction/compose/
+    ignoreAnnotated: ['Preview']
+  MaxLineLength:
+    active: true
+    maxLineLength: 140
+    # Matches .editorconfig max_line_length; the codebase does not fit 120.
+  ReturnCount:
+    active: true
+    # Guard-heavy composables and platform branches return early often.
+    max: 6
+  WildcardImport:
+    active: true
+    # The codebase does use wildcard imports in places; keep the rule on but
+    # tolerate the common Compose/Android wildcard imports.
+    excludeImports: [
+      'androidx.compose.*',
+      'java.util.*',
+    ]
+  UnusedImports:
+    active: true
+  ThrowsCount:
+    active: true
+    max: 4
+  LoopWithTooManyJumpStatements:
+    active: true
+    maxJumpCount: 2
+  DestructuringDeclarationWithTooManyEntries:
+    active: true
+    maxDestructuringEntries: 5

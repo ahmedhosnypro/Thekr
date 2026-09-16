@@ -1,0 +1,35 @@
+# EditorConfig drives ktlint (and detekt's formatting ruleset) — no separate
+# ktlint config file is needed; ktlint reads standard EditorConfig properties.
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true
+max_line_length = 140
+
+[*.{kt,kts}]
+# ktlint core rules. The codebase's established style is 4-space indent and
+# ~140-char lines; ktlint's default is 120 but the majority of existing code
+# would need rewrapping, so the limit matches detekt (config/detekt/detekt.yml,
+# style.MaxLineLength / formatting.MaximumLineLength).
+ktlint_code_style = intellij_idea
+
+# Compose code commonly contains function chains where ktlint's
+# argument-list/parameter wrapping fights readability of trailing lambdas.
+ktlint_standard_function-signature = disabled
+# Commented-out and experimental Compose code in this repo frequently trips
+# the comment-indentation rule in blocks that are disabled from the build.
+ktlint_standard_comment-syntax = disabled
+# @Composable functions are PascalCase per the Compose API guidelines
+# (mirrors detekt's naming.FunctionNaming ignoreAnnotated=['Composable']).
+ktlint_function_naming_ignoreAnnotated = Composable
+
+[*.{yml,yaml}]
+indent_size = 2
+
+[*.{json,md}]
+max_line_length = off
