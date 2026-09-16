@@ -23,4 +23,11 @@ object Fingerprint {
             FingerprintEventDispatcher.addListener(listener)
         }
     }
+
+    fun clearFingerprintListener() {
+        fingerprintEventListener?.let {
+            FingerprintEventDispatcher.removeListener(it)
+        }
+        fingerprintEventListener = null
+    }
 }
