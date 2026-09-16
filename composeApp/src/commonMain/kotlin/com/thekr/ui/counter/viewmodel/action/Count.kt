@@ -11,7 +11,6 @@ import com.thekr.ui.counter.viewmodel.ThekrCounterViewModel
 import com.thekr.ui.counter.viewmodel.action.AntiSleep.restartSleepJop
 import com.thekr.ui.counter.viewmodel.action.ThekrSoundPlayer.onPlayAudio
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 fun ThekrCounterViewModel.onThekrCounterCount() {
@@ -19,7 +18,7 @@ fun ThekrCounterViewModel.onThekrCounterCount() {
     val thekrInstance = uiState.value.currentThekrInstance.value
     val count = getCurrentThekrCount().value
     val thekr = getCurrentThekr().value
-    if (uiState.value.clickable) {
+    if (isClickable) {
         count(
             thekr,
             thekrInstance,
@@ -51,8 +50,7 @@ fun ThekrCounterViewModel.repeatAudio() {
     val count = getCurrentThekrCount().value
     val thekr = getCurrentThekr().value
 
-    val clickable = uiState.value.clickable
-    if (clickable) {
+    if (isClickable) {
         when {
             count.dailyCount + 1 < thekrInstanceVal.dailyTarget -> {
                 count(thekr, thekrInstanceVal, count, clickSound = false)
@@ -92,18 +90,10 @@ private fun ThekrCounterViewModel.count(
     }
 
     // clickable
-    mutableUiState.update {
-        it.copy(
-            clickable = false,
-        )
-    }
+    isClickable = false
     viewModelScope.launch {
         delay(thekr.coolDown)
-        mutableUiState.update {
-            it.copy(
-                clickable = true,
-            )
-        }
+        isClickable = true
     }
 
     // push updates to db

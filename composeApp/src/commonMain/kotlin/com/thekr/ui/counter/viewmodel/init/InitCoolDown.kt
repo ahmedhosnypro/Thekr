@@ -5,7 +5,6 @@ import com.thekr.ui.counter.viewmodel.ThekrCounterViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 fun initCoolDown(
@@ -28,17 +27,9 @@ fun initCoolDown(
                     val now = System.currentTimeMillis()
                     val timeDiff = now - lastCountItemTime
                     if (timeDiff < cooldown - 500) {
-                        mutableUiState.update { currentState ->
-                            currentState.copy(
-                                clickable = false
-                            )
-                        }
+                        isClickable = false
                         delay(cooldown - 500 - timeDiff)
-                        mutableUiState.update { currentState ->
-                            currentState.copy(
-                                clickable = true
-                            )
-                        }
+                        isClickable = true
                     }
                 }
                 firstTime = false

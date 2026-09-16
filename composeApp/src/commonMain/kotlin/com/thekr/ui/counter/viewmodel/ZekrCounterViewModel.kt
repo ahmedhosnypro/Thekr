@@ -28,6 +28,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlin.concurrent.Volatile
 
 class ThekrCounterViewModel(
     savedStateHandle: SavedStateHandle,
@@ -57,6 +58,9 @@ class ThekrCounterViewModel(
     val uiState = mutableUiState.asStateFlow()
 
     var firstTime = true
+
+    @Volatile
+    var isClickable = true
 
     init {
         initCoolDown(this)

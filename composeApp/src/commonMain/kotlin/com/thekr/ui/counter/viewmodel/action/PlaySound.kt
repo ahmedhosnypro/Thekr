@@ -7,6 +7,8 @@ import korlibs.audio.sound.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 
 
@@ -22,7 +24,9 @@ object ThekrSoundPlayer : SoundPlayer {
     internal val scope = CoroutineScope(Dispatchers.Default)
     override var soundChannel: SoundChannel? = null
 
-    private var stream: SoundAudioStream? = null
+    private const val MAX_DECODED_SOUNDS = 16
+    private val decodedSounds = LinkedHashMap<String, Sound>()
+    private val decodeMutex = Mutex()
 
     @OptIn(ExperimentalResourceApi::class)
     fun ThekrCounterViewModel.onPlayAudio() {
@@ -33,12 +37,7 @@ object ThekrSoundPlayer : SoundPlayer {
         val soundFileName = getCurrentThekr().value.soundFileName
         val filePath = "files/thekr/${currentSettings().currentSheikh}/${soundFileName}.mp3"
         scope.launch {
-            val bytes = try {
-                Res.readBytes(filePath)
-            } catch (e: Exception) {
-                return@launch
-            }
-            val sound = nativeSoundProvider.createSound(data = bytes)
+            val sound = decodeSound(filePath) ?: return@launch
             soundChannel = sound.play()
             updateUiState(uiState.value.copy(isAudioPlaying = true))
             soundChannel?.onCompleted(coroutineContext = scope.coroutineContext) {
@@ -48,11 +47,31 @@ object ThekrSoundPlayer : SoundPlayer {
         }
     }
 
+    @OptIn(ExperimentalResourceApi::class)
+    private suspend fun decodeSound(filePath: String): Sound? = decodeMutex.withLock {
+        decodedSounds[filePath] ?: run {
+            val bytes = try {
+                Res.readBytes(filePath)
+            } catch (e: Exception) {
+                return@withLock null
+            }
+            val sound = try {
+                nativeSoundProvider.createSound(data = bytes)
+            } catch (e: Exception) {
+                return@withLock null
+            }
+            decodedSounds[filePath] = sound
+            if (decodedSounds.size > MAX_DECODED_SOUNDS) {
+                decodedSounds.remove(decodedSounds.keys.first())
+            }
+            sound
+        }
+    }
+
 
     override fun stopPlayer() {
         if (soundChannel != null) {
             soundChannel?.stop()
-            stream?.closeStream
             soundChannel = null
         }
     }
