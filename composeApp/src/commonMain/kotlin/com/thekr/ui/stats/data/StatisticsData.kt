@@ -11,6 +11,10 @@ data class StatisticsData(
     val minY: Double? = null,
 )
 
+/** Cheap placeholder rendered while statistics are loaded off the main thread. */
+fun emptyStatisticsData(): StatisticsData =
+    StatisticsData(partial = ColumnCartesianLayerModel.Partial(emptyList()))
+
 fun linePartial(data: MutableMap<Int, Int>) =
     LineCartesianLayerModel.Partial(
         listOf(
