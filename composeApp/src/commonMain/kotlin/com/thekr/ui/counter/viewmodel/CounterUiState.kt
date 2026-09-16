@@ -19,7 +19,6 @@ data class CounterUiState(
     val currentCount: MutableState<ThekrCount> = mutableStateOf(ThekrCount()),
     val countItemsByDay: Map<Long, List<Count>> = mapOf(),
     val controlHeaderVisible: Boolean = true,
-    val clickable: Boolean = true,
 
     val showCounter: Boolean = false,
 
