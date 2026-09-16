@@ -10,7 +10,7 @@ interface SessionRepository {
 
     fun findAll(): Flow<List<Session>>
 
-    fun findById(id: Long): Flow<Session>
+    fun findById(id: Long): Flow<Session?>
 
     /**
      * Finds an active session for the given thekrCategoryId and thekrInstanceId.
@@ -20,5 +20,5 @@ interface SessionRepository {
      * @param thekrInstanceId The ID of the Thekr instance.
      * @return Flow emitting the active session, if any.
      */
-    fun findActiveSession(thekrCategoryId: Long, thekrInstanceId: Long): Flow<Session>
+    fun findActiveSession(thekrCategoryId: Long, thekrInstanceId: Long): Flow<Session?>
 }

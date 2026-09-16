@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 interface CategoryRepository {
     suspend fun insert(category: Category): Long
     suspend fun insertAll(categoryList: List<Category>)
-    fun findById(id: Long): Flow<Category>
+    fun findById(id: Long): Flow<Category?>
     fun findAll(): Flow<List<Category>>
     fun findByParentId(parent: Long): Flow<List<Category>>
     fun findByRootId(id: Long): Flow<List<Category>>

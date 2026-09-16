@@ -23,7 +23,7 @@ interface ThekrInstanceDAO {
     suspend fun deleteIfNotProtected(id: Long)
 
     @Query("SELECT * FROM thekr_instance WHERE id = :id")
-    fun findById(id: Long): Flow<ThekrInstance>
+    fun findById(id: Long): Flow<ThekrInstance?>
 
     @Query("SELECT * FROM thekr_instance")
     fun findAll(): Flow<List<ThekrInstance>>
