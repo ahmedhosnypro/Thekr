@@ -21,8 +21,12 @@ object WeeklyStatisticsData {
 
         with(viewModel) {
             runBlocking {
+                // Count rows are keyed by thekrInstanceId (the instance's own
+                // id), not the Thekr definition id carried by the route arg.
                 countItems =
-                    countRepository.findCounts(thekrId, weekStart, weekEnd).firstOrNull()
+                    countRepository.findCounts(
+                        getCurrentThekrInstance().value.id, weekStart, weekEnd
+                    ).firstOrNull()
                         ?: listOf()
             }
         }

@@ -6,6 +6,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import java.util.Locale
 
@@ -42,23 +43,38 @@ object TTSSpeaker {
     private var lastTextToSpeech: TextToSpeech? = null
     private var job: Job? = null
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
+    private val lock = Any()
 
     fun textToSpeech(context: Context, text: String) {
-        // Every TTS() below constructs a new engine; release the previous one
-        // or its service connection leaks.
-        lastTextToSpeech?.let {
-            it.stop()
-            it.shutdown()
-        }
-        lastTextToSpeech = null
+        synchronized(lock) {
+            // Every TTS() below constructs a new engine; release the previous
+            // one or its service connection leaks.
+            lastTextToSpeech?.let {
+                it.stop()
+                it.shutdown()
+            }
+            lastTextToSpeech = null
 
-        job?.cancel()
+            job?.cancel()
 
-        job = coroutineScope.launch {
-            delay(200)
-            val tts = TTS(context, text)
+            job = coroutineScope.launch {
+                delay(200)
+                val tts = TTS(context, text)
 
-            lastTextToSpeech = tts.textToSpeech
+                synchronized(lock) {
+                    if (!isActive) {
+                        // Superseded while delayed: this call's release ran
+                        // before the engine existed, so dispose it here or its
+                        // service connection leaks.
+                        tts.textToSpeech?.let {
+                            it.stop()
+                            it.shutdown()
+                        }
+                    } else {
+                        lastTextToSpeech = tts.textToSpeech
+                    }
+                }
+            }
         }
     }
 }

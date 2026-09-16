@@ -40,6 +40,7 @@ import com.thekr.resources.hour
 import com.thekr.resources.minute
 import com.thekr.ui.counter.CounterHelper.dayStatisticsData
 import com.thekr.ui.stats.DayStatisticsType
+import com.thekr.ui.stats.StatsTimeHelper
 import com.thekr.ui.stats.component.axis.hourlyBottomAxis
 import com.thekr.ui.stats.component.axis.minuteBottomAxis
 import com.thekr.ui.stats.component.axis.startAxis
@@ -145,7 +146,7 @@ fun DayNavigator(midnight: MutableLongState) {
     ) {
         // previous day
         IconButton(onClick = {
-            midnight.longValue -= 86400000
+            midnight.longValue = StatsTimeHelper.midnightOffsetBy(midnight.longValue, -1)
         }) {
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowBackIos,
@@ -181,7 +182,7 @@ fun DayNavigator(midnight: MutableLongState) {
         // next day
         IconButton(
             onClick = {
-                midnight.longValue += 86400000
+                midnight.longValue = StatsTimeHelper.midnightOffsetBy(midnight.longValue, 1)
             },
             enabled = !isToday
         ) {

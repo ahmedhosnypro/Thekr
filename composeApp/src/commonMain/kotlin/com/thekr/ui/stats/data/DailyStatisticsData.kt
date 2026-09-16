@@ -3,6 +3,7 @@ package com.thekr.ui.stats.data
 import com.thekr.model.Count
 import com.thekr.ui.counter.viewmodel.ThekrCounterViewModel
 import com.thekr.ui.stats.DayStatisticsType
+import com.thekr.ui.stats.StatsTimeHelper
 import com.thekr.util.TimeHelper.calcMidnight
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
@@ -13,13 +14,20 @@ object DailyStatisticsData {
     fun calcDayStatistics(
         viewModel: ThekrCounterViewModel, midnight: Long, dayStatisticsType: DayStatisticsType
     ): StatisticsData {
-        val nextMidnight = calcMidnight(midnight + 24 * 60 * 60 * 1000)
+        // End of the window as the start of the next local calendar day:
+        // midnight + 24h absolute collapses to the same day's midnight on a
+        // DST fall-back day, which would empty the whole window.
+        val nextMidnight = StatsTimeHelper.midnightOffsetBy(midnight, 1)
         val todayCountItems: List<Count>
 
         with(viewModel) {
             runBlocking {
+                // Count rows are keyed by thekrInstanceId (the instance's own
+                // id), not the Thekr definition id carried by the route arg.
                 todayCountItems =
-                    countRepository.findCounts(thekrId, midnight, nextMidnight).first()
+                    countRepository.findCounts(
+                        getCurrentThekrInstance().value.id, midnight, nextMidnight
+                    ).first()
             }
         }
 
@@ -54,7 +62,7 @@ object DailyStatisticsData {
     ): StatisticsData {
         val currentDayCountByMinute = mutableMapOf<Int, Int>()
 
-        (0..24 * 60).forEach { minute ->
+        (0 until 24 * 60).forEach { minute ->
             currentDayCountByMinute[minute] = 0
         }
         groupDayCountByMinute(currentDayCountItems, currentDayCountByMinute)
