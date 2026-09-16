@@ -65,6 +65,8 @@ libsu = "6.0.0"
 
 ## plugins
 binary-compatibility-validator = "0.18.2"
+detekt = "1.23.8"
+ktlint = "14.2.0"
 uiautomator = "2.4.0"
 benchmarkMacroJunit4 = "1.5.0"
 baselineprofile = "1.5.0"
@@ -193,3 +195,5 @@ korge  = {id ="com.soywiz.korge", version.ref = "korge"}
 android-test = { id = "com.android.test", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 baselineprofile = { id = "androidx.baselineprofile", version.ref = "baselineprofile" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }

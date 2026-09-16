@@ -2,6 +2,23 @@ plugins {
     alias(libs.plugins.android.test)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.baselineprofile)
+    alias(libs.plugins.detekt)
+    alias(libs.plugins.ktlint)
+}
+
+detekt {
+    buildUponDefaultConfig = true
+    allRules = false
+    config.setFrom(files("$rootDir/config/detekt/detekt.yml"))
+    // Per-module baseline (see composeApp/build.gradle.kts for the rationale).
+    baseline = file("$rootDir/config/detekt/baseline-baselineprofile.xml")
+    parallel = true
+}
+
+ktlint {
+    version.set("1.5.0")
+    // Pre-existing findings live in the baseline; only new code must be clean.
+    baseline.set(file("$rootDir/config/ktlint/baseline-baselineprofile.xml"))
 }
 
 android {
@@ -35,6 +52,9 @@ dependencies {
     implementation(libs.androidx.espresso.core)
     implementation(libs.androidx.uiautomator)
     implementation(libs.androidx.benchmark.macro.junit4)
+
+    // detekt-formatting gives detekt the ktlint-equivalent formatting rules.
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.8")
 }
 
 @Suppress("SUSPICIOUS_INDENTATION")

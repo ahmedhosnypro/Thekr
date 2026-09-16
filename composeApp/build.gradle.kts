@@ -20,6 +20,31 @@ plugins {
 //    alias(libs.plugins.korge)
     // id("org.jetbrains.compose.hot-reload") version "1.0.0-dev-63"
     alias(libs.plugins.baselineprofile)
+    alias(libs.plugins.detekt)
+    alias(libs.plugins.ktlint)
+}
+
+detekt {
+    buildUponDefaultConfig = true
+    allRules = false
+    config.setFrom(files("$rootDir/config/detekt/detekt.yml"))
+    // Per-module baseline: detektBaseline task overwrites the file, so a
+    // shared path would clobber the other module's entries.
+    baseline = file("$rootDir/config/detekt/baseline-composeApp.xml")
+    source.setFrom(
+        files(
+            "$projectDir/src/commonMain/kotlin",
+            "$projectDir/src/jvmMain/kotlin",
+            "$projectDir/src/androidMain/kotlin",
+        )
+    )
+    parallel = true
+}
+
+ktlint {
+    version.set("1.5.0")
+    // Pre-existing findings live in the baseline; only new code must be clean.
+    baseline.set(file("$rootDir/config/ktlint/baseline-composeApp.xml"))
 }
 
 val nameSpace = "com.thekr"
@@ -261,6 +286,9 @@ dependencies {
     implementation(libs.androidx.profileinstaller)
     "baselineProfile"(project(":baselineprofile"))
     //    implementation(libs.androidx.room.ktx)
+
+    // detekt-formatting gives detekt the ktlint-equivalent formatting rules (wrapping, spacing, imports).
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.8")
 
     with(libs.room.compiler) {
         add("kspAndroid", this)

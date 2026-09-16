@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>MagicNumber:BaselineProfileGenerator.kt$BaselineProfileGenerator$10</ID>
+    <ID>MagicNumber:BaselineProfileGenerator.kt$BaselineProfileGenerator$3</ID>
+    <ID>MagicNumber:BaselineProfileGenerator.kt$BaselineProfileGenerator$4</ID>
+    <ID>MagicNumber:BaselineProfileGenerator.kt$BaselineProfileGenerator$5_000</ID>
+    <ID>MagicNumber:StartupBenchmarks.kt$StartupBenchmarks$5_000</ID>
+    <ID>MaxLineLength:StartupBenchmarks.kt$StartupBenchmarks$*</ID>
+    <ID>TooGenericExceptionThrown:BaselineProfileGenerator.kt$BaselineProfileGenerator$throw Exception("targetAppId not passed as instrumentation runner arg")</ID>
+    <ID>TooGenericExceptionThrown:StartupBenchmarks.kt$StartupBenchmarks$throw Exception("targetAppId not passed as instrumentation runner arg")</ID>
+  </CurrentIssues>
+</SmellBaseline>
