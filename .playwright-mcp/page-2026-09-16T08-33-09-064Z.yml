@@ -1,0 +1,47 @@
+- generic [active] [ref=f8e1]:
+  - banner [ref=f8e2]:
+    - button "Skip to content" [ref=f8e3] [cursor=pointer]
+    - button "Accessibility Feedback" [ref=f8e6] [cursor=pointer]
+    - generic [ref=f8e9]:
+      - link [ref=f8e10] [cursor=pointer]:
+        - /url: /?FORM=Z9FD1
+        - heading "Back to Bing search" [level=1] [ref=f8e11]
+      - search [ref=f8e12]:
+        - button "Search" [ref=f8e15] [cursor=pointer]
+        - searchbox "Enter your search here - Search suggestions will show as you type" [ref=f8e16]: android-actions setup-android "android-37" compileSdk 37 failed to find target
+        - button "Search using an image" [ref=f8e19] [cursor=pointer]
+    - complementary "Account Rewards and Preferences" [ref=f8e21]:
+      - button "Microsoft Rewards"
+      - link "Sign in" [ref=f8e22] [cursor=pointer]:
+        - /url: javascript:void(0)
+    - navigation "Search Filter" [ref=f8e24]:
+      - list [ref=f8e25]:
+        - listitem [ref=f8e26]:
+          - link "All" [ref=f8e27] [cursor=pointer]:
+            - /url: /?scope=web&FORM=HDRSC1
+        - listitem [ref=f8e28]:
+          - link "Search" [ref=f8e29] [cursor=pointer]:
+            - /url: /copilotsearch?q=android-actions+setup-android+%22android-37%22+compileSdk+37+failed+to+find+target&FORM=CSSCOP
+        - listitem [ref=f8e32]:
+          - link "Images" [ref=f8e33] [cursor=pointer]:
+            - /url: https://www.bing.com/ck/a?!&&p=151430a64383f91aaf87641c606d272bc5676a34ad17864e1e32a0b28feafefeJmltdHM9MTc4OTUxNjgwMA&ptn=3&ver=2&hsh=4&fclid=15ff2f1d-0b43-679f-3277-38cb0af96693&u=a1L2ltYWdlcy9zZWFyY2g_cT1hbmRyb2lkLWFjdGlvbnMrc2V0dXAtYW5kcm9pZCslMjJhbmRyb2lkLTM3JTIyK2NvbXBpbGVTZGsrMzcrZmFpbGVkK3RvK2ZpbmQrdGFyZ2V0JkZPUk09SERSU0My&ntb=1
+        - listitem [ref=f8e34]:
+          - link "Videos" [ref=f8e35] [cursor=pointer]:
+            - /url: https://www.bing.com/ck/a?!&&p=8f43959b46ea7cdd535c3d7eaabf8b826ec62562937a0c45412c141f641b5dc9JmltdHM9MTc4OTUxNjgwMA&ptn=3&ver=2&hsh=4&fclid=15ff2f1d-0b43-679f-3277-38cb0af96693&u=a1L3ZpZGVvcy9zZWFyY2g_cT1hbmRyb2lkLWFjdGlvbnMrc2V0dXAtYW5kcm9pZCslMjJhbmRyb2lkLTM3JTIyK2NvbXBpbGVTZGsrMzcrZmFpbGVkK3RvK2ZpbmQrdGFyZ2V0JkZPUk09SERSU0Mz&ntb=1
+        - listitem [ref=f8e36]:
+          - link "Maps" [ref=f8e37] [cursor=pointer]:
+            - /url: https://www.bing.com/ck/a?!&&p=886931113b624fa902434cba9cdf4065e0579a1f791e52fcb66cf8a2bc17a37aJmltdHM9MTc4OTUxNjgwMA&ptn=3&ver=2&hsh=4&fclid=15ff2f1d-0b43-679f-3277-38cb0af96693&u=a1L21hcHM_cT1hbmRyb2lkLWFjdGlvbnMrc2V0dXAtYW5kcm9pZCslMjJhbmRyb2lkLTM3JTIyK2NvbXBpbGVTZGsrMzcrZmFpbGVkK3RvK2ZpbmQrdGFyZ2V0JkZPUk09SERSU0M0&ntb=1
+        - listitem [ref=f8e38]:
+          - link "News" [ref=f8e39] [cursor=pointer]:
+            - /url: https://www.bing.com/ck/a?!&&p=588b340afaf4645e0405cdf977db56e0e1502462700072456cc2d81cee580db4JmltdHM9MTc4OTUxNjgwMA&ptn=3&ver=2&hsh=4&fclid=15ff2f1d-0b43-679f-3277-38cb0af96693&u=a1L25ld3Mvc2VhcmNoP3E9YW5kcm9pZC1hY3Rpb25zK3NldHVwLWFuZHJvaWQrJTIyYW5kcm9pZC0zNyUyMitjb21waWxlU2RrKzM3K2ZhaWxlZCt0bytmaW5kK3RhcmdldCZGT1JNPUhEUlNDNg&ntb=1
+        - listitem [ref=f8e40]:
+          - button [ref=f8e41] [cursor=pointer]
+  - contentinfo [ref=f8e45]:
+    - generic [ref=f8e46]:
+      - list:
+        - listitem [ref=f8e47]:
+          - link "Privacy" [ref=f8e48] [cursor=pointer]:
+            - /url: https://www.bing.com/ck/a?!&&p=b863d627f5b453e8f1a6ad3242d9100c75391b1d18f3d0b78e6e0581f6b00f8eJmltdHM9MTc4OTUxNjgwMA&ptn=3&ver=2&hsh=4&fclid=15ff2f1d-0b43-679f-3277-38cb0af96693&u=a1aHR0cDovL2dvLm1pY3Jvc29mdC5jb20vZndsaW5rLz9MaW5rSWQ9NTIxODM5&ntb=1
+        - listitem [ref=f8e49]:
+          - link "Terms" [ref=f8e50] [cursor=pointer]:
+            - /url: https://www.bing.com/ck/a?!&&p=f5b76328dd65b4b9615b42427136cc75470cb371deb65b011a8e2a4c197f517dJmltdHM9MTc4OTUxNjgwMA&ptn=3&ver=2&hsh=4&fclid=15ff2f1d-0b43-679f-3277-38cb0af96693&u=a1aHR0cDovL2dvLm1pY3Jvc29mdC5jb20vZndsaW5rLz9MaW5rSUQ9MjQ2MzM4&ntb=1
