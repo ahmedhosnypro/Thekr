@@ -13,7 +13,7 @@ object DailyStatisticsData {
     fun calcDayStatistics(
         viewModel: ThekrCounterViewModel, midnight: Long, dayStatisticsType: DayStatisticsType
     ): StatisticsData {
-        val nextMidnight = midnight + 24 * 60 * 60 * 1000
+        val nextMidnight = calcMidnight(midnight + 24 * 60 * 60 * 1000)
         val todayCountItems: List<Count>
 
         with(viewModel) {

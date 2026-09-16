@@ -35,15 +35,21 @@ fun updateThekrList(
     toUpdateThekrList: SnapshotStateList<MutableState<ThekrDetails>>,
     updatedThekrList: List<ThekrDetails>,
 ) {
-    val existingThekrIds = toUpdateThekrList.map { it.value.id }
+    val existingThekrIds = toUpdateThekrList.mapTo(HashSet()) { it.value.id }
+    val updatedThekrIds = updatedThekrList.mapTo(HashSet()) { it.id }
 
     // Remove items that are no longer in the updated list
-    toUpdateThekrList.removeIf { it.value.id !in updatedThekrList.map { thekr -> thekr.id } }
+    toUpdateThekrList.removeIf { it.value.id !in updatedThekrIds }
+
+    val indexById = HashMap<Long, Int>()
+    toUpdateThekrList.forEachIndexed { index, item ->
+        indexById.putIfAbsent(item.value.id, index)
+    }
 
     // Update existing Thekr items if they have been updated in the database
     updatedThekrList.forEach { newThekr ->
-        val index = toUpdateThekrList.indexOfFirst { it.value.id == newThekr.id }
-        if (index != -1 && toUpdateThekrList[index].value.timeUpdated < newThekr.timeUpdated) {
+        val index = indexById[newThekr.id]
+        if (index != null && toUpdateThekrList[index].value.timeUpdated < newThekr.timeUpdated) {
             // Update the MutableState directly
             toUpdateThekrList[index].value = newThekr
         }
@@ -65,15 +71,21 @@ fun updateThekrInstanceList(
     toUpdateThekrInstanceList: SnapshotStateList<MutableState<ThekrInstanceDetails>>,
     updatedThekrInstanceList: List<ThekrInstanceDetails>,
 ) {
-    val existingThekrInstanceIds = toUpdateThekrInstanceList.map { it.value.id }
+    val existingThekrInstanceIds = toUpdateThekrInstanceList.mapTo(HashSet()) { it.value.id }
+    val updatedThekrInstanceIds = updatedThekrInstanceList.mapTo(HashSet()) { it.id }
 
     // Remove items that are no longer in the updated list
-    toUpdateThekrInstanceList.removeIf { it.value.id !in updatedThekrInstanceList.map { it.id } }
+    toUpdateThekrInstanceList.removeIf { it.value.id !in updatedThekrInstanceIds }
+
+    val indexById = HashMap<Long, Int>()
+    toUpdateThekrInstanceList.forEachIndexed { index, item ->
+        indexById.putIfAbsent(item.value.id, index)
+    }
 
     // Update existing ThekrInstanceDetails items
     updatedThekrInstanceList.forEach { newThekrInstance ->
-        val index = toUpdateThekrInstanceList.indexOfFirst { it.value.id == newThekrInstance.id }
-        if (index != -1 && toUpdateThekrInstanceList[index].value.timeUpdated < newThekrInstance.timeUpdated) {
+        val index = indexById[newThekrInstance.id]
+        if (index != null && toUpdateThekrInstanceList[index].value.timeUpdated < newThekrInstance.timeUpdated) {
             // Update the MutableState directly
             toUpdateThekrInstanceList[index].value = newThekrInstance
         }
@@ -123,7 +135,8 @@ fun updateCountMissList(
     toUpdateCountMissList: SnapshotStateList<CountMissDetails>,
     updatedCountMissList: List<CountMissDetails>
 ) {
-    updatedCountMissList.filter { it.id !in toUpdateCountMissList.map { countMiss -> countMiss.id } }
+    val existingCountMissIds = toUpdateCountMissList.mapTo(HashSet()) { it.id }
+    updatedCountMissList.filter { it.id !in existingCountMissIds }
         .forEach { toUpdateCountMissList.add(it) }
 }
 
@@ -138,15 +151,21 @@ fun updateFadlList(
     toUpdateFadlList: SnapshotStateList<FadlDetails>,
     updatedFadlList: List<FadlDetails>,
 ) {
-    val existingFadlIds = toUpdateFadlList.map { it.id }
+    val existingFadlIds = toUpdateFadlList.mapTo(HashSet()) { it.id }
+    val updatedFadlIds = updatedFadlList.mapTo(HashSet()) { it.id }
 
     // Remove items that are no longer in the updated list
-    toUpdateFadlList.removeIf { it.id !in updatedFadlList.map { fadl -> fadl.id } }
+    toUpdateFadlList.removeIf { it.id !in updatedFadlIds }
+
+    val indexById = HashMap<Long, Int>()
+    toUpdateFadlList.forEachIndexed { index, fadl ->
+        indexById.putIfAbsent(fadl.id, index)
+    }
 
     // Update existing FadlDetails items
     updatedFadlList.forEach { newFadl ->
-        val index = toUpdateFadlList.indexOfFirst { it.id == newFadl.id }
-        if (index != -1 && toUpdateFadlList[index].timeUpdated < newFadl.timeUpdated) {
+        val index = indexById[newFadl.id]
+        if (index != null && toUpdateFadlList[index].timeUpdated < newFadl.timeUpdated) {
             // Update the item in the list directly
             toUpdateFadlList[index] = newFadl
         }
