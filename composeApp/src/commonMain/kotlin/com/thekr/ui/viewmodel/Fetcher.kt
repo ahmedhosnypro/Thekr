@@ -8,15 +8,6 @@ import com.thekr.values.Constants
 import com.thekr.data.thekr.category.CategoryDetails
 import com.thekr.data.thekr.count.ThekrCount
 import com.thekr.model.Count
-import com.thekr.ui.viewmodel.TimeHelper.midnight
-import com.thekr.ui.viewmodel.TimeHelper.monthEnd
-import com.thekr.ui.viewmodel.TimeHelper.monthStart
-import com.thekr.ui.viewmodel.TimeHelper.nextMidnight
-import com.thekr.ui.viewmodel.TimeHelper.now
-import com.thekr.ui.viewmodel.TimeHelper.weekEnd
-import com.thekr.ui.viewmodel.TimeHelper.weekStart
-import com.thekr.ui.viewmodel.TimeHelper.yearEnd
-import com.thekr.ui.viewmodel.TimeHelper.yearStart
 import com.thekr.util.TimeHelper.calcMidnight
 import com.thekr.util.TimeHelper.calcMonthEnd
 import com.thekr.util.TimeHelper.calcMonthStart
@@ -24,14 +15,20 @@ import com.thekr.util.TimeHelper.calcWeekEnd
 import com.thekr.util.TimeHelper.calcWeekStart
 import com.thekr.util.TimeHelper.calcYearEnd
 import com.thekr.util.TimeHelper.calcYearStart
+import com.thekr.util.TimeHelper.midnight
+import com.thekr.util.TimeHelper.monthEnd
+import com.thekr.util.TimeHelper.monthStart
+import com.thekr.util.TimeHelper.nextMidnight
+import com.thekr.util.TimeHelper.now
+import com.thekr.util.TimeHelper.weekEnd
+import com.thekr.util.TimeHelper.weekStart
+import com.thekr.util.TimeHelper.yearEnd
+import com.thekr.util.TimeHelper.yearStart
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import kotlin.concurrent.Volatile
-import kotlin.time.Clock
-import kotlin.time.ExperimentalTime
 
 object Fetcher {
     /**
@@ -183,37 +180,6 @@ object Fetcher {
             }
         }
     }
-}
-
-object TimeHelper {
-    data class TimeHelper(
-        val midnight: Long = calcMidnight(),
-        val nextMidnight: Long = calcMidnight(midnight + 24 * 60 * 60 * 1000),
-        val weekStart: Long = calcWeekStart(midnight),
-        val weekEnd: Long = calcWeekEnd(midnight),
-        val monthStart: Long = calcMonthStart(midnight),
-        val monthEnd: Long = calcMonthEnd(midnight),
-        val yearStart: Long = calcYearStart(midnight),
-        val yearEnd: Long = calcYearEnd(midnight),
-    )
-
-    @Volatile
-    private var timeHelper = TimeHelper()
-    @OptIn(ExperimentalTime::class)
-    fun now() = Clock.System.now().toEpochMilliseconds()
-    private fun refreshIfStale() {
-        if (now() >= timeHelper.nextMidnight) {
-            timeHelper = TimeHelper()
-        }
-    }
-    fun midnight() = refreshIfStale().let { timeHelper.midnight }
-    fun nextMidnight() = refreshIfStale().let { timeHelper.nextMidnight }
-    fun weekStart() = refreshIfStale().let { timeHelper.weekStart }
-    fun weekEnd() = refreshIfStale().let { timeHelper.weekEnd }
-    fun monthStart() = refreshIfStale().let { timeHelper.monthStart }
-    fun monthEnd() = refreshIfStale().let { timeHelper.monthEnd }
-    fun yearStart() = refreshIfStale().let { timeHelper.yearStart }
-    fun yearEnd() = refreshIfStale().let { timeHelper.yearEnd }
 }
 
 
