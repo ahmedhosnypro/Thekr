@@ -23,8 +23,12 @@ class ThekrApplication : Application() {
     }
 
     init {
-        // Initialize Shell only once
-        if (Shell.isAppGrantedRoot() == false) {
+        // Initialize Shell only once. Per libsu-recommended practice, configure
+        // the builder before any shell is created. isAppGrantedRoot() is FALSE
+        // on devices with no executable su on PATH, null (unknown) when su
+        // exists, and true for uid-0 — so "!= true" applies this config to
+        // rooted and non-rooted/unknown devices alike.
+        if (Shell.isAppGrantedRoot() != true) {
 //            Shell.enableLegacyStderrRedirection = true
             Shell.setDefaultBuilder(
                 Shell.Builder.create()
@@ -51,6 +55,7 @@ class ThekrApplication : Application() {
         appStorage = filesDir.path
 
             // Set up global uncaught exception handler
+            val defaultHandler = Thread.getDefaultUncaughtExceptionHandler()
             Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
                 Log.e("ThekrApp", "Uncaught exception in thread: ${thread.name}", throwable)
                 runCatching {
@@ -61,6 +66,9 @@ class ThekrApplication : Application() {
                 }.onFailure {
                     Log.e("ThekrApp", "Failed to write crash log", it)
                 }
+                // Delegate to the previous handler so the process still dies
+                // normally instead of being left running in a broken state
+                defaultHandler?.uncaughtException(thread, throwable)
             }
     }
 }

@@ -44,9 +44,13 @@ object TTSSpeaker {
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
     fun textToSpeech(context: Context, text: String) {
-        if (lastTextToSpeech?.isSpeaking == true) {
-            lastTextToSpeech?.stop()
+        // Every TTS() below constructs a new engine; release the previous one
+        // or its service connection leaks.
+        lastTextToSpeech?.let {
+            it.stop()
+            it.shutdown()
         }
+        lastTextToSpeech = null
 
         job?.cancel()
 

@@ -10,7 +10,8 @@ import io.github.xxfast.kstore.KStore
 import io.github.xxfast.kstore.file.storeOf
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import okio.Path.Companion.toPath
 import kotlinx.io.files.Path as KxPath
@@ -30,14 +31,19 @@ actual suspend fun initAppData() {
         importDataFromJson()
     }
 
+    // React only to transitions of fingerPrintControl: every unrelated settings
+    // update must not spawn yet another logcat shell (startMonitoring never
+    // cancels the previous one).
     CoroutineScope(Dispatchers.Default).launch {
-        settingsStore.updates.collectLatest {
-            if (it?.fingerPrintControl == true) {
-                FingerPrintLogcatProcessor.startMonitoring()
-            } else {
-                // todo: save this as a job to be able to cancel it
-//                FingerPrintLogcatProcessor.stopMonitoring()
+        settingsStore.updates
+            .map { it?.fingerPrintControl == true }
+            .distinctUntilChanged()
+            .collect { fingerPrintEnabled ->
+                if (fingerPrintEnabled) {
+                    FingerPrintLogcatProcessor.startMonitoring()
+                }
             }
-        }
+            // todo: save this as a job to be able to cancel it
+//            FingerPrintLogcatProcessor.stopMonitoring()
     }
 }
