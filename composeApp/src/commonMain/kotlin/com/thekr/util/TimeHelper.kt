@@ -12,6 +12,7 @@ import kotlinx.datetime.minus
 import kotlinx.datetime.number
 import kotlinx.datetime.plus
 import kotlinx.datetime.toLocalDateTime
+import kotlin.concurrent.Volatile
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
@@ -20,7 +21,7 @@ import kotlin.time.Instant
 object TimeHelper {
     data class TimeHelper(
         val midnight: Long = calcMidnight(Clock.System.now().toEpochMilliseconds()),
-        val nextMidnight: Long = calcMidnight(midnight + 24 * 60 * 60 * 1000),
+        val nextMidnight: Long = calcNextMidnight(midnight),
         val weekStart: Long = calcWeekStart(midnight),
         val weekEnd: Long = calcWeekEnd(midnight),
         val monthStart: Long = calcMonthStart(midnight),
@@ -29,6 +30,7 @@ object TimeHelper {
         val yearEnd: Long = calcYearEnd(midnight),
     )
 
+    @Volatile
     private var timeHelper = TimeHelper()
     fun now() = Clock.System.now().toEpochMilliseconds()
     private fun refreshIfStale() {
@@ -64,6 +66,29 @@ object TimeHelper {
         return Instant.fromEpochMilliseconds(time)
             .toLocalDateTime(timeZone)
             .date
+            .atStartOfDayIn(timeZone)
+            .toEpochMilliseconds()
+    }
+
+    /**
+     * Calculates the time in milliseconds for midnight (start of day) of the
+     * day after the given time. Uses next-calendar-date arithmetic rather
+     * than a fixed +24h offset, so the result is strictly future on 23/25h
+     * DST transition days.
+     *
+     * @param time The time in milliseconds (defaults to current time).
+     * @param timeZone The time zone to use (defaults to the default time
+     *     zone).
+     * @return The time in milliseconds representing the next midnight.
+     */
+    fun calcNextMidnight(
+        time: Long = now(),
+        timeZone: TimeZone = TimeZone.currentSystemDefault()
+    ): Long {
+        return Instant.fromEpochMilliseconds(time)
+            .toLocalDateTime(timeZone)
+            .date
+            .plus(1, DateTimeUnit.DAY)
             .atStartOfDayIn(timeZone)
             .toEpochMilliseconds()
     }
