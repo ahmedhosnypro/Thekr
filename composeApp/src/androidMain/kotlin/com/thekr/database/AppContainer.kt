@@ -17,7 +17,8 @@ import com.thekr.data.thekr.instance.OfflineThekrInstanceRepository
 import com.thekr.data.thekr.instance.ThekrInstanceRepository
 import com.thekr.data.thekr.thekr.ThekrRepository
 import com.thekr.data.thekr.thekr.OfflineThekrRepository
-import com.thekr.di.DatabaseProvider.database
+import com.thekr.di.DatabaseProvider
+import com.thekr.database.initDatabaseIfNeeded
 
 
 /**
@@ -26,37 +27,42 @@ import com.thekr.di.DatabaseProvider.database
  */
 actual class AppDataContainer(private val context: Context) : AppContainer {
 
+    private fun db(): AppDatabase {
+        initDatabaseIfNeeded(context)
+        return DatabaseProvider.database
+    }
+
     override val categoryRepository: CategoryRepository by lazy {
-        OfflineCategoryRepository(database.categoryDao())
+        OfflineCategoryRepository(db().categoryDao())
     }
 
     override val thekrRepository: ThekrRepository by lazy {
-        OfflineThekrRepository(database.thekrDAO())
+        OfflineThekrRepository(db().thekrDAO())
     }
 
     override val thekrInstanceRepository: ThekrInstanceRepository by lazy {
-        OfflineThekrInstanceRepository(database.thekrInstanceDao())
+        OfflineThekrInstanceRepository(db().thekrInstanceDao())
     }
 
     override val fadlRepository: FadlRepository by lazy {
-        OfflineFadlRepository(database.fadlDao())
+        OfflineFadlRepository(db().fadlDao())
     }
 
     override val countRepository: CountRepository by lazy {
-        OfflineCountRepository(database.countDao())
+        OfflineCountRepository(db().countDao())
     }
 
     override val countMissRepository: CountMissRepository by lazy {
-        OfflineCountMissRepository(database.countMissDao())
+        OfflineCountMissRepository(db().countMissDao())
     }
 
     override val thekrGoalCompletionRepository: ThekrGoalCompletionRepository by lazy {
         OfflineThekrGoalCompletionRepository(
-            database.thekrGoalCompletionDao()
+            db().thekrGoalCompletionDao()
         )
     }
 
     override val sessionRepository: SessionRepository by lazy {
-        OfflineSessionRepository(database.sessionDao())
+        OfflineSessionRepository(db().sessionDao())
     }
 }

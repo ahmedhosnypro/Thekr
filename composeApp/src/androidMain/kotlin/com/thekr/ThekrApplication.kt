@@ -6,11 +6,13 @@ import android.content.Context
 import android.util.Log
 import com.thekr.database.AppContainer
 import com.thekr.database.AppDataContainer
-import com.thekr.di.DatabaseProvider
-import com.thekr.database.getDatabaseBuilder
+import com.thekr.database.initDatabaseIfNeeded
 import com.thekr.di.appStorage
 import com.topjohnwu.superuser.Shell
 import kotlin.io.path.Path
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ThekrApplication : Application() {
     /** AppContainer instance used by the rest of classes to get dependencies */
@@ -41,8 +43,11 @@ class ThekrApplication : Application() {
 
         container = AppDataContainer(this)
 
-        // Initialize database
-        DatabaseProvider.initDatabase(getDatabaseBuilder(this))
+        // Build the Room database off the main thread; first access is gated by
+        // initDatabaseIfNeeded, so this only warms the build up.
+        CoroutineScope(Dispatchers.Default).launch {
+            initDatabaseIfNeeded(applicationContext)
+        }
         appStorage = filesDir.path
 
             // Set up global uncaught exception handler
