@@ -2,7 +2,7 @@ package com.thekr.util
 
 import android.content.Intent
 import android.net.Uri
-import com.thekr.AndroidApp
+import com.thekr.ThekrApplication
 
 internal actual fun openUrl(url: String?) {
     val uri = url?.let { Uri.parse(it) } ?: return
@@ -11,5 +11,5 @@ internal actual fun openUrl(url: String?) {
         data = uri
         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     }
-    AndroidApp.INSTANCE.startActivity(intent)
+    ThekrApplication.appContext.startActivity(intent)
 }
