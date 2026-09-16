@@ -6,6 +6,7 @@ import com.thekr.ui.settings.SettingActions.currentSettings
 import korlibs.audio.sound.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -32,17 +33,23 @@ object ThekrSoundPlayer : SoundPlayer {
     fun ThekrCounterViewModel.onPlayAudio() {
         if (soundChannel?.playing == true) {
             stopPlayer()
+            mutableUiState.update { it.copy(isAudioPlaying = false) }
             return
         }
         val soundFileName = getCurrentThekr().value.soundFileName
         val filePath = "files/thekr/${currentSettings().currentSheikh}/${soundFileName}.mp3"
         scope.launch {
             val sound = decodeSound(filePath) ?: return@launch
-            soundChannel = sound.play()
-            updateUiState(uiState.value.copy(isAudioPlaying = true))
-            soundChannel?.onCompleted(coroutineContext = scope.coroutineContext) {
-                stopPlayer()
-                updateUiState(uiState.value.copy(isAudioPlaying = false))
+            val channel = sound.play()
+            soundChannel = channel
+            mutableUiState.update { it.copy(isAudioPlaying = true) }
+            channel.onCompleted(coroutineContext = scope.coroutineContext) {
+                // Only clean up if this channel is still the current one;
+                // a stale completion callback must not kill a newer playback.
+                if (soundChannel === channel) {
+                    soundChannel = null
+                    mutableUiState.update { it.copy(isAudioPlaying = false) }
+                }
             }
         }
     }
