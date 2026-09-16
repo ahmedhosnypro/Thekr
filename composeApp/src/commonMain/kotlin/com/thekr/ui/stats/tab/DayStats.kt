@@ -24,6 +24,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -44,9 +45,12 @@ import com.thekr.ui.stats.component.axis.minuteBottomAxis
 import com.thekr.ui.stats.component.axis.startAxis
 import com.thekr.ui.stats.component.getColumnLayer
 import com.thekr.ui.stats.component.getLineLayer
+import com.thekr.ui.stats.data.emptyStatisticsData
 import com.thekr.values.Dimensions.medium
 import com.thekr.values.Dimensions.small
 import com.thekr.util.TimeHelper.calcMidnight
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.jetbrains.compose.resources.stringResource
 import java.util.Calendar
 import java.util.Locale
@@ -78,20 +82,18 @@ private fun DailyChartWrapper(
     modifier: Modifier = Modifier,
 ) {
     val modelProducer = remember { CartesianChartModelProducer() }
-    val dayStatistics = remember {
-        mutableStateOf(dayStatisticsData(midnight.longValue, dayStatisticsType.value))
-    }
-    LaunchedEffect(
+    val dayStatistics = produceState(
+        initialValue = emptyStatisticsData(),
         key1 = midnight.longValue,
         key2 = dayStatisticsType.value
     ) {
-        dayStatistics.value = dayStatisticsData(
-            midnight.longValue,
-            dayStatisticsType.value,
-        )
-
+        // Load on Dispatchers.IO so the blocking DB read never runs on the
+        // main thread during composition.
+        value = withContext(Dispatchers.IO) {
+            dayStatisticsData(midnight.longValue, dayStatisticsType.value)
+        }
         modelProducer.runTransaction {
-            add(dayStatistics.value.partial)
+            add(value.partial)
         }
     }
     DayChart(

@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -54,16 +54,16 @@ fun ThekrList(
             .fillMaxSize()
             .padding(top = medium),
     ) {
-        items(
-            items = category.thekrInstanceList,
-            key = { it.value.id }
-        ) { item ->
-            val index = category.thekrInstanceList.indexOf(item)
-            val colorIndex = if (index < 6) index else index % 6
+        // Build the lookup maps once per recomposition instead of once per
+        // grid item, and use itemsIndexed to avoid an O(n) indexOf per item.
+        val thekrMap = category.thekrList.associateBy { it.value.id }
+        val countMap = category.countList.associateBy { it.value.thekrInstanceId }
 
-            // Simplify data retrieval using associateBy
-            val thekrMap = category.thekrList.associateBy { it.value.id }
-            val countMap = category.countList.associateBy { it.value.thekrInstanceId }
+        itemsIndexed(
+            items = category.thekrInstanceList,
+            key = { _, item -> item.value.id }
+        ) { index, item ->
+            val colorIndex = if (index < 6) index else index % 6
 
             val thekr = thekrMap[item.value.thekrId]?.value
             val count = countMap[item.value.thekrId]?.value?.dailyCount

@@ -20,6 +20,7 @@ import androidx.compose.runtime.MutableLongState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -34,8 +35,11 @@ import com.thekr.ui.stats.component.axis.startAxis
 import com.thekr.ui.stats.component.axis.weeklyBottomAxis
 import com.thekr.ui.stats.component.getColumnLayer
 import com.thekr.ui.stats.component.getLineLayer
+import com.thekr.ui.stats.data.emptyStatisticsData
 import com.thekr.values.Dimensions.medium
 import com.thekr.values.Dimensions.small
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import androidx.compose.ui.tooling.preview.Preview
 import java.util.Calendar
 import java.util.Locale
@@ -138,20 +142,23 @@ private fun WeeklyChartWrapper(
     time: MutableLongState = mutableLongStateOf(System.currentTimeMillis()),
 ) {
     val modelProducer = remember { CartesianChartModelProducer() }
-    var weekStatisticsData = remember {
-        mutableStateOf(CounterHelper.weekStatisticsData(time.longValue))
-    }
-
-    LaunchedEffect(key1 = time.longValue) {
-        weekStatisticsData.value = CounterHelper.weekStatisticsData(time.longValue)
+    val weekStatistics = produceState(
+        initialValue = emptyStatisticsData(),
+        key1 = time.longValue
+    ) {
+        // Load on Dispatchers.IO so the blocking DB read never runs on the
+        // main thread during composition.
+        value = withContext(Dispatchers.IO) {
+            CounterHelper.weekStatisticsData(time.longValue)
+        }
         modelProducer.runTransaction {
-            add(weekStatisticsData.value.partial)
+            add(value.partial)
         }
     }
 
     WeekChart(
         modelProducer = modelProducer,
-        maxY = weekStatisticsData.value.maxY,
+        maxY = weekStatistics.value.maxY,
     )
 }
 
