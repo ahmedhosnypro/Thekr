@@ -12,8 +12,10 @@ import com.thekr.data.count.count.CountRepository
 import com.thekr.data.count.miss.CountMissRepository
 import com.thekr.data.thekr.count.ThekrCount
 import com.thekr.data.thekr.instance.ThekrInstanceDetails
+import com.thekr.data.thekr.instance.ThekrInstanceRepository
 import com.thekr.data.thekr.thekr.ThekrDetails
 import com.thekr.data.thekr.thekr.ThekrRepository
+import com.thekr.fingerprint.Fingerprint.clearFingerprintListener
 import com.thekr.ui.counter.viewmodel.action.AntiSleep.killDetectSleepingJob
 import com.thekr.ui.counter.viewmodel.action.AntiSleep.stopDetectSleepingJob
 import com.thekr.ui.counter.viewmodel.action.ThekrSoundPlayer
@@ -35,6 +37,7 @@ class ThekrCounterViewModel(
     val thekrRepository: ThekrRepository,
     val countRepository: CountRepository,
     val countMissRepository: CountMissRepository,
+    private val thekrInstanceRepository: ThekrInstanceRepository,
 ) : ViewModel() {
     val categoryId: Long = checkNotNull(savedStateHandle[ThekrScreenRoute.CATEGORY_ID_ARG])
 
@@ -71,7 +74,7 @@ class ThekrCounterViewModel(
     fun delete() {
         if (uiState.value.currentThekrInstance.value.isProtected.not()) {
             viewModelScope.launch {
-                thekrRepository.deleteIfNotProtected(uiState.value.currentThekrInstance.value.id)
+                thekrInstanceRepository.deleteIfNotProtected(uiState.value.currentThekrInstance.value.id)
             }
         }
     }
@@ -79,6 +82,7 @@ class ThekrCounterViewModel(
     fun onCounterDispose() {
         stopDetectSleepingJob()
         ThekrSoundPlayer.stopPlayer()
+        clearFingerprintListener()
     }
 
     fun onNavigateUp() {

@@ -48,6 +48,7 @@ actual class AppViewModelFactory {
                JvmApplication.container.thekrRepository,
                JvmApplication.container.countRepository,
                JvmApplication.container.countMissRepository,
+               JvmApplication.container.thekrInstanceRepository,
             )
         }
     }

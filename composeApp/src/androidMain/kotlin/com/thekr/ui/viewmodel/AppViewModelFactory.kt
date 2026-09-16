@@ -49,6 +49,7 @@ actual class AppViewModelFactory {
                 counterApplication().container.thekrRepository,
                 counterApplication().container.countRepository,
                 counterApplication().container.countMissRepository,
+                counterApplication().container.thekrInstanceRepository,
             )
         }
     }
