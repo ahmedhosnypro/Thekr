@@ -23,16 +23,6 @@ actual fun FingerPrintLogcatProcessor.startMonitoring() {
         override fun onAddElement(s: String) {
             handleLogcatLine(s)
         }
-
-        // The default base list accumulates every appended line for the
-        // process lifetime; trim it here, on the appender's own thread, so
-        // the trim is serialized with appends.
-        override fun add(location: Int, element: String) {
-            super.add(location, element)
-            while (size > BUFFER_LINE_CAP) {
-                removeAt(0)
-            }
-        }
     }
 
     val dateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
@@ -42,5 +32,3 @@ actual fun FingerPrintLogcatProcessor.startMonitoring() {
         .to(callbackList)
         .submit()
 }
-
-private const val BUFFER_LINE_CAP = 100

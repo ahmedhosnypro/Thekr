@@ -31,6 +31,7 @@ import com.patrykandpatrick.vico.multiplatform.cartesian.rememberCartesianChart
 import com.patrykandpatrick.vico.multiplatform.cartesian.rememberVicoScrollState
 import com.patrykandpatrick.vico.multiplatform.cartesian.rememberVicoZoomState
 import com.thekr.ui.counter.CounterHelper
+import com.thekr.ui.stats.StatsTimeHelper
 import com.thekr.ui.stats.component.axis.startAxis
 import com.thekr.ui.stats.component.axis.weeklyBottomAxis
 import com.thekr.ui.stats.component.getColumnLayer
@@ -74,7 +75,9 @@ fun WeekNavigator(time: MutableLongState) {
     ) {
         // previous week
         IconButton(onClick = {
-            time.longValue -= 604800000
+            // DST-correct: shift the Sat–Fri week start by whole calendar days
+            // instead of a raw 7×24h step, which drifts across DST transitions.
+            time.longValue = StatsTimeHelper.midnightOffsetBy(calcWeekStart(time.longValue), -7)
         }) {
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowBackIos,
@@ -122,7 +125,7 @@ fun WeekNavigator(time: MutableLongState) {
         // next week
         IconButton(
             onClick = {
-                time.longValue += 604800000
+                time.longValue = StatsTimeHelper.midnightOffsetBy(calcWeekStart(time.longValue), 7)
             }, enabled = !isCurrentWeek
         ) {
             Icon(
