@@ -19,6 +19,9 @@ on:
         default: true
         type: boolean
 
+permissions:
+  contents: read
+
 jobs:
   build-android:
     if: ${{ inputs.build_android }}
@@ -32,7 +35,6 @@ jobs:
         with:
           distribution: 'microsoft'
           java-version: '21'
-          cache: 'gradle'
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
@@ -44,7 +46,7 @@ jobs:
         with:
           path: |
             /usr/local/lib/android/sdk
-          key: android-sdk-${{ runner.os }}-${{ hashFiles('**/build.gradle.kts') }}
+          key: android-sdk-${{ runner.os }}-${{ hashFiles('.github/workflows/build-release.yml') }}
           restore-keys: |
             android-sdk-${{ runner.os }}-
 
@@ -80,7 +82,6 @@ jobs:
         with:
           distribution: 'microsoft'
           java-version: '21'
-          cache: 'gradle'
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
@@ -109,7 +110,6 @@ jobs:
         with:
           distribution: 'microsoft'
           java-version: '21'
-          cache: 'gradle'
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
@@ -117,7 +117,7 @@ jobs:
           cache-read-only: false
 
       - name: Build Windows Desktop Package
-        run: ./gradlew :composeApp:packageReleaseMsi
+        run: ./gradlew.bat :composeApp:packageReleaseMsi
 
       - name: Upload Windows Package
         uses: actions/upload-artifact@v4
