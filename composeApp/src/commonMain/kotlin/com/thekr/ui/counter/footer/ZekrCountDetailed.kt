@@ -188,7 +188,7 @@ fun CountItem(
         )
 
         LaunchedEffect(count, target) {
-            progressTarget = (count / target.toFloat()).coerceIn(0f, 1f)
+            progressTarget = if (target > 0) (count / target.toFloat()).coerceIn(0f, 1f) else 0f
         }
 
         Row(
