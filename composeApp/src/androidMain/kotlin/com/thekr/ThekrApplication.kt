@@ -23,8 +23,10 @@ class ThekrApplication : Application() {
     }
 
     init {
-        // Initialize Shell only once
-        if (Shell.isAppGrantedRoot() == false) {
+        // Initialize Shell only once. isAppGrantedRoot() returns null (unknown)
+        // before any shell has been created, so check for "not root" instead of
+        // "definitely not root" or the builder config below is never applied.
+        if (Shell.isAppGrantedRoot() != true) {
 //            Shell.enableLegacyStderrRedirection = true
             Shell.setDefaultBuilder(
                 Shell.Builder.create()
@@ -51,6 +53,7 @@ class ThekrApplication : Application() {
         appStorage = filesDir.path
 
             // Set up global uncaught exception handler
+            val defaultHandler = Thread.getDefaultUncaughtExceptionHandler()
             Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
                 Log.e("ThekrApp", "Uncaught exception in thread: ${thread.name}", throwable)
                 runCatching {
@@ -61,6 +64,9 @@ class ThekrApplication : Application() {
                 }.onFailure {
                     Log.e("ThekrApp", "Failed to write crash log", it)
                 }
+                // Delegate to the previous handler so the process still dies
+                // normally instead of being left running in a broken state
+                defaultHandler?.uncaughtException(thread, throwable)
             }
     }
 }
