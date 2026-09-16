@@ -29,7 +29,7 @@ composeIcons = "1.1.1"
 androidx-sqlite = "2.7.1"
 
 runtime = "1.10.0-rc01"
-voyager = "1.1.0-beta03"
+voyager = "2.2.21-1.10.3"
 coil = "3.6.2"
 coil-network-ktor = "3.6.2"
 napier = "2.7.1"
