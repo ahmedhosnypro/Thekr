@@ -130,6 +130,7 @@ private fun HomeContent(
                         duaStack = appState.duaCategoryStack,
                         onCategoryClick = { HomeActions.onCategoryClick(tabIndex, it) },
                         settingsDetails = settingsDetails,
+                        tabIndex = tabIndex,
                     )
                 }
             }

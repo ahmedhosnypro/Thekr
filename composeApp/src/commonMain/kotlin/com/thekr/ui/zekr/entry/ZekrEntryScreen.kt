@@ -157,12 +157,12 @@ private fun CounterEntryBody(
         MyTextField(
             stringResource(Res.string.coolDown),
             counterEntry.coolDown.toString(),
-            uiState.isLabelValid,
+            true,
             { ThekrEntryActions.onCoolDownChange(it) },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = medium)
-
+                .padding(horizontal = medium),
+            keyboardType = KeyboardType.Number
         )
     }
 }
