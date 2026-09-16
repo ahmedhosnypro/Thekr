@@ -22,7 +22,7 @@ fun thekrIndicatorColor(
     index:Int
 ): Color{
     val colors = thekrIndicatorColorList()
-    return remember {
+    return remember(index) {
         colors[index % colors.size]
     }
 }
