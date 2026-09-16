@@ -66,7 +66,7 @@ object ClickSoundPlayer : SoundPlayer {
     private val scope = CoroutineScope(Dispatchers.Main)
     override var soundChannel: SoundChannel? = null
 
-    private lateinit var sound: Sound
+    private var sound: Sound? = null
 
     // todo: dynamic click sound
     private const val PATH = "files/alert/click_1.mp3"
@@ -83,9 +83,10 @@ object ClickSoundPlayer : SoundPlayer {
     }
 
     fun clickSound() {
+        val currentSound = sound ?: return
         scope.launch {
 //            stopPlayer()
-            sound.platformPlay()
+            currentSound.platformPlay()
         }
     }
 

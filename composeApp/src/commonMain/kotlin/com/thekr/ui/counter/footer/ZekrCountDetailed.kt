@@ -188,10 +188,7 @@ fun CountItem(
         )
 
         LaunchedEffect(count, target) {
-            val newVal = count / target.toFloat()
-            if (newVal >= progressTarget) {
-                progressTarget = newVal
-            }
+            progressTarget = if (target > 0) (count / target.toFloat()).coerceIn(0f, 1f) else 0f
         }
 
         Row(

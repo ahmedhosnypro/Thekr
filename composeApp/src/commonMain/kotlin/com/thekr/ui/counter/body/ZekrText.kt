@@ -90,7 +90,7 @@ fun ThekrText(
                 )
             }
             val currentFadlList =
-                categoryDetails.value.fadlList.filter { it.thekrId == counterUiState.currentThekrInstance.value.id }
+                categoryDetails.value.fadlList.filter { it.thekrId == thekr.id }
             if (currentFadlList.isNotEmpty()) {
                 items(currentFadlList, key = { it.id }) { fadl ->
                     Text(

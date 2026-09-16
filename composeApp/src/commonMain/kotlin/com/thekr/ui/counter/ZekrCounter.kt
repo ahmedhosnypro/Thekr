@@ -6,7 +6,6 @@
 package com.thekr.ui.counter
 
 import androidx.compose.foundation.LocalIndication
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -37,7 +36,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.annotation.InternalVoyagerApi
@@ -136,8 +134,8 @@ fun ThekrHomeBody(
     tabIndex: Int = 0,
 ) {
 
-    val thekrListSize = categoryDetails.value.thekrList.size
-    val peak = if (thekrListSize > 1) 72.dp else 0.dp
+    val pageCount = categoryDetails.value.thekrInstanceList.size
+    val peak = if (pageCount > 1) 72.dp else 0.dp
     val colors = AppTheme.colors(settingsDetails)
     BottomSheetScaffold(
         scaffoldState = countSheetState,
@@ -151,7 +149,7 @@ fun ThekrHomeBody(
             }
         },
         sheetDragHandle = {
-            if (thekrListSize > 1) {
+            if (pageCount > 1) {
                 Column(
                     modifier = modifier
                         .fillMaxWidth()
@@ -178,7 +176,6 @@ fun ThekrHomeBody(
         },
         sheetPeekHeight = peak,
         sheetContainerColor = colors.sheetBackgroundColor,
-        modifier = Modifier.background(color = Color.Green),
     ) {
         ThekrText(
             settingsDetails = settingsDetails,

@@ -226,7 +226,7 @@ object CounterHelper {
                 countVisible -> sheetState.expand()
 
                 components.counterViewModel.mutableUiState.value
-                    .categoryDetails.value.thekrList.size > 1 -> sheetState.partialExpand()
+                    .categoryDetails.value.thekrInstanceList.size > 1 -> sheetState.partialExpand()
 
                 else -> sheetState.hide()
             }
