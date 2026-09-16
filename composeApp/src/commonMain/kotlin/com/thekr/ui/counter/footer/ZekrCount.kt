@@ -188,7 +188,6 @@ fun progressColor(
     return progressColor
 }
 
-@Composable
 fun progressState(
     target: Long, count: Long
 ): ProgressState {

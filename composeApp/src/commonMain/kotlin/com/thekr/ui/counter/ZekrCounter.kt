@@ -84,6 +84,7 @@ fun ThekrHome(
         settingsDetails.screenAlwaysOn,
     ) {
         val focusRequester = remember { FocusRequester() }
+        val interactionSource = remember { NoRippleInteractionSource() }
         LaunchedEffect(Unit) {
             if (settingsDetails.volumeControl)
                 focusRequester.requestFocus()
@@ -91,7 +92,7 @@ fun ThekrHome(
         Box(
             modifier = modifier
                 .clickable(
-                    interactionSource = NoRippleInteractionSource(),
+                    interactionSource = interactionSource,
                     indication = LocalIndication.current,
                     onClick = { CounterHelper.onCount() }
                 )
@@ -135,7 +136,8 @@ fun ThekrHomeBody(
     tabIndex: Int = 0,
 ) {
 
-    val peak = if (categoryDetails.value.thekrList.size > 1) 72.dp else 0.dp
+    val thekrListSize = categoryDetails.value.thekrList.size
+    val peak = if (thekrListSize > 1) 72.dp else 0.dp
     val colors = AppTheme.colors(settingsDetails)
     BottomSheetScaffold(
         scaffoldState = countSheetState,
@@ -149,7 +151,7 @@ fun ThekrHomeBody(
             }
         },
         sheetDragHandle = {
-            if (categoryDetails.value.thekrList.size > 1) {
+            if (thekrListSize > 1) {
                 Column(
                     modifier = modifier
                         .fillMaxWidth()
