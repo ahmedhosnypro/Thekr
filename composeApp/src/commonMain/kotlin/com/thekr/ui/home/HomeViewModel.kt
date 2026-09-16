@@ -111,16 +111,16 @@ class HomeViewModel : ViewModel() {
     private fun getThekrPageCount(tabIndex: Int): Int? {
         return when (tabIndex) {
             ThekrCategoryType.User.tabIndex ->
-                appState.currentViewedSebhaCategory?.value?.thekrList?.size
+                appState.currentViewedSebhaCategory?.value?.thekrInstanceList?.size
 
             ThekrCategoryType.HesnAlMuslim.tabIndex ->
-                appState.hesnAlmuslimStack.last().value.thekrList.size
+                appState.hesnAlmuslimStack.last().value.thekrInstanceList.size
 
             ThekrCategoryType.Knooz.tabIndex ->
-                appState.knoozStack.last().value.thekrList.size
+                appState.knoozStack.last().value.thekrInstanceList.size
 
             ThekrCategoryType.Dua.tabIndex ->
-                appState.duaCategoryStack.last().value.thekrList.size
+                appState.duaCategoryStack.last().value.thekrInstanceList.size
 
             else -> null
         }

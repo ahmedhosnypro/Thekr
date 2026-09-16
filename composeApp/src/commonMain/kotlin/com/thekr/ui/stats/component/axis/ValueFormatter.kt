@@ -109,11 +109,11 @@ private class ExtendedMinuteFormatter(
                     in 13..23 -> hours - 12
                     else -> hours
                 }
-                "$hour12:$minutes $period"
+                "$hour12:${minutes.toString().padStart(2, '0')} $period"
             }
 
             HourFormat.HOURS_24 -> {
-                "$hours:$minutes"
+                "$hours:${minutes.toString().padStart(2, '0')}"
             }
         }
     }

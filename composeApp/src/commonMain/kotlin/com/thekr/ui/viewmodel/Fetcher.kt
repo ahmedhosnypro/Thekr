@@ -99,7 +99,7 @@ object Fetcher {
                 )
 
                 thekrInstanceDetailsList.forEach { thekrInstanceDetails ->
-                    fetchThekrCounts(thekrInstanceDetails.thekrId, categoryDetails)
+                    fetchThekrCounts(thekrInstanceDetails.thekrId, thekrInstanceDetails.id, categoryDetails)
                 }
             }
         }
@@ -108,11 +108,15 @@ object Fetcher {
     /**
      * Fetches and updates the counts for a specific Thekr instance.
      *
-     * @param thekrInstanceId The ID of the Thekr instance.
-     * @param categoryDetails The MutableState holding the [CategoryDetails] to
-     *     be updated.
+     * @param thekrId The ID of the Thekr definition; kept as the exposed
+     *     [ThekrCount] key that consumers look counts up by.
+     * @param thekrInstanceId The ID of the Thekr instance the counts belong
+     *     to.
+     * @param categoryDetails The MutableState holding the [CategoryDetails]
+     *     to be updated.
      */
     private fun AppViewModel.fetchThekrCounts(
+        thekrId: Long,
         thekrInstanceId: Long,
         categoryDetails: MutableState<CategoryDetails>
     ) {
@@ -132,7 +136,7 @@ object Fetcher {
                     toUpdateThekrCountList = categoryDetails.value.countList,
                     updatedThekrCountItem = mutableStateOf(
                         ThekrCount(
-                            thekrInstanceId = thekrInstanceId,
+                            thekrInstanceId = thekrId,
                             dailyCount = updatedCountList.count { it.timeCreated in midnight() until nextMidnight() }
                                 .toLong(),
                             weeklyCount = updatedCountList.count { it.timeCreated in weekStart() until weekEnd() }
@@ -193,17 +197,19 @@ object TimeHelper {
     private var timeHelper = TimeHelper()
     @OptIn(ExperimentalTime::class)
     fun now() = Clock.System.now().toEpochMilliseconds()
-    fun midnight() = timeHelper.midnight
-    fun nextMidnight() = timeHelper.nextMidnight
-    fun weekStart() = timeHelper.weekStart
-    fun weekEnd() = timeHelper.weekEnd
-    fun monthStart() = timeHelper.monthStart
-    fun monthEnd() = timeHelper.monthEnd
-    fun yearStart() = timeHelper.yearStart
-    fun yearEnd() = timeHelper.yearEnd
-
-
-    // todo: update timeHelper on next midnight
+    private fun refreshIfStale() {
+        if (now() >= timeHelper.nextMidnight) {
+            timeHelper = TimeHelper()
+        }
+    }
+    fun midnight() = refreshIfStale().let { timeHelper.midnight }
+    fun nextMidnight() = refreshIfStale().let { timeHelper.nextMidnight }
+    fun weekStart() = refreshIfStale().let { timeHelper.weekStart }
+    fun weekEnd() = refreshIfStale().let { timeHelper.weekEnd }
+    fun monthStart() = refreshIfStale().let { timeHelper.monthStart }
+    fun monthEnd() = refreshIfStale().let { timeHelper.monthEnd }
+    fun yearStart() = refreshIfStale().let { timeHelper.yearStart }
+    fun yearEnd() = refreshIfStale().let { timeHelper.yearEnd }
 }
 
 
