@@ -19,7 +19,7 @@ plugins {
 
 //    alias(libs.plugins.korge)
     // id("org.jetbrains.compose.hot-reload") version "1.0.0-dev-63"
-    // alias(libs.plugins.baselineprofile)
+    alias(libs.plugins.baselineprofile)
 }
 
 val nameSpace = "com.thekr"
@@ -259,7 +259,7 @@ room {
 
 dependencies {
     implementation(libs.androidx.profileinstaller)
-    // "baselineProfile"(project(":baselineprofile"))
+    "baselineProfile"(project(":baselineprofile"))
     //    implementation(libs.androidx.room.ktx)
 
     with(libs.room.compiler) {

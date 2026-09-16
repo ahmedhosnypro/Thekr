@@ -8,6 +8,9 @@ import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.uiautomator.By
+import androidx.test.uiautomator.Direction
+import androidx.test.uiautomator.Until
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -17,6 +20,10 @@ import org.junit.runner.RunWith
  * Run this benchmark to verify how effective a Baseline Profile is.
  * It does this by comparing [CompilationMode.None], which represents the app with no Baseline
  * Profiles optimizations, and [CompilationMode.Partial], which uses Baseline Profiles.
+ *
+ * Both variants exercise the same critical user journey in the measure block: cold start,
+ * waiting for the home list to load asynchronously, and scrolling it — the code paths the
+ * generated baseline profile covers.
  *
  * Run this benchmark to see startup measurements and captured system traces for verifying
  * the effectiveness of your Baseline Profiles. You can run it directly from Android
@@ -28,6 +35,8 @@ import org.junit.runner.RunWith
  *
  * You should run the benchmarks on a physical device, not an Android emulator, because the
  * emulator doesn't represent real world performance and shares system resources with its host.
+ * A physical device on API 33+ (or a rooted device on API 28+) is required so the
+ * [CompilationMode.Partial] variant can install the generated baseline profile.
  *
  * For more information, see the [Macrobenchmark documentation](https://d.android.com/macrobenchmark#create-macrobenchmark)
  * and the [instrumentation arguments documentation](https://d.android.com/topic/performance/benchmarking/macrobenchmark-instrumentation-args).
@@ -62,14 +71,13 @@ class StartupBenchmarks {
             measureBlock = {
                 startActivityAndWait()
 
-                // TODO Add interactions to wait for when your app is fully drawn.
-                // The app is fully drawn when Activity.reportFullyDrawn is called.
-                // For Jetpack Compose, you can use ReportDrawn, ReportDrawnWhen and ReportDrawnAfter
-                // from the AndroidX Activity library.
-
-                // Check the UiAutomator documentation for more information on how to
-                // interact with the app.
-                // https://d.android.com/training/testing/other-components/ui-automator
+                // Wait until the home list is asynchronously loaded from the database,
+                // then scroll it — the same journey the baseline profile covers.
+                device.wait(Until.hasObject(By.scrollable(true)), 5_000)
+                device.findObject(By.scrollable(true))?.let { list ->
+                    list.fling(Direction.DOWN)
+                    list.fling(Direction.UP)
+                }
             }
         )
     }
