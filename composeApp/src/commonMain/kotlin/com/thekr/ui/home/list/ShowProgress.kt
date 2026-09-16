@@ -39,7 +39,7 @@ fun ShowProgress(
         else -> appColors.listDivider
     }
 
-    val progressFactor by remember(score) {
+    val progressFactor by remember(score, targetScore) {
         mutableFloatStateOf(
             when (progressState) {
                 ProgressState.TargetIsZero -> 0f

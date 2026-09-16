@@ -42,7 +42,7 @@ fun SwitchSetting(
     // setting option raw (tile, description and switch)
     Row(
         modifier
-            .clickable {
+            .clickable(enabled = enabled) {
                 onToggle(value().not())
             }
             .fillMaxWidth()
