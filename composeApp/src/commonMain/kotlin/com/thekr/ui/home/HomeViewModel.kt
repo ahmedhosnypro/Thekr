@@ -32,7 +32,7 @@ class HomeViewModel : ViewModel() {
         val pageCount = getThekrPageCount(tabIndex) ?: 0
 
         val route =
-            "${ThekrScreenRoute.route}/${categoryId.toInt()}/${thekrId.toInt()}/$initialPage/$pageCount"
+            "${ThekrScreenRoute.route}/$categoryId/$thekrId/$initialPage/$pageCount"
         NavigationActions.navigate(route)
     }
 
@@ -138,7 +138,7 @@ class HomeViewModel : ViewModel() {
         val thekrId = category.thekrInstanceList.firstOrNull()?.value?.thekrId ?: 0L
 
         val route =
-            "${ThekrScreenRoute.route}/${category.id.toInt()}/${thekrId.toInt()}/0/${category.thekrInstanceList.size}"
+            "${ThekrScreenRoute.route}/${category.id}/$thekrId/0/${category.thekrInstanceList.size}"
         NavigationActions.navigate(route)
 
     }

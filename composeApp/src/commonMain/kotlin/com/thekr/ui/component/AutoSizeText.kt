@@ -64,8 +64,8 @@ fun AutoSizeText(
     style: TextStyle = LocalTextStyle.current,
     fontSizeMultiplier: Float = 0.95f,
 ) {
-    var fontSizeState by remember { mutableStateOf(fontSize) }
-    var shouldDraw by remember { mutableStateOf(false) }
+    var fontSizeState by remember(text) { mutableStateOf(fontSize) }
+    var shouldDraw by remember(text) { mutableStateOf(false) }
 
     val typography = MaterialTheme.typography
 
@@ -90,7 +90,12 @@ fun AutoSizeText(
                 if (fontSizeState.isUnspecified) {
                     fontSizeState = typography.bodyMedium.fontSize
                 }
-                fontSizeState = (fontSizeState.value * fontSizeMultiplier).sp
+                val shrunk = fontSizeState.value * fontSizeMultiplier
+                if (shrunk > MIN_FONT_SIZE_SP) {
+                    fontSizeState = shrunk.sp
+                } else {
+                    shouldDraw = true
+                }
             } else {
                 shouldDraw = true
             }
@@ -98,3 +103,5 @@ fun AutoSizeText(
         style = style
     )
 }
+
+private const val MIN_FONT_SIZE_SP = 6f

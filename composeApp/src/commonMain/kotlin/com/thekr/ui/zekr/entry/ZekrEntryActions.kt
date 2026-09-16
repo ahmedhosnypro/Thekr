@@ -15,7 +15,7 @@ object ThekrEntryActions {
     
     fun initActions(viewModel: ThekrEntryViewModel){
         onSaveClick = {
-            viewModel.saveItem(appState.currentViewedSebhaCategory?.value!!)
+            appState.currentViewedSebhaCategory?.value?.let { viewModel.saveItem(it) }
         }
         onLabelChange = viewModel::updateLabel
         onCoolDownChange = viewModel::updateCoolDown

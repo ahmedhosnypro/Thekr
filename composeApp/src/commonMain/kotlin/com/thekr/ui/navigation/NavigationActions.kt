@@ -6,9 +6,7 @@ object NavigationActions {
     private lateinit var navController: NavController
 
     fun initNavController(navController: NavController) {
-        if (this::navController.isInitialized.not()) {
-            NavigationActions.navController = navController
-        }
+        NavigationActions.navController = navController
     }
 
     fun navigateUp(route: String) {
@@ -20,7 +18,9 @@ object NavigationActions {
     }
 
     fun navigate(route: String) {
-        navController.navigate(route)
+        navController.navigate(route) {
+            launchSingleTop = true
+        }
     }
 }
 

@@ -15,6 +15,7 @@ import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.theme.hacenTunisiaLt
 import com.thekr.ui.component.LocalizedApp
 import com.thekr.values.Dimensions.medium
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.thekr.resources.Res
@@ -64,6 +65,7 @@ private fun CreateCategoryDialogContent(
 ) {
     var categoryName by remember { mutableStateOf("") }
     val isError by remember { derivedStateOf { !isValidCategoryName(categoryName) } }
+    val scope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier
@@ -94,11 +96,13 @@ private fun CreateCategoryDialogContent(
             isError = isError,
             onDismissRequest = onDismissRequest,
             onCreateClick = {
-                val savedCategoryIndex = AppActions.createNewUserCategory(categoryName)
-                if (savedCategoryIndex != -1) {
-                    onCategorySave(savedCategoryIndex)
+                scope.launch {
+                    val savedCategoryIndex = AppActions.createNewUserCategory(categoryName)
+                    if (savedCategoryIndex != -1) {
+                        onCategorySave(savedCategoryIndex)
+                    }
+                    onDismissRequest()
                 }
-                onDismissRequest()
             }
         )
     }

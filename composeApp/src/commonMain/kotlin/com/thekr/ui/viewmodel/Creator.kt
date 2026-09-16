@@ -6,45 +6,30 @@ import com.thekr.model.Category
 import com.thekr.ui.home.tab.sebha.isValidCategoryName
 import com.thekr.ui.viewmodel.Fetcher.fetchCategory
 import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
-fun AppViewModel.createNewUserCategory(categoryName: String): Int {
-    var savedCategoryID: Long
-    var savedCategoryTabIndex = -1
-    if (isValidCategoryName(categoryName)) {
-        viewModelScope.launch {
-            runBlocking {
-                savedCategoryID = categoryRepository.insert(
-                    Category(
-                        name = categoryName,
-                        parent = 1,
-                    )
-                )
-            }
+suspend fun AppViewModel.createNewUserCategory(categoryName: String): Int {
+    if (!isValidCategoryName(categoryName)) return -1
 
-            runBlocking {
-                if (savedCategoryID != -1L) {
-                    val savedCategory =
-                        categoryRepository.findById(savedCategoryID).firstOrNull()
-                            ?.toCategoryDetails()
-                    mutableAppState.update {
-                        val category = mutableStateOf(savedCategory!!)
-                        it.userThekr.value.childCategories.add(category)
-                        it.categoryList.add(category)
-                        viewModelScope.launch {
-                            fetchCategory(category)
-                        }
-                        it
-                    }
-                }
-            }
-            savedCategoryTabIndex =
-                mutableAppState.value.userThekr.value.childCategories.indexOfFirst {
-                    it.value.id == savedCategoryID
-                }
-        }
+    val savedCategoryID = categoryRepository.insert(
+        Category(
+            name = categoryName,
+            parent = 1,
+        )
+    )
+    if (savedCategoryID == -1L) return -1
+
+    val savedCategory = categoryRepository.findById(savedCategoryID).firstOrNull()
+        ?.toCategoryDetails() ?: return -1
+
+    val category = mutableStateOf(savedCategory)
+    mutableAppState.value.userThekr.value.childCategories.add(category)
+    mutableAppState.value.categoryList.add(category)
+    viewModelScope.launch {
+        fetchCategory(category)
     }
-    return savedCategoryTabIndex
+
+    return mutableAppState.value.userThekr.value.childCategories.indexOfFirst {
+        it.value.id == savedCategoryID
+    }
 }

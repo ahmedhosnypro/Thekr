@@ -3,7 +3,6 @@
 package com.thekr.ui.home.tab.sebha
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.pager.PagerState
@@ -17,7 +16,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
@@ -54,7 +52,6 @@ fun SebhaTabBar(
             contentColor = colors.onSurface,
             modifier = Modifier
                 .weight(1f)
-                .background(color = Color.White)
                 .onGloballyPositioned { coordinates ->
                     height = with(localDensity) {
                         (coordinates.size.height).toDp()

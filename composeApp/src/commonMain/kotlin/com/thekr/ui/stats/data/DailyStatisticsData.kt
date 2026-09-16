@@ -9,7 +9,6 @@ import kotlinx.coroutines.runBlocking
 import java.util.*
 
 object DailyStatisticsData {
-    private val dayMinuteStatistics = mutableMapOf<Long, MutableMap<Int, Int>>()
 
     fun calcDayStatistics(
         viewModel: ThekrCounterViewModel, midnight: Long, dayStatisticsType: DayStatisticsType
@@ -59,7 +58,6 @@ object DailyStatisticsData {
             currentDayCountByMinute[minute] = 0
         }
         groupDayCountByMinute(currentDayCountItems, currentDayCountByMinute)
-        dayMinuteStatistics[currentDayMidnight] = currentDayCountByMinute
 
         val maxY = maxY(currentDayCountByMinute)
         return StatisticsData(

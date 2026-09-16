@@ -156,7 +156,10 @@ fun MenuSetting(
                                 selected = false,
                                 text = stringResource(it.textRes),
                                 description = it.descriptionTextRes?.let { it1 -> stringResource(it1) },
-                                onClick = { onOptionSelected(it) }
+                                onClick = {
+                                    onOptionSelected(it)
+                                    visible.value = false
+                                }
                             )
                         }
                     }

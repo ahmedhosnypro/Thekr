@@ -10,9 +10,15 @@ fun AppViewModel.navigateToCategory(
 ) {
     mutableAppState.update { currentState ->
         when (tabIndex) {
-            1 -> currentState.hesnAlmuslimStack.add(categoryDetails)
-            2 -> currentState.knoozStack.add(categoryDetails)
-            3 -> currentState.duaCategoryStack.add(categoryDetails)
+            1 -> if (categoryDetails !in currentState.hesnAlmuslimStack) {
+                currentState.hesnAlmuslimStack.add(categoryDetails)
+            }
+            2 -> if (categoryDetails !in currentState.knoozStack) {
+                currentState.knoozStack.add(categoryDetails)
+            }
+            3 -> if (categoryDetails !in currentState.duaCategoryStack) {
+                currentState.duaCategoryStack.add(categoryDetails)
+            }
         }
         currentState
     }
@@ -30,9 +36,15 @@ fun AppViewModel.canNavigateToPreviousCategory(tabIndex: Int): Boolean {
 fun AppViewModel.navigateToParentCategory(tabIndex: Int) {
     mutableAppState.update { currentState ->
         when (tabIndex) {
-            1 -> currentState.hesnAlmuslimStack.removeLast()
-            2 -> currentState.knoozStack.removeLast()
-            3 -> currentState.duaCategoryStack.removeLast()
+            1 -> if (currentState.hesnAlmuslimStack.size > 1) {
+                currentState.hesnAlmuslimStack.removeLast()
+            }
+            2 -> if (currentState.knoozStack.size > 1) {
+                currentState.knoozStack.removeLast()
+            }
+            3 -> if (currentState.duaCategoryStack.size > 1) {
+                currentState.duaCategoryStack.removeLast()
+            }
         }
         currentState
     }
