@@ -6,6 +6,6 @@ sealed class Language(val isoFormat : String) {
 }
 
 val rtlLanguages = listOf("ar", "fa", "he")
-fun isRtlLanguage(langTag: String) = langTag in rtlLanguages
+fun isRtlLanguage(langTag: String) = langTag.substringBefore('-').substringBefore('_') in rtlLanguages
 
 expect fun changeLang(lang: String)

@@ -20,7 +20,7 @@ import kotlin.time.Instant
 object TimeHelper {
     data class TimeHelper(
         val midnight: Long = calcMidnight(Clock.System.now().toEpochMilliseconds()),
-        val nextMidnight: Long = midnight + 24 * 60 * 60 * 1000,
+        val nextMidnight: Long = calcMidnight(midnight + 24 * 60 * 60 * 1000),
         val weekStart: Long = calcWeekStart(midnight),
         val weekEnd: Long = calcWeekEnd(midnight),
         val monthStart: Long = calcMonthStart(midnight),
@@ -31,17 +31,20 @@ object TimeHelper {
 
     private var timeHelper = TimeHelper()
     fun now() = Clock.System.now().toEpochMilliseconds()
-    fun midnight() = timeHelper.midnight
-    fun nextMidnight() = timeHelper.nextMidnight
-    fun weekStart() = timeHelper.weekStart
-    fun weekEnd() = timeHelper.weekEnd
-    fun monthStart() = timeHelper.monthStart
-    fun monthEnd() = timeHelper.monthEnd
-    fun yearStart() = timeHelper.yearStart
-    fun yearEnd() = timeHelper.yearEnd
+    private fun refreshIfStale() {
+        if (now() >= timeHelper.nextMidnight) {
+            timeHelper = TimeHelper()
+        }
+    }
+    fun midnight() = refreshIfStale().let { timeHelper.midnight }
+    fun nextMidnight() = refreshIfStale().let { timeHelper.nextMidnight }
+    fun weekStart() = refreshIfStale().let { timeHelper.weekStart }
+    fun weekEnd() = refreshIfStale().let { timeHelper.weekEnd }
+    fun monthStart() = refreshIfStale().let { timeHelper.monthStart }
+    fun monthEnd() = refreshIfStale().let { timeHelper.monthEnd }
+    fun yearStart() = refreshIfStale().let { timeHelper.yearStart }
+    fun yearEnd() = refreshIfStale().let { timeHelper.yearEnd }
 
-
-    // todo: update timeHelper on next midnight
 
 
     /**
@@ -115,7 +118,8 @@ object TimeHelper {
             .date
             .let { date ->
                 val daysToAdd = (weekStart.isoDayNumber - date.dayOfWeek.isoDayNumber + 7) % 7
-                date.plus(daysToAdd, DateTimeUnit.DAY)
+                val weekEndOffset = if (daysToAdd == 0) 7 else daysToAdd
+                date.plus(weekEndOffset, DateTimeUnit.DAY)
                     .atStartOfDayIn(timeZone)
                     .toEpochMilliseconds()
             }
