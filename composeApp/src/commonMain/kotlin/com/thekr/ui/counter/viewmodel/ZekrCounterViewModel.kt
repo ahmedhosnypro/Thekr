@@ -126,7 +126,7 @@ class ThekrCounterViewModel(
     fun getCurrentThekrCount(): MutableState<ThekrCount> {
         val currentThekrInstance = uiState.value.currentThekrInstance
         return uiState.value.categoryDetails.value.countList.firstOrNull { it.value.thekrInstanceId == currentThekrInstance.value.thekrId }
-            ?: throw IllegalStateException("getCurrentThekrCount: can't find one")
+            ?: mutableStateOf(ThekrCount())
     }
 
     fun getThekr(tabIndex: Int): MutableState<ThekrDetails> {

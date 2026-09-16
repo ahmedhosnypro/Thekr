@@ -31,7 +31,7 @@ fun CurrentThekrIndicator(
     tabIndex: Int,
     modifier: Modifier = Modifier,
 ) {
-    if (categoryDetails.value.thekrList.size > 1) {
+    if (categoryDetails.value.thekrInstanceList.size > 1) {
         Box(
             modifier = modifier.fillMaxWidth(),
             contentAlignment = Alignment.Center
@@ -58,7 +58,7 @@ fun CurrentThekrIndicator(
                     )
                 )
                 Text(
-                    text = "${tabIndex + 1} / ${categoryDetails.value.thekrList.size}",
+                    text = "${tabIndex + 1} / ${categoryDetails.value.thekrInstanceList.size}",
                     fontSize = fontSize,
                 )
 
@@ -69,7 +69,7 @@ fun CurrentThekrIndicator(
                     modifier = Modifier
                         .height(lineHeightDp),
                     colorFilter = ColorFilter.tint(
-                        if (tabIndex == categoryDetails.value.thekrList.size - 1) colors.disabledPrevNextIndicator
+                        if (tabIndex == categoryDetails.value.thekrInstanceList.size - 1) colors.disabledPrevNextIndicator
                         else colors.prevNextIndicator
                     )
                 )

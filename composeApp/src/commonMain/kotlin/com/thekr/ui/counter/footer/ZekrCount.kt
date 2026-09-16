@@ -150,10 +150,7 @@ private fun ProgressIndicator(
         ), label = "progressAnimate"
     )
     LaunchedEffect(count, target) {
-        val newVal = count / target.toFloat()
-        if (newVal >= progressTarget) {
-            progressTarget = newVal
-        }
+        progressTarget = (count / target.toFloat()).coerceIn(0f, 1f)
     }
     val localDensity = LocalDensity.current
     CircularProgressIndicator(

@@ -15,7 +15,11 @@ fun initCoolDown(
         viewModelScope.launch {
             if (firstTime) {
                 val thekr = thekrRepository.findById(thekrId).firstOrNull()
-                val countItem = countRepository.getLastCountByThekrInstanceId(thekrId).first()
+                val instanceId = uiState.value.categoryDetails.value.thekrInstanceList
+                    .getOrNull(initialPage)?.value?.id
+                val countItem = instanceId?.let {
+                    countRepository.getLastCountByThekrInstanceId(it).first()
+                }
                 // if a user exits the view, and returned in less than cooldown time,
                 // then cooldown
                 if (countItem != null && thekr != null) {
@@ -29,7 +33,7 @@ fun initCoolDown(
                                 clickable = false
                             )
                         }
-                        delay(timeDiff - 500)
+                        delay(cooldown - 500 - timeDiff)
                         mutableUiState.update { currentState ->
                             currentState.copy(
                                 clickable = true

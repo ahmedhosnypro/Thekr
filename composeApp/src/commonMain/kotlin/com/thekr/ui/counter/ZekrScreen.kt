@@ -69,7 +69,7 @@ fun ThekrScreen(
         bottomSheetState = rememberStandardBottomSheetState(
             initialValue = if (settingsDetails.showCount) SheetValue.Expanded
             else {
-                if (category.value.thekrList.size > 1) SheetValue.PartiallyExpanded
+                if (category.value.thekrInstanceList.size > 1) SheetValue.PartiallyExpanded
                 else SheetValue.Hidden
             },
             confirmValueChange = { false },
