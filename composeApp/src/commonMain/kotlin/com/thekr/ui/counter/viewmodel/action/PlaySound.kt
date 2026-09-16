@@ -6,7 +6,9 @@ import com.thekr.ui.settings.SettingActions.currentSettings
 import korlibs.audio.sound.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -28,6 +30,7 @@ object ThekrSoundPlayer : SoundPlayer {
     private const val MAX_DECODED_SOUNDS = 16
     private val decodedSounds = LinkedHashMap<String, Sound>()
     private val decodeMutex = Mutex()
+    private var playJob: Job? = null
 
     @OptIn(ExperimentalResourceApi::class)
     fun ThekrCounterViewModel.onPlayAudio() {
@@ -36,11 +39,19 @@ object ThekrSoundPlayer : SoundPlayer {
             mutableUiState.update { it.copy(isAudioPlaying = false) }
             return
         }
+        // A playback coroutine may still be decoding; launching another would
+        // play the same sound twice and orphan the first channel.
+        if (playJob?.isActive == true) return
         val soundFileName = getCurrentThekr().value.soundFileName
         val filePath = "files/thekr/${currentSettings().currentSheikh}/${soundFileName}.mp3"
-        scope.launch {
+        playJob = scope.launch {
             val sound = decodeSound(filePath) ?: return@launch
+            if (!isActive || soundChannel?.playing == true) return@launch
             val channel = sound.play()
+            if (!isActive) {
+                channel.stop()
+                return@launch
+            }
             soundChannel = channel
             mutableUiState.update { it.copy(isAudioPlaying = true) }
             channel.onCompleted(coroutineContext = scope.coroutineContext) {
@@ -77,6 +88,10 @@ object ThekrSoundPlayer : SoundPlayer {
 
 
     override fun stopPlayer() {
+        // Cancel an in-flight decode/play coroutine so playback cannot start
+        // after the screen has been disposed.
+        playJob?.cancel()
+        playJob = null
         if (soundChannel != null) {
             soundChannel?.stop()
             soundChannel = null
