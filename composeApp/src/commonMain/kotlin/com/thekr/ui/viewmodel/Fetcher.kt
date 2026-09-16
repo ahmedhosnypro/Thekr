@@ -188,7 +188,7 @@ object Fetcher {
 object TimeHelper {
     data class TimeHelper(
         val midnight: Long = calcMidnight(),
-        val nextMidnight: Long = midnight + 24 * 60 * 60 * 1000,
+        val nextMidnight: Long = calcMidnight(midnight + 24 * 60 * 60 * 1000),
         val weekStart: Long = calcWeekStart(midnight),
         val weekEnd: Long = calcWeekEnd(midnight),
         val monthStart: Long = calcMonthStart(midnight),
