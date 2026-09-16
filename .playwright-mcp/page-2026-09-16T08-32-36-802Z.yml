@@ -1,0 +1,25 @@
+- generic [ref=f7e1]:
+  - main [ref=f7e3]:
+    - generic [ref=f7e4]:
+      - navigation "navigation" [ref=f7e11]:
+        - list [ref=f7e12]:
+          - listitem [ref=f7e13]:
+            - generic [aria-hidden] [ref=f7e14]: Main navigation menu closed
+            - button "Menu" [ref=f7e15] [cursor=pointer]
+      - generic [ref=f7e20]:
+        - heading "DuckDuckGo" [level=1] [ref=f7e21]
+        - heading "DuckDuckGo" [level=1] [ref=f7e22]
+        - img "DuckDuckGo Logo" [ref=f7e24]
+        - search "Searchbox" [ref=f7e26]:
+          - generic [ref=f7e28]:
+            - combobox "Search with DuckDuckGo" [active] [ref=f7e29]
+            - button "Search" [disabled] [ref=f7e31]
+        - generic [ref=f7e42]:
+          - paragraph [ref=f7e43]: Unexpected error. Please try again.
+          - paragraph [ref=f7e44]:
+            - text: If error persists, please
+            - link "email us" [ref=f7e45] [cursor=pointer]:
+              - /url: mailto:error+02f8@duckduckgo.com?subject=Error getting results
+            - text: .
+          - paragraph [ref=f7e46]: "Note: Our support email address includes an anonymized error code that helps us understand the context of your search."
+  - alert [ref=f7e47]
