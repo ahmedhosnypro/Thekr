@@ -29,6 +29,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlin.concurrent.Volatile
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 
@@ -64,7 +65,6 @@ object Fetcher {
                 )
 
             thekrList.collect { thekrDetailsList ->
-                println("thekrDetailsList: $thekrDetailsList")
                 updateThekrList(
                     toUpdateThekrList = categoryDetails.value.thekrList,
                     updatedThekrList = thekrDetailsList,
@@ -81,6 +81,7 @@ object Fetcher {
      *     be updated.
      */
     private fun AppViewModel.fetchThekrInstanceListAndCounts(categoryDetails: MutableState<CategoryDetails>) {
+        val launchedCountInstanceIds = mutableSetOf<Long>()
         viewModelScope.launch(ioDispatcher) {
             val thekrInstanceList = thekrInstanceRepository.findByCategoryId(categoryDetails.value.id)
                 .map { thekrInstanceList ->
@@ -92,14 +93,18 @@ object Fetcher {
                 )
 
             thekrInstanceList.collect { thekrInstanceDetailsList ->
-                println("thekrInstanceDetailsList: $thekrInstanceDetailsList")
                 updateThekrInstanceList(
                     toUpdateThekrInstanceList = categoryDetails.value.thekrInstanceList,
                     updatedThekrInstanceList = thekrInstanceDetailsList
                 )
 
+                // Launch the per-instance count collector only once per instance id:
+                // Room invalidation re-emits this list on any write, and re-launching
+                // would pile up redundant collectors for the lifetime of the ViewModel.
                 thekrInstanceDetailsList.forEach { thekrInstanceDetails ->
-                    fetchThekrCounts(thekrInstanceDetails.thekrId, thekrInstanceDetails.id, categoryDetails)
+                    if (launchedCountInstanceIds.add(thekrInstanceDetails.id)) {
+                        fetchThekrCounts(thekrInstanceDetails.thekrId, thekrInstanceDetails.id, categoryDetails)
+                    }
                 }
             }
         }
@@ -130,7 +135,6 @@ object Fetcher {
                     )
 
             countList.collect { updatedCountList ->
-                println("updatedCountList: $updatedCountList")
                 // Update ThekrCount item
                 updateThekrCountItem(
                     toUpdateThekrCountList = categoryDetails.value.countList,
@@ -172,7 +176,6 @@ object Fetcher {
                 )
 
             fadlList.collect { updatedFadlList ->
-                println("updatedFadlList: $updatedFadlList")
                 updateFadlList(
                     toUpdateFadlList = categoryDetails.value.fadlList,
                     updatedFadlList = updatedFadlList,
@@ -194,6 +197,7 @@ object TimeHelper {
         val yearEnd: Long = calcYearEnd(midnight),
     )
 
+    @Volatile
     private var timeHelper = TimeHelper()
     @OptIn(ExperimentalTime::class)
     fun now() = Clock.System.now().toEpochMilliseconds()

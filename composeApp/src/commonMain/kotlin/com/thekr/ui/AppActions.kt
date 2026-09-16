@@ -19,7 +19,7 @@ object AppActions {
 
     lateinit var navigateToParentCategory: (tabIndex: Int) -> Unit
 
-    lateinit var createNewUserCategory: (categoryName: String) -> Int
+    lateinit var createNewUserCategory: suspend (categoryName: String) -> Int
 
     lateinit var updateCurrentSebhaViewedCategory: (tabIndex: Int) -> Unit
 

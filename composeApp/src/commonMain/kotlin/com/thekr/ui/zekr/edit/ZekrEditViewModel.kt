@@ -9,9 +9,10 @@ import com.thekr.data.thekr.thekr.ThekrEntry
 import com.thekr.data.thekr.thekr.ThekrEntryUiState
 import com.thekr.data.thekr.thekr.ThekrRepository
 import com.thekr.model.Thekr
+import com.thekr.ui.navigation.NavigationActions
 import com.thekr.ui.navigation.route.ThekrScreenRoute
 import com.thekr.ui.thekr.entry.validateInput
-import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 
 class ThekrEditViewModel(
@@ -30,17 +31,19 @@ class ThekrEditViewModel(
 
     init {
         viewModelScope.launch {
-            val thekr = thekrRepository.findById(thekrId).first()
+            val thekr = thekrRepository.findById(thekrId).firstOrNull()
             if (thekr != null) {
                 this@ThekrEditViewModel.thekr = thekr
                 initializeUiState(thekr.toThekrEntry())
+            } else {
+                NavigationActions.navigateUp()
             }
         }
     }
 
 
     fun updateItem() {
-        if (validateInput(counterEditUiState.value)) {
+        if (::thekr.isInitialized && validateInput(counterEditUiState.value)) {
             viewModelScope.launch {
                 thekrRepository.update(
                     thekr.update(counterEditUiState.value.thekrEntry)

@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 
 
 /**
@@ -40,8 +40,8 @@ class ThekrEntryViewModel(
             _viewState.update { it.copy(saved = true) }
             viewModelScope.launch {
                 saveThekrAndInstance(parentCategory)
+                NavigationActions.navigateUp()
             }
-            NavigationActions.navigateUp()
         }
     }
 
@@ -52,7 +52,7 @@ class ThekrEntryViewModel(
      */
     private suspend fun saveThekrAndInstance(parentCategory: CategoryDetails) {
         val thekr = viewState.value.thekrEntry.toThekr().copy(categoryId = parentCategory.id)
-        runBlocking(Dispatchers.IO) {
+        withContext(Dispatchers.IO) {
             val insertedThekrId = thekrRepository.insert(thekr)
 
             val thekrInstance = viewState.value.thekrEntry.toThekrInstance()

@@ -26,7 +26,6 @@ import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.theme.AppColors
 import com.thekr.ui.theme.droidKufi
 import com.thekr.ui.theme.hacenTunisia
-import com.thekr.ui.util.NoRippleInteractionSource
 import com.thekr.ui.component.LocalizedApp
 import com.thekr.values.Dimensions.small
 import com.thekr.values.Dimensions.tiny
@@ -69,10 +68,6 @@ fun ThekrCard(
     val thekrColors = AppTheme.colors(settingsDetails)
 
     Card(
-        onClick = {
-            homeOnClick()
-            categoryListOnClick()
-        },
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = small)
@@ -86,7 +81,6 @@ fun ThekrCard(
             .padding(top = small),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         shape = CardDefaults.shape,
-        interactionSource = NoRippleInteractionSource(),
     ) {
         ThekrCardContent(
             text = text,

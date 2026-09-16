@@ -143,7 +143,7 @@ private fun WeeklyChartWrapper(
     }
 
     LaunchedEffect(key1 = time.longValue) {
-        weekStatisticsData = mutableStateOf(CounterHelper.weekStatisticsData(time.longValue))
+        weekStatisticsData.value = CounterHelper.weekStatisticsData(time.longValue)
         modelProducer.runTransaction {
             add(weekStatisticsData.value.partial)
         }

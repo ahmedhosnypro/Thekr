@@ -42,7 +42,6 @@ fun updateThekrList(
 
     // Update existing Thekr items if they have been updated in the database
     updatedThekrList.forEach { newThekr ->
-        println("newThekr: ${newThekr.id} - ${newThekr.timeUpdated}")
         val index = toUpdateThekrList.indexOfFirst { it.value.id == newThekr.id }
         if (index != -1 && toUpdateThekrList[index].value.timeUpdated < newThekr.timeUpdated) {
             // Update the MutableState directly
@@ -73,7 +72,6 @@ fun updateThekrInstanceList(
 
     // Update existing ThekrInstanceDetails items
     updatedThekrInstanceList.forEach { newThekrInstance ->
-        println("newThekrInstance: ${newThekrInstance.id} - ${newThekrInstance.timeUpdated}")
         val index = toUpdateThekrInstanceList.indexOfFirst { it.value.id == newThekrInstance.id }
         if (index != -1 && toUpdateThekrInstanceList[index].value.timeUpdated < newThekrInstance.timeUpdated) {
             // Update the MutableState directly
@@ -147,7 +145,7 @@ fun updateFadlList(
 
     // Update existing FadlDetails items
     updatedFadlList.forEach { newFadl ->
-        val index = existingFadlIds.indexOf(newFadl.id)
+        val index = toUpdateFadlList.indexOfFirst { it.id == newFadl.id }
         if (index != -1 && toUpdateFadlList[index].timeUpdated < newFadl.timeUpdated) {
             // Update the item in the list directly
             toUpdateFadlList[index] = newFadl
