@@ -1,73 +1,73 @@
 [versions]
 
-kotlin = "2.2.21"
-agp = "8.12.0"
+kotlin = "2.4.20"
+agp = "9.4.0"
 android-compileSdk = "36"
 android-minSdk = "26"
 android-targetSdk = "36"
-compose = "1.10.0-rc02"
+compose = "1.12.0"
 composeMaterialIconsExtended = "1.7.3"
-composeMaterial3 = "1.10.0-alpha05"
+composeMaterial3 = "1.12.0-alpha03"
 
-compose-lifecycle = "2.10.0-alpha06"
-androidx-lifecycle = "2.10.0"
+compose-lifecycle = "2.11.0"
+androidx-lifecycle = "2.11.0"
 
-androidx-activity-compose = "1.12.1"
-androidx-appcompat = "1.7.1"
-androidx-constraintlayout = "2.2.1"
-androidx-core-ktx = "1.17.0"
+androidx-activity-compose = "1.13.0"
+androidx-appcompat = "1.8.0"
+androidx-constraintlayout = "2.2.2"
+androidx-core-ktx = "1.19.0"
 androidx-espresso-core = "3.7.0"
-androidx-material = "1.5.0-alpha10"
+androidx-material = "1.4.0"
 androidx-test-junit = "1.3.0"
 junit = "4.13.2"
 
-androidx-uiTest = "1.10.0"
+androidx-uiTest = "1.12.1"
 androidx-test = "1.7.0"
-androidx-compose = "1.10.0"
+androidx-compose = "1.12.1"
 composeIcons = "1.1.1"
 
-androidx-sqlite = "2.6.2"
+androidx-sqlite = "2.7.1"
 
 runtime = "1.10.0-rc01"
-voyager = "1.1.0-beta03"
-coil = "3.3.0"
-coil-network-ktor = "3.0.0-alpha08"
+voyager = "2.2.21-1.10.3"
+coil = "3.6.2"
+coil-network-ktor = "3.6.2"
 napier = "2.7.1"
-buildConfig = "6.0.6"
-kotlinx-coroutines = "1.10.2"
+buildConfig = "6.1.0"
+kotlinx-coroutines = "1.11.0"
 moko-mvvm = "0.16.1"
-ktor = "3.3.3"
-kotlinx-serialization = "1.9.0"
-kotlinx-datetime = "0.7.1"
+ktor = "3.5.2"
+kotlinx-serialization = "1.11.0"
+kotlinx-datetime = "0.8.0"
 multiplatformSettings = "1.3.0"
-navigation-compose = "2.9.1"
-koin = "4.1.1"
+navigation-compose = "2.9.2"
+koin = "4.2.2"
 # data
-kstore = "1.0.0"
-room = "2.8.4"
-roomKtx = "2.8.4"
+kstore = "1.1.0"
+room = "2.8.5"
+roomKtx = "2.8.5"
 appdirs="2.0.0"
-ksp = "2.2.21-2.0.4"
-apollo = "5.0.0-alpha.3"
-kotlinx-io = "0.8.2"
+ksp = "2.3.12"
+apollo = "5.1.0"
+kotlinx-io = "0.9.1"
 
 korge= "6.0.0"
 
 sdp-ssp-compose-multiplatform= "1.0.7"
-constraintlayout-compose-multiplatform= "0.6.1"
-vico = "2.4.0-alpha.3"
+constraintlayout-compose-multiplatform= "0.8.2"
+vico = "2.5.2"
 
 ## Android only
-ui-tooling-preview = "1.10.0"
-libsu = "5.3.0"
+ui-tooling-preview = "1.12.1"
+libsu = "6.0.0"
 
 ## JVM only
 
 ## plugins
-binary-compatibility-validator = "0.18.1"
-uiautomator = "2.3.0"
-benchmarkMacroJunit4 = "1.4.1"
-baselineprofile = "1.4.1"
+binary-compatibility-validator = "0.18.2"
+uiautomator = "2.4.0"
+benchmarkMacroJunit4 = "1.5.0"
+baselineprofile = "1.5.0"
 profileinstaller = "1.4.1"
 
 [libraries]
@@ -104,7 +104,7 @@ compose-material-icons-extended = { module = "org.jetbrains.compose.material:mat
 #
 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
 coil = { module = "io.coil-kt.coil3:coil-compose-core", version.ref = "coil" }
-coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor", version.ref = "coil-network-ktor" }
+coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil-network-ktor" }
 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
 ## Kotlin
 # coroutines
