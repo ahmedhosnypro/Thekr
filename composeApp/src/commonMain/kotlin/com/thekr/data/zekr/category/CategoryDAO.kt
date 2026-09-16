@@ -24,7 +24,7 @@ interface CategoryDAO {
     suspend fun update(category: Category)
 
     @Query("SELECT * FROM category WHERE id = :id")
-    fun findById(id: Long): Flow<Category>
+    fun findById(id: Long): Flow<Category?>
 
     @Query("SELECT * FROM category")
     fun findAll(): Flow<List<Category>>

@@ -20,7 +20,7 @@ interface SessionDAO {
     fun findAll(): Flow<List<Session>>
 
     @Query("SELECT * from session WHERE id = :id")
-    fun findById(id: Long): Flow<Session>
+    fun findById(id: Long): Flow<Session?>
 
     /**
      * Finds an active session for the given thekrCategoryId and thekrInstanceId.
@@ -31,5 +31,5 @@ interface SessionDAO {
      * @return Flow emitting the active session, if any.
      */
     @Query("SELECT * from session WHERE thekrCategoryId = :thekrCategoryId AND thekrInstanceId = :thekrInstanceId AND timeEnded = 0")
-    fun findActiveSession(thekrCategoryId: Long, thekrInstanceId: Long): Flow<Session>
+    fun findActiveSession(thekrCategoryId: Long, thekrInstanceId: Long): Flow<Session?>
 }

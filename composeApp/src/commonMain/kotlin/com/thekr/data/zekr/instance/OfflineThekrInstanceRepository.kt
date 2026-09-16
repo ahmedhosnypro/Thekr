@@ -14,7 +14,7 @@ class OfflineThekrInstanceRepository(private val thekrInstanceDAO: ThekrInstance
 
     override suspend fun deleteIfNotProtected(id: Long) = thekrInstanceDAO.deleteIfNotProtected(id)
 
-    override fun findById(id: Long): Flow<ThekrInstance> = thekrInstanceDAO.findById(id)
+    override fun findById(id: Long): Flow<ThekrInstance?> = thekrInstanceDAO.findById(id)
 
     override fun findAll(): Flow<List<ThekrInstance>> = thekrInstanceDAO.findAll()
 
