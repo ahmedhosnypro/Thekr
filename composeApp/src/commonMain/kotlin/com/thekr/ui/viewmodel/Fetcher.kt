@@ -4,10 +4,10 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
-import com.thekr.values.Constants
+import com.thekr.data.count.count.CountPeriodBounds
+import com.thekr.data.count.count.ThekrInstanceCountTotals
 import com.thekr.data.thekr.category.CategoryDetails
 import com.thekr.data.thekr.count.ThekrCount
-import com.thekr.model.Count
 import com.thekr.util.TimeHelper.calcMidnight
 import com.thekr.util.TimeHelper.calcMonthEnd
 import com.thekr.util.TimeHelper.calcMonthStart
@@ -24,6 +24,7 @@ import com.thekr.util.TimeHelper.weekEnd
 import com.thekr.util.TimeHelper.weekStart
 import com.thekr.util.TimeHelper.yearEnd
 import com.thekr.util.TimeHelper.yearStart
+import com.thekr.values.Constants
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
@@ -122,31 +123,45 @@ object Fetcher {
         thekrInstanceId: Long,
         categoryDetails: MutableState<CategoryDetails>
     ) {
-        viewModelScope.launch {
-            val countList: StateFlow<List<Count>> =
-                countRepository.findAllByThekrInstanceSync(thekrInstanceId)
+        viewModelScope.launch(ioDispatcher) {
+            val countTotals: StateFlow<ThekrInstanceCountTotals> =
+                countRepository.getCountTotalsByThekrInstanceId(
+                    thekrInstanceId = thekrInstanceId,
+                    periods = CountPeriodBounds(
+                        dailyStart = midnight(),
+                        dailyEnd = nextMidnight(),
+                        weeklyStart = weekStart(),
+                        weeklyEnd = weekEnd(),
+                        monthlyStart = monthStart(),
+                        monthlyEnd = monthEnd(),
+                        yearlyStart = yearStart(),
+                        yearlyEnd = yearEnd(),
+                    ),
+                )
                     .stateIn(
                         scope = viewModelScope,
                         started = SharingStarted.WhileSubscribed(Constants.TIMEOUT_MILLIS),
-                        initialValue = emptyList()
+                        initialValue = ThekrInstanceCountTotals(
+                            dailyCount = 0,
+                            weeklyCount = 0,
+                            monthlyCount = 0,
+                            yearlyCount = 0,
+                            totalCount = 0,
+                        )
                     )
 
-            countList.collect { updatedCountList ->
+            countTotals.collect { updatedCountTotals ->
                 // Update ThekrCount item
                 updateThekrCountItem(
                     toUpdateThekrCountList = categoryDetails.value.countList,
                     updatedThekrCountItem = mutableStateOf(
                         ThekrCount(
                             thekrInstanceId = thekrId,
-                            dailyCount = updatedCountList.count { it.timeCreated in midnight() until nextMidnight() }
-                                .toLong(),
-                            weeklyCount = updatedCountList.count { it.timeCreated in weekStart() until weekEnd() }
-                                .toLong(),
-                            monthlyCount = updatedCountList.count { it.timeCreated in monthStart() until monthEnd() }
-                                .toLong(),
-                            yearlyCount = updatedCountList.count { it.timeCreated in yearStart() until yearEnd() }
-                                .toLong(),
-                            totalCount = updatedCountList.size.toLong(),
+                            dailyCount = updatedCountTotals.dailyCount,
+                            weeklyCount = updatedCountTotals.weeklyCount,
+                            monthlyCount = updatedCountTotals.monthlyCount,
+                            yearlyCount = updatedCountTotals.yearlyCount,
+                            totalCount = updatedCountTotals.totalCount,
                             timeUpdated = now()
                         )
                     )

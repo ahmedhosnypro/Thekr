@@ -7,6 +7,25 @@ import androidx.room.Query
 import com.thekr.model.Count
 import kotlinx.coroutines.flow.Flow
 
+data class ThekrInstanceCountTotals(
+    val dailyCount: Long,
+    val weeklyCount: Long,
+    val monthlyCount: Long,
+    val yearlyCount: Long,
+    val totalCount: Long,
+)
+
+data class CountPeriodBounds(
+    val dailyStart: Long,
+    val dailyEnd: Long,
+    val weeklyStart: Long,
+    val weeklyEnd: Long,
+    val monthlyStart: Long,
+    val monthlyEnd: Long,
+    val yearlyStart: Long,
+    val yearlyEnd: Long,
+)
+
 @Dao
 interface CountDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -55,4 +74,28 @@ interface CountDAO {
 
     @Query("SELECT * FROM count WHERE thekrInstanceId = :thekrInstanceId")
     fun findAllByThekrInstanceSync(thekrInstanceId: Long): Flow<List<Count>>
+
+    @Query(
+        """
+        SELECT
+            COUNT(CASE WHEN timeCreated >= :dailyStart AND timeCreated < :dailyEnd THEN 1 END) AS dailyCount,
+            COUNT(CASE WHEN timeCreated >= :weeklyStart AND timeCreated < :weeklyEnd THEN 1 END) AS weeklyCount,
+            COUNT(CASE WHEN timeCreated >= :monthlyStart AND timeCreated < :monthlyEnd THEN 1 END) AS monthlyCount,
+            COUNT(CASE WHEN timeCreated >= :yearlyStart AND timeCreated < :yearlyEnd THEN 1 END) AS yearlyCount,
+            COUNT(*) AS totalCount
+        FROM count
+        WHERE thekrInstanceId = :thekrInstanceId
+    """
+    )
+    fun getCountTotalsByThekrInstanceId(
+        thekrInstanceId: Long,
+        dailyStart: Long = 0,
+        dailyEnd: Long = 0,
+        weeklyStart: Long = 0,
+        weeklyEnd: Long = 0,
+        monthlyStart: Long = 0,
+        monthlyEnd: Long = 0,
+        yearlyStart: Long = 0,
+        yearlyEnd: Long = 0,
+    ): Flow<ThekrInstanceCountTotals>
 }

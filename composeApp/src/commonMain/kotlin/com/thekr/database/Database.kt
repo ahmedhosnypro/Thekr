@@ -30,10 +30,9 @@ import com.thekr.model.ThekrInstance
         Category::class,
         Session::class,
     ],
-    version = 1,
+    version = 2,
     exportSchema = false,
 )
-
 abstract class AppDatabase : RoomDatabase() {
     abstract fun thekrDAO(): ThekrDAO
     abstract fun thekrInstanceDao(): ThekrInstanceDAO

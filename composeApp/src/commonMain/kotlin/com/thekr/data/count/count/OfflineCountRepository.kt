@@ -30,4 +30,19 @@ class OfflineCountRepository(private val countDao: CountDAO) : CountRepository {
 
     override fun findAllByThekrInstanceSync(thekrInstanceId: Long) =
         countDao.findAllByThekrInstanceSync(thekrInstanceId)
+
+    override fun getCountTotalsByThekrInstanceId(
+        thekrInstanceId: Long,
+        periods: CountPeriodBounds,
+    ) = countDao.getCountTotalsByThekrInstanceId(
+        thekrInstanceId = thekrInstanceId,
+        dailyStart = periods.dailyStart,
+        dailyEnd = periods.dailyEnd,
+        weeklyStart = periods.weeklyStart,
+        weeklyEnd = periods.weeklyEnd,
+        monthlyStart = periods.monthlyStart,
+        monthlyEnd = periods.monthlyEnd,
+        yearlyStart = periods.yearlyStart,
+        yearlyEnd = periods.yearlyEnd,
+    )
 }
