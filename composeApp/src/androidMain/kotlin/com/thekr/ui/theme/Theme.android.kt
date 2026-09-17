@@ -7,13 +7,13 @@ import androidx.core.view.WindowInsetsControllerCompat
 import com.thekr.ui.util.findActivity
 
 @Composable
-internal actual fun SystemAppearance(isDark: Boolean) {
+internal actual fun SystemAppearance(isLight: Boolean) {
     val view = LocalView.current
-    LaunchedEffect(isDark) {
+    LaunchedEffect(isLight) {
         val window = view.context.findActivity().window
         WindowInsetsControllerCompat(window, window.decorView).apply {
-            isAppearanceLightStatusBars = isDark
-            isAppearanceLightNavigationBars = isDark
+            isAppearanceLightStatusBars = isLight
+            isAppearanceLightNavigationBars = isLight
         }
     }
 }
