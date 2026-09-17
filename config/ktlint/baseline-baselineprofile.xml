@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <baseline version="1.0">
-    <file name="../../wt-32/baselineprofile/build.gradle.kts">
+    <file name="build.gradle.kts">
         <error line="41" column="1" source="standard:no-blank-line-before-rbrace" />
         <error line="69" column="14" source="standard:trailing-comma-on-call-site" />
         <error line="74" column="7" source="standard:curly-spacing" />
         <error line="78" column="1" source="standard:final-newline" />
     </file>
-    <file name="../../wt-32/baselineprofile/src/main/java/com/baselineprofile/BaselineProfileGenerator.kt">
+    <file name="src/main/java/com/baselineprofile/BaselineProfileGenerator.kt">
         <error line="56" column="43" source="standard:trailing-comma-on-call-site" />
     </file>
-    <file name="../../wt-32/baselineprofile/src/main/java/com/baselineprofile/StartupBenchmarks.kt">
+    <file name="src/main/java/com/baselineprofile/StartupBenchmarks.kt">
         <error line="81" column="14" source="standard:trailing-comma-on-call-site" />
     </file>
 </baseline>
