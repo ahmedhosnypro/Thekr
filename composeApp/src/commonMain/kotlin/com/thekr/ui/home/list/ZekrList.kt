@@ -58,8 +58,6 @@ fun ThekrList(
         // grid item, and use itemsIndexed to avoid an O(n) indexOf per item.
         val thekrMap = category.thekrList.associateBy { it.value.id }
         val countMap = category.countList.associateBy { it.value.thekrInstanceId }
-        // Counts are keyed by thekrInstanceId (the instance's own id), which is
-        // distinct from the Thekr definition id used to find the thekr text.
 
         itemsIndexed(
             items = category.thekrInstanceList,
@@ -68,7 +66,7 @@ fun ThekrList(
             val colorIndex = if (index < 6) index else index % 6
 
             val thekr = thekrMap[item.value.thekrId]?.value
-            val count = countMap[item.value.id]?.value?.dailyCount
+            val count = countMap[item.value.thekrId]?.value?.dailyCount
 
             ThekrCard(
                 text = thekr?.text ?: "",
