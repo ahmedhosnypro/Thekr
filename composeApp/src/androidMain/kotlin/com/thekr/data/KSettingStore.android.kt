@@ -14,16 +14,23 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import okio.Path.Companion.toPath
-import kotlinx.io.files.Path as KxPath
 import java.util.concurrent.atomic.AtomicBoolean
+import kotlinx.io.files.Path as KxPath
 
 actual val settingsStore: KStore<Settings> by lazy {
+    // Runs once, before the store is first used anywhere (this lazy is
+    // synchronized) — a corrupt settings file can never reach kstore's
+    // decoder, which would otherwise throw on every launch.
+    quarantineCorruptSettingsFile()
 //    storeOf("$appStorage/$settingsFile".toPath())
     storeOf(KxPath("$appStorage/$settingsFile".toPath().toString()))
 }
 
 actual suspend fun initAppData() {
-    val settings = settingsStore.get()
+    // Belt-and-suspenders for a file corrupted between the quarantine check
+    // and this read: treat a throwing read like a missing record so the
+    // null-branch below re-initializes and the app boots.
+    val settings = runCatching { settingsStore.get() }.getOrNull()
 
     if (settings == null) {
         settingsStore.set(Settings(initialized = true))
