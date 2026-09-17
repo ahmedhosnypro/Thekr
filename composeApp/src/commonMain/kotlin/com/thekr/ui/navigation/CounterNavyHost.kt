@@ -15,7 +15,6 @@ import com.thekr.ui.navigation.route.HomeRoute
 import com.thekr.ui.navigation.route.SettingsRoute
 import com.thekr.ui.navigation.route.ThekrScreenRoute
 import com.thekr.ui.settings.SettingsScreen
-import com.thekr.ui.thekr.edit.CounterEditScreen
 import com.thekr.ui.thekr.entry.CounterEntryScreen
 import com.thekr.ui.viewmodel.AppState
 
@@ -26,12 +25,6 @@ fun CounterNavyHost(
     navController: NavHostController,
     modifier: Modifier = Modifier,
 ) {
-    // use when navigating up after finishing a process (background process)
-    val navigateBack = { navController.popBackStack() }
-    // when a user clicks on the back button
-    val onNavigateUp = { navController.navigateUp() }
-
-
     NavHost(
         navController = navController,
         startDestination = HomeRoute.route,
@@ -71,22 +64,6 @@ fun CounterNavyHost(
         ) {
             ThekrScreen(
                 settingsDetails = settingsDetails,
-            )
-        }
-
-        // counter-edit screen
-        composable(
-            "counter_edit/{itemId}",
-            arguments = listOf(
-                navArgument("itemId") {
-                    type = NavType.LongType
-                },
-            )
-        ) {
-            // todo: use NavigationActions to navigate back
-            CounterEditScreen(
-                navigateBack = { navigateBack() },
-                onNavigateUp = { onNavigateUp() }
             )
         }
 
