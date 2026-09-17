@@ -2,6 +2,7 @@ package com.baselineprofile
 
 import androidx.benchmark.macro.BaselineProfileMode
 import androidx.benchmark.macro.CompilationMode
+import androidx.benchmark.macro.FrameTimingMetric
 import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.StartupTimingMetric
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
@@ -24,6 +25,10 @@ import org.junit.runner.RunWith
  * Both variants exercise the same critical user journey in the measure block: cold start,
  * waiting for the home list to load asynchronously, and scrolling it — the code paths the
  * generated baseline profile covers.
+ *
+ * Two additional journey pairs measure the frame timing of the counter (tasbih) session —
+ * entering a category and tapping the thekr counter — and of paging through the home tabs
+ * (Mesbaha / Hesn Al Muslim / Knooz / Dua) with the same compilation-mode comparison.
  *
  * Run this benchmark to see startup measurements and captured system traces for verifying
  * the effectiveness of your Baseline Profiles. You can run it directly from Android
@@ -56,6 +61,22 @@ class StartupBenchmarks {
     fun startupCompilationBaselineProfiles() =
         benchmark(CompilationMode.Partial(BaselineProfileMode.Require))
 
+    @Test
+    fun counterSessionCompilationNone() =
+        counterSession(CompilationMode.None())
+
+    @Test
+    fun counterSessionCompilationBaselineProfiles() =
+        counterSession(CompilationMode.Partial(BaselineProfileMode.Require))
+
+    @Test
+    fun tabPagingCompilationNone() =
+        tabPaging(CompilationMode.None())
+
+    @Test
+    fun tabPagingCompilationBaselineProfiles() =
+        tabPaging(CompilationMode.Partial(BaselineProfileMode.Require))
+
     private fun benchmark(compilationMode: CompilationMode) {
         // The application id for the running build variant is read from the instrumentation arguments.
         rule.measureRepeated(
@@ -78,7 +99,65 @@ class StartupBenchmarks {
                     list.fling(Direction.DOWN)
                     list.fling(Direction.UP)
                 }
-            }
+            },
+        )
+    }
+
+    private fun counterSession(compilationMode: CompilationMode) {
+        rule.measureRepeated(
+            packageName = InstrumentationRegistry.getArguments().getString("targetAppId")
+                ?: throw Exception("targetAppId not passed as instrumentation runner arg"),
+            metrics = listOf(FrameTimingMetric()),
+            compilationMode = compilationMode,
+            iterations = 5,
+            setupBlock = {
+                pressHome()
+                startActivityAndWait()
+                device.wait(Until.hasObject(By.scrollable(true)), 5_000)
+
+                // Enter the first category card to reach the thekr counting screen.
+                val displayHeight = device.displayHeight
+                device.findObjects(By.clickable(true))
+                    .filter { it.visibleBounds.top > displayHeight / 4 }
+                    .minByOrNull { it.visibleBounds.top }
+                    ?.click()
+                device.waitForIdle()
+            },
+            measureBlock = {
+                repeat(3) {
+                    device.click(device.displayWidth / 2, device.displayHeight / 2)
+                    device.waitForIdle()
+                }
+            },
+        )
+    }
+
+    private fun tabPaging(compilationMode: CompilationMode) {
+        rule.measureRepeated(
+            packageName = InstrumentationRegistry.getArguments().getString("targetAppId")
+                ?: throw Exception("targetAppId not passed as instrumentation runner arg"),
+            metrics = listOf(FrameTimingMetric()),
+            compilationMode = compilationMode,
+            iterations = 5,
+            setupBlock = {
+                pressHome()
+                startActivityAndWait()
+                device.waitForIdle()
+            },
+            measureBlock = {
+                // Page through the home tabs (HorizontalPager):
+                // Mesbaha -> Hesn Al Muslim -> Knooz -> Dua, then back to Mesbaha (sebha).
+                val centerX = device.displayWidth / 2
+                val centerY = device.displayHeight / 2
+                repeat(3) {
+                    device.swipe(centerX + centerX / 2, centerY, centerX / 2, centerY, 10)
+                    device.waitForIdle()
+                }
+                repeat(3) {
+                    device.swipe(centerX / 2, centerY, centerX + centerX / 2, centerY, 10)
+                    device.waitForIdle()
+                }
+            },
         )
     }
 }
