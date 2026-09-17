@@ -1,8 +1,18 @@
 #!/bin/bash
-cd app/debug || exit
-rm -rf ./*.apks
-# Build the APKs.
-bundletool build-apks --bundle=app-debug.aab --output=counter.apks --ks=../counter.jks --ks-pass=pass:123456 --ks-key-alias=key0 --key-pass=pass:123456
+set -euo pipefail
+
+cd "$(dirname "$0")" || exit 1
+
+BUNDLE="composeApp/build/outputs/bundle/debug/composeApp-debug.aab"
+if [ ! -f "$BUNDLE" ]; then
+    echo "error: debug bundle not found at $BUNDLE" >&2
+    echo "run ./gradlew :composeApp:bundleDebug first" >&2
+    exit 1
+fi
+
+# Build the APKs. Debug bundles are already signed with the debug keystore.
+rm -f thekr-debug.apks
+bundletool build-apks --bundle="$BUNDLE" --output=thekr-debug.apks
 
 # Install the APKs.
-bundletool install-apks --apks=counter.apks
+bundletool install-apks --apks=thekr-debug.apks
