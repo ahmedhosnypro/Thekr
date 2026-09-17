@@ -1,3 +1,8 @@
+// @Composable functions are PascalCase per the Compose API guidelines (detekt
+// exempts them via naming.FunctionNaming ignoreAnnotated; ktlint's
+// function-naming rule has no working equivalent in this setup).
+@file:Suppress("ktlint:standard:function-naming")
+
 package com.thekr.ui.counter
 
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,12 +24,15 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
 import com.thekr.data.thekr.category.CategoryDetails
 import com.thekr.fingerprint.Fingerprint.setFingerprintListener
+import com.thekr.ui.component.LocalizedApp
 import com.thekr.ui.counter.CounterHelper.CounterActionComponents
 import com.thekr.ui.counter.body.CategoryThekrList
 import com.thekr.ui.counter.header.ThekrCounterTopBar
@@ -32,16 +40,13 @@ import com.thekr.ui.counter.viewmodel.CounterUiState
 import com.thekr.ui.counter.viewmodel.ThekrCounterViewModel
 import com.thekr.ui.counter.viewmodel.action.configSleepJop
 import com.thekr.ui.home.list.categoryDetailsPreviewState
-import com.thekr.ui.theme.AppTheme
-import com.thekr.ui.component.LocalizedApp
 import com.thekr.ui.stats.ThekrStats
+import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.viewmodel.AppViewModelProvider
 import korlibs.platform.Platform
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.compose.LocalLifecycleOwner
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -83,8 +88,8 @@ fun ThekrScreen(
         bottomSheetState = rememberStandardBottomSheetState(
             initialValue = sheetTarget,
             confirmValueChange = { false },
-            skipHiddenState = false
-        )
+            skipHiddenState = false,
+        ),
     )
 
     LaunchedEffect(sheetTarget, category.value.thekrInstanceList.size) {
@@ -105,7 +110,7 @@ fun ThekrScreen(
                 coroutineScope = coroutineScope,
                 thekrCountSheetState = countSheetState,
                 pagerState = pagerState,
-            )
+            ),
         )
     }
 
@@ -115,14 +120,15 @@ fun ThekrScreen(
         return
     }
 
-
     LaunchedEffect(counterUiState.currentThekrInstance) {
         configSleepJop(viewModel)
     }
 
-
     val lifecycleOwner = LocalLifecycleOwner.current
 
+    // Re-arm the anti-sleep job only when returning to RESUMED after the
+    // initial composition; the entry configuration is owned by the
+    // currentThekrInstance effect above, which also re-arms on instance change.
     LaunchedEffect(lifecycleOwner) {
         lifecycleOwner.lifecycle.currentStateFlow
             .drop(1)
@@ -155,7 +161,7 @@ fun ThekrScreen(
             settingsDetails = settingsDetails,
             onNavigateUp = {
                 viewModel.hideStatistics()
-            }
+            },
         )
     } else {
         ThekrScreenBody(
@@ -163,11 +169,10 @@ fun ThekrScreen(
             categoryDetails = category,
             counterUiState = counterUiState,
             pagerState = pagerState,
-            countSheetState = countSheetState
+            countSheetState = countSheetState,
         )
     }
 }
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -184,7 +189,7 @@ fun ThekrScreenBody(
             settingsDetails = settingsDetails,
             counterUiState = counterUiState,
             categoryDetails = categoryDetails,
-            pagerState = pagerState
+            pagerState = pagerState,
         )
     }) { scaffoldInnerPadding ->
         ThekrHome(
@@ -195,11 +200,10 @@ fun ThekrScreenBody(
             categoryDetails = categoryDetails,
             modifier = Modifier
                 .fillMaxSize()
-                .padding(scaffoldInnerPadding)
+                .padding(scaffoldInnerPadding),
         )
     }
 }
-
 
 @Preview
 @Composable
@@ -211,8 +215,8 @@ fun ThekrScreenBodyPreview() {
                     settingsDetails = SettingsDetails(
                         showCount = true,
                         fingerPrintControl = true,
-                        themeMode = ThemeMode.Light
-                    )
+                        themeMode = ThemeMode.Light,
+                    ),
                 )
             }
         }
@@ -229,8 +233,8 @@ fun ThekrScreenBodyPreviewDark() {
                     settingsDetails = SettingsDetails(
                         showCount = true,
                         fingerPrintControl = true,
-                        themeMode = ThemeMode.Dark
-                    )
+                        themeMode = ThemeMode.Dark,
+                    ),
                 )
             }
         }
@@ -240,7 +244,7 @@ fun ThekrScreenBodyPreviewDark() {
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 private fun ThekrScreenPreviewOnly(
-    settingsDetails: SettingsDetails
+    settingsDetails: SettingsDetails,
 ) {
     val categoryDetails = categoryDetailsPreviewState()
     Scaffold(topBar = {
@@ -255,8 +259,8 @@ private fun ThekrScreenPreviewOnly(
             CounterUiState(),
             pagerState = rememberPagerState(
                 initialPage = 0,
-                pageCount = { 1 }
-            )
+                pageCount = { 1 },
+            ),
         )
     }) { innerPadding ->
         ThekrHomeBody(
