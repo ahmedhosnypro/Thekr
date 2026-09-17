@@ -161,7 +161,7 @@ class StartupBenchmarks {
 
                 // Wait for the home list — composed only after the first-run
                 // JSON seed import has populated the database.
-                device.wait(Until.hasObject(By.scrollable(true)), 15_000)
+                device.wait(Until.hasObject(By.scrollable(true)), FRESH_INSTALL_LIST_TIMEOUT)
                 device.findObject(By.scrollable(true))?.let { list ->
                     list.fling(Direction.DOWN)
                     list.fling(Direction.UP)
@@ -233,5 +233,6 @@ class StartupBenchmarks {
         const val COUNTER_TAP_COUNT = 3
         const val TAB_PAGING_SWIPE_COUNT = 3
         const val SWIPE_STEPS = 10
+        const val FRESH_INSTALL_LIST_TIMEOUT = 15_000L
     }
 }
