@@ -1,6 +1,5 @@
 package com.thekr.ui.counter.viewmodel
 
-
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -20,7 +19,6 @@ import com.thekr.ui.counter.viewmodel.action.AntiSleep.killDetectSleepingJob
 import com.thekr.ui.counter.viewmodel.action.AntiSleep.stopDetectSleepingJob
 import com.thekr.ui.counter.viewmodel.action.ThekrSoundPlayer
 import com.thekr.ui.counter.viewmodel.action.configSleepJop
-
 import com.thekr.ui.counter.viewmodel.init.initCoolDown
 import com.thekr.ui.navigation.NavigationActions
 import com.thekr.ui.navigation.route.HomeRoute
@@ -43,10 +41,10 @@ class ThekrCounterViewModel(
 
     val thekrId: Long = checkNotNull(savedStateHandle[ThekrScreenRoute.ZEKR_ID_ARG])
     val initialPage: Int = checkNotNull(
-        savedStateHandle[ThekrScreenRoute.INITIAL_PAGE_ARG]
+        savedStateHandle[ThekrScreenRoute.INITIAL_PAGE_ARG],
     )
     val pageCount: Int = checkNotNull(
-        savedStateHandle[ThekrScreenRoute.PAGE_COUNT_ARG]
+        savedStateHandle[ThekrScreenRoute.PAGE_COUNT_ARG],
     )
 
 //    val destination = savedStateHandle.toRoute<ThekrScreenRoute>()
@@ -55,9 +53,11 @@ class ThekrCounterViewModel(
 //    val initialPage: Int = destination.initialPage
 //    val pageCount: Int = destination.pageCount
 
-    val mutableUiState = MutableStateFlow(CounterUiState(
-        categoryDetails = appState.categoryList.first { it.value.id == categoryId }
-    ))
+    val mutableUiState = MutableStateFlow(
+        CounterUiState(
+            categoryDetails = appState.categoryList.first { it.value.id == categoryId },
+        ),
+    )
     val uiState = mutableUiState.asStateFlow()
 
     var firstTime = true
@@ -70,7 +70,6 @@ class ThekrCounterViewModel(
         // todo: add validation for count items
     }
 
-
     fun delete() {
         if (uiState.value.currentThekrInstance.value.isProtected.not()) {
             viewModelScope.launch {
@@ -80,8 +79,9 @@ class ThekrCounterViewModel(
     }
 
     fun onCounterDispose() {
-        stopDetectSleepingJob()
+        killDetectSleepingJob()
         ThekrSoundPlayer.stopPlayer()
+        ThekrSoundPlayer.releaseCache()
         mutableUiState.update { it.copy(isAudioPlaying = false) }
         clearFingerprintListener()
     }
@@ -97,17 +97,16 @@ class ThekrCounterViewModel(
         if (thekrInstanceDetails != null) {
             mutableUiState.update { currentState ->
                 currentState.copy(
-                    currentThekrInstance = thekrInstanceDetails
+                    currentThekrInstance = thekrInstanceDetails,
                 )
             }
         }
     }
 
-
     fun showCategoryThekrListMenu() {
         mutableUiState.update { currentState ->
             currentState.copy(
-                showCategoryThekrListMenu = true
+                showCategoryThekrListMenu = true,
             )
         }
         stopDetectSleepingJob()
@@ -116,7 +115,7 @@ class ThekrCounterViewModel(
     fun hideCategoryThekrListMenu() {
         mutableUiState.update { currentState ->
             currentState.copy(
-                showCategoryThekrListMenu = false
+                showCategoryThekrListMenu = false,
             )
         }
         configSleepJop(this)
@@ -149,15 +148,14 @@ class ThekrCounterViewModel(
             ?: mutableStateOf(ThekrDetails())
     }
 
-    fun getThekrInstance(tabIndex: Int): MutableState<ThekrInstanceDetails> {
-        return uiState.value.categoryDetails.value.thekrInstanceList.getOrNull(tabIndex)
+    fun getThekrInstance(tabIndex: Int): MutableState<ThekrInstanceDetails> =
+        uiState.value.categoryDetails.value.thekrInstanceList.getOrNull(
+            tabIndex,
+        )
             ?: mutableStateOf(ThekrInstanceDetails())
-    }
 
-    fun tabIndexOf(thekrInstanceId: Long): Int {
-        return uiState.value.categoryDetails.value.thekrInstanceList.indexOfFirst {
-            it.value.id == thekrInstanceId
-        }
+    fun tabIndexOf(thekrInstanceId: Long): Int = uiState.value.categoryDetails.value.thekrInstanceList.indexOfFirst {
+        it.value.id == thekrInstanceId
     }
 
     fun updateUiState(counterUiState: CounterUiState) {
@@ -169,7 +167,7 @@ class ThekrCounterViewModel(
     fun hideStatistics() {
         mutableUiState.update {
             it.copy(
-                showStatistics = false
+                showStatistics = false,
             )
         }
         configSleepJop(this)
@@ -178,7 +176,7 @@ class ThekrCounterViewModel(
     fun showStatistics() {
         mutableUiState.update {
             it.copy(
-                showStatistics = true
+                showStatistics = true,
             )
         }
         stopDetectSleepingJob()
@@ -192,7 +190,7 @@ class ThekrCounterViewModel(
             monthlyCount = count.monthlyCount + 1,
             yearlyCount = count.yearlyCount + 1,
             totalCount = count.totalCount + 1,
-            timeUpdated = System.currentTimeMillis()
+            timeUpdated = System.currentTimeMillis(),
         )
     }
 }

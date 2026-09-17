@@ -14,7 +14,6 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 
-
 expect suspend fun SoundAudioStream.platformPlay(player: SoundPlayer)
 expect suspend fun Sound.platformPlay(): SoundChannel
 
@@ -28,7 +27,12 @@ object ThekrSoundPlayer : SoundPlayer {
     override var soundChannel: SoundChannel? = null
 
     private const val MAX_DECODED_SOUNDS = 16
+    private const val MAX_DECODED_BYTES = 16 * 1024 * 1024
+
+    // 44.1kHz stereo 16-bit PCM, the typical decoded shape of the bundled MP3s.
+    private const val PCM_BYTES_PER_MS = 44_100 * 2 * 2 / 1000
     private val decodedSounds = LinkedHashMap<String, Sound>()
+    private var decodedBytes = 0L
     private val decodeMutex = Mutex()
     private var playJob: Job? = null
 
@@ -43,7 +47,7 @@ object ThekrSoundPlayer : SoundPlayer {
         // play the same sound twice and orphan the first channel.
         if (playJob?.isActive == true) return
         val soundFileName = getCurrentThekr().value.soundFileName
-        val filePath = "files/thekr/${currentSettings().currentSheikh}/${soundFileName}.mp3"
+        val filePath = "files/thekr/${currentSettings().currentSheikh}/$soundFileName.mp3"
         playJob = scope.launch {
             val sound = decodeSound(filePath) ?: return@launch
             if (!isActive || soundChannel?.playing == true) return@launch
@@ -67,25 +71,40 @@ object ThekrSoundPlayer : SoundPlayer {
 
     @OptIn(ExperimentalResourceApi::class)
     private suspend fun decodeSound(filePath: String): Sound? = decodeMutex.withLock {
-        decodedSounds[filePath] ?: run {
-            val bytes = try {
-                Res.readBytes(filePath)
-            } catch (e: Exception) {
-                return@withLock null
-            }
-            val sound = try {
-                nativeSoundProvider.createSound(data = bytes)
-            } catch (e: Exception) {
-                return@withLock null
-            }
-            decodedSounds[filePath] = sound
-            if (decodedSounds.size > MAX_DECODED_SOUNDS) {
-                decodedSounds.remove(decodedSounds.keys.first())
-            }
-            sound
+        decodedSounds[filePath]?.let { return@withLock it }
+        val bytes = try {
+            Res.readBytes(filePath)
+        } catch (e: Exception) {
+            return@withLock null
         }
+        val sound = try {
+            nativeSoundProvider.createSound(data = bytes)
+        } catch (e: Exception) {
+            return@withLock null
+        }
+        // A cancelled play job means the screen was disposed mid-decode:
+        // playing is skipped by the caller, so don't retain the decode either.
+        if (playJob?.isActive != true) return@withLock null
+        decodedSounds[filePath] = sound
+        decodedBytes += sound.length.inWholeMilliseconds * PCM_BYTES_PER_MS
+        while (decodedBytes > MAX_DECODED_BYTES || decodedSounds.size > MAX_DECODED_SOUNDS) {
+            val eldest = decodedSounds.entries.firstOrNull() ?: break
+            decodedSounds.remove(eldest.key)
+            decodedBytes -= eldest.value.length.inWholeMilliseconds * PCM_BYTES_PER_MS
+        }
+        sound
     }
 
+    // Sound holds decoded PCM in memory; dropping all references lets the GC
+    // reclaim it, so a plain clear under the decode mutex is a full release.
+    fun releaseCache() {
+        scope.launch {
+            decodeMutex.withLock {
+                decodedSounds.clear()
+                decodedBytes = 0L
+            }
+        }
+    }
 
     override fun stopPlayer() {
         // Cancel an in-flight decode/play coroutine so playback cannot start
@@ -100,7 +119,6 @@ object ThekrSoundPlayer : SoundPlayer {
 
     val isPlaying: Boolean get() = soundChannel?.playing == true
 }
-
 
 @OptIn(ExperimentalResourceApi::class)
 object ClickSoundPlayer : SoundPlayer {
@@ -130,7 +148,6 @@ object ClickSoundPlayer : SoundPlayer {
             currentSound.platformPlay()
         }
     }
-
 
     override fun stopPlayer() {
 //        if (soundChannel != null) {
