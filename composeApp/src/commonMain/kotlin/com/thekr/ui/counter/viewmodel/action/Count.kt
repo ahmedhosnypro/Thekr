@@ -89,7 +89,7 @@ private fun ThekrCounterViewModel.count(
         )
     }
 
-    // clickable
+    // clickable: set on Main in the same call that checked the guard (fingerprint events hop to Main), closing the window
     isClickable = false
     viewModelScope.launch {
         delay(thekr.coolDown)

@@ -7,12 +7,19 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.concurrent.Volatile
 
 object AntiSleep {
     private val scope = CoroutineScope(Dispatchers.Main)
 
-    // initialize the job to cancel it if user clicked, and prevent the alert
+    // initialize the job to cancel it if user clicked, and prevent the alert.
+    // Mutated only from Main: the fingerprint count path hops there in
+    // FingerprintEventDispatcher and the config/dispose callers are Compose Main.
+    // @Volatile keeps a restart visible should a future caller hop threads.
+    @Volatile
     var detectSleepingJob: Job? = null
+
+    @Volatile
     var alertSleepRunnable: SuspendRunnable? = null
 
     fun stopDetectSleepingJob() {
