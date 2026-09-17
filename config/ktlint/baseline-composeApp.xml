@@ -24379,13 +24379,12 @@
     <file name="src/androidMain/kotlin/com/thekr/database/AppContainer.kt">
         <error line="1" column="1" source="standard:filename" />
         <error line="3" column="1" source="standard:import-ordering" />
-        <error line="23" column="1" source="standard:no-consecutive-blank-lines" />
-        <error line="61" column="42" source="standard:trailing-comma-on-call-site" />
-        <error line="68" column="1" source="standard:final-newline" />
+        <error line="22" column="1" source="standard:no-consecutive-blank-lines" />
+        <error line="62" column="42" source="standard:trailing-comma-on-call-site" />
+        <error line="69" column="1" source="standard:final-newline" />
     </file>
     <file name="src/androidMain/kotlin/com/thekr/database/DatabaseBuilder.kt">
-        <error line="13" column="35" source="standard:trailing-comma-on-call-site" />
-        <error line="27" column="1" source="standard:final-newline" />
+        <error line="14" column="35" source="standard:trailing-comma-on-call-site" />
     </file>
     <file name="src/androidMain/kotlin/com/thekr/preview/stats/DayStats.android.kt">
         <error line="28" column="13" source="standard:function-naming" />
@@ -24695,11 +24694,11 @@
         <error line="4" column="27" source="standard:final-newline" />
     </file>
     <file name="src/commonMain/kotlin/com/thekr/di/DatabaseProvider.kt">
-        <error line="19" column="72" source="standard:trailing-comma-on-call-site" />
-        <error line="23" column="62" source="standard:trailing-comma-on-call-site" />
-        <error line="29" column="51" source="standard:trailing-comma-on-declaration-site" />
-        <error line="32" column="1" source="standard:no-empty-first-line-in-method-block" />
-        <error line="44" column="1" source="standard:no-consecutive-blank-lines" />
+        <error line="24" column="72" source="standard:trailing-comma-on-call-site" />
+        <error line="28" column="62" source="standard:trailing-comma-on-call-site" />
+        <error line="34" column="51" source="standard:trailing-comma-on-declaration-site" />
+        <error line="37" column="1" source="standard:no-empty-first-line-in-method-block" />
+        <error line="49" column="1" source="standard:no-consecutive-blank-lines" />
     </file>
     <file name="src/commonMain/kotlin/com/thekr/fingerprint/FingerPrintLogcatProcessor.kt">
         <error line="19" column="59" source="standard:trailing-comma-on-call-site" />
@@ -26049,23 +26048,6 @@
         <error line="177" column="28" source="standard:trailing-comma-on-call-site" />
         <error line="195" column="1" source="standard:final-newline" />
     </file>
-    <file name="src/commonMain/kotlin/com/thekr/ui/theme/AppTheme.kt">
-        <error line="24" column="1" source="standard:no-consecutive-blank-lines" />
-        <error line="26" column="84" source="standard:multiline-if-else" />
-        <error line="27" column="10" source="standard:multiline-if-else" />
-        <error line="29" column="1" source="standard:no-consecutive-blank-lines" />
-        <error line="60" column="1" source="standard:no-consecutive-blank-lines" />
-        <error line="64" column="46" source="standard:trailing-comma-on-call-site" />
-        <error line="68" column="81" source="standard:multiline-if-else" />
-        <error line="69" column="10" source="standard:multiline-if-else" />
-        <error line="72" column="1" source="standard:no-consecutive-blank-lines" />
-        <error line="108" column="44" source="standard:parameter-list-spacing" />
-        <error line="108" column="45" source="standard:no-multi-spaces" />
-        <error line="114" column="59" source="standard:trailing-comma-on-declaration-site" />
-        <error line="120" column="5" source="standard:class-signature" />
-        <error line="120" column="37" source="standard:class-signature" />
-        <error line="125" column="37" source="standard:trailing-comma-on-declaration-site" />
-    </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/theme/Color.kt">
         <error line="36" column="1" source="standard:no-consecutive-blank-lines" />
         <error line="53" column="1" source="standard:comment-spacing" />
@@ -26151,69 +26133,6 @@
         <error line="68" column="1" source="standard:comment-spacing" />
         <error line="71" column="1" source="standard:comment-spacing" />
     </file>
-    <file name="src/commonMain/kotlin/com/thekr/ui/theme/Font.kt">
-        <error line="6" column="1" source="standard:no-wildcard-imports" />
-        <error line="10" column="18" source="standard:function-start-of-body-spacing" />
-        <error line="10" column="20" source="standard:no-multi-spaces" />
-        <error line="17" column="6" source="standard:trailing-comma-on-call-site" />
-        <error line="20" column="1" source="standard:no-consecutive-blank-lines" />
-        <error line="22" column="18" source="standard:paren-spacing" />
-        <error line="22" column="18" source="standard:spacing-between-function-name-and-opening-parenthesis" />
-        <error line="29" column="10" source="standard:paren-spacing" />
-        <error line="29" column="10" source="standard:spacing-between-function-name-and-opening-parenthesis" />
-        <error line="35" column="33" source="standard:trailing-comma-on-call-site" />
-        <error line="43" column="11" source="standard:paren-spacing" />
-        <error line="43" column="11" source="standard:spacing-between-function-name-and-opening-parenthesis" />
-        <error line="50" column="14" source="standard:paren-spacing" />
-        <error line="50" column="14" source="standard:spacing-between-function-name-and-opening-parenthesis" />
-        <error line="56" column="33" source="standard:trailing-comma-on-call-site" />
-        <error line="60" column="1" source="standard:no-consecutive-blank-lines" />
-        <error line="65" column="34" source="standard:trailing-comma-on-call-site" />
-        <error line="69" column="35" source="standard:trailing-comma-on-call-site" />
-        <error line="73" column="33" source="standard:trailing-comma-on-call-site" />
-        <error line="74" column="6" source="standard:trailing-comma-on-call-site" />
-        <error line="78" column="23" source="standard:paren-spacing" />
-        <error line="78" column="23" source="standard:spacing-between-function-name-and-opening-parenthesis" />
-        <error line="81" column="34" source="standard:trailing-comma-on-call-site" />
-        <error line="89" column="17" source="standard:paren-spacing" />
-        <error line="89" column="17" source="standard:spacing-between-function-name-and-opening-parenthesis" />
-        <error line="91" column="34" source="standard:trailing-comma-on-call-site" />
-        <error line="92" column="6" source="standard:trailing-comma-on-call-site" />
-        <error line="96" column="19" source="standard:paren-spacing" />
-        <error line="96" column="19" source="standard:spacing-between-function-name-and-opening-parenthesis" />
-        <error line="99" column="6" source="standard:trailing-comma-on-call-site" />
-        <error line="103" column="19" source="standard:paren-spacing" />
-        <error line="103" column="19" source="standard:spacing-between-function-name-and-opening-parenthesis" />
-        <error line="106" column="33" source="standard:trailing-comma-on-call-site" />
-        <error line="111" column="11" source="standard:paren-spacing" />
-        <error line="111" column="11" source="standard:spacing-between-function-name-and-opening-parenthesis" />
-        <error line="113" column="33" source="standard:trailing-comma-on-call-site" />
-        <error line="118" column="19" source="standard:paren-spacing" />
-        <error line="118" column="19" source="standard:spacing-between-function-name-and-opening-parenthesis" />
-        <error line="121" column="6" source="standard:trailing-comma-on-call-site" />
-        <error line="125" column="20" source="standard:paren-spacing" />
-        <error line="125" column="20" source="standard:spacing-between-function-name-and-opening-parenthesis" />
-        <error line="127" column="30" source="standard:trailing-comma-on-call-site" />
-        <error line="128" column="6" source="standard:trailing-comma-on-call-site" />
-        <error line="132" column="15" source="standard:paren-spacing" />
-        <error line="132" column="15" source="standard:spacing-between-function-name-and-opening-parenthesis" />
-        <error line="135" column="33" source="standard:trailing-comma-on-call-site" />
-        <error line="139" column="1" source="standard:no-consecutive-blank-lines" />
-        <error line="141" column="17" source="standard:paren-spacing" />
-        <error line="141" column="17" source="standard:spacing-between-function-name-and-opening-parenthesis" />
-        <error line="143" column="39" source="standard:trailing-comma-on-call-site" />
-        <error line="144" column="6" source="standard:trailing-comma-on-call-site" />
-        <error line="148" column="11" source="standard:paren-spacing" />
-        <error line="148" column="11" source="standard:spacing-between-function-name-and-opening-parenthesis" />
-        <error line="151" column="34" source="standard:trailing-comma-on-call-site" />
-        <error line="154" column="32" source="standard:trailing-comma-on-call-site" />
-        <error line="158" column="33" source="standard:trailing-comma-on-call-site" />
-        <error line="163" column="14" source="standard:paren-spacing" />
-        <error line="163" column="14" source="standard:spacing-between-function-name-and-opening-parenthesis" />
-        <error line="166" column="33" source="standard:trailing-comma-on-call-site" />
-        <error line="167" column="6" source="standard:trailing-comma-on-call-site" />
-        <error line="170" column="1" source="standard:no-consecutive-blank-lines" />
-    </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/theme/ImageResourceHelper.kt">
         <error line="3" column="1" source="standard:import-ordering" />
         <error line="4" column="1" source="standard:no-wildcard-imports" />
@@ -26268,57 +26187,43 @@
         <error line="15" column="1" source="standard:final-newline" />
     </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/viewmodel/AppViewModel.kt">
-        <error line="37" column="59" source="standard:trailing-comma-on-declaration-site" />
-        <error line="67" column="62" source="standard:wrapping" />
-        <error line="69" column="17" source="standard:wrapping" />
-        <error line="77" column="60" source="standard:wrapping" />
-        <error line="77" column="60" source="standard:argument-list-wrapping" />
-        <error line="78" column="60" source="standard:wrapping" />
-        <error line="78" column="61" source="standard:argument-list-wrapping" />
-        <error line="79" column="53" source="standard:wrapping" />
-        <error line="79" column="53" source="standard:argument-list-wrapping" />
-        <error line="80" column="60" source="standard:wrapping" />
-        <error line="80" column="61" source="standard:argument-list-wrapping" />
-        <error line="81" column="59" source="standard:wrapping" />
-        <error line="81" column="59" source="standard:argument-list-wrapping" />
-        <error line="82" column="60" source="standard:wrapping" />
-        <error line="82" column="61" source="standard:argument-list-wrapping" />
-        <error line="121" column="1" source="standard:final-newline" />
+        <error line="39" column="59" source="standard:trailing-comma-on-declaration-site" />
+        <error line="87" column="62" source="standard:wrapping" />
+        <error line="89" column="17" source="standard:wrapping" />
+        <error line="97" column="60" source="standard:wrapping" />
+        <error line="97" column="60" source="standard:argument-list-wrapping" />
+        <error line="98" column="60" source="standard:wrapping" />
+        <error line="98" column="61" source="standard:argument-list-wrapping" />
+        <error line="99" column="53" source="standard:wrapping" />
+        <error line="99" column="53" source="standard:argument-list-wrapping" />
+        <error line="100" column="60" source="standard:wrapping" />
+        <error line="100" column="61" source="standard:argument-list-wrapping" />
+        <error line="101" column="59" source="standard:wrapping" />
+        <error line="101" column="59" source="standard:argument-list-wrapping" />
+        <error line="102" column="60" source="standard:wrapping" />
+        <error line="102" column="61" source="standard:argument-list-wrapping" />
+        <error line="145" column="1" source="standard:final-newline" />
     </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/viewmodel/AppViewModelFactory.kt">
         <error line="7" column="1" source="standard:final-newline" />
     </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/viewmodel/Creator.kt">
-        <error line="18" column="10" source="standard:trailing-comma-on-call-site" />
+        <error line="15" column="10" source="standard:trailing-comma-on-call-site" />
     </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/viewmodel/Fetcher.kt">
-        <error line="11" column="1" source="standard:no-unused-imports" />
-        <error line="12" column="1" source="standard:no-unused-imports" />
-        <error line="13" column="1" source="standard:no-unused-imports" />
-        <error line="14" column="1" source="standard:no-unused-imports" />
-        <error line="15" column="1" source="standard:no-unused-imports" />
-        <error line="16" column="1" source="standard:no-unused-imports" />
-        <error line="17" column="1" source="standard:no-unused-imports" />
-        <error line="66" column="56" source="standard:trailing-comma-on-call-site" />
-        <error line="94" column="56" source="standard:trailing-comma-on-call-site" />
-        <error line="100" column="72" source="standard:trailing-comma-on-call-site" />
-        <error line="128" column="55" source="standard:trailing-comma-on-declaration-site" />
-        <error line="161" column="26" source="standard:trailing-comma-on-call-site" />
-        <error line="176" column="48" source="standard:trailing-comma-on-call-site" />
-        <error line="177" column="26" source="standard:trailing-comma-on-call-site" />
-        <error line="178" column="22" source="standard:trailing-comma-on-call-site" />
-        <error line="211" column="56" source="standard:trailing-comma-on-call-site" />
-        <error line="224" column="1" source="standard:no-consecutive-blank-lines" />
-        <error line="243" column="23" source="standard:final-newline" />
+        <error line="86" column="76" source="standard:trailing-comma-on-call-site" />
+        <error line="139" column="55" source="standard:trailing-comma-on-declaration-site" />
+        <error line="173" column="48" source="standard:trailing-comma-on-call-site" />
+        <error line="174" column="26" source="standard:trailing-comma-on-call-site" />
+        <error line="175" column="22" source="standard:trailing-comma-on-call-site" />
     </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/viewmodel/Navigator.kt">
-        <error line="27" column="72" source="standard:function-expression-body" />
-        <error line="51" column="1" source="standard:final-newline" />
+        <error line="63" column="1" source="standard:final-newline" />
     </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/viewmodel/Updater.kt">
-        <error line="21" column="106" source="standard:trailing-comma-on-call-site" />
-        <error line="136" column="49" source="standard:trailing-comma-on-declaration-site" />
-        <error line="177" column="1" source="standard:final-newline" />
+        <error line="23" column="106" source="standard:trailing-comma-on-call-site" />
+        <error line="156" column="49" source="standard:trailing-comma-on-declaration-site" />
+        <error line="197" column="1" source="standard:final-newline" />
     </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/zekr/entry/ColorPickerDialog.kt">
         <error line="1" column="1" source="standard:comment-spacing" />

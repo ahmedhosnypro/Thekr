@@ -12,6 +12,8 @@ import kotlinx.coroutines.flow.update
 
 /**
  * Updates the current viewed Sebha category in the AzkarViewModel's state.
+ * Doubles as the lazy-fetch gate for Sebha sub-tabs: the newly viewed
+ * category's flows open on first display.
  *
  * @param tabIndex The index of the selected Sebha tab.
  */
@@ -21,6 +23,7 @@ fun AppViewModel.updateCurrentSebhaViewedCategory(tabIndex: Int) {
             currentViewedSebhaCategory = currentState.userThekr.value.childCategories.getOrNull(tabIndex)
         )
     }
+    mutableAppState.value.currentViewedSebhaCategory?.let { ensureCategoryFetched(it) }
 }
 
 /**
@@ -122,6 +125,23 @@ fun updateThekrCountItem(
         // Add the new item if it doesn't exist
         toUpdateThekrCountList.add(updatedThekrCountItem)
     }
+}
+
+/**
+ * Removes the count entries of instances that no longer exist in the
+ * category, so countList doesn't accumulate stale ThekrCount items for every
+ * instance ever created.
+ *
+ * @param toUpdateThekrCountList The list to be updated.
+ * @param removedThekrIds The ThekrCount keys (thekrInstanceId values) whose
+ *     instances are gone.
+ */
+fun removeThekrCountItems(
+    toUpdateThekrCountList: SnapshotStateList<MutableState<ThekrCount>>,
+    removedThekrIds: Set<Long>,
+) {
+    if (removedThekrIds.isEmpty()) return
+    toUpdateThekrCountList.removeIf { it.value.thekrInstanceId in removedThekrIds }
 }
 
 /**

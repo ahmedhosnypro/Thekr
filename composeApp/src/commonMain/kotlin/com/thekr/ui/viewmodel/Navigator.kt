@@ -22,9 +22,21 @@ fun AppViewModel.navigateToCategory(
         }
         currentState
     }
+    // Lazy-fetch gate: a category's flows open when it is first drilled into.
+    ensureCategoryFetched(categoryDetails)
 }
 
 fun AppViewModel.canNavigateToPreviousCategory(tabIndex: Int): Boolean {
+    // HomeContent evaluates this during composition with the currently shown
+    // tab, so it also serves as the "tab first visible" lazy-fetch gate for
+    // the tab's displayed category (e.g. the Knooz root, which carries its
+    // thekrs directly).
+    when (tabIndex) {
+        1 -> mutableAppState.value.hesnAlmuslimStack.lastOrNull()
+        2 -> mutableAppState.value.knoozStack.lastOrNull()
+        3 -> mutableAppState.value.duaCategoryStack.lastOrNull()
+        else -> null
+    }?.let { ensureCategoryFetched(it) }
     return when (tabIndex) {
         1 -> appState.value.hesnAlmuslimStack.size > 1
         2 -> appState.value.knoozStack.size > 1

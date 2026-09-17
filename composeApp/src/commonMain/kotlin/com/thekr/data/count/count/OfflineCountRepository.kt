@@ -23,13 +23,13 @@ class OfflineCountRepository(private val countDao: CountDAO) : CountRepository {
     override fun getLastCountByThekrInstanceId(thekrInstanceId: Long) =
         countDao.getLastCountByThekrInstanceId(thekrInstanceId)
 
-    override suspend fun findAllSync() = countDao.findAllSync()
+    override suspend fun findAll() = countDao.findAll()
 
-    override fun findAllByCategorySync(categoryId: Long) =
-        countDao.findAllByCategorySync(categoryId)
+    override fun findAllByCategory(categoryId: Long) =
+        countDao.findAllByCategory(categoryId)
 
-    override fun findAllByThekrInstanceSync(thekrInstanceId: Long) =
-        countDao.findAllByThekrInstanceSync(thekrInstanceId)
+    override fun findAllByThekrInstance(thekrInstanceId: Long) =
+        countDao.findAllByThekrInstance(thekrInstanceId)
 
     override fun getCountTotalsByThekrInstanceId(
         thekrInstanceId: Long,

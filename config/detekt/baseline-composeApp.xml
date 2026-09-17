@@ -3,7 +3,6 @@
   <ManuallySuppressedIssues/>
   <CurrentIssues>
     <ID>AnnotationOnSeparateLine:Theme.kt$@Composable()</ID>
-    <ID>AnnotationSpacing:Database.kt$AppDatabase$@Database( entities = [ Thekr::class, ThekrInstance::class, ThekrFadl::class, Count::class, CountMiss::class, ThekrGoalCompletion::class, Category::class, Session::class, ], version = 1, exportSchema = false, ) abstract</ID>
     <ID>ArgumentListWrapping:AppViewModel.kt$AppViewModel$(childCategories.firstOrNull { it.value.id == ThekrCategoryType.Dua.id } ?: mutableStateOf(CategoryDetails()))</ID>
     <ID>ArgumentListWrapping:AppViewModel.kt$AppViewModel$(childCategories.firstOrNull { it.value.id == ThekrCategoryType.HesnAlMuslim.id } ?: mutableStateOf(CategoryDetails()))</ID>
     <ID>ArgumentListWrapping:AppViewModel.kt$AppViewModel$(childCategories.firstOrNull { it.value.id == ThekrCategoryType.Knooz.id } ?: mutableStateOf(CategoryDetails()))</ID>
@@ -340,10 +339,8 @@
     <ID>FinalNewline:ColorPickerDialog.kt$.ColorPickerDialog.kt</ID>
     <ID>FinalNewline:Colors.kt$com.thekr.values.Colors.kt</ID>
     <ID>FinalNewline:Constants.kt$com.thekr.values.Constants.kt</ID>
-    <ID>FinalNewline:Count.kt$com.thekr.model.Count.kt</ID>
     <ID>FinalNewline:Count.kt$com.thekr.ui.counter.viewmodel.action.Count.kt</ID>
     <ID>FinalNewline:CountDAO.kt$com.thekr.data.count.count.CountDAO.kt</ID>
-    <ID>FinalNewline:CountMiss.kt$com.thekr.model.CountMiss.kt</ID>
     <ID>FinalNewline:CountMissDAO.kt$com.thekr.data.count.miss.CountMissDAO.kt</ID>
     <ID>FinalNewline:CountMissDetails.kt$com.thekr.data.count.miss.CountMissDetails.kt</ID>
     <ID>FinalNewline:CountMissRepository.kt$com.thekr.data.count.miss.CountMissRepository.kt</ID>
@@ -363,7 +360,6 @@
     <ID>FinalNewline:DailyStatisticsData.kt$com.thekr.ui.stats.data.DailyStatisticsData.kt</ID>
     <ID>FinalNewline:DailyTarget.kt$com.thekr.ui.counter.footer.DailyTarget.kt</ID>
     <ID>FinalNewline:Database.kt$com.thekr.database.Database.kt</ID>
-    <ID>FinalNewline:DatabaseBuilder.kt$com.thekr.database.DatabaseBuilder.kt</ID>
     <ID>FinalNewline:DayStats.android.kt$com.thekr.preview.stats.DayStats.android.kt</ID>
     <ID>FinalNewline:DayStats.android.kt$com.thekr.ui.stats.DayStats.android.kt</ID>
     <ID>FinalNewline:Dimensions.kt$com.thekr.values.Dimensions.kt</ID>
@@ -374,7 +370,6 @@
     <ID>FinalNewline:FadlDAO.kt$com.thekr.data.thekr.fadl.FadlDAO.kt</ID>
     <ID>FinalNewline:FadlDetails.kt$com.thekr.data.thekr.fadl.FadlDetails.kt</ID>
     <ID>FinalNewline:FadlRepository.kt$com.thekr.data.thekr.fadl.FadlRepository.kt</ID>
-    <ID>FinalNewline:Fetcher.kt$com.thekr.ui.viewmodel.Fetcher.kt</ID>
     <ID>FinalNewline:FingerPrintLogcatProcessor.kt$com.thekr.fingerprint.FingerPrintLogcatProcessor.kt</ID>
     <ID>FinalNewline:Fingerprint.kt$com.thekr.fingerprint.Fingerprint.kt</ID>
     <ID>FinalNewline:FingerprintEvent.kt$com.thekr.fingerprint.FingerprintEvent.kt</ID>
@@ -478,13 +473,12 @@
     <ID>FunctionReturnTypeSpacing:ThekrInstanceRepository.kt$ThekrInstanceRepository$suspend fun insert(thekrInstance: ThekrInstance):Long</ID>
     <ID>FunctionStartOfBodySpacing:CounterFeedback.android.kt$@Suppress("DEPRECATION") actual fun vibrate()</ID>
     <ID>FunctionStartOfBodySpacing:CounterFeedback.jvm.kt$actual fun vibrate()</ID>
-    <ID>FunctionStartOfBodySpacing:Font.kt$@Composable fun abdoMaster()</ID>
     <ID>FunctionStartOfBodySpacing:ZekrEntryActions.kt$ThekrEntryActions$fun initActions(viewModel: ThekrEntryViewModel)</ID>
     <ID>FunctionStartOfBodySpacing:ZekrIndicatorList.kt$@Composable fun thekrIndicatorColor( index:Int ): Color</ID>
     <ID>ImportOrdering:AddCounterFAB.kt$import androidx.compose.material.icons.Icons import androidx.compose.material.icons.filled.Create import androidx.compose.material3.FloatingActionButton import androidx.compose.material3.Icon import androidx.compose.material3.MaterialTheme import androidx.compose.runtime.Composable import androidx.compose.ui.Modifier import org.jetbrains.compose.resources.stringResource import androidx.compose.ui.tooling.preview.Preview import com.thekr.resources.Res import com.thekr.resources.add_thekr</ID>
     <ID>ImportOrdering:App.kt$import androidx.compose.runtime.Composable import com.thekr.ui.theme.AppTheme import com.thekr.ui.CounterApp</ID>
     <ID>ImportOrdering:AppAlertDialog.android.kt$import androidx.compose.material.icons.Icons import androidx.compose.material.icons.filled.Info import androidx.compose.material3.Surface import androidx.compose.runtime.Composable import androidx.compose.ui.tooling.preview.Preview import com.thekr.data.proto.ThemeMode import com.thekr.ui.theme.AppTheme import com.thekr.ui.component.AppAlertDialog import com.thekr.ui.component.LocalizedApp</ID>
-    <ID>ImportOrdering:AppContainer.kt$import android.content.Context import com.thekr.data.thekr.category.CategoryRepository import com.thekr.data.thekr.category.OfflineCategoryRepository import com.thekr.data.count.count.CountRepository import com.thekr.data.count.count.OfflineCountRepository import com.thekr.data.count.miss.CountMissRepository import com.thekr.data.count.miss.OfflineCountMissRepository import com.thekr.data.thekr.fadl.FadlRepository import com.thekr.data.thekr.fadl.OfflineFadlRepository import com.thekr.data.goal.completion.OfflineThekrGoalCompletionRepository import com.thekr.data.goal.completion.ThekrGoalCompletionRepository import com.thekr.data.session.OfflineSessionRepository import com.thekr.data.session.SessionRepository import com.thekr.data.thekr.instance.OfflineThekrInstanceRepository import com.thekr.data.thekr.instance.ThekrInstanceRepository import com.thekr.data.thekr.thekr.ThekrRepository import com.thekr.data.thekr.thekr.OfflineThekrRepository import com.thekr.di.DatabaseProvider import com.thekr.database.initDatabaseIfNeeded</ID>
+    <ID>ImportOrdering:AppContainer.kt$import android.content.Context import com.thekr.data.thekr.category.CategoryRepository import com.thekr.data.thekr.category.OfflineCategoryRepository import com.thekr.data.count.count.CountRepository import com.thekr.data.count.count.OfflineCountRepository import com.thekr.data.count.miss.CountMissRepository import com.thekr.data.count.miss.OfflineCountMissRepository import com.thekr.data.thekr.fadl.FadlRepository import com.thekr.data.thekr.fadl.OfflineFadlRepository import com.thekr.data.goal.completion.OfflineThekrGoalCompletionRepository import com.thekr.data.goal.completion.ThekrGoalCompletionRepository import com.thekr.data.session.OfflineSessionRepository import com.thekr.data.session.SessionRepository import com.thekr.data.thekr.instance.OfflineThekrInstanceRepository import com.thekr.data.thekr.instance.ThekrInstanceRepository import com.thekr.data.thekr.thekr.ThekrRepository import com.thekr.data.thekr.thekr.OfflineThekrRepository import com.thekr.di.DatabaseProvider</ID>
     <ID>ImportOrdering:AppTopBar.android.kt$import androidx.compose.material3.Surface import androidx.compose.runtime.Composable import androidx.compose.ui.tooling.preview.Preview import com.thekr.data.proto.ThemeMode import com.thekr.data.settings.SettingsDetails import com.thekr.ui.theme.AppTheme import com.thekr.ui.component.bar.AppBarPreviewTemplate</ID>
     <ID>ImportOrdering:AppTopBar.kt$import androidx.compose.foundation.background import androidx.compose.foundation.layout.* import androidx.compose.foundation.pager.PagerState import androidx.compose.foundation.pager.rememberPagerState import androidx.compose.material.icons.Icons import androidx.compose.material.icons.automirrored.filled.ArrowBackIos import androidx.compose.material.icons.filled.Settings import androidx.compose.material3.* import androidx.compose.runtime.* import androidx.compose.ui.Modifier import androidx.compose.ui.graphics.Brush import androidx.compose.ui.graphics.Color import androidx.compose.ui.graphics.ColorFilter import androidx.compose.ui.layout.ContentScale import androidx.compose.ui.layout.onGloballyPositioned import androidx.compose.ui.platform.LocalDensity import androidx.compose.ui.text.intl.Locale import androidx.compose.ui.unit.dp import com.thekr.data.settings.SettingsDetails import com.thekr.resources.Res import com.thekr.resources.back import com.thekr.resources.header_background import com.thekr.resources.settings import com.thekr.ui.component.LocalizedApp import com.thekr.ui.home.HomeTab import com.thekr.ui.home.header.HomeTopBarCreateAction import com.thekr.ui.home.header.AppName import com.thekr.ui.home.header.HeaderTabsRow import com.thekr.ui.modifier.PaintingRepeat import com.thekr.ui.modifier.paint import com.thekr.ui.navigation.NavigationActions import com.thekr.ui.navigation.route.SettingsRoute import com.thekr.ui.theme.AppTheme import com.thekr.values.SDimensions.sTiny import com.thekr.ui.viewmodel.AppState import org.jetbrains.compose.resources.painterResource import org.jetbrains.compose.resources.stringResource</ID>
     <ID>ImportOrdering:CategoryCard.kt$import androidx.compose.foundation.Image import androidx.compose.foundation.combinedClickable import androidx.compose.foundation.layout.* import androidx.compose.foundation.lazy.grid.GridCells import androidx.compose.foundation.lazy.grid.LazyVerticalGrid import androidx.compose.foundation.lazy.grid.items import androidx.compose.material.icons.Icons import androidx.compose.material.icons.filled.ArrowBackIosNew import androidx.compose.material3.MaterialTheme import androidx.compose.material3.Surface import androidx.compose.material3.Text import androidx.compose.runtime.Composable import androidx.compose.runtime.MutableState import androidx.compose.runtime.mutableStateOf import androidx.compose.runtime.remember import androidx.compose.runtime.snapshots.SnapshotStateList import androidx.compose.ui.Alignment import androidx.compose.ui.Modifier import androidx.compose.ui.graphics.ColorFilter import androidx.compose.ui.layout.ContentScale import androidx.compose.ui.unit.dp import com.thekr.data.proto.ThemeMode import com.thekr.data.settings.SettingsDetails import com.thekr.data.thekr.category.CategoryDetails import com.thekr.ui.component.DefaultHorizontalDivider import com.thekr.values.Dimensions.medium import com.thekr.ui.theme.ImageResourceHelper.getDrawableResourceIdFromFileName import com.thekr.ui.util.NoRippleInteractionSource import com.thekr.ui.component.LocalizedApp import org.jetbrains.compose.resources.painterResource import androidx.compose.ui.tooling.preview.Preview import com.thekr.resources.Res import com.thekr.resources.thekr_indicator import com.thekr.ui.theme.AppTheme import com.thekr.ui.theme.droidKufi import com.thekr.ui.theme.isDark</ID>
@@ -495,7 +489,6 @@
     <ID>ImportOrdering:CurrentZekrIndicator.kt$import androidx.compose.foundation.Image import androidx.compose.foundation.layout.Arrangement import androidx.compose.foundation.layout.Box import androidx.compose.foundation.layout.Row import androidx.compose.foundation.layout.fillMaxWidth import androidx.compose.foundation.layout.height import androidx.compose.material3.Text import androidx.compose.runtime.Composable import androidx.compose.runtime.MutableState import androidx.compose.ui.Alignment import androidx.compose.ui.Modifier import androidx.compose.ui.graphics.ColorFilter import androidx.compose.ui.graphics.graphicsLayer import androidx.compose.ui.layout.ContentScale import androidx.compose.ui.platform.LocalDensity import androidx.compose.ui.unit.sp import com.thekr.data.settings.SettingsDetails import com.thekr.data.thekr.category.CategoryDetails import com.thekr.values.Dimensions.large import com.thekr.ui.theme.AppTheme import org.jetbrains.compose.resources.painterResource import com.thekr.resources.Res import com.thekr.resources.next_thekr</ID>
     <ID>ImportOrdering:DayStats.kt$import androidx.compose.foundation.layout.Arrangement import androidx.compose.foundation.layout.Box import androidx.compose.foundation.layout.Column import androidx.compose.foundation.layout.Row import androidx.compose.foundation.layout.fillMaxWidth import androidx.compose.foundation.layout.padding import androidx.compose.material.icons.Icons import androidx.compose.material.icons.automirrored.filled.ArrowBackIos import androidx.compose.material.icons.automirrored.filled.ArrowForwardIos import androidx.compose.material.icons.filled.ArrowBackIosNew import androidx.compose.material3.ButtonColors import androidx.compose.material3.ButtonDefaults import androidx.compose.material3.Icon import androidx.compose.material3.IconButton import androidx.compose.material3.MaterialTheme import androidx.compose.material3.OutlinedButton import androidx.compose.material3.Text import androidx.compose.runtime.Composable import androidx.compose.runtime.LaunchedEffect import androidx.compose.runtime.MutableLongState import androidx.compose.runtime.MutableState import androidx.compose.runtime.getValue import androidx.compose.runtime.mutableLongStateOf import androidx.compose.runtime.mutableStateOf import androidx.compose.runtime.produceState import androidx.compose.runtime.remember import androidx.compose.runtime.setValue import androidx.compose.ui.Alignment import androidx.compose.ui.Modifier import com.patrykandpatrick.vico.multiplatform.cartesian.CartesianChartHost import com.patrykandpatrick.vico.multiplatform.cartesian.Zoom import com.patrykandpatrick.vico.multiplatform.cartesian.data.CartesianChartModelProducer import com.patrykandpatrick.vico.multiplatform.cartesian.rememberCartesianChart import com.patrykandpatrick.vico.multiplatform.cartesian.rememberVicoScrollState import com.patrykandpatrick.vico.multiplatform.cartesian.rememberVicoZoomState import com.thekr.resources.Res import com.thekr.resources.hour import com.thekr.resources.minute import com.thekr.ui.counter.CounterHelper.dayStatisticsData import com.thekr.ui.stats.DayStatisticsType import com.thekr.ui.stats.StatsTimeHelper import com.thekr.ui.stats.component.axis.hourlyBottomAxis import com.thekr.ui.stats.component.axis.minuteBottomAxis import com.thekr.ui.stats.component.axis.startAxis import com.thekr.ui.stats.component.getColumnLayer import com.thekr.ui.stats.component.getLineLayer import com.thekr.ui.stats.data.emptyStatisticsData import com.thekr.values.Dimensions.medium import com.thekr.values.Dimensions.small import com.thekr.util.TimeHelper.calcMidnight import kotlinx.coroutines.Dispatchers import kotlinx.coroutines.withContext import org.jetbrains.compose.resources.stringResource import java.util.Calendar import java.util.Locale</ID>
     <ID>ImportOrdering:DuaTab.kt$import androidx.compose.foundation.Image import androidx.compose.foundation.background import androidx.compose.foundation.combinedClickable import androidx.compose.foundation.layout.* import androidx.compose.foundation.lazy.LazyColumn import androidx.compose.foundation.lazy.items import androidx.compose.material3.MaterialTheme import androidx.compose.material3.Surface import androidx.compose.material3.Text import androidx.compose.runtime.Composable import androidx.compose.runtime.MutableState import androidx.compose.runtime.mutableStateListOf import androidx.compose.runtime.mutableStateOf import androidx.compose.runtime.remember import androidx.compose.runtime.snapshots.SnapshotStateList import androidx.compose.ui.Alignment import androidx.compose.ui.Modifier import androidx.compose.ui.graphics.Color import androidx.compose.ui.layout.ContentScale import androidx.compose.ui.unit.dp import com.thekr.data.proto.ThemeMode import com.thekr.data.settings.SettingsDetails import com.thekr.data.thekr.category.CategoryDetails import com.thekr.ui.component.DefaultHorizontalDivider import com.thekr.values.Dimensions.medium import com.thekr.ui.theme.AppTheme import com.thekr.ui.theme.ImageResourceHelper import com.thekr.ui.theme.droidKufi import com.thekr.ui.util.NoRippleInteractionSource import com.thekr.ui.component.LocalizedApp import com.thekr.ui.home.HomeActions import com.thekr.values.Colors.listDivider import org.jetbrains.compose.resources.painterResource import androidx.compose.ui.tooling.preview.Preview</ID>
-    <ID>ImportOrdering:Fetcher.kt$import androidx.compose.runtime.MutableState import androidx.compose.runtime.mutableStateListOf import androidx.compose.runtime.mutableStateOf import androidx.lifecycle.viewModelScope import com.thekr.values.Constants import com.thekr.data.thekr.category.CategoryDetails import com.thekr.data.thekr.count.ThekrCount import com.thekr.model.Count import com.thekr.util.TimeHelper.calcMidnight import com.thekr.util.TimeHelper.calcMonthEnd import com.thekr.util.TimeHelper.calcMonthStart import com.thekr.util.TimeHelper.calcWeekEnd import com.thekr.util.TimeHelper.calcWeekStart import com.thekr.util.TimeHelper.calcYearEnd import com.thekr.util.TimeHelper.calcYearStart import com.thekr.util.TimeHelper.midnight import com.thekr.util.TimeHelper.monthEnd import com.thekr.util.TimeHelper.monthStart import com.thekr.util.TimeHelper.nextMidnight import com.thekr.util.TimeHelper.now import com.thekr.util.TimeHelper.weekEnd import com.thekr.util.TimeHelper.weekStart import com.thekr.util.TimeHelper.yearEnd import com.thekr.util.TimeHelper.yearStart import kotlinx.coroutines.flow.SharingStarted import kotlinx.coroutines.flow.StateFlow import kotlinx.coroutines.flow.map import kotlinx.coroutines.flow.stateIn import kotlinx.coroutines.launch</ID>
     <ID>ImportOrdering:GroupTitle.kt$import androidx.compose.foundation.layout.Spacer import androidx.compose.foundation.layout.height import androidx.compose.material3.MaterialTheme import androidx.compose.material3.Surface import androidx.compose.material3.Text import androidx.compose.runtime.Composable import androidx.compose.ui.Modifier import androidx.compose.ui.unit.dp import com.thekr.ui.theme.AppTheme import androidx.compose.ui.tooling.preview.Preview</ID>
     <ID>ImportOrdering:HeaderText.kt$import androidx.compose.foundation.layout.padding import androidx.compose.material3.MaterialTheme import androidx.compose.material3.Text import androidx.compose.runtime.Composable import androidx.compose.ui.Modifier import androidx.compose.ui.text.style.TextAlign import androidx.compose.ui.text.style.TextOverflow import com.thekr.values.Dimensions.medium import com.thekr.ui.theme.droidKufi</ID>
     <ID>ImportOrdering:HomeScreen.kt$import androidx.compose.foundation.layout.Column import androidx.compose.foundation.layout.fillMaxSize import androidx.compose.foundation.layout.padding import androidx.compose.foundation.pager.HorizontalPager import androidx.compose.foundation.pager.rememberPagerState import androidx.compose.material3.ExperimentalMaterial3Api import androidx.compose.material3.Scaffold import androidx.compose.material3.SnackbarHost import androidx.compose.material3.SnackbarHostState import androidx.compose.material3.Surface import androidx.compose.material3.TopAppBarDefaults import androidx.compose.runtime.Composable import androidx.compose.runtime.LaunchedEffect import androidx.compose.runtime.remember import androidx.compose.runtime.rememberCoroutineScope import androidx.compose.ui.Alignment import androidx.compose.ui.Modifier import androidx.compose.ui.input.nestedscroll.nestedScroll import androidx.lifecycle.viewmodel.compose.viewModel import cafe.adriel.voyager.core.annotation.InternalVoyagerApi import cafe.adriel.voyager.navigator.internal.BackHandler import com.thekr.data.proto.ThemeMode import com.thekr.data.settings.SettingsDetails import com.thekr.ui.AppActions import com.thekr.ui.AppActions.canNavigateToPreviousCategory import com.thekr.ui.AppActions.navigateToParentCategory import com.thekr.ui.component.LocalizedApp import com.thekr.ui.home.header.HomeTopBar import com.thekr.ui.home.list.DuaTab import com.thekr.ui.home.tab.ThekrTab import com.thekr.ui.home.tab.sebha.SebhaTab import com.thekr.ui.theme.AppTheme import com.thekr.ui.viewmodel.AppState import androidx.compose.ui.tooling.preview.Preview</ID>
@@ -659,11 +652,6 @@
     <ID>MaxLineLength:HomeViewModel.kt$HomeViewModel$ThekrCategoryType.HesnAlMuslim.tabIndex -&gt; appState.hesnAlmuslimStack.last().value.thekrInstanceList.indexOfFirst { it.value.thekrId == thekrId }</ID>
     <ID>MaximumLineLength:HomeViewModel.kt$HomeViewModel$ </ID>
     <ID>MemberNameEqualsClassName:TimeHelper.kt$TimeHelper$@Volatile private var timeHelper = TimeHelper()</ID>
-    <ID>ModifierListSpacing:Database.kt$AppDatabase$@Database( entities = [ Thekr::class, ThekrInstance::class, ThekrFadl::class, Count::class, CountMiss::class, ThekrGoalCompletion::class, Category::class, Session::class, ], version = 1, exportSchema = false, ) abstract</ID>
-    <ID>MultiLineIfElse:AppTheme.kt$AppTheme$AppColors()</ID>
-    <ID>MultiLineIfElse:AppTheme.kt$AppTheme$DarkColors</ID>
-    <ID>MultiLineIfElse:AppTheme.kt$AppTheme$DarkResources</ID>
-    <ID>MultiLineIfElse:AppTheme.kt$AppTheme$LightResources</ID>
     <ID>MultiLineIfElse:CurrentZekrIndicator.kt$colors.disabledPrevNextIndicator</ID>
     <ID>MultiLineIfElse:CurrentZekrIndicator.kt$colors.prevNextIndicator</ID>
     <ID>MultiLineIfElse:DailyTarget.kt$"الهدف اليومي:"</ID>
@@ -713,10 +701,8 @@
     <ID>NewLineAtEndOfFile:ColorPickerDialog.kt$.ColorPickerDialog.kt</ID>
     <ID>NewLineAtEndOfFile:Colors.kt$com.thekr.values.Colors.kt</ID>
     <ID>NewLineAtEndOfFile:Constants.kt$com.thekr.values.Constants.kt</ID>
-    <ID>NewLineAtEndOfFile:Count.kt$com.thekr.model.Count.kt</ID>
     <ID>NewLineAtEndOfFile:Count.kt$com.thekr.ui.counter.viewmodel.action.Count.kt</ID>
     <ID>NewLineAtEndOfFile:CountDAO.kt$com.thekr.data.count.count.CountDAO.kt</ID>
-    <ID>NewLineAtEndOfFile:CountMiss.kt$com.thekr.model.CountMiss.kt</ID>
     <ID>NewLineAtEndOfFile:CountMissDAO.kt$com.thekr.data.count.miss.CountMissDAO.kt</ID>
     <ID>NewLineAtEndOfFile:CountMissDetails.kt$com.thekr.data.count.miss.CountMissDetails.kt</ID>
     <ID>NewLineAtEndOfFile:CountMissRepository.kt$com.thekr.data.count.miss.CountMissRepository.kt</ID>
@@ -736,7 +722,6 @@
     <ID>NewLineAtEndOfFile:DailyStatisticsData.kt$com.thekr.ui.stats.data.DailyStatisticsData.kt</ID>
     <ID>NewLineAtEndOfFile:DailyTarget.kt$com.thekr.ui.counter.footer.DailyTarget.kt</ID>
     <ID>NewLineAtEndOfFile:Database.kt$com.thekr.database.Database.kt</ID>
-    <ID>NewLineAtEndOfFile:DatabaseBuilder.kt$com.thekr.database.DatabaseBuilder.kt</ID>
     <ID>NewLineAtEndOfFile:DayStats.android.kt$com.thekr.preview.stats.DayStats.android.kt</ID>
     <ID>NewLineAtEndOfFile:DayStats.android.kt$com.thekr.ui.stats.DayStats.android.kt</ID>
     <ID>NewLineAtEndOfFile:Dimensions.kt$com.thekr.values.Dimensions.kt</ID>
@@ -747,7 +732,6 @@
     <ID>NewLineAtEndOfFile:FadlDAO.kt$com.thekr.data.thekr.fadl.FadlDAO.kt</ID>
     <ID>NewLineAtEndOfFile:FadlDetails.kt$com.thekr.data.thekr.fadl.FadlDetails.kt</ID>
     <ID>NewLineAtEndOfFile:FadlRepository.kt$com.thekr.data.thekr.fadl.FadlRepository.kt</ID>
-    <ID>NewLineAtEndOfFile:Fetcher.kt$com.thekr.ui.viewmodel.Fetcher.kt</ID>
     <ID>NewLineAtEndOfFile:FingerPrintLogcatProcessor.kt$com.thekr.fingerprint.FingerPrintLogcatProcessor.kt</ID>
     <ID>NewLineAtEndOfFile:Fingerprint.kt$com.thekr.fingerprint.Fingerprint.kt</ID>
     <ID>NewLineAtEndOfFile:FingerprintEvent.kt$com.thekr.fingerprint.FingerprintEvent.kt</ID>
@@ -862,8 +846,6 @@
     <ID>NoConsecutiveBlankLines:App.jvm.kt$ </ID>
     <ID>NoConsecutiveBlankLines:AppAlertDialog.kt$ </ID>
     <ID>NoConsecutiveBlankLines:AppContainer.kt$ </ID>
-    <ID>NoConsecutiveBlankLines:AppTheme.kt$ </ID>
-    <ID>NoConsecutiveBlankLines:AppTheme.kt$AppTheme$ </ID>
     <ID>NoConsecutiveBlankLines:AppTopBar.android.kt$ </ID>
     <ID>NoConsecutiveBlankLines:AppTopBar.kt$ </ID>
     <ID>NoConsecutiveBlankLines:AppViewModelFactory.kt$ </ID>
@@ -879,9 +861,7 @@
     <ID>NoConsecutiveBlankLines:DayStats.kt$ </ID>
     <ID>NoConsecutiveBlankLines:Divider.kt$ </ID>
     <ID>NoConsecutiveBlankLines:DuaTab.kt$ </ID>
-    <ID>NoConsecutiveBlankLines:Fetcher.kt$ </ID>
     <ID>NoConsecutiveBlankLines:FingerPrintLogcatProcessor.kt$ </ID>
-    <ID>NoConsecutiveBlankLines:Font.kt$ </ID>
     <ID>NoConsecutiveBlankLines:HeaderTabsRow.kt$ </ID>
     <ID>NoConsecutiveBlankLines:HomeRoute.kt$ </ID>
     <ID>NoConsecutiveBlankLines:HomeScreen.kt$ </ID>
@@ -943,12 +923,10 @@
     <ID>NoEmptyFirstLineInMethodBlock:ZekrCounter.kt$ </ID>
     <ID>NoEmptyFirstLineInMethodBlock:ZekrStats.kt$ </ID>
     <ID>NoEmptyFirstLineInMethodBlock:ZekrText.kt$ </ID>
-    <ID>NoMultipleSpaces:AppTheme.kt$AppColors$ </ID>
     <ID>NoMultipleSpaces:Color.kt$ </ID>
     <ID>NoMultipleSpaces:CounterFeedback.kt$ </ID>
     <ID>NoMultipleSpaces:DayStats.android.kt$ </ID>
     <ID>NoMultipleSpaces:FingerPrintLogcatProcessor.kt$ </ID>
-    <ID>NoMultipleSpaces:Font.kt$ </ID>
     <ID>NoMultipleSpaces:LocalizedApp.kt$ </ID>
     <ID>NoMultipleSpaces:Theme.kt$ </ID>
     <ID>NoMultipleSpaces:WeekStats.android.kt$ </ID>
@@ -957,11 +935,9 @@
     <ID>NoTrailingSpaces:Painter.kt$PainterNode$ </ID>
     <ID>NoTrailingSpaces:ZekrEntryActions.kt$ThekrEntryActions$ </ID>
     <ID>NoUnusedImports:AppAlertDialog.android.kt$com.thekr.ui.component.AppAlertDialog.android.kt</ID>
-    <ID>NoUnusedImports:AppContainer.kt$com.thekr.database.AppContainer.kt</ID>
     <ID>NoUnusedImports:AppTopBar.android.kt$com.thekr.ui.component.bar.AppTopBar.android.kt</ID>
     <ID>NoUnusedImports:CounterEntryRoute.kt$com.thekr.ui.navigation.route.CounterEntryRoute.kt</ID>
     <ID>NoUnusedImports:DayStats.kt$com.thekr.ui.stats.tab.DayStats.kt</ID>
-    <ID>NoUnusedImports:Fetcher.kt$com.thekr.ui.viewmodel.Fetcher.kt</ID>
     <ID>NoUnusedImports:HomeRoute.kt$com.thekr.ui.navigation.route.HomeRoute.kt</ID>
     <ID>NoUnusedImports:NavigationRoute.kt$com.thekr.ui.navigation.NavigationRoute.kt</ID>
     <ID>NoUnusedImports:OfflineCountRepository.kt$com.thekr.data.count.count.OfflineCountRepository.kt</ID>
@@ -981,7 +957,6 @@
     <ID>NoWildcardImports:CreateCategoryDialogContent.kt$import androidx.compose.runtime.*</ID>
     <ID>NoWildcardImports:DuaTab.kt$import androidx.compose.foundation.layout.*</ID>
     <ID>NoWildcardImports:EventKeyHandler.kt$import androidx.compose.runtime.*</ID>
-    <ID>NoWildcardImports:Font.kt$import com.thekr.resources.*</ID>
     <ID>NoWildcardImports:ImageResourceHelper.kt$import com.thekr.resources.*</ID>
     <ID>NoWildcardImports:PlaySound.kt$import korlibs.audio.sound.*</ID>
     <ID>NoWildcardImports:SebhaTab.kt$import androidx.compose.runtime.*</ID>
@@ -1017,23 +992,7 @@
     <ID>SpacingAroundOperators:WeeklyStatisticsData.kt$WeeklyStatisticsData$=</ID>
     <ID>SpacingAroundParens:BottomBar.kt$(</ID>
     <ID>SpacingAroundParens:DayStats.kt$(</ID>
-    <ID>SpacingAroundParens:Font.kt$(</ID>
     <ID>SpacingBetweenDeclarationsWithComments:Color.kt$//val md_theme_dark_error = Color(0xFFBA1A1A)</ID>
-    <ID>SpacingBetweenFunctionNameAndOpeningParenthesis:Font.kt$@Composable fun alrafidainArt ()</ID>
-    <ID>SpacingBetweenFunctionNameAndOpeningParenthesis:Font.kt$@Composable fun arial ()</ID>
-    <ID>SpacingBetweenFunctionNameAndOpeningParenthesis:Font.kt$@Composable fun battar ()</ID>
-    <ID>SpacingBetweenFunctionNameAndOpeningParenthesis:Font.kt$@Composable fun droidKufi ()</ID>
-    <ID>SpacingBetweenFunctionNameAndOpeningParenthesis:Font.kt$@Composable fun hacenLinerPrintOut ()</ID>
-    <ID>SpacingBetweenFunctionNameAndOpeningParenthesis:Font.kt$@Composable fun hacenTunisia ()</ID>
-    <ID>SpacingBetweenFunctionNameAndOpeningParenthesis:Font.kt$@Composable fun hacenTunisiaLt ()</ID>
-    <ID>SpacingBetweenFunctionNameAndOpeningParenthesis:Font.kt$@Composable fun helvetica ()</ID>
-    <ID>SpacingBetweenFunctionNameAndOpeningParenthesis:Font.kt$@Composable fun helveticaWorld ()</ID>
-    <ID>SpacingBetweenFunctionNameAndOpeningParenthesis:Font.kt$@Composable fun jfFlat ()</ID>
-    <ID>SpacingBetweenFunctionNameAndOpeningParenthesis:Font.kt$@Composable fun montserrat ()</ID>
-    <ID>SpacingBetweenFunctionNameAndOpeningParenthesis:Font.kt$@Composable fun nassimArabic ()</ID>
-    <ID>SpacingBetweenFunctionNameAndOpeningParenthesis:Font.kt$@Composable fun roboto ()</ID>
-    <ID>SpacingBetweenFunctionNameAndOpeningParenthesis:Font.kt$@Composable fun uthmanTahaNaskh ()</ID>
-    <ID>SpacingBetweenFunctionNameAndOpeningParenthesis:Font.kt$@Composable fun uthmanicScript ()</ID>
     <ID>StringTemplate:PlaySound.kt$ThekrSoundPlayer$${soundFileName}</ID>
     <ID>SwallowedException:PlaySound.kt$ClickSoundPlayer$e: Exception</ID>
     <ID>SwallowedException:PlaySound.kt$ThekrSoundPlayer$e: Exception</ID>
@@ -1047,17 +1006,9 @@
     <ID>TopLevelPropertyNaming:ZekrCount.kt$const val strokeWidth = 8</ID>
     <ID>UnusedImports:AppAlertDialog.android.kt$import com.thekr.ui.component.AppAlertDialog</ID>
     <ID>UnusedImports:AppAlertDialog.android.kt$import com.thekr.ui.component.LocalizedApp</ID>
-    <ID>UnusedImports:AppContainer.kt$import com.thekr.database.initDatabaseIfNeeded</ID>
     <ID>UnusedImports:AppTopBar.android.kt$import com.thekr.ui.component.bar.AppBarPreviewTemplate</ID>
     <ID>UnusedImports:CounterEntryRoute.kt$import kotlinx.serialization.Serializable</ID>
     <ID>UnusedImports:DayStats.kt$import androidx.compose.material.icons.filled.ArrowBackIosNew</ID>
-    <ID>UnusedImports:Fetcher.kt$import com.thekr.util.TimeHelper.calcMidnight</ID>
-    <ID>UnusedImports:Fetcher.kt$import com.thekr.util.TimeHelper.calcMonthEnd</ID>
-    <ID>UnusedImports:Fetcher.kt$import com.thekr.util.TimeHelper.calcMonthStart</ID>
-    <ID>UnusedImports:Fetcher.kt$import com.thekr.util.TimeHelper.calcWeekEnd</ID>
-    <ID>UnusedImports:Fetcher.kt$import com.thekr.util.TimeHelper.calcWeekStart</ID>
-    <ID>UnusedImports:Fetcher.kt$import com.thekr.util.TimeHelper.calcYearEnd</ID>
-    <ID>UnusedImports:Fetcher.kt$import com.thekr.util.TimeHelper.calcYearStart</ID>
     <ID>UnusedImports:HomeRoute.kt$import kotlinx.serialization.Serializable</ID>
     <ID>UnusedImports:NavigationRoute.kt$import kotlinx.serialization.Serializable</ID>
     <ID>UnusedImports:OfflineCountRepository.kt$import kotlinx.coroutines.flow.Flow</ID>
@@ -1085,7 +1036,6 @@
     <ID>UnusedPrivateProperty:JvmApplication.kt$JvmApplication$private val appCoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)</ID>
     <ID>UnusedPrivateProperty:OfflineZekrGoalCompletionRepository.kt$OfflineThekrGoalCompletionRepository$private val thekrGoalCompletionDAO: ThekrGoalCompletionDAO</ID>
     <ID>UseCheckOrError:ActivityFinder.kt$throw IllegalStateException("no activity")</ID>
-    <ID>WildcardImport:Font.kt$import com.thekr.resources.*</ID>
     <ID>WildcardImport:ImageResourceHelper.kt$import com.thekr.resources.*</ID>
     <ID>WildcardImport:PlaySound.kt$import korlibs.audio.sound.*</ID>
     <ID>WildcardImport:ZekrCounterTopBar.kt$import com.thekr.resources.*</ID>
