@@ -1,17 +1,12 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import com.android.build.api.dsl.ManagedVirtualDevice
-import com.android.build.gradle.internal.lint.AndroidLintAnalysisTask
-import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
-import org.jetbrains.kotlin.compose.compiler.gradle.ComposeFeatureFlag
+import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
-
 
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.room)
@@ -36,7 +31,7 @@ detekt {
             "$projectDir/src/commonMain/kotlin",
             "$projectDir/src/jvmMain/kotlin",
             "$projectDir/src/androidMain/kotlin",
-        )
+        ),
     )
     parallel = true
 }
@@ -48,7 +43,6 @@ ktlint {
 }
 
 val nameSpace = "com.thekr"
-
 
 kotlin {
 //    jvm("desktop")
@@ -76,18 +70,16 @@ kotlin {
             freeCompilerArgs.add("-Xjdk-release=${JavaVersion.VERSION_21}")
         }
 
-        //https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html
-        //@OptIn(ExperimentalKotlinGradlePluginApi::class)
-        //instrumentedTestVariant {
-        //    sourceSetTree.set(KotlinSourceSetTree.test)
-        //    dependencies {
-        //       debugImplementation(libs.androidx.compose.ui.test.manifest)
-        //        implementation(libs.androidx.compose.ui.test.junit4)
-        //    }
-        //}
+        // https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html
+        // @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        // instrumentedTestVariant {
+        //     sourceSetTree.set(KotlinSourceSetTree.test)
+        //     dependencies {
+        //        debugImplementation(libs.androidx.compose.ui.test.manifest)
+        //         implementation(libs.androidx.compose.ui.test.junit4)
+        //     }
+        // }
     }
-
-
 
     //    wasmJs {
     //        browser()
@@ -120,7 +112,6 @@ kotlin {
 
             implementation(libs.androidx.ui.tooling.preview)
         }
-        
         commonMain.dependencies {
             implementation(libs.compose.ui)
             implementation(libs.compose.runtime)
@@ -128,7 +119,6 @@ kotlin {
             implementation(libs.compose.material3)
             implementation(libs.compose.foundation)
             implementation(libs.compose.material.icons.extended)
-
 
             implementation(libs.compose.components.resources)
             implementation(libs.compose.ui.tooling.preview)
@@ -171,7 +161,6 @@ kotlin {
         commonTest.dependencies {
             implementation(kotlin("test"))
         }
-
 
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -265,7 +254,7 @@ android {
 //            enabled = false
 //        }
 //    }
-//}
+// }
 
 compose.desktop {
     application {
