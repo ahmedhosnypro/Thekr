@@ -1,29 +1,29 @@
 package com.thekr.ui
-
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.thekr.ui.navigation.CounterNavyHost
-import com.thekr.ui.theme.AppTheme
-import com.thekr.ui.viewmodel.AppViewModel
-import androidx.compose.runtime.getValue
 import androidx.navigation.compose.rememberNavController
 import com.thekr.data.proto.Settings
 import com.thekr.data.settingsStore
 import com.thekr.ui.component.LoadScreen
 import com.thekr.ui.component.LocalizedApp
+import com.thekr.ui.navigation.CounterNavyHost
 import com.thekr.ui.navigation.NavigationActions
-import com.thekr.ui.viewmodel.AppViewModelProvider
+import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.viewmodel.AppStateHolder
+import com.thekr.ui.viewmodel.AppViewModel
+import com.thekr.ui.viewmodel.AppViewModelProvider
 import com.thekr.util.changeLang
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
+import com.thekr.util.reportFullyDrawnAnchor
 
 @Composable
 fun CounterApp(
@@ -73,6 +73,11 @@ fun CounterApp(
         return
     }
 
+    // TTFD anchor: fires exactly once when the LoadScreen -> content
+    // transition first composes (both the initialized/db gates and the
+    // language gate have passed). Android-only effect — Activity.reportFullyDrawn.
+    reportFullyDrawnAnchor()
+
     AppTheme(
         themeMode = settingsDetails.themeMode,
     ) {
@@ -81,7 +86,7 @@ fun CounterApp(
         ) {
             Surface(
                 modifier = Modifier.fillMaxSize(),
-                color = MaterialTheme.colorScheme.background
+                color = MaterialTheme.colorScheme.background,
             ) {
                 CounterNavyHost(
                     settingsDetails = settingsDetails,
