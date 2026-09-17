@@ -8,8 +8,10 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.focusTarget
 import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onKeyEvent
+import androidx.compose.ui.input.key.type
 import com.thekr.ui.counter.CounterHelper
 import com.thekr.ui.util.EventKeyHandler.handleKeyDebounce
 
@@ -18,30 +20,34 @@ object EventKeyHandler {
 
     fun Modifier.handleKeyDebounce(
         key: Key,
-        onKeyAction: () -> Unit
+        onKeyAction: () -> Unit,
     ): Modifier = this.composed {
         val currentAction by rememberUpdatedState(onKeyAction)
         val lastClickTime = remember { mutableLongStateOf(0L) }
 
         onKeyEvent { event ->
-            if (event.key == key) {
+            // Only consume matching KeyDown events; key events bubble outward
+            // from the focus target, and consuming everything would starve
+            // the other handlers in the chain.
+            if (event.key == key && event.type == KeyEventType.KeyDown) {
                 // Debounce the action for the specified key
                 debounceAction(
                     lastClickTime = lastClickTime,
                 ) {
                     currentAction()
                 }
+                true
+            } else {
+                false
             }
-            true // Consume the event
         }
     }
 
     // Generic debounce function outside the composable
     private fun debounceAction(
         lastClickTime: MutableLongState,
-        action: () -> Unit
+        action: () -> Unit,
     ) {
-
         val currentTime = System.currentTimeMillis()
         if (currentTime - lastClickTime.longValue > DEBOUNCE_INTERVAL_MILLIS) {
             action()
@@ -52,18 +58,26 @@ object EventKeyHandler {
 
 fun Modifier.customOnKeyEvent(
     enabled: Boolean,
-    focusRequester: FocusRequester
-) = this then if (enabled) Modifier
-    .onKeyEvent { keyEvent ->
-        // Handle Back Key
-        if (keyEvent.key == Key.Back) {
-            CounterHelper.onNavigateUp()
+    focusRequester: FocusRequester,
+) = this then if (enabled) {
+    Modifier
+        // Place key handlers outward of the focus target (canonical
+        // KeyInputModifierNode pattern): the debounce handler goes outermost
+        // so it consumes only matching KeyDown events, letting Back (and
+        // unrelated keys) bubble onward to the handlers above.
+        .handleKeyDebounce(key = Key.VolumeUp) { CounterHelper.onCount() }
+        .onKeyEvent { keyEvent ->
+            // Handle Back Key
+            if (keyEvent.key == Key.Back && keyEvent.type == KeyEventType.KeyDown) {
+                CounterHelper.onNavigateUp()
+                true
+            } else {
+                false
+            }
         }
-        true // Consume back key event
-    }
-    .focusable(true)
-    .focusRequester(focusRequester)
-    .focusTarget()
-    // Apply debounced key handling
-    .handleKeyDebounce(key = Key.VolumeUp) { CounterHelper.onCount() }
-else Modifier
+        .focusable(true)
+        .focusRequester(focusRequester)
+        .focusTarget()
+} else {
+    Modifier
+}
