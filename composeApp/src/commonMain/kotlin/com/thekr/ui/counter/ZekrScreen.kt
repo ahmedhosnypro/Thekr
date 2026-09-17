@@ -57,9 +57,9 @@ fun ThekrScreen(
     )
 
     val overlaysClosed = !counterUiState.showStatistics && !counterUiState.showCategoryThekrListMenu
-    LaunchedEffect(settingsDetails.fingerPrintControl && overlaysClosed) {
-        if (Platform.isAndroid && overlaysClosed) {
-            viewModel.setFingerprintListener(settingsDetails.fingerPrintControl)
+    LaunchedEffect(settingsDetails.fingerPrintControl, overlaysClosed) {
+        if (Platform.isAndroid) {
+            viewModel.setFingerprintListener(settingsDetails.fingerPrintControl && overlaysClosed)
         }
     }
 
