@@ -21,11 +21,12 @@ object AppTheme {
         themeMode = Res.drawable.night_mode,
     )
 
-
     @Composable
-    fun resources(settingsDetails: SettingsDetails) = if (isDark(settingsDetails)) DarkResources
-    else LightResources
-
+    fun resources(settingsDetails: SettingsDetails) = if (isDark(settingsDetails)) {
+        DarkResources
+    } else {
+        LightResources
+    }
 
     private val DarkColors = AppColors(
         primary = Color(0xffff8400),
@@ -57,18 +58,21 @@ object AppTheme {
         prevNextIndicator = Color(0xFFB35C00),
         disabledPrevNextIndicator = Color(0xFF333232),
 
-
         successColor = Color(0xff307b2a),
         progressColor = Color(0xffeda215),
         progressTrackColor = Color(0xFF999999),
-        progressBackgroundColor = Color.Black
+        progressBackgroundColor = Color.Black,
     )
 
-    @Composable
-    fun colors(settingsDetails: SettingsDetails) = if (isDark(settingsDetails)) DarkColors
-    else AppColors()
-}
+    private val LightColors = AppColors()
 
+    @Composable
+    fun colors(settingsDetails: SettingsDetails): AppColors = if (isDark(settingsDetails)) {
+        DarkColors
+    } else {
+        LightColors
+    }
+}
 
 /**
  * default values are for light theme
@@ -105,24 +109,22 @@ data class AppColors(
     val sheetBackgroundColor: Color = Color(0xFFEBEBEB),
     val sheetScrimColor: Color = Color.Black.copy(alpha = 0.2f),
     val targetText: Color = primary,
-    val prevNextIndicator: Color = primary,  // arrow color, next/prev indicator
+    val prevNextIndicator: Color = primary, // arrow color, next/prev indicator
     val disabledPrevNextIndicator: Color = Color(0xFFADADAD),
 
     val successColor: Color = mainHeaderBackgroundEnd,
     val progressColor: Color = Color(0xffeea966),
     val progressTrackColor: Color = Color(0xFF999999),
-    val progressBackgroundColor: Color = Color.Transparent
+    val progressBackgroundColor: Color = Color.Transparent,
 )
 
 @Stable
 @Immutable
-data class ThemeModeResources(
-    val themeMode: DrawableResource,
-)
+data class ThemeModeResources(val themeMode: DrawableResource)
 
 @Composable
 fun isDark(
-    settingsDetails: SettingsDetails
+    settingsDetails: SettingsDetails,
 ): Boolean {
     val themeMode = settingsDetails.themeMode
     return (themeMode == ThemeMode.Dark || isSystemInDarkTheme()) && themeMode != ThemeMode.Light
