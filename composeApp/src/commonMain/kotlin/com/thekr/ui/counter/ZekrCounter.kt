@@ -83,7 +83,7 @@ fun ThekrHome(
     ) {
         val focusRequester = remember { FocusRequester() }
         val interactionSource = remember { NoRippleInteractionSource() }
-        LaunchedEffect(Unit) {
+        LaunchedEffect(settingsDetails.volumeControl) {
             if (settingsDetails.volumeControl)
                 focusRequester.requestFocus()
         }

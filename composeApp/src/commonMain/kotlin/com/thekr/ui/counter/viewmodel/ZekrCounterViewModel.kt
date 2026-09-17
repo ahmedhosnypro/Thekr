@@ -82,9 +82,9 @@ class ThekrCounterViewModel(
     fun onCounterDispose() {
         stopDetectSleepingJob()
         ThekrSoundPlayer.stopPlayer()
+        mutableUiState.update { it.copy(isAudioPlaying = false) }
         clearFingerprintListener()
     }
-
     fun onNavigateUp() {
 //        NavigationActions.navigateUp(HomeRoute::class)
         NavigationActions.navigateUp(HomeRoute.route)
