@@ -37,6 +37,8 @@ import com.thekr.ui.component.LocalizedApp
 import com.thekr.ui.stats.ThekrStats
 import com.thekr.ui.viewmodel.AppViewModelProvider
 import korlibs.platform.Platform
+import kotlinx.coroutines.flow.drop
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.LocalLifecycleOwner
@@ -120,21 +122,12 @@ fun ThekrScreen(
 
 
     val lifecycleOwner = LocalLifecycleOwner.current
-    val lifecycleState by lifecycleOwner.lifecycle.currentStateFlow.collectAsState()
 
-    LaunchedEffect(lifecycleState) {
-        // Do something with your state
-        // You may want to use DisposableEffect or other alternatives
-        // instead of LaunchedEffect
-        when (lifecycleState) {
-            Lifecycle.State.RESUMED -> {
-                configSleepJop(viewModel)
-            }
-
-            else -> {
-                // ignore
-            }
-        }
+    LaunchedEffect(lifecycleOwner) {
+        lifecycleOwner.lifecycle.currentStateFlow
+            .drop(1)
+            .filter { it == Lifecycle.State.RESUMED }
+            .collect { configSleepJop(viewModel) }
     }
 
     DisposableEffect(Unit) {
