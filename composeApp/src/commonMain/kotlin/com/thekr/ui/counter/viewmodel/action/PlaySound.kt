@@ -28,10 +28,11 @@ object ThekrSoundPlayer : SoundPlayer {
 
     private const val MAX_DECODED_SOUNDS = 16
     private const val MAX_DECODED_BYTES = 16 * 1024 * 1024
+    private const val BYTES_PER_PCM_SAMPLE = 2
 
-    // 44.1kHz stereo 16-bit PCM, the typical decoded shape of the bundled MP3s.
-    private const val PCM_BYTES_PER_MS = 44_100 * 2 * 2 / 1000
-    private val decodedSounds = LinkedHashMap<String, Sound>()
+    private data class CachedSound(val sound: Sound, val bytes: Long)
+
+    private val decodedSounds = LinkedHashMap<String, CachedSound>()
     private var decodedBytes = 0L
     private val decodeMutex = Mutex()
     private var playJob: Job? = null
@@ -71,7 +72,11 @@ object ThekrSoundPlayer : SoundPlayer {
 
     @OptIn(ExperimentalResourceApi::class)
     private suspend fun decodeSound(filePath: String): Sound? = decodeMutex.withLock {
-        decodedSounds[filePath]?.let { return@withLock it }
+        // Cache hit: re-insert as the most recently used entry so eviction is LRU.
+        decodedSounds.remove(filePath)?.let { entry ->
+            decodedSounds[filePath] = entry
+            return@withLock entry.sound
+        }
         val bytes = try {
             Res.readBytes(filePath)
         } catch (e: Exception) {
@@ -85,12 +90,18 @@ object ThekrSoundPlayer : SoundPlayer {
         // A cancelled play job means the screen was disposed mid-decode:
         // playing is skipped by the caller, so don't retain the decode either.
         if (playJob?.isActive != true) return@withLock null
-        decodedSounds[filePath] = sound
-        decodedBytes += sound.length.inWholeMilliseconds * PCM_BYTES_PER_MS
+        // Sound.length is always 0 for korlibs 6.0.0 decoded sounds; the wrapped
+        // AudioData carries the real decoded size (toAudioData on SoundAudioData
+        // returns its cached data without re-decoding).
+        val decodedSize = sound.toAudioData().let {
+            it.totalSamples.toLong() * it.channels * BYTES_PER_PCM_SAMPLE
+        }
+        decodedSounds[filePath] = CachedSound(sound, decodedSize)
+        decodedBytes += decodedSize
         while (decodedBytes > MAX_DECODED_BYTES || decodedSounds.size > MAX_DECODED_SOUNDS) {
             val eldest = decodedSounds.entries.firstOrNull() ?: break
             decodedSounds.remove(eldest.key)
-            decodedBytes -= eldest.value.length.inWholeMilliseconds * PCM_BYTES_PER_MS
+            decodedBytes -= eldest.value.bytes
         }
         sound
     }
