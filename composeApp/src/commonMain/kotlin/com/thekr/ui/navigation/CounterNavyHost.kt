@@ -16,9 +16,9 @@ import com.thekr.ui.navigation.route.HomeRoute
 import com.thekr.ui.navigation.route.SettingsRoute
 import com.thekr.ui.navigation.route.ThekrScreenRoute
 import com.thekr.ui.settings.SettingsScreen
-import com.thekr.ui.viewmodel.AppState
 import com.thekr.ui.thekr.edit.CounterEditScreen
 import com.thekr.ui.thekr.entry.CounterEntryScreen
+import com.thekr.ui.viewmodel.AppState
 
 @Composable
 fun CounterNavyHost(
