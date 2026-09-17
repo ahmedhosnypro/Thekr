@@ -64,8 +64,10 @@ fun AutoSizeText(
     style: TextStyle = LocalTextStyle.current,
     fontSizeMultiplier: Float = 0.95f,
 ) {
-    var fontSizeState by remember(text) { mutableStateOf(fontSize) }
-    var shouldDraw by remember(text) { mutableStateOf(false) }
+    // Key on fontSize too: without it, a changed fontSize param (e.g. the
+    // settings font-size slider) leaves the stale shrunk size in place.
+    var fontSizeState by remember(text, fontSize) { mutableStateOf(fontSize) }
+    var shouldDraw by remember(text, fontSize) { mutableStateOf(false) }
 
     val typography = MaterialTheme.typography
 
