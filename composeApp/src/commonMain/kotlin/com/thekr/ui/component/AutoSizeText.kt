@@ -102,7 +102,7 @@ fun AutoSizeText(
                 shouldDraw = true
             }
         },
-        style = style
+        style = style,
     )
 }
 
