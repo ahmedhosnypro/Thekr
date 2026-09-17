@@ -56,15 +56,15 @@ fun ThekrScreen(
         pageCount = { viewModel.pageCount },
     )
 
-    LaunchedEffect(settingsDetails.fingerPrintControl) {
-        if (Platform.isAndroid) {
+    val overlaysClosed = !counterUiState.showStatistics && !counterUiState.showCategoryThekrListMenu
+    LaunchedEffect(settingsDetails.fingerPrintControl && overlaysClosed) {
+        if (Platform.isAndroid && overlaysClosed) {
             viewModel.setFingerprintListener(settingsDetails.fingerPrintControl)
         }
     }
 
     val category = counterUiState.categoryDetails
     val coroutineScope = rememberCoroutineScope()
-
     val countSheetState: BottomSheetScaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = rememberStandardBottomSheetState(
             initialValue = if (settingsDetails.showCount) SheetValue.Expanded
