@@ -16,7 +16,7 @@ import org.junit.runner.RunWith
  * critical user journeys:
  *
  * 1. Cold start to the home screen (list load + scroll).
- * 2. Paging through the home tabs (Mesbaha / Hesn Al Muslim / Knooz / Dua).
+ * 2. Paging through the home tabs (Mesbaha / Hesn Al Muslim / Knooz / Dua) and back to Mesbaha.
  * 3. A counter (tasbih) session: open a category and tap the counter a few times.
  * 4. Navigate to the Settings screen and back.
  *
@@ -73,13 +73,18 @@ class BaselineProfileGenerator {
                 list.fling(Direction.UP)
             }
 
-            // 4. Page through the home tabs (HorizontalPager): Mesbaha -> Hesn Al Muslim -> Knooz
-            device.swipe(centerX + centerX / 2, centerY, centerX / 2, centerY, 10)
-            device.waitForIdle()
-            device.swipe(centerX + centerX / 2, centerY, centerX / 2, centerY, 10)
-            device.waitForIdle()
+            // 4. Page through the home tabs (HorizontalPager): Mesbaha -> Hesn Al Muslim -> Knooz -> Dua
+            repeat(3) {
+                device.swipe(centerX + centerX / 2, centerY, centerX / 2, centerY, 10)
+                device.waitForIdle()
+            }
 
-            // 5. Counter session: open the first category card and tap the counter a few times
+            // 5. Swipe back to the Mesbaha (sebha) tab and open the first category card for a
+            //    counter session: tap the counter a few times
+            repeat(3) {
+                device.swipe(centerX / 2, centerY, centerX + centerX / 2, centerY, 10)
+                device.waitForIdle()
+            }
             device.findObjects(By.clickable(true))
                 .filter { it.visibleBounds.top > displayHeight / 4 }
                 .minByOrNull { it.visibleBounds.top }
