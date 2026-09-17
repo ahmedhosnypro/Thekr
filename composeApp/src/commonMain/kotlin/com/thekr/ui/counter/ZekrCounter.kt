@@ -97,8 +97,14 @@ fun ThekrHome(
                     focusRequester = focusRequester
                 )
         ) {
-            LaunchedEffect(pagerState.currentPage) {
-                CounterHelper.scrollToThekr(pagerState.currentPage)
+            LaunchedEffect(pagerState.currentPage, categoryDetails.value.thekrInstanceList.size) {
+                // Gate on settle so the initial-composition run cannot clobber
+                // the current instance while the pager is still restoring to
+                // its saved page; the size key re-runs the sync once the
+                // instance list has finished loading.
+                if (pagerState.settledPage == pagerState.currentPage) {
+                    CounterHelper.scrollToThekr(pagerState.currentPage)
+                }
             }
             HorizontalPager(
                 modifier = Modifier
