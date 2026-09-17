@@ -229,34 +229,11 @@
     <ID>CommentSpacing:ColorPickerDialog.kt$//private fun StyleDropDownMenu(</ID>
     <ID>CommentSpacing:ColorPickerDialog.kt$//}</ID>
     <ID>CommentSpacing:Count.kt$//todo:</ID>
-    <ID>CommentSpacing:CounterEditRoute.kt$//)</ID>
-    <ID>CommentSpacing:CounterEditRoute.kt$//) : NavigationRoute(</ID>
-    <ID>CommentSpacing:CounterEditRoute.kt$//@Serializable</ID>
-    <ID>CommentSpacing:CounterEditRoute.kt$//data class CounterEditRoute(</ID>
     <ID>CommentSpacing:CounterEntryRoute.kt$//)</ID>
     <ID>CommentSpacing:CounterEntryRoute.kt$//@Serializable</ID>
     <ID>CommentSpacing:CounterEntryRoute.kt$//object CounterEntryRoute : NavigationRoute(</ID>
-    <ID>CommentSpacing:CounterFeedback.android.kt$//) {</ID>
-    <ID>CommentSpacing:CounterFeedback.android.kt$//suspend fun alertSleep(</ID>
-    <ID>CommentSpacing:CounterFeedback.android.kt$//}</ID>
-    <ID>CommentSpacing:CounterFeedback.kt$//) {</ID>
     <ID>CommentSpacing:CounterFeedback.kt$//run ping.mp3 on click</ID>
-    <ID>CommentSpacing:CounterFeedback.kt$//suspend fun alertSleep(</ID>
-    <ID>CommentSpacing:CounterFeedback.kt$//}</ID>
     <ID>CommentSpacing:CounterHelper.kt$CounterHelper$//todo: initialize</ID>
-    <ID>CommentSpacing:CounterNavyHost.kt$//) {</ID>
-    <ID>CommentSpacing:CounterNavyHost.kt$//// )) {</ID>
-    <ID>CommentSpacing:CounterNavyHost.kt$//// CounterStatisticsDestination.routeWithArgs,</ID>
-    <ID>CommentSpacing:CounterNavyHost.kt$//// CounterStatisticsScreen(navigateBack = { navigateBack() })</ID>
-    <ID>CommentSpacing:CounterNavyHost.kt$//// arguments = listOf(</ID>
-    <ID>CommentSpacing:CounterNavyHost.kt$//// composable(</ID>
-    <ID>CommentSpacing:CounterNavyHost.kt$//// navArgument(CounterStatisticsDestination.counterIdArg) {</ID>
-    <ID>CommentSpacing:CounterNavyHost.kt$//// settings screen</ID>
-    <ID>CommentSpacing:CounterNavyHost.kt$//// type = NavType.LongType</ID>
-    <ID>CommentSpacing:CounterNavyHost.kt$//// }</ID>
-    <ID>CommentSpacing:CounterNavyHost.kt$//@Composable</ID>
-    <ID>CommentSpacing:CounterNavyHost.kt$//fun CounterNavyHost(</ID>
-    <ID>CommentSpacing:CounterNavyHost.kt$//}</ID>
     <ID>CommentSpacing:HomeRoute.kt$//)</ID>
     <ID>CommentSpacing:HomeRoute.kt$//@Serializable</ID>
     <ID>CommentSpacing:HomeRoute.kt$//object HomeRoute : NavigationRoute(</ID>
@@ -339,12 +316,8 @@
     <ID>Filename:ZekrGoalCompletionRepository.kt$com.thekr.data.goal.completion.ZekrGoalCompletionRepository.kt</ID>
     <ID>Filename:ZekrInstanceDAO.kt$com.thekr.data.thekr.instance.ZekrInstanceDAO.kt</ID>
     <ID>Filename:ZekrInstanceDetails.kt$com.thekr.data.thekr.instance.ZekrInstanceDetails.kt</ID>
-    <ID>Filename:ZekrLang.kt$com.thekr.model.ZekrLang.kt</ID>
     <ID>Filename:ZekrScreenRoute.kt$com.thekr.ui.navigation.route.ZekrScreenRoute.kt</ID>
     <ID>Filename:main.kt$.main.kt</ID>
-    <ID>Filename:url.android.kt$com.thekr.util.url.android.kt</ID>
-    <ID>Filename:url.jvm.kt$com.thekr.util.url.jvm.kt</ID>
-    <ID>Filename:url.kt$com.thekr.util.url.kt</ID>
     <ID>Filename:util.kt$.util.kt</ID>
     <ID>FinalNewline:ActivityFinder.kt$com.thekr.ui.util.ActivityFinder.kt</ID>
     <ID>FinalNewline:AntiSleep.kt$com.thekr.ui.counter.util.AntiSleep.kt</ID>
@@ -358,7 +331,6 @@
     <ID>FinalNewline:AppViewModel.kt$com.thekr.ui.viewmodel.AppViewModel.kt</ID>
     <ID>FinalNewline:AppViewModelFactory.kt$com.thekr.ui.viewmodel.AppViewModelFactory.kt</ID>
     <ID>FinalNewline:AutoSizeText.kt$com.thekr.ui.component.AutoSizeText.kt</ID>
-    <ID>FinalNewline:Azkar.kt$com.thekr.model.Azkar.kt</ID>
     <ID>FinalNewline:BottomBar.kt$com.thekr.ui.counter.bar.bottom.BottomBar.kt</ID>
     <ID>FinalNewline:Category.kt$com.thekr.model.Category.kt</ID>
     <ID>FinalNewline:CategoryCard.kt$com.thekr.ui.home.list.CategoryCard.kt</ID>
@@ -381,9 +353,7 @@
     <ID>FinalNewline:CountRepository.kt$com.thekr.data.count.count.CountRepository.kt</ID>
     <ID>FinalNewline:CounterApp.kt$com.thekr.ui.CounterApp.kt</ID>
     <ID>FinalNewline:CounterDateFormatter.kt$com.thekr.ui.util.CounterDateFormatter.kt</ID>
-    <ID>FinalNewline:CounterEditRoute.kt$com.thekr.ui.navigation.route.CounterEditRoute.kt</ID>
     <ID>FinalNewline:CounterEntryRoute.kt$com.thekr.ui.navigation.route.CounterEntryRoute.kt</ID>
-    <ID>FinalNewline:CounterFeedback.android.kt$com.thekr.ui.counter.viewmodel.action.CounterFeedback.android.kt</ID>
     <ID>FinalNewline:CounterFeedback.jvm.kt$com.thekr.ui.counter.viewmodel.action.CounterFeedback.jvm.kt</ID>
     <ID>FinalNewline:CounterFeedback.kt$com.thekr.ui.counter.viewmodel.action.CounterFeedback.kt</ID>
     <ID>FinalNewline:CounterHelper.kt$com.thekr.ui.counter.CounterHelper.kt</ID>
@@ -411,7 +381,6 @@
     <ID>FinalNewline:FingerPrintLogcatProcessor.kt$com.thekr.fingerprint.FingerPrintLogcatProcessor.kt</ID>
     <ID>FinalNewline:Fingerprint.kt$com.thekr.fingerprint.Fingerprint.kt</ID>
     <ID>FinalNewline:FingerprintEvent.kt$com.thekr.fingerprint.FingerprintEvent.kt</ID>
-    <ID>FinalNewline:FingerprintEventDispatcher.kt$com.thekr.fingerprint.FingerprintEventDispatcher.kt</ID>
     <ID>FinalNewline:FingerprintEventType.kt$com.thekr.fingerprint.FingerprintEventType.kt</ID>
     <ID>FinalNewline:GroupTitle.kt$com.thekr.ui.settings.component.GroupTitle.kt</ID>
     <ID>FinalNewline:HeaderText.kt$com.thekr.ui.component.bar.HeaderText.kt</ID>
@@ -463,7 +432,6 @@
     <ID>FinalNewline:SettingsRoute.kt$com.thekr.ui.navigation.route.SettingsRoute.kt</ID>
     <ID>FinalNewline:ShowProgress.kt$com.thekr.ui.home.list.ShowProgress.kt</ID>
     <ID>FinalNewline:SideBorder.kt$com.thekr.ui.component.SideBorder.kt</ID>
-    <ID>FinalNewline:SoundResourceHelper.kt$com.thekr.ui.theme.SoundResourceHelper.kt</ID>
     <ID>FinalNewline:StatisticsData.kt$com.thekr.ui.stats.data.StatisticsData.kt</ID>
     <ID>FinalNewline:SwitchSetting.kt$com.thekr.ui.settings.component.SwitchSetting.kt</ID>
     <ID>FinalNewline:TTS.kt$com.thekr.util.TTS.kt</ID>
@@ -499,7 +467,6 @@
     <ID>FinalNewline:ZekrIndicatorList.kt$com.thekr.ui.home.list.ZekrIndicatorList.kt</ID>
     <ID>FinalNewline:ZekrInstanceDAO.kt$com.thekr.data.thekr.instance.ZekrInstanceDAO.kt</ID>
     <ID>FinalNewline:ZekrInstanceDetails.kt$com.thekr.data.thekr.instance.ZekrInstanceDetails.kt</ID>
-    <ID>FinalNewline:ZekrLang.kt$com.thekr.model.ZekrLang.kt</ID>
     <ID>FinalNewline:ZekrList.kt$com.thekr.ui.home.list.ZekrList.kt</ID>
     <ID>FinalNewline:ZekrScreen.kt$com.thekr.ui.counter.ZekrScreen.kt</ID>
     <ID>FinalNewline:ZekrScreenRoute.kt$com.thekr.ui.navigation.route.ZekrScreenRoute.kt</ID>
@@ -507,8 +474,6 @@
     <ID>FinalNewline:ZekrTab.kt$com.thekr.ui.home.tab.ZekrTab.kt</ID>
     <ID>FinalNewline:ZekrText.kt$com.thekr.ui.counter.body.ZekrText.kt</ID>
     <ID>FinalNewline:main.kt$.main.kt</ID>
-    <ID>FinalNewline:url.android.kt$com.thekr.util.url.android.kt</ID>
-    <ID>FinalNewline:url.jvm.kt$com.thekr.util.url.jvm.kt</ID>
     <ID>ForEachOnRange:DailyStatisticsData.kt$DailyStatisticsData$0 until 24 * 60</ID>
     <ID>ForEachOnRange:DailyStatisticsData.kt$DailyStatisticsData$0..23</ID>
     <ID>ForEachOnRange:WeeklyStatisticsData.kt$WeeklyStatisticsData$0..6</ID>
@@ -529,7 +494,6 @@
     <ID>ImportOrdering:CategoryCard.kt$import androidx.compose.foundation.Image import androidx.compose.foundation.combinedClickable import androidx.compose.foundation.layout.* import androidx.compose.foundation.lazy.grid.GridCells import androidx.compose.foundation.lazy.grid.LazyVerticalGrid import androidx.compose.foundation.lazy.grid.items import androidx.compose.material.icons.Icons import androidx.compose.material.icons.filled.ArrowBackIosNew import androidx.compose.material3.MaterialTheme import androidx.compose.material3.Surface import androidx.compose.material3.Text import androidx.compose.runtime.Composable import androidx.compose.runtime.MutableState import androidx.compose.runtime.mutableStateOf import androidx.compose.runtime.remember import androidx.compose.runtime.snapshots.SnapshotStateList import androidx.compose.ui.Alignment import androidx.compose.ui.Modifier import androidx.compose.ui.graphics.ColorFilter import androidx.compose.ui.layout.ContentScale import androidx.compose.ui.unit.dp import com.thekr.data.proto.ThemeMode import com.thekr.data.settings.SettingsDetails import com.thekr.data.thekr.category.CategoryDetails import com.thekr.ui.component.DefaultHorizontalDivider import com.thekr.values.Dimensions.medium import com.thekr.ui.theme.ImageResourceHelper.getDrawableResourceIdFromFileName import com.thekr.ui.util.NoRippleInteractionSource import com.thekr.ui.component.LocalizedApp import org.jetbrains.compose.resources.painterResource import androidx.compose.ui.tooling.preview.Preview import com.thekr.resources.Res import com.thekr.resources.thekr_indicator import com.thekr.ui.theme.AppTheme import com.thekr.ui.theme.droidKufi import com.thekr.ui.theme.isDark</ID>
     <ID>ImportOrdering:CategoryZekrList.kt$import androidx.compose.foundation.layout.padding import androidx.compose.material.icons.Icons import androidx.compose.material.icons.automirrored.filled.ArrowBackIos import androidx.compose.material3.Icon import androidx.compose.material3.IconButton import androidx.compose.material3.Scaffold import androidx.compose.material3.Surface import androidx.compose.runtime.Composable import androidx.compose.runtime.MutableState import androidx.compose.runtime.mutableStateOf import androidx.compose.ui.Modifier import cafe.adriel.voyager.core.annotation.InternalVoyagerApi import cafe.adriel.voyager.navigator.internal.BackHandler import com.thekr.data.proto.ThemeMode import com.thekr.data.settings.SettingsDetails import com.thekr.data.thekr.category.CategoryDetails import com.thekr.resources.Res import com.thekr.resources.back import com.thekr.ui.component.bar.AppTopBar import com.thekr.ui.component.LocalizedApp import com.thekr.ui.component.bar.HeaderText import com.thekr.ui.home.list.ThekrList import com.thekr.ui.theme.AppTheme import org.jetbrains.compose.resources.stringResource import androidx.compose.ui.tooling.preview.Preview</ID>
     <ID>ImportOrdering:CounterApp.kt$import androidx.compose.foundation.layout.fillMaxSize import androidx.compose.material3.MaterialTheme import androidx.compose.material3.Surface import androidx.compose.runtime.Composable import androidx.compose.runtime.LaunchedEffect import androidx.compose.runtime.collectAsState import androidx.compose.ui.Modifier import androidx.lifecycle.viewmodel.compose.viewModel import com.thekr.ui.navigation.CounterNavyHost import com.thekr.ui.theme.AppTheme import com.thekr.ui.viewmodel.AppViewModel import androidx.compose.runtime.getValue import androidx.navigation.compose.rememberNavController import com.thekr.data.proto.Settings import com.thekr.data.settingsStore import com.thekr.ui.component.LoadScreen import com.thekr.ui.component.LocalizedApp import com.thekr.ui.navigation.NavigationActions import com.thekr.ui.viewmodel.AppViewModelProvider import com.thekr.ui.viewmodel.AppStateHolder import com.thekr.util.changeLang import androidx.compose.runtime.mutableStateOf import androidx.compose.runtime.saveable.rememberSaveable import androidx.compose.runtime.setValue</ID>
-    <ID>ImportOrdering:CounterNavyHost.kt$import androidx.compose.runtime.Composable import androidx.compose.ui.Modifier import androidx.navigation.NavHostController import androidx.navigation.NavType import androidx.navigation.compose.NavHost import androidx.navigation.compose.composable import androidx.navigation.navArgument import com.thekr.data.settings.SettingsDetails import com.thekr.ui.counter.ThekrScreen import com.thekr.ui.home.HomeScreen import com.thekr.ui.navigation.route.CounterEditRoute import com.thekr.ui.navigation.route.CounterEntryRoute import com.thekr.ui.navigation.route.HomeRoute import com.thekr.ui.navigation.route.SettingsRoute import com.thekr.ui.navigation.route.ThekrScreenRoute import com.thekr.ui.settings.SettingsScreen import com.thekr.ui.viewmodel.AppState import com.thekr.ui.thekr.edit.CounterEditScreen import com.thekr.ui.thekr.entry.CounterEntryScreen</ID>
     <ID>ImportOrdering:CreateCategoryButton.kt$import androidx.compose.foundation.layout.padding import androidx.compose.foundation.layout.requiredHeight import androidx.compose.foundation.layout.requiredSize import androidx.compose.foundation.layout.requiredWidth import androidx.compose.material.icons.Icons import androidx.compose.material.icons.outlined.AddCircleOutline import androidx.compose.material3.Icon import androidx.compose.material3.IconButton import androidx.compose.material3.Surface import androidx.compose.runtime.Composable import androidx.compose.runtime.mutableStateOf import androidx.compose.runtime.remember import androidx.compose.ui.Modifier import androidx.compose.ui.unit.Dp import androidx.compose.ui.unit.dp import com.thekr.ui.theme.AppTheme import com.thekr.values.Dimensions.large import com.thekr.values.Dimensions.small import org.jetbrains.compose.resources.stringResource import androidx.compose.ui.tooling.preview.Preview import com.thekr.resources.Res import com.thekr.resources.create_thekr_group</ID>
     <ID>ImportOrdering:CreateCategoryDialogContent.kt$import androidx.compose.animation.AnimatedVisibility import androidx.compose.foundation.background import androidx.compose.foundation.layout.* import androidx.compose.material3.* import androidx.compose.runtime.* import androidx.compose.ui.Alignment import androidx.compose.ui.Modifier import androidx.compose.ui.graphics.Color import androidx.compose.ui.text.style.TextAlign import com.thekr.data.proto.ThemeMode import com.thekr.ui.AppActions import com.thekr.ui.theme.AppTheme import com.thekr.ui.theme.hacenTunisiaLt import com.thekr.ui.component.LocalizedApp import com.thekr.values.Dimensions.medium import kotlinx.coroutines.launch import org.jetbrains.compose.resources.stringResource import androidx.compose.ui.tooling.preview.Preview import com.thekr.resources.Res import com.thekr.resources.cancel import com.thekr.resources.create import com.thekr.resources.create_thekr_group import com.thekr.resources.group_name</ID>
     <ID>ImportOrdering:CurrentZekrIndicator.kt$import androidx.compose.foundation.Image import androidx.compose.foundation.layout.Arrangement import androidx.compose.foundation.layout.Box import androidx.compose.foundation.layout.Row import androidx.compose.foundation.layout.fillMaxWidth import androidx.compose.foundation.layout.height import androidx.compose.material3.Text import androidx.compose.runtime.Composable import androidx.compose.runtime.MutableState import androidx.compose.ui.Alignment import androidx.compose.ui.Modifier import androidx.compose.ui.graphics.ColorFilter import androidx.compose.ui.graphics.graphicsLayer import androidx.compose.ui.layout.ContentScale import androidx.compose.ui.platform.LocalDensity import androidx.compose.ui.unit.sp import com.thekr.data.settings.SettingsDetails import com.thekr.data.thekr.category.CategoryDetails import com.thekr.values.Dimensions.large import com.thekr.ui.theme.AppTheme import org.jetbrains.compose.resources.painterResource import com.thekr.resources.Res import com.thekr.resources.next_thekr</ID>
@@ -698,10 +662,6 @@
     <ID>MagicNumber:ZekrIndicatorList.kt$0xFFC75C5D</ID>
     <ID>MagicNumber:ZekrList.kt$6</ID>
     <ID>MaxLineLength:HomeViewModel.kt$HomeViewModel$ThekrCategoryType.HesnAlMuslim.tabIndex -&gt; appState.hesnAlmuslimStack.last().value.thekrInstanceList.indexOfFirst { it.value.thekrId == thekrId }</ID>
-    <ID>MaxLineLength:SoundResourceHelper.kt$SoundResourceHelper$// //there_is_no_god_but_god_alone_with_no_partner_to_him_belongs_sovereignty_and_to_him_is_praise_and_he_is_capable_of_all_things.mp3</ID>
-    <ID>MaxLineLength:SoundResourceHelper.kt$SoundResourceHelper$// R.raw.there_is_no_god_but_god_alone_with_no_partner_to_him_belongs_sovereignty_and_to_him_is_praise_and_he_is_capable_of_all_things</ID>
-    <ID>MaxLineLength:SoundResourceHelper.kt$SoundResourceHelper$// fileNameToResourceIdMap["i_seek_forgiveness_from_god_besides_whom_there_is_no_god_the_ever_living_the_ever_subsisting_and_i_repent_to_him.mp3"] =</ID>
-    <ID>MaxLineLength:SoundResourceHelper.kt$SoundResourceHelper$// fileNameToResourceIdMap["there_is_no_god_but_god_alone_with_no_partner_to_him_belongs_sovereignty_and_to_him_is_praise_and_he_is_capable_of_all_things.mp3"] =</ID>
     <ID>MaximumLineLength:HomeViewModel.kt$HomeViewModel$ </ID>
     <ID>MemberNameEqualsClassName:TimeHelper.kt$TimeHelper$@Volatile private var timeHelper = TimeHelper()</ID>
     <ID>ModifierListSpacing:Database.kt$AppDatabase$@Database( entities = [ Thekr::class, ThekrInstance::class, ThekrFadl::class, Count::class, CountMiss::class, ThekrGoalCompletion::class, Category::class, Session::class, ], version = 1, exportSchema = false, ) abstract</ID>
@@ -747,7 +707,6 @@
     <ID>NewLineAtEndOfFile:AppViewModel.kt$com.thekr.ui.viewmodel.AppViewModel.kt</ID>
     <ID>NewLineAtEndOfFile:AppViewModelFactory.kt$com.thekr.ui.viewmodel.AppViewModelFactory.kt</ID>
     <ID>NewLineAtEndOfFile:AutoSizeText.kt$com.thekr.ui.component.AutoSizeText.kt</ID>
-    <ID>NewLineAtEndOfFile:Azkar.kt$com.thekr.model.Azkar.kt</ID>
     <ID>NewLineAtEndOfFile:BottomBar.kt$com.thekr.ui.counter.bar.bottom.BottomBar.kt</ID>
     <ID>NewLineAtEndOfFile:Category.kt$com.thekr.model.Category.kt</ID>
     <ID>NewLineAtEndOfFile:CategoryCard.kt$com.thekr.ui.home.list.CategoryCard.kt</ID>
@@ -770,9 +729,7 @@
     <ID>NewLineAtEndOfFile:CountRepository.kt$com.thekr.data.count.count.CountRepository.kt</ID>
     <ID>NewLineAtEndOfFile:CounterApp.kt$com.thekr.ui.CounterApp.kt</ID>
     <ID>NewLineAtEndOfFile:CounterDateFormatter.kt$com.thekr.ui.util.CounterDateFormatter.kt</ID>
-    <ID>NewLineAtEndOfFile:CounterEditRoute.kt$com.thekr.ui.navigation.route.CounterEditRoute.kt</ID>
     <ID>NewLineAtEndOfFile:CounterEntryRoute.kt$com.thekr.ui.navigation.route.CounterEntryRoute.kt</ID>
-    <ID>NewLineAtEndOfFile:CounterFeedback.android.kt$com.thekr.ui.counter.viewmodel.action.CounterFeedback.android.kt</ID>
     <ID>NewLineAtEndOfFile:CounterFeedback.jvm.kt$com.thekr.ui.counter.viewmodel.action.CounterFeedback.jvm.kt</ID>
     <ID>NewLineAtEndOfFile:CounterFeedback.kt$com.thekr.ui.counter.viewmodel.action.CounterFeedback.kt</ID>
     <ID>NewLineAtEndOfFile:CounterHelper.kt$com.thekr.ui.counter.CounterHelper.kt</ID>
@@ -800,7 +757,6 @@
     <ID>NewLineAtEndOfFile:FingerPrintLogcatProcessor.kt$com.thekr.fingerprint.FingerPrintLogcatProcessor.kt</ID>
     <ID>NewLineAtEndOfFile:Fingerprint.kt$com.thekr.fingerprint.Fingerprint.kt</ID>
     <ID>NewLineAtEndOfFile:FingerprintEvent.kt$com.thekr.fingerprint.FingerprintEvent.kt</ID>
-    <ID>NewLineAtEndOfFile:FingerprintEventDispatcher.kt$com.thekr.fingerprint.FingerprintEventDispatcher.kt</ID>
     <ID>NewLineAtEndOfFile:FingerprintEventType.kt$com.thekr.fingerprint.FingerprintEventType.kt</ID>
     <ID>NewLineAtEndOfFile:GroupTitle.kt$com.thekr.ui.settings.component.GroupTitle.kt</ID>
     <ID>NewLineAtEndOfFile:HeaderText.kt$com.thekr.ui.component.bar.HeaderText.kt</ID>
@@ -852,7 +808,6 @@
     <ID>NewLineAtEndOfFile:SettingsRoute.kt$com.thekr.ui.navigation.route.SettingsRoute.kt</ID>
     <ID>NewLineAtEndOfFile:ShowProgress.kt$com.thekr.ui.home.list.ShowProgress.kt</ID>
     <ID>NewLineAtEndOfFile:SideBorder.kt$com.thekr.ui.component.SideBorder.kt</ID>
-    <ID>NewLineAtEndOfFile:SoundResourceHelper.kt$com.thekr.ui.theme.SoundResourceHelper.kt</ID>
     <ID>NewLineAtEndOfFile:StatisticsData.kt$com.thekr.ui.stats.data.StatisticsData.kt</ID>
     <ID>NewLineAtEndOfFile:SwitchSetting.kt$com.thekr.ui.settings.component.SwitchSetting.kt</ID>
     <ID>NewLineAtEndOfFile:TTS.kt$com.thekr.util.TTS.kt</ID>
@@ -888,7 +843,6 @@
     <ID>NewLineAtEndOfFile:ZekrIndicatorList.kt$com.thekr.ui.home.list.ZekrIndicatorList.kt</ID>
     <ID>NewLineAtEndOfFile:ZekrInstanceDAO.kt$com.thekr.data.thekr.instance.ZekrInstanceDAO.kt</ID>
     <ID>NewLineAtEndOfFile:ZekrInstanceDetails.kt$com.thekr.data.thekr.instance.ZekrInstanceDetails.kt</ID>
-    <ID>NewLineAtEndOfFile:ZekrLang.kt$com.thekr.model.ZekrLang.kt</ID>
     <ID>NewLineAtEndOfFile:ZekrList.kt$com.thekr.ui.home.list.ZekrList.kt</ID>
     <ID>NewLineAtEndOfFile:ZekrScreen.kt$com.thekr.ui.counter.ZekrScreen.kt</ID>
     <ID>NewLineAtEndOfFile:ZekrScreenRoute.kt$com.thekr.ui.navigation.route.ZekrScreenRoute.kt</ID>
@@ -896,8 +850,6 @@
     <ID>NewLineAtEndOfFile:ZekrTab.kt$com.thekr.ui.home.tab.ZekrTab.kt</ID>
     <ID>NewLineAtEndOfFile:ZekrText.kt$com.thekr.ui.counter.body.ZekrText.kt</ID>
     <ID>NewLineAtEndOfFile:main.kt$.main.kt</ID>
-    <ID>NewLineAtEndOfFile:url.android.kt$com.thekr.util.url.android.kt</ID>
-    <ID>NewLineAtEndOfFile:url.jvm.kt$com.thekr.util.url.jvm.kt</ID>
     <ID>NoBlankLineBeforeRbrace:AntiSleep.kt$AntiSleep$ </ID>
     <ID>NoBlankLineBeforeRbrace:BottomBar.kt$ </ID>
     <ID>NoBlankLineBeforeRbrace:HomeActions.kt$HomeActions$ </ID>
@@ -960,7 +912,6 @@
     <ID>NoConsecutiveBlankLines:SettingsScreen.kt$ </ID>
     <ID>NoConsecutiveBlankLines:SettingsTopBar.kt$ </ID>
     <ID>NoConsecutiveBlankLines:ShowProgress.kt$ </ID>
-    <ID>NoConsecutiveBlankLines:SoundResourceHelper.kt$ </ID>
     <ID>NoConsecutiveBlankLines:StatisticsData.kt$ </ID>
     <ID>NoConsecutiveBlankLines:TTS.kt$ </ID>
     <ID>NoConsecutiveBlankLines:ThekrApplication.kt$ </ID>
@@ -984,7 +935,6 @@
     <ID>NoConsecutiveBlankLines:ZekrEntryScreen.kt$ </ID>
     <ID>NoConsecutiveBlankLines:ZekrEntryViewModel.kt$ </ID>
     <ID>NoConsecutiveBlankLines:ZekrIndicatorList.kt$ </ID>
-    <ID>NoConsecutiveBlankLines:ZekrLang.kt$ </ID>
     <ID>NoConsecutiveBlankLines:ZekrScreen.kt$ </ID>
     <ID>NoConsecutiveBlankLines:ZekrStats.kt$ </ID>
     <ID>NoEmptyClassBody:AntiSleep.kt$AntiSleep${ }</ID>
@@ -1019,7 +969,6 @@
     <ID>NoUnusedImports:AppAlertDialog.android.kt$com.thekr.ui.component.AppAlertDialog.android.kt</ID>
     <ID>NoUnusedImports:AppContainer.kt$com.thekr.database.AppContainer.kt</ID>
     <ID>NoUnusedImports:AppTopBar.android.kt$com.thekr.ui.component.bar.AppTopBar.android.kt</ID>
-    <ID>NoUnusedImports:CounterEditRoute.kt$com.thekr.ui.navigation.route.CounterEditRoute.kt</ID>
     <ID>NoUnusedImports:CounterEntryRoute.kt$com.thekr.ui.navigation.route.CounterEntryRoute.kt</ID>
     <ID>NoUnusedImports:DayStats.kt$com.thekr.ui.stats.tab.DayStats.kt</ID>
     <ID>NoUnusedImports:Fetcher.kt$com.thekr.ui.viewmodel.Fetcher.kt</ID>
@@ -1110,7 +1059,6 @@
     <ID>UnusedImports:AppAlertDialog.android.kt$import com.thekr.ui.component.LocalizedApp</ID>
     <ID>UnusedImports:AppContainer.kt$import com.thekr.database.initDatabaseIfNeeded</ID>
     <ID>UnusedImports:AppTopBar.android.kt$import com.thekr.ui.component.bar.AppBarPreviewTemplate</ID>
-    <ID>UnusedImports:CounterEditRoute.kt$import kotlinx.serialization.Serializable</ID>
     <ID>UnusedImports:CounterEntryRoute.kt$import kotlinx.serialization.Serializable</ID>
     <ID>UnusedImports:DayStats.kt$import androidx.compose.material.icons.filled.ArrowBackIosNew</ID>
     <ID>UnusedImports:Fetcher.kt$import com.thekr.util.TimeHelper.calcMidnight</ID>

@@ -23868,10 +23868,6 @@
     <file name="src/androidMain/kotlin/com/thekr/ui/counter/viewmodel/action/CounterFeedback.android.kt">
         <error line="11" column="21" source="standard:curly-spacing" />
         <error line="11" column="21" source="standard:function-start-of-body-spacing" />
-        <error line="24" column="1" source="standard:comment-spacing" />
-        <error line="28" column="1" source="standard:comment-spacing" />
-        <error line="56" column="1" source="standard:comment-spacing" />
-        <error line="56" column="3" source="standard:final-newline" />
     </file>
     <file name="src/androidMain/kotlin/com/thekr/ui/counter/viewmodel/action/PlaySound.android.kt">
         <error line="20" column="1" source="standard:final-newline" />
@@ -23938,10 +23934,6 @@
         <error line="33" column="29" source="standard:trailing-comma-on-call-site" />
         <error line="41" column="1" source="standard:no-consecutive-blank-lines" />
         <error line="80" column="1" source="standard:final-newline" />
-    </file>
-    <file name="src/androidMain/kotlin/com/thekr/util/url.android.kt">
-        <error line="1" column="1" source="standard:filename" />
-        <error line="15" column="1" source="standard:final-newline" />
     </file>
     <file name="src/commonMain/kotlin/com/thekr/App.kt">
         <error line="3" column="1" source="standard:import-ordering" />
@@ -24167,16 +24159,9 @@
         <error line="5" column="24" source="standard:class-signature" />
         <error line="6" column="1" source="standard:final-newline" />
     </file>
-    <file name="src/commonMain/kotlin/com/thekr/fingerprint/FingerprintEventDispatcher.kt">
-        <error line="17" column="1" source="standard:final-newline" />
-    </file>
     <file name="src/commonMain/kotlin/com/thekr/fingerprint/FingerprintEventType.kt">
         <error line="7" column="16" source="standard:trailing-comma-on-declaration-site" />
         <error line="8" column="1" source="standard:final-newline" />
-    </file>
-    <file name="src/commonMain/kotlin/com/thekr/model/Azkar.kt">
-        <error line="32" column="27" source="standard:trailing-comma-on-declaration-site" />
-        <error line="33" column="1" source="standard:final-newline" />
     </file>
     <file name="src/commonMain/kotlin/com/thekr/model/Category.kt">
         <error line="30" column="1" source="standard:final-newline" />
@@ -24194,7 +24179,7 @@
         <error line="57" column="36" source="standard:function-expression-body" />
         <error line="65" column="40" source="standard:function-expression-body" />
         <error line="80" column="47" source="standard:function-expression-body" />
-        <error line="86" column="1" source="standard:final-newline" />
+        <error line="87" column="1" source="standard:final-newline" />
     </file>
     <file name="src/commonMain/kotlin/com/thekr/model/ThekrInstance.kt">
         <error line="52" column="1" source="standard:no-consecutive-blank-lines" />
@@ -24210,11 +24195,6 @@
     <file name="src/commonMain/kotlin/com/thekr/model/ZekrGoalCompletion.kt">
         <error line="1" column="1" source="standard:filename" />
         <error line="10" column="1" source="standard:final-newline" />
-    </file>
-    <file name="src/commonMain/kotlin/com/thekr/model/ZekrLang.kt">
-        <error line="1" column="1" source="standard:filename" />
-        <error line="6" column="1" source="standard:no-consecutive-blank-lines" />
-        <error line="14" column="1" source="standard:final-newline" />
     </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/AppActions.kt">
         <error line="29" column="35" source="standard:trailing-comma-on-declaration-site" />
@@ -24679,11 +24659,7 @@
         <error line="65" column="8" source="standard:trailing-comma-on-call-site" />
         <error line="65" column="9" source="standard:no-multi-spaces" />
         <error line="80" column="24" source="standard:trailing-comma-on-call-site" />
-        <error line="83" column="1" source="standard:no-consecutive-blank-lines" />
-        <error line="85" column="1" source="standard:comment-spacing" />
-        <error line="89" column="1" source="standard:comment-spacing" />
-        <error line="117" column="1" source="standard:comment-spacing" />
-        <error line="117" column="3" source="standard:final-newline" />
+        <error line="81" column="1" source="standard:final-newline" />
     </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/counter/viewmodel/action/PlaySound.kt">
         <error line="6" column="1" source="standard:no-wildcard-imports" />
@@ -25086,28 +25062,13 @@
         <error line="397" column="1" source="standard:final-newline" />
     </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/navigation/CounterNavyHost.kt">
-        <error line="3" column="1" source="standard:import-ordering" />
-        <error line="24" column="5" source="standard:function-naming" />
-        <error line="35" column="1" source="standard:no-consecutive-blank-lines" />
-        <error line="39" column="28" source="standard:trailing-comma-on-call-site" />
-        <error line="71" column="14" source="standard:trailing-comma-on-call-site" />
-        <error line="85" column="14" source="standard:trailing-comma-on-call-site" />
-        <error line="90" column="50" source="standard:trailing-comma-on-call-site" />
-        <error line="113" column="1" source="standard:comment-spacing" />
-        <error line="114" column="1" source="standard:comment-spacing" />
-        <error line="118" column="1" source="standard:comment-spacing" />
-        <error line="165" column="1" source="standard:comment-spacing" />
-        <error line="166" column="1" source="standard:comment-spacing" />
-        <error line="167" column="1" source="standard:comment-spacing" />
-        <error line="168" column="1" source="standard:comment-spacing" />
-        <error line="169" column="1" source="standard:comment-spacing" />
-        <error line="170" column="1" source="standard:comment-spacing" />
-        <error line="171" column="1" source="standard:comment-spacing" />
-        <error line="172" column="1" source="standard:comment-spacing" />
-        <error line="173" column="1" source="standard:comment-spacing" />
-        <error line="174" column="1" source="standard:comment-spacing" />
-        <error line="181" column="1" source="standard:comment-spacing" />
-        <error line="181" column="3" source="standard:final-newline" />
+        <error line="23" column="5" source="standard:function-naming" />
+        <error line="34" column="1" source="standard:no-consecutive-blank-lines" />
+        <error line="38" column="28" source="standard:trailing-comma-on-call-site" />
+        <error line="70" column="14" source="standard:trailing-comma-on-call-site" />
+        <error line="84" column="14" source="standard:trailing-comma-on-call-site" />
+        <error line="89" column="50" source="standard:trailing-comma-on-call-site" />
+        <error line="110" column="1" source="standard:final-newline" />
     </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/navigation/NavigationActions.kt">
         <error line="27" column="1" source="standard:comment-spacing" />
@@ -25121,14 +25082,6 @@
         <error line="18" column="1" source="standard:comment-spacing" />
         <error line="25" column="1" source="standard:comment-spacing" />
         <error line="25" column="3" source="standard:final-newline" />
-    </file>
-    <file name="src/commonMain/kotlin/com/thekr/ui/navigation/route/CounterEditRoute.kt">
-        <error line="4" column="1" source="standard:no-unused-imports" />
-        <error line="13" column="1" source="standard:comment-spacing" />
-        <error line="14" column="1" source="standard:comment-spacing" />
-        <error line="16" column="1" source="standard:comment-spacing" />
-        <error line="19" column="1" source="standard:comment-spacing" />
-        <error line="19" column="3" source="standard:final-newline" />
     </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/navigation/route/CounterEntryRoute.kt">
         <error line="4" column="1" source="standard:no-unused-imports" />
@@ -25717,10 +25670,6 @@
         <error line="62" column="1" source="standard:no-consecutive-blank-lines" />
         <error line="63" column="80" source="standard:function-expression-body" />
     </file>
-    <file name="src/commonMain/kotlin/com/thekr/ui/theme/SoundResourceHelper.kt">
-        <error line="3" column="1" source="standard:no-consecutive-blank-lines" />
-        <error line="59" column="1" source="standard:final-newline" />
-    </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/theme/Theme.kt">
         <error line="11" column="1" source="standard:no-wildcard-imports" />
         <error line="145" column="14" source="standard:function-naming" />
@@ -26112,9 +26061,6 @@
         <error line="231" column="93" source="standard:function-expression-body" />
         <error line="242" column="1" source="standard:no-blank-line-before-rbrace" />
     </file>
-    <file name="src/commonMain/kotlin/com/thekr/util/url.kt">
-        <error line="1" column="1" source="standard:filename" />
-    </file>
     <file name="src/commonMain/kotlin/com/thekr/values/Colors.kt">
         <error line="7" column="1" source="standard:final-newline" />
     </file>
@@ -26180,10 +26126,6 @@
     </file>
     <file name="src/jvmMain/kotlin/com/thekr/util/Language.jvm.kt">
         <error line="8" column="1" source="standard:final-newline" />
-    </file>
-    <file name="src/jvmMain/kotlin/com/thekr/util/url.jvm.kt">
-        <error line="1" column="1" source="standard:filename" />
-        <error line="13" column="1" source="standard:final-newline" />
     </file>
     <file name="src/jvmMain/kotlin/main.kt">
         <error line="1" column="1" source="standard:filename" />
