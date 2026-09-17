@@ -212,16 +212,27 @@ android {
     }
     signingConfigs {
         create("release") {
-            storeFile = file("${rootProject.projectDir}/ks.jks")
-            storePassword = "123456"
-            keyAlias = "key0"
-            keyPassword = "123456"
+            // Release builds read the keystore path + credentials from env vars
+            // (KEYSTORE_PATH, KEYSTORE_PASSWORD, KEY_ALIAS, KEY_PASSWORD); when no
+            // keystore is provided, fall back to the git-ignored local ks.jks for
+            // local dev, otherwise leave the release build unsigned.
+            val envPath = System.getenv("KEYSTORE_PATH")?.takeIf { it.isNotBlank() }
+            val localPath = file("${rootProject.projectDir}/ks.jks").takeIf { it.exists() }
+            val keystorePath = envPath?.let { file(it) } ?: localPath
+            if (keystorePath != null) {
+                storeFile = keystorePath
+                storePassword = System.getenv("KEYSTORE_PASSWORD")?.takeIf { it.isNotBlank() } ?: "123456"
+                keyAlias = System.getenv("KEY_ALIAS")?.takeIf { it.isNotBlank() } ?: "key0"
+                keyPassword = System.getenv("KEY_PASSWORD")?.takeIf { it.isNotBlank() } ?: "123456"
+            }
         }
     }
     buildTypes {
         getByName("release") {
             isMinifyEnabled = true
-            signingConfig = signingConfigs.getByName("release")
+            if (signingConfigs.getByName("release").storeFile != null) {
+                signingConfig = signingConfigs.getByName("release")
+            }
         }
     }
     compileOptions {
@@ -229,13 +240,13 @@ android {
         targetCompatibility = JavaVersion.VERSION_21
     }
     buildFeatures {
-        //enables a Compose tooling support in the AndroidStudio
+        // enables a Compose tooling support in the AndroidStudio
         compose = true
     }
     dependencies {
         debugImplementation(libs.compose.ui.tooling)
     }
-    //https://developer.android.com/studio/test/gradle-managed-devices
+    // https://developer.android.com/studio/test/gradle-managed-devices
     @Suppress("UnstableApiUsage")
     testOptions {
         managedDevices.allDevices {
@@ -248,7 +259,7 @@ android {
     }
 }
 
-//compose {
+// compose {
 //    tasks {
 //        withType<AndroidLintAnalysisTask> {
 //            enabled = false
