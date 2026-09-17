@@ -48,13 +48,18 @@
 # Keep Kotlin metadata for reflection
 -keepattributes Signature, InnerClasses, EnclosingMethod, *Annotation*
 
-# Keep kotlinx.serialization
+# Keep kotlinx.serialization — serializer discovery rules from the official
+# kotlinx.serialization R8/ProGuard rules (Kotlin/kotlinx.serialization README,
+# "Android" section): plugin-generated $serializer classes, the Companion field
+# holding serializer(), and the serializer() accessor itself. Generalized from
+# com.thekr.** to ** so library-serializable classes survive too.
 -dontnote kotlinx.serialization.AnnotationsKt
--keep,includedescriptorclasses class com.thekr.**$$serializer { *; }
--keepclassmembers class com.thekr.** {
+-keepattributes RuntimeVisibleAnnotations,AnnotationDefault
+-keep,includedescriptorclasses class **$$serializer { *; }
+-keepclassmembers class ** {
     *** Companion;
 }
--keepclasseswithmembers class com.thekr.** {
+-keepclasseswithmembers class ** {
     kotlinx.serialization.KSerializer serializer(...);
 }
 
@@ -65,7 +70,10 @@
 -keep class korlibs.audio.sound.** { *; }
 -keep class com.patrykandpatrick.vico.** { *; }
 
-# Keep Room database classes
+# Keep Room database classes — per Room's official shrinking guidance
+# (developer.android.com — "Shrink, obfuscate, and optimize your app" / Room docs,
+# entities and RoomDatabase subclasses are looked up reflectively). Room's AAR
+# ships consumer rules; these are an explicit safety net for KMP-generated code.
 -keep class * extends androidx.room.RoomDatabase
 -keep @androidx.room.Entity class * { *; }
 -keep @androidx.room.Dao class * { *; }

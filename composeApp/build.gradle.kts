@@ -219,6 +219,16 @@ android {
     buildTypes {
         getByName("release") {
             isMinifyEnabled = true
+            // R8 needs the Android optimize baseline plus our keeps (serializers/Room);
+            // without proguardFiles, minification strips reflection-discovered classes.
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro",
+            )
+            // Release ships device ABIs only; debug stays unfiltered for x86 emulators.
+            ndk {
+                abiFilters += listOf("arm64-v8a", "armeabi-v7a")
+            }
             if (signingConfigs.getByName("release").storeFile != null) {
                 signingConfig = signingConfigs.getByName("release")
             }
