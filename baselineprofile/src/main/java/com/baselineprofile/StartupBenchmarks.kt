@@ -185,13 +185,13 @@ class StartupBenchmarks {
                 // Enter the first category card to reach the thekr counting screen.
                 val displayHeight = device.displayHeight
                 device.findObjects(By.clickable(true))
-                    .filter { it.visibleBounds.top > displayHeight / 4 }
+                    .filter { it.visibleBounds.top > displayHeight / DISPLAY_HEIGHT_DIVIDER }
                     .minByOrNull { it.visibleBounds.top }
                     ?.click()
                 device.waitForIdle()
             },
             measureBlock = {
-                repeat(3) {
+                repeat(COUNTER_TAP_COUNT) {
                     device.click(device.displayWidth / 2, device.displayHeight / 2)
                     device.waitForIdle()
                 }
@@ -216,15 +216,22 @@ class StartupBenchmarks {
                 // Mesbaha -> Hesn Al Muslim -> Knooz -> Dua, then back to Mesbaha (sebha).
                 val centerX = device.displayWidth / 2
                 val centerY = device.displayHeight / 2
-                repeat(3) {
-                    device.swipe(centerX + centerX / 2, centerY, centerX / 2, centerY, 10)
+                repeat(TAB_PAGING_SWIPE_COUNT) {
+                    device.swipe(centerX + centerX / 2, centerY, centerX / 2, centerY, SWIPE_STEPS)
                     device.waitForIdle()
                 }
-                repeat(3) {
-                    device.swipe(centerX / 2, centerY, centerX + centerX / 2, centerY, 10)
+                repeat(TAB_PAGING_SWIPE_COUNT) {
+                    device.swipe(centerX / 2, centerY, centerX + centerX / 2, centerY, SWIPE_STEPS)
                     device.waitForIdle()
                 }
             },
         )
+    }
+
+    private companion object {
+        const val DISPLAY_HEIGHT_DIVIDER = 4
+        const val COUNTER_TAP_COUNT = 3
+        const val TAB_PAGING_SWIPE_COUNT = 3
+        const val SWIPE_STEPS = 10
     }
 }
