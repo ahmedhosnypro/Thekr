@@ -10,7 +10,6 @@ import androidx.navigation.navArgument
 import com.thekr.data.settings.SettingsDetails
 import com.thekr.ui.counter.ThekrScreen
 import com.thekr.ui.home.HomeScreen
-import com.thekr.ui.navigation.route.CounterEditRoute
 import com.thekr.ui.navigation.route.CounterEntryRoute
 import com.thekr.ui.navigation.route.HomeRoute
 import com.thekr.ui.navigation.route.SettingsRoute
@@ -77,9 +76,9 @@ fun CounterNavyHost(
 
         // counter-edit screen
         composable(
-            CounterEditRoute.routeWithArgs,
+            "counter_edit/{itemId}",
             arguments = listOf(
-                navArgument(CounterEditRoute.COUNTER_ID_ARG) {
+                navArgument("itemId") {
                     type = NavType.LongType
                 },
             )
@@ -109,73 +108,3 @@ fun CounterNavyHost(
         }
     }
 }
-
-//@Composable
-//fun CounterNavyHost(
-//    azkarState: AzkarState,
-//    settingsDetails: SettingsDetails,
-//    modifier: Modifier = Modifier,
-//) {
-//    val navController = rememberNavController()
-//    // use when navigating up after finishing a process (background process)
-//    val navigateBack = { navController.popBackStack() }
-//    // when a user clicks on the back button
-//    val onNavigateUp = { navController.navigateUp() }
-//
-//    LaunchedEffect(Unit) {
-//        NavigationActions.initNavController(navController)
-//    }
-//
-//    NavHost(
-//        navController = navController,
-//        startDestination = HomeRoute,
-//        modifier = modifier
-//    ) {
-//        // home screen
-//        composable<HomeRoute> {
-//            HomeScreen(
-//                azkarState = azkarState,
-//                settingsDetails = settingsDetails,
-//            )
-//        }
-//        // counter entry screen
-//        composable<CounterEntryRoute> {
-//            CounterEntryScreen(
-//                settingsDetails = settingsDetails,
-//            )
-//        }
-//
-//        // counter details screen
-//        composable<ThekrScreenRoute> {
-//            ThekrScreen(
-//                settingsDetails = settingsDetails,
-//            )
-//        }
-//
-//        // counter-edit screen
-//        composable<CounterEditRoute> {
-//            // todo: use NavigationActions to navigate back
-//            CounterEditScreen(
-//                navigateBack = { navigateBack() },
-//                onNavigateUp = { onNavigateUp() }
-//            )
-//        }
-//
-//        // counter-statistics screen
-////        composable(
-////            CounterStatisticsDestination.routeWithArgs,
-////            arguments = listOf(
-////                navArgument(CounterStatisticsDestination.counterIdArg) {
-////                    type = NavType.LongType
-////                }
-////            )) {
-////            CounterStatisticsScreen(navigateBack = { navigateBack() })
-////        }
-////        settings screen
-//        composable<SettingsRoute> {
-//            SettingsScreen(
-//                settingsDetails = settingsDetails,
-//            )
-//        }
-//    }
-//}
