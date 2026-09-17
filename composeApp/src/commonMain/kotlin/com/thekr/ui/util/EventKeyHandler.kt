@@ -61,10 +61,10 @@ fun Modifier.customOnKeyEvent(
     focusRequester: FocusRequester,
 ) = this then if (enabled) {
     Modifier
-        // Key handlers must sit outward of the focus target: key events are
-        // dispatched to the focused FocusTargetNode and bubble outward through
-        // the chain, so handlers placed after it never fire. The debounce
-        // handler goes outermost so the Back handler below still sees Back.
+        // Place key handlers outward of the focus target (canonical
+        // KeyInputModifierNode pattern): the debounce handler goes outermost
+        // so it consumes only matching KeyDown events, letting Back (and
+        // unrelated keys) bubble onward to the handlers above.
         .handleKeyDebounce(key = Key.VolumeUp) { CounterHelper.onCount() }
         .onKeyEvent { keyEvent ->
             // Handle Back Key
