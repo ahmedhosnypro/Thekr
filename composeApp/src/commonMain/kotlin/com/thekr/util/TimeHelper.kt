@@ -20,22 +20,31 @@ import kotlin.time.Instant
 @OptIn(ExperimentalTime::class)
 object TimeHelper {
     data class TimeHelper(
-        val midnight: Long = calcMidnight(Clock.System.now().toEpochMilliseconds()),
-        val nextMidnight: Long = calcNextMidnight(midnight),
-        val weekStart: Long = calcWeekStart(midnight),
-        val weekEnd: Long = calcWeekEnd(midnight),
-        val monthStart: Long = calcMonthStart(midnight),
-        val monthEnd: Long = calcMonthEnd(midnight),
-        val yearStart: Long = calcYearStart(midnight),
-        val yearEnd: Long = calcYearEnd(midnight),
+        val timeZone: TimeZone = TimeZone.currentSystemDefault(),
+        val midnight: Long = calcMidnight(Clock.System.now().toEpochMilliseconds(), timeZone),
+        val nextMidnight: Long = calcNextMidnight(midnight, timeZone),
+        val weekStart: Long = calcWeekStart(midnight, timeZone),
+        val weekEnd: Long = calcWeekEnd(midnight, timeZone),
+        val monthStart: Long = calcMonthStart(midnight, timeZone),
+        val monthEnd: Long = calcMonthEnd(midnight, timeZone),
+        val yearStart: Long = calcYearStart(midnight, timeZone),
+        val yearEnd: Long = calcYearEnd(midnight, timeZone),
     )
 
     @Volatile
     private var timeHelper = TimeHelper()
     fun now() = Clock.System.now().toEpochMilliseconds()
+
+    /**
+     * Rebuilds the cached bounds when the day rolls over in the zone the
+     * cache was built with, or when the system timezone changes — so the
+     * windows re-derive in the new zone immediately instead of only at the
+     * next midnight of the old zone.
+     */
     private fun refreshIfStale() {
-        if (now() >= timeHelper.nextMidnight) {
-            timeHelper = TimeHelper()
+        val currentTimeZone = TimeZone.currentSystemDefault()
+        if (now() >= timeHelper.nextMidnight || currentTimeZone != timeHelper.timeZone) {
+            timeHelper = TimeHelper(timeZone = currentTimeZone)
         }
     }
     fun midnight() = refreshIfStale().let { timeHelper.midnight }
