@@ -15,7 +15,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.unit.dp
 import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
@@ -264,14 +263,7 @@ fun DisplaySettings(
         LanguageSettings(
             selectedLanguage = { settingsDetails.language },
             onLanguageChange = { option ->
-                val locale = try {
-                    Locale(option.value)
-                } catch (e: Exception) {
-                    null
-                }
-                locale?.let {
-                    changeLang(it.language)
-                }
+                changeLang(option.value)
                 onSettingUpdate(
                     settingsDetails.copy(
                         language = option.value

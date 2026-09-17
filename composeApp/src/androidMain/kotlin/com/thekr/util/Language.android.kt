@@ -5,7 +5,7 @@ import androidx.core.os.LocaleListCompat
 import java.util.Locale
 
 actual fun changeLang(lang: String) {
-    val locale = Locale(lang)
+    val locale = Locale.forLanguageTag(lang)
     Locale.setDefault(locale)
     val appLocales = LocaleListCompat.forLanguageTags(lang)
     if (AppCompatDelegate.getApplicationLocales() != appLocales) {
