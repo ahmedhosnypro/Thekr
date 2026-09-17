@@ -62,7 +62,7 @@ class ThekrEntryViewModel(
             parentCategory.countList.add(
                 mutableStateOf(
                     ThekrCount(
-                        thekrInstanceId = thekrInstanceId,
+                        thekrInstanceId = insertedThekrId,
                         categoryId = parentCategory.id,
                         timeUpdated = System.currentTimeMillis(),
                     )
