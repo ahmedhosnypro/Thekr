@@ -55,7 +55,8 @@ fun SettingsScreen(
     modifier: Modifier = Modifier,
 ) {
     SettingsBody(
-        settingsDetails = settingsDetails, modifier = modifier,
+        settingsDetails = settingsDetails,
+        modifier = modifier,
         onSettingUpdate = remember { { SettingActions.update(it) } },
     )
 }
@@ -66,7 +67,6 @@ private fun SettingsBody(
     settingsDetails: SettingsDetails = SettingsDetails(),
     onSettingUpdate: (SettingsDetails) -> Unit = {},
 ) {
-
     Scaffold(
         topBar = {
             AppTopBar(
@@ -76,7 +76,7 @@ private fun SettingsBody(
                     IconButton(onClick = { NavigationActions.navigateUp(HomeRoute.route) }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
+                            contentDescription = "Back",
                         )
                     }
                 },
@@ -118,7 +118,6 @@ private fun SettingsBody(
             )
         }
     }
-
 }
 
 @Composable
@@ -128,12 +127,11 @@ fun InputSettings(
 ) {
     GroupTitle(
         title = stringResource(Res.string.input),
-        modifier = Modifier.padding(horizontal = medium)
+        modifier = Modifier.padding(horizontal = medium),
     )
     Column(
-        modifier = Modifier.padding(horizontal = small)
+        modifier = Modifier.padding(horizontal = small),
     ) {
-
         // volume control
         SwitchSetting(
             title = stringResource(Res.string.volume_key),
@@ -141,8 +139,8 @@ fun InputSettings(
             onToggle = {
                 onSettingUpdate(
                     settingsDetails.copy(
-                        volumeControl = !settingsDetails.volumeControl
-                    )
+                        volumeControl = !settingsDetails.volumeControl,
+                    ),
                 )
             },
         )
@@ -154,8 +152,8 @@ fun InputSettings(
             onToggle = {
                 onSettingUpdate(
                     settingsDetails.copy(
-                        fingerPrintControl = !settingsDetails.fingerPrintControl
-                    )
+                        fingerPrintControl = !settingsDetails.fingerPrintControl,
+                    ),
                 )
             },
         )
@@ -169,10 +167,10 @@ fun OutputSettings(
 ) {
     GroupTitle(
         title = stringResource(Res.string.feedback),
-        modifier = Modifier.padding(horizontal = medium)
+        modifier = Modifier.padding(horizontal = medium),
     )
     Column(
-        modifier = Modifier.padding(horizontal = small)
+        modifier = Modifier.padding(horizontal = small),
     ) {
         // vibration
         SwitchSetting(
@@ -181,8 +179,8 @@ fun OutputSettings(
             onToggle = {
                 onSettingUpdate(
                     settingsDetails.copy(
-                        vibration = !settingsDetails.vibration
-                    )
+                        vibration = !settingsDetails.vibration,
+                    ),
                 )
             },
         )
@@ -195,8 +193,8 @@ fun OutputSettings(
             onToggle = {
                 onSettingUpdate(
                     settingsDetails.copy(
-                        sound = !settingsDetails.sound
-                    )
+                        sound = !settingsDetails.sound,
+                    ),
                 )
             },
         )
@@ -209,8 +207,8 @@ fun OutputSettings(
             onToggle = {
                 onSettingUpdate(
                     settingsDetails.copy(
-                        clickSound = !settingsDetails.clickSound
-                    )
+                        clickSound = !settingsDetails.clickSound,
+                    ),
                 )
             },
             enabled = settingsDetails.sound,
@@ -224,8 +222,8 @@ fun OutputSettings(
             onToggle = {
                 onSettingUpdate(
                     settingsDetails.copy(
-                        speechValue = !settingsDetails.speechValue
-                    )
+                        speechValue = !settingsDetails.speechValue,
+                    ),
                 )
             },
             enabled = settingsDetails.sound,
@@ -238,8 +236,8 @@ fun OutputSettings(
             onToggle = {
                 onSettingUpdate(
                     settingsDetails.copy(
-                        speechName = !settingsDetails.speechName
-                    )
+                        speechName = !settingsDetails.speechName,
+                    ),
                 )
             },
             enabled = settingsDetails.sound,
@@ -254,11 +252,11 @@ fun DisplaySettings(
 ) {
     GroupTitle(
         title = stringResource(Res.string.display),
-        modifier = Modifier.padding(horizontal = medium)
+        modifier = Modifier.padding(horizontal = medium),
     )
 
     Column(
-        modifier = Modifier.padding(horizontal = small)
+        modifier = Modifier.padding(horizontal = small),
     ) {
         LanguageSettings(
             selectedLanguage = { settingsDetails.language },
@@ -266,8 +264,8 @@ fun DisplaySettings(
                 changeLang(option.value)
                 onSettingUpdate(
                     settingsDetails.copy(
-                        language = option.value
-                    )
+                        language = option.value,
+                    ),
                 )
             },
         )
@@ -278,8 +276,8 @@ fun DisplaySettings(
             onThemeChange = {
                 onSettingUpdate(
                     settingsDetails.copy(
-                        themeMode = it.value
-                    )
+                        themeMode = it.value,
+                    ),
                 )
             },
         )
@@ -291,8 +289,8 @@ fun DisplaySettings(
             onToggle = {
                 onSettingUpdate(
                     settingsDetails.copy(
-                        materialYou = !settingsDetails.materialYou
-                    )
+                        materialYou = !settingsDetails.materialYou,
+                    ),
                 )
             },
         )
@@ -304,8 +302,8 @@ fun DisplaySettings(
             onToggle = {
                 onSettingUpdate(
                     settingsDetails.copy(
-                        screenAlwaysOn = !settingsDetails.screenAlwaysOn
-                    )
+                        screenAlwaysOn = !settingsDetails.screenAlwaysOn,
+                    ),
                 )
             },
         )
@@ -332,12 +330,10 @@ fun SettingsBodyPreviewDark() {
             LocalizedApp {
                 SettingsBody(
                     settingsDetails = SettingsDetails(
-                        themeMode = ThemeMode.Dark
-                    )
+                        themeMode = ThemeMode.Dark,
+                    ),
                 )
             }
         }
     }
 }
-
-

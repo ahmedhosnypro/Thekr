@@ -36,11 +36,11 @@ fun CurrentThekrIndicator(
     if (categoryDetails.value.thekrInstanceList.size > 1) {
         Box(
             modifier = modifier.fillMaxWidth(),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(large),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 val fontSize = 16.sp
                 val lineHeightDp = with(LocalDensity.current) {
@@ -61,9 +61,12 @@ fun CurrentThekrIndicator(
                             if (layoutDirection == LayoutDirection.Rtl) scaleX = -1f
                         },
                     colorFilter = ColorFilter.tint(
-                        if (tabIndex == 0) colors.disabledPrevNextIndicator
-                        else colors.prevNextIndicator
-                    )
+                        if (tabIndex == 0) {
+                            colors.disabledPrevNextIndicator
+                        } else {
+                            colors.prevNextIndicator
+                        },
+                    ),
                 )
                 Text(
                     text = "${tabIndex + 1} / ${categoryDetails.value.thekrInstanceList.size}",
@@ -80,9 +83,12 @@ fun CurrentThekrIndicator(
                             if (layoutDirection == LayoutDirection.Ltr) scaleX = -1f
                         },
                     colorFilter = ColorFilter.tint(
-                        if (tabIndex == categoryDetails.value.thekrInstanceList.size - 1) colors.disabledPrevNextIndicator
-                        else colors.prevNextIndicator
-                    )
+                        if (tabIndex == categoryDetails.value.thekrInstanceList.size - 1) {
+                            colors.disabledPrevNextIndicator
+                        } else {
+                            colors.prevNextIndicator
+                        },
+                    ),
                 )
             }
         }
