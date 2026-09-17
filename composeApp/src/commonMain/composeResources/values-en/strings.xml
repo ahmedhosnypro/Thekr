@@ -39,7 +39,7 @@
     <string name="add_thekr">Add Thekr</string>
     <string name="thekr_content">thekr</string>
     <string name="thekr_list">Thekr List</string>
-    <string name="empty_thekr_list_alert">Click on the pin button to add a new counter.</string>
+    <string name="empty_thekr_list_alert">Click on the pen button to add a new counter.</string>
     <string name="listen_to_thekr">Listen to Thekr</string>
     <string name="hesn_almuslim">Hesn Almuslim</string>
     <string name="dua">Dua</string>

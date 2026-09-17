@@ -26,7 +26,7 @@
     <string name="display">العرض</string>
     <string name="screen_always_on">منع اطفاء الشاشة</string>
     <string name="theme">المظهر</string>
-    <string name="dark_mode">الوضغ المظلم</string>
+    <string name="dark_mode">الوضع المظلم</string>
     <string name="theme_mode">الوضع المظلم</string>
     <string name="material_you">مظهر مستوحى من خلفية الهاتف</string>
     <string name="system_default">تلقائي</string>
