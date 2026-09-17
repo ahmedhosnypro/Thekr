@@ -108,7 +108,7 @@ class HomeViewModel : ViewModel() {
             // on subscription, so wait for the list to settle, then decide —
             // navigate once loaded, snackbar if it stays empty past the wait.
             val loaded = withTimeoutOrNull(Constants.TIMEOUT_MILLIS) {
-                snapshotFlow { categoryDetails.value.thekrList.isNotEmpty() }.first()
+                snapshotFlow { categoryDetails.value.thekrInstanceList.isNotEmpty() }.first()
             }
             if (loaded != null) {
                 navigateToThekrScreen(categoryDetails.value)
