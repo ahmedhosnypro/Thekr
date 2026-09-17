@@ -80,6 +80,7 @@ data class Thekr(
     fun update(thekrEntry: ThekrEntry): Thekr {
         return this.copy(
             content = thekrEntry.text,
+            coolDown = thekrEntry.coolDown,
             timeUpdated = now(),
         )
     }
