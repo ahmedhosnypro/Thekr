@@ -8,7 +8,6 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.thekr.ThekrApplication
 import com.thekr.ui.counter.viewmodel.ThekrCounterViewModel
-import com.thekr.ui.thekr.edit.ThekrEditViewModel
 import com.thekr.ui.thekr.entry.ThekrEntryViewModel
 
 actual class AppViewModelFactory {
@@ -22,15 +21,6 @@ actual class AppViewModelFactory {
                 counterApplication().container.countMissRepository,
                 counterApplication().container.categoryRepository,
                 counterApplication().container.fadlRepository,
-            )
-        }
-
-
-        /** Initializer for [ThekrEditViewModel] */
-        initializer {
-            ThekrEditViewModel(
-                this.createSavedStateHandle(),
-                counterApplication().container.thekrRepository,
             )
         }
 

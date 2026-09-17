@@ -305,7 +305,6 @@
     <ID>Filename:ZekrCount.kt$com.thekr.data.thekr.count.ZekrCount.kt</ID>
     <ID>Filename:ZekrDAO.kt$com.thekr.data.thekr.thekr.ZekrDAO.kt</ID>
     <ID>Filename:ZekrDetails.kt$com.thekr.data.thekr.thekr.ZekrDetails.kt</ID>
-    <ID>Filename:ZekrEditViewModel.kt$com.thekr.ui.thekr.edit.ZekrEditViewModel.kt</ID>
     <ID>Filename:ZekrEntry.kt$com.thekr.data.thekr.thekr.ZekrEntry.kt</ID>
     <ID>Filename:ZekrEntryActions.kt$com.thekr.ui.thekr.entry.ZekrEntryActions.kt</ID>
     <ID>Filename:ZekrEntryUiState.kt$com.thekr.data.thekr.thekr.ZekrEntryUiState.kt</ID>
@@ -329,7 +328,6 @@
     <ID>FinalNewline:AppTopBar.kt$com.thekr.ui.component.bar.AppTopBar.kt</ID>
     <ID>FinalNewline:AppViewModel.kt$com.thekr.ui.viewmodel.AppViewModel.kt</ID>
     <ID>FinalNewline:AppViewModelFactory.kt$com.thekr.ui.viewmodel.AppViewModelFactory.kt</ID>
-    <ID>FinalNewline:AutoSizeText.kt$com.thekr.ui.component.AutoSizeText.kt</ID>
     <ID>FinalNewline:BottomBar.kt$com.thekr.ui.counter.bar.bottom.BottomBar.kt</ID>
     <ID>FinalNewline:Category.kt$com.thekr.model.Category.kt</ID>
     <ID>FinalNewline:CategoryCard.kt$com.thekr.ui.home.list.CategoryCard.kt</ID>
@@ -703,7 +701,6 @@
     <ID>NewLineAtEndOfFile:AppTopBar.kt$com.thekr.ui.component.bar.AppTopBar.kt</ID>
     <ID>NewLineAtEndOfFile:AppViewModel.kt$com.thekr.ui.viewmodel.AppViewModel.kt</ID>
     <ID>NewLineAtEndOfFile:AppViewModelFactory.kt$com.thekr.ui.viewmodel.AppViewModelFactory.kt</ID>
-    <ID>NewLineAtEndOfFile:AutoSizeText.kt$com.thekr.ui.component.AutoSizeText.kt</ID>
     <ID>NewLineAtEndOfFile:BottomBar.kt$com.thekr.ui.counter.bar.bottom.BottomBar.kt</ID>
     <ID>NewLineAtEndOfFile:Category.kt$com.thekr.model.Category.kt</ID>
     <ID>NewLineAtEndOfFile:CategoryCard.kt$com.thekr.ui.home.list.CategoryCard.kt</ID>
@@ -924,8 +921,6 @@
     <ID>NoConsecutiveBlankLines:ZekrCounterTopBar.kt$ </ID>
     <ID>NoConsecutiveBlankLines:ZekrCounterViewModel.kt$ </ID>
     <ID>NoConsecutiveBlankLines:ZekrCounterViewModel.kt$ThekrCounterViewModel$ </ID>
-    <ID>NoConsecutiveBlankLines:ZekrEditViewModel.kt$ </ID>
-    <ID>NoConsecutiveBlankLines:ZekrEditViewModel.kt$ThekrEditViewModel$ </ID>
     <ID>NoConsecutiveBlankLines:ZekrEntry.kt$ </ID>
     <ID>NoConsecutiveBlankLines:ZekrEntryScreen.kt$ </ID>
     <ID>NoConsecutiveBlankLines:ZekrEntryViewModel.kt$ </ID>
@@ -1085,12 +1080,10 @@
     <ID>UnusedParameter:Theme.kt$isDarkTheme: Boolean</ID>
     <ID>UnusedParameter:ThemeEditor.kt$actions: ThekrEntryActions</ID>
     <ID>UnusedParameter:ThemeEditor.kt$settingsState: SettingsDetails</ID>
-    <ID>UnusedParameter:ZekrEditViewModel.kt$ThekrEditViewModel$label: String</ID>
     <ID>UnusedParameter:ZekrText.kt$counterUiState: CounterUiState</ID>
     <ID>UnusedPrivateProperty:BottomBar.kt$val tint = AppTheme.colors(settingsDetails).onSecondaryHeader</ID>
     <ID>UnusedPrivateProperty:JvmApplication.kt$JvmApplication$private val appCoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)</ID>
     <ID>UnusedPrivateProperty:OfflineZekrGoalCompletionRepository.kt$OfflineThekrGoalCompletionRepository$private val thekrGoalCompletionDAO: ThekrGoalCompletionDAO</ID>
-    <ID>UnusedPrivateProperty:ZekrEditViewModel.kt$ThekrEditViewModel.Companion$private const val TIMEOUT_MILLIS = 5_000L</ID>
     <ID>UseCheckOrError:ActivityFinder.kt$throw IllegalStateException("no activity")</ID>
     <ID>WildcardImport:Font.kt$import com.thekr.resources.*</ID>
     <ID>WildcardImport:ImageResourceHelper.kt$import com.thekr.resources.*</ID>
