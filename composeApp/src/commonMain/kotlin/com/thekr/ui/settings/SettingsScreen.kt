@@ -15,23 +15,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
-import com.thekr.ui.component.bar.AppTopBar
-import com.thekr.ui.component.DefaultHorizontalDivider
-import com.thekr.ui.component.bar.HeaderText
-import com.thekr.ui.navigation.NavigationActions
-import com.thekr.ui.navigation.route.HomeRoute
-import com.thekr.ui.settings.component.GroupTitle
-import com.thekr.ui.settings.component.SwitchSetting
-import com.thekr.ui.settings.language.LanguageSettings
-import com.thekr.ui.settings.theme.ThemeModeSetting
-import com.thekr.ui.theme.AppTheme
-import com.thekr.values.Dimensions.medium
-import com.thekr.values.Dimensions.small
-import org.jetbrains.compose.resources.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import com.thekr.resources.Res
 import com.thekr.resources.click_sound
 import com.thekr.resources.display
@@ -46,8 +33,21 @@ import com.thekr.resources.speech_name
 import com.thekr.resources.speech_value
 import com.thekr.resources.vibration
 import com.thekr.resources.volume_key
+import com.thekr.ui.component.DefaultHorizontalDivider
 import com.thekr.ui.component.LocalizedApp
+import com.thekr.ui.component.bar.AppTopBar
+import com.thekr.ui.component.bar.HeaderText
+import com.thekr.ui.navigation.NavigationActions
+import com.thekr.ui.navigation.route.HomeRoute
+import com.thekr.ui.settings.component.GroupTitle
+import com.thekr.ui.settings.component.SwitchSetting
+import com.thekr.ui.settings.language.LanguageSettings
+import com.thekr.ui.settings.theme.ThemeModeSetting
+import com.thekr.ui.theme.AppTheme
 import com.thekr.util.changeLang
+import com.thekr.values.Dimensions.medium
+import com.thekr.values.Dimensions.small
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun SettingsScreen(

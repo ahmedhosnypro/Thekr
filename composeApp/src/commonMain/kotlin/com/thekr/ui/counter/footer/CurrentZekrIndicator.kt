@@ -20,11 +20,11 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.sp
 import com.thekr.data.settings.SettingsDetails
 import com.thekr.data.thekr.category.CategoryDetails
-import com.thekr.values.Dimensions.large
-import com.thekr.ui.theme.AppTheme
-import org.jetbrains.compose.resources.painterResource
 import com.thekr.resources.Res
 import com.thekr.resources.next_thekr
+import com.thekr.ui.theme.AppTheme
+import com.thekr.values.Dimensions.large
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun CurrentThekrIndicator(
