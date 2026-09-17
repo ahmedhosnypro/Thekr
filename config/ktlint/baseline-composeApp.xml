@@ -25259,18 +25259,18 @@
         <error line="24" column="1" source="standard:final-newline" />
     </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/home/HomeViewModel.kt">
-        <error line="51" column="39" source="standard:trailing-comma-on-declaration-site" />
-        <error line="69" column="39" source="standard:trailing-comma-on-declaration-site" />
-        <error line="86" column="71" source="standard:function-expression-body" />
-        <error line="88" column="46" source="standard:wrapping" />
-        <error line="91" column="127" source="standard:function-literal" />
-        <error line="91" column="128" source="standard:wrapping" />
-        <error line="91" column="140" source="standard:max-line-length" />
-        <error line="91" column="148" source="standard:binary-expression-wrapping" />
-        <error line="91" column="157" source="standard:function-literal" />
-        <error line="111" column="56" source="standard:function-expression-body" />
-        <error line="143" column="1" source="standard:no-blank-line-before-rbrace" />
-        <error line="145" column="1" source="standard:final-newline" />
+        <error line="58" column="39" source="standard:trailing-comma-on-declaration-site" />
+        <error line="87" column="39" source="standard:trailing-comma-on-declaration-site" />
+        <error line="129" column="71" source="standard:function-expression-body" />
+        <error line="131" column="46" source="standard:wrapping" />
+        <error line="134" column="127" source="standard:function-literal" />
+        <error line="134" column="128" source="standard:wrapping" />
+        <error line="134" column="140" source="standard:max-line-length" />
+        <error line="134" column="148" source="standard:binary-expression-wrapping" />
+        <error line="134" column="157" source="standard:function-literal" />
+        <error line="154" column="56" source="standard:function-expression-body" />
+        <error line="186" column="1" source="standard:no-blank-line-before-rbrace" />
+        <error line="188" column="1" source="standard:final-newline" />
     </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/home/header/HeaderTabsRow.kt">
         <error line="7" column="1" source="standard:no-consecutive-blank-lines" />
@@ -26188,21 +26188,21 @@
     </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/viewmodel/AppViewModel.kt">
         <error line="39" column="59" source="standard:trailing-comma-on-declaration-site" />
-        <error line="87" column="62" source="standard:wrapping" />
-        <error line="89" column="17" source="standard:wrapping" />
-        <error line="97" column="60" source="standard:wrapping" />
-        <error line="97" column="60" source="standard:argument-list-wrapping" />
-        <error line="98" column="60" source="standard:wrapping" />
-        <error line="98" column="61" source="standard:argument-list-wrapping" />
-        <error line="99" column="53" source="standard:wrapping" />
-        <error line="99" column="53" source="standard:argument-list-wrapping" />
-        <error line="100" column="60" source="standard:wrapping" />
-        <error line="100" column="61" source="standard:argument-list-wrapping" />
-        <error line="101" column="59" source="standard:wrapping" />
-        <error line="101" column="59" source="standard:argument-list-wrapping" />
+        <error line="91" column="62" source="standard:wrapping" />
+        <error line="93" column="17" source="standard:wrapping" />
+        <error line="101" column="60" source="standard:wrapping" />
+        <error line="101" column="60" source="standard:argument-list-wrapping" />
         <error line="102" column="60" source="standard:wrapping" />
         <error line="102" column="61" source="standard:argument-list-wrapping" />
-        <error line="145" column="1" source="standard:final-newline" />
+        <error line="103" column="53" source="standard:wrapping" />
+        <error line="103" column="53" source="standard:argument-list-wrapping" />
+        <error line="104" column="60" source="standard:wrapping" />
+        <error line="104" column="61" source="standard:argument-list-wrapping" />
+        <error line="105" column="59" source="standard:wrapping" />
+        <error line="105" column="59" source="standard:argument-list-wrapping" />
+        <error line="106" column="60" source="standard:wrapping" />
+        <error line="106" column="61" source="standard:argument-list-wrapping" />
+        <error line="149" column="1" source="standard:final-newline" />
     </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/viewmodel/AppViewModelFactory.kt">
         <error line="7" column="1" source="standard:final-newline" />

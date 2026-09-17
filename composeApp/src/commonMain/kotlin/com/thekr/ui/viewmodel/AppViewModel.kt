@@ -42,6 +42,7 @@ class AppViewModel(
     val appState = mutableAppState.asStateFlow()
 
     init {
+        AppViewModelHolder.appViewModel = this
         intiCategoryList()
     }
 
@@ -67,6 +68,9 @@ class AppViewModel(
             }
         }
     }
+
+    suspend fun isCategoryFetched(categoryId: Long): Boolean =
+        fetchedCategoryIdsMutex.withLock { categoryId in fetchedCategoryIds }
 
     private fun intiCategoryList() {
         viewModelScope.launch(ioDispatcher) {
