@@ -103,14 +103,15 @@ fun ThekrHome(
                     focusRequester = focusRequester,
                 ),
         ) {
-            LaunchedEffect(pagerState.currentPage, categoryDetails.value.thekrInstanceList.size) {
-                // Gate on settle so the initial-composition run cannot clobber
-                // the current instance while the pager is still restoring to
-                // its saved page; the size key re-runs the sync once the
-                // instance list has finished loading.
-                if (pagerState.settledPage == pagerState.currentPage) {
-                    CounterHelper.scrollToThekr(pagerState.currentPage)
-                }
+            LaunchedEffect(pagerState.settledPage, categoryDetails.value.thekrInstanceList.size) {
+                // Keyed on settledPage: it equals currentPage only at rest, so a
+                // transient page while the pager restores or scrolls can never
+                // clobber the current instance (M63 race), while every completed
+                // transition — swipe, auto-advance, category-menu jump — settles
+                // and re-fires the sync. The initial-composition fire is kept: the
+                // VM never initializes currentThekrInstance. The size key re-runs
+                // the sync once the instance list has finished loading.
+                CounterHelper.scrollToThekr(pagerState.settledPage)
             }
             HorizontalPager(
                 modifier = Modifier
