@@ -81,6 +81,10 @@ class BaselineProfileGenerator {
 
             // 5. Swipe back to the Mesbaha (sebha) tab and open the first category card for a
             //    counter session: tap the counter a few times
+            repeat(3) {
+                device.swipe(centerX / 2, centerY, centerX + centerX / 2, centerY, 10)
+                device.waitForIdle()
+            }
             device.findObjects(By.clickable(true))
                 .filter { it.visibleBounds.top > displayHeight / 4 }
                 .minByOrNull { it.visibleBounds.top }
