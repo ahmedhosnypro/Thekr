@@ -12,7 +12,7 @@ import com.thekr.ui.component.LocalizedApp
 
 @Composable
 @Preview(locale = "ar")
-fun AppTopBarPreviewLight() {
+fun AppAlertDialogPreviewLight() {
     LocalizedApp {
         AppTheme {
             Surface {
@@ -30,7 +30,7 @@ fun AppTopBarPreviewLight() {
 
 @Composable
 @Preview(locale = "en")
-fun AppTopBarPreviewDark() {
+fun AppAlertDialogPreviewDark() {
     LocalizedApp {
         AppTheme(themeMode = ThemeMode.Dark) {
             Surface {
