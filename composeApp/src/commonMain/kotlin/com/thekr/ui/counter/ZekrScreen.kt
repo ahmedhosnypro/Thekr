@@ -65,17 +65,36 @@ fun ThekrScreen(
 
     val category = counterUiState.categoryDetails
     val coroutineScope = rememberCoroutineScope()
+    // Derived from live state on every recomposition; the sheet state itself can
+    // only capture it as a frozen initialValue, so the effect below re-applies it
+    // whenever the live target changes (e.g. the instance list finishing loading).
+    val sheetTarget = if (settingsDetails.showCount) {
+        SheetValue.Expanded
+    } else {
+        if (category.value.thekrInstanceList.size > 1) {
+            SheetValue.PartiallyExpanded
+        } else {
+            SheetValue.Hidden
+        }
+    }
     val countSheetState: BottomSheetScaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = rememberStandardBottomSheetState(
-            initialValue = if (settingsDetails.showCount) SheetValue.Expanded
-            else {
-                if (category.value.thekrInstanceList.size > 1) SheetValue.PartiallyExpanded
-                else SheetValue.Hidden
-            },
+            initialValue = sheetTarget,
             confirmValueChange = { false },
             skipHiddenState = false
         )
     )
+
+    LaunchedEffect(sheetTarget, category.value.thekrInstanceList.size) {
+        val sheetState = countSheetState.bottomSheetState
+        if (sheetState.currentValue != sheetTarget) {
+            when (sheetTarget) {
+                SheetValue.Expanded -> sheetState.expand()
+                SheetValue.PartiallyExpanded -> sheetState.partialExpand()
+                SheetValue.Hidden -> sheetState.hide()
+            }
+        }
+    }
 
     LaunchedEffect(Unit) {
         CounterHelper.initActions(
