@@ -21,4 +21,8 @@ interface CountRepository {
     suspend fun findAllSync(): List<Count>
     fun findAllByCategorySync(categoryId: Long): Flow<List<Count>>
     fun findAllByThekrInstanceSync(thekrInstanceId: Long): Flow<List<Count>>
+    fun getCountTotalsByThekrInstanceId(
+        thekrInstanceId: Long,
+        periods: CountPeriodBounds,
+    ): Flow<ThekrInstanceCountTotals>
 }
