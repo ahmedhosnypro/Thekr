@@ -25,8 +25,12 @@ import com.thekr.util.TimeHelper.weekStart
 import com.thekr.util.TimeHelper.yearEnd
 import com.thekr.util.TimeHelper.yearStart
 import com.thekr.values.Constants
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -125,19 +129,26 @@ object Fetcher {
     ) {
         viewModelScope.launch(ioDispatcher) {
             val countTotals: StateFlow<ThekrInstanceCountTotals> =
-                countRepository.getCountTotalsByThekrInstanceId(
-                    thekrInstanceId = thekrInstanceId,
-                    periods = CountPeriodBounds(
-                        dailyStart = midnight(),
-                        dailyEnd = nextMidnight(),
-                        weeklyStart = weekStart(),
-                        weeklyEnd = weekEnd(),
-                        monthlyStart = monthStart(),
-                        monthlyEnd = monthEnd(),
-                        yearlyStart = yearStart(),
-                        yearlyEnd = yearEnd(),
-                    ),
-                )
+                midnightTick()
+                    .flatMapLatest {
+                        // Bounds are bound at Flow creation, so re-create the
+                        // collector at each midnight (week/month/year windows
+                        // all roll over at a midnight too) to keep the SQL
+                        // period filters in step with the calendar.
+                        countRepository.getCountTotalsByThekrInstanceId(
+                            thekrInstanceId = thekrInstanceId,
+                            periods = CountPeriodBounds(
+                                dailyStart = midnight(),
+                                dailyEnd = nextMidnight(),
+                                weeklyStart = weekStart(),
+                                weeklyEnd = weekEnd(),
+                                monthlyStart = monthStart(),
+                                monthlyEnd = monthEnd(),
+                                yearlyStart = yearStart(),
+                                yearlyEnd = yearEnd(),
+                            ),
+                        )
+                    }
                     .stateIn(
                         scope = viewModelScope,
                         started = SharingStarted.WhileSubscribed(Constants.TIMEOUT_MILLIS),
@@ -167,6 +178,19 @@ object Fetcher {
                     )
                 )
             }
+        }
+    }
+
+    /**
+     * Emits immediately and then once at each local midnight, so the counts
+     * collector is re-created with freshly derived period bounds when the
+     * day rolls over — without re-running the aggregation query more often
+     * than the count table itself is written to.
+     */
+    private fun midnightTick(): Flow<Unit> = flow {
+        while (true) {
+            emit(Unit)
+            delay((nextMidnight() - now()).coerceAtLeast(1))
         }
     }
 
