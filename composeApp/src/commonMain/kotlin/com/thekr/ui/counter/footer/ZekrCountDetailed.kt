@@ -69,49 +69,60 @@ fun DetailedThekrCount(
         verticalArrangement = Arrangement.spacedBy(tiny, alignment = Alignment.CenterVertically),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        // Display counts based on visibility settings
+        // Display counts based on visibility settings. Each CountItem is
+        // keyed by period: the items are conditionally included, so
+        // positional slot identity alone would let one period's saved
+        // progress bleed into another's slot after a visibility toggle.
         if (settingsDetails.showDailyCount) {
-            CountItem(
-                count = count.dailyCount,
-                countLabel = stringResource(Res.string.daily),
-                target = thekrInstanceDetails.dailyTarget,
-                targetStatus = thekrInstanceDetails.dailyTargetStatus,
-                thekrDetails = thekrDetails,
-                colors = colors
-            )
+            key("daily") {
+                CountItem(
+                    count = count.dailyCount,
+                    countLabel = stringResource(Res.string.daily),
+                    target = thekrInstanceDetails.dailyTarget,
+                    targetStatus = thekrInstanceDetails.dailyTargetStatus,
+                    thekrDetails = thekrDetails,
+                    colors = colors
+                )
+            }
         }
 
         if (settingsDetails.showWeeklyCount) {
-            CountItem(
-                count = count.weeklyCount,
-                countLabel = stringResource(Res.string.weekly),
-                target = thekrInstanceDetails.weeklyTarget,
-                targetStatus = thekrInstanceDetails.weeklyTargetStatus,
-                thekrDetails = thekrDetails,
-                colors = colors
-            )
+            key("weekly") {
+                CountItem(
+                    count = count.weeklyCount,
+                    countLabel = stringResource(Res.string.weekly),
+                    target = thekrInstanceDetails.weeklyTarget,
+                    targetStatus = thekrInstanceDetails.weeklyTargetStatus,
+                    thekrDetails = thekrDetails,
+                    colors = colors
+                )
+            }
         }
 
         if (settingsDetails.showMonthlyCount) {
-            CountItem(
-                count = count.monthlyCount,
-                countLabel = stringResource(Res.string.monthly),
-                target = thekrInstanceDetails.monthlyTarget,
-                targetStatus = thekrInstanceDetails.monthlyTargetStatus,
-                thekrDetails = thekrDetails,
-                colors = colors
-            )
+            key("monthly") {
+                CountItem(
+                    count = count.monthlyCount,
+                    countLabel = stringResource(Res.string.monthly),
+                    target = thekrInstanceDetails.monthlyTarget,
+                    targetStatus = thekrInstanceDetails.monthlyTargetStatus,
+                    thekrDetails = thekrDetails,
+                    colors = colors
+                )
+            }
         }
 
         if (settingsDetails.showYearlyCount) {
-            CountItem(
-                count = count.yearlyCount,
-                countLabel = stringResource(Res.string.yearly),
-                target = thekrInstanceDetails.yearlyTarget,
-                targetStatus = thekrInstanceDetails.yearlyTargetStatus,
-                thekrDetails = thekrDetails,
-                colors = colors
-            )
+            key("yearly") {
+                CountItem(
+                    count = count.yearlyCount,
+                    countLabel = stringResource(Res.string.yearly),
+                    target = thekrInstanceDetails.yearlyTarget,
+                    targetStatus = thekrInstanceDetails.yearlyTargetStatus,
+                    thekrDetails = thekrDetails,
+                    colors = colors
+                )
+            }
         }
 
         if (settingsDetails.showTotalCount) {
