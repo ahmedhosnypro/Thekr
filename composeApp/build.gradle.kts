@@ -106,7 +106,6 @@ kotlin {
             implementation(libs.compose.ui.tooling)
             implementation(libs.androidx.activity.compose)
             implementation(libs.kotlinx.coroutines.android)
-            implementation(libs.ktor.client.okhttp)
             implementation(libs.bundles.libsu)
             implementation(libs.androidx.appcompat)
 
@@ -124,11 +123,7 @@ kotlin {
             implementation(libs.compose.ui.tooling.preview)
 
             implementation(libs.voyager.navigator)
-            implementation(libs.coil)
-            implementation(libs.coil.network.ktor)
-            implementation(libs.napier)
             implementation(libs.kotlinx.coroutines.core)
-            implementation(libs.ktor.core)
             implementation(libs.composeIcons.featherIcons)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kotlinx.datetime)
@@ -137,11 +132,14 @@ kotlin {
             implementation(libs.kstore)
             implementation(libs.kstore.file)
 
+            // okio was previously only on the android/jvm compile classpath as a
+            // transitive of ktor-client-okhttp; both platform KSettingStore
+            // siblings import okio.Path explicitly, so declare it directly.
+            implementation(libs.okio)
+
             implementation(libs.lifecycle.runtime.compose)
             implementation(libs.lifecycle.viewmodel.compose)
             implementation(libs.navigation.compose)
-
-            implementation(libs.apollo.runtime)
 
             implementation(libs.moko.mvvm)
 
@@ -165,12 +163,7 @@ kotlin {
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
-            implementation(libs.ktor.client.okhttp)
         }
-
-//        iosMain.dependencies {
-//            implementation(libs.ktor.client.darwin)
-//        }
     }
 }
 
@@ -213,6 +206,19 @@ android {
                 storePassword = System.getenv("KEYSTORE_PASSWORD")?.takeIf { it.isNotBlank() } ?: "123456"
                 keyAlias = System.getenv("KEY_ALIAS")?.takeIf { it.isNotBlank() } ?: "key0"
                 keyPassword = System.getenv("KEY_PASSWORD")?.takeIf { it.isNotBlank() } ?: "123456"
+                if (envPath == null) {
+                    // ks.jks is the weak development-only key: it must never
+                    // silently sign a distributable release. CI is unaffected
+                    // (it fails closed without the secret) and env-provided
+                    // keystores skip this warning. No secret values printed.
+                    logger.lifecycle(
+                        "WARNING: the release signing config fell back to the weak " +
+                            "local dev keystore 'ks.jks' instead of a release key. " +
+                            "Set KEYSTORE_PATH, KEYSTORE_PASSWORD, KEY_ALIAS and " +
+                            "KEY_PASSWORD to sign a real release (see " +
+                            ".github/workflows/build-release.yml).",
+                    )
+                }
             }
         }
     }

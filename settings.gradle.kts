@@ -14,10 +14,6 @@ pluginManagement {
         }
         gradlePluginPortal()
         mavenCentral()
-        
-        maven("https://jitpack.io")
-        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-        maven("https://packages.jetbrains.team/maven/p/firework/dev")
     }
 }
 
@@ -31,13 +27,13 @@ dependencyResolutionManagement {
             }
         }
         mavenCentral()
-        maven("https://maven.pkg.jetbrains.space/kotlin/p/wasm/experimental")
-        maven("https://maven.pkg.jetbrains.space/public/p/ktor/eap")
 
+        // Load-bearing for the libsu fingerprint feature: jitpack.io is the ONLY
+        // distribution channel for libsu (per the upstream topjohnwu/libsu README;
+        // probed 2026-09-18 — Maven Central has no libsu under any group). The
+        // only path off jitpack would be vendoring the artifacts locally or
+        // switching libraries; see the follow-up findings before acting.
         maven("https://jitpack.io")
-        maven("https://maven.pkg.github.com/bumble-org/appyx")
-        maven("https://androidx.dev/storage/compose-compiler/repository/")
-        maven("https://packages.jetbrains.team/maven/p/firework/dev")
     }
 }
 plugins {

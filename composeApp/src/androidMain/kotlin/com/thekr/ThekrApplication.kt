@@ -1,6 +1,5 @@
 package com.thekr
 
-import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.util.Log
@@ -9,10 +8,10 @@ import com.thekr.database.AppDataContainer
 import com.thekr.database.initDatabaseIfNeeded
 import com.thekr.di.appStorage
 import com.topjohnwu.superuser.Shell
-import kotlin.io.path.Path
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlin.io.path.Path
 
 class ThekrApplication : Application() {
     /** AppContainer instance used by the rest of classes to get dependencies */
@@ -20,6 +19,12 @@ class ThekrApplication : Application() {
 
     companion object {
         lateinit var appContext: Context
+
+        /** crash_log.txt is append-only and cloud-backed-up: keep it bounded. */
+        private const val CRASH_LOG_MAX_BYTES = 256L * 1024
+
+        /** When the cap is exceeded, keep only this much of the newest content. */
+        private const val CRASH_LOG_KEEP_BYTES = 128 * 1024
     }
 
     init {
@@ -33,13 +38,12 @@ class ThekrApplication : Application() {
             Shell.setDefaultBuilder(
                 Shell.Builder.create()
                     .setFlags(Shell.FLAG_REDIRECT_STDERR)
-                    .setTimeout(10)
+                    .setTimeout(10),
             )
         }
         // No need to get the shell instance here
     }
 
-    @SuppressLint("SuspiciousIndentation")
     override fun onCreate() {
         super.onCreate()
 
@@ -47,23 +51,35 @@ class ThekrApplication : Application() {
 
         container = AppDataContainer(this)
 
-            // Set up global uncaught exception handler (before any background
-            // work starts, so a warm-up failure is still logged here)
-            val defaultHandler = Thread.getDefaultUncaughtExceptionHandler()
-            Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
-                Log.e("ThekrApp", "Uncaught exception in thread: ${thread.name}", throwable)
-                runCatching {
-                    val crashFilePath = filesDir.resolve("crash_log.txt").absolutePath
-                    val logEntry = "\n---\n${java.util.Date()}\nThread: ${thread.name}\n${throwable.stackTraceToString()}"
-                    Path(crashFilePath).toFile().appendText(logEntry)
-                    Log.i("ThekrApp", "Crash log written to: $crashFilePath")
-                }.onFailure {
-                    Log.e("ThekrApp", "Failed to write crash log", it)
+        // Set up global uncaught exception handler (before any background
+        // work starts, so a warm-up failure is still logged here)
+        val defaultHandler = Thread.getDefaultUncaughtExceptionHandler()
+        Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
+            Log.e("ThekrApp", "Uncaught exception in thread: ${thread.name}", throwable)
+            runCatching {
+                val crashFile = filesDir.resolve("crash_log.txt")
+                // Bound the log before appending: a crash-looping device
+                // grows it on every launch, and the file is included in
+                // cloud backups. Keep only the newest tail when over cap.
+                if (crashFile.exists() && crashFile.length() > CRASH_LOG_MAX_BYTES) {
+                    val tail =
+                        crashFile.readText()
+                            .takeLast(CRASH_LOG_KEEP_BYTES)
+                            .dropWhile { it != '\n' }
+                            .drop(1)
+                    crashFile.writeText(tail)
                 }
-                // Delegate to the previous handler so the process still dies
-                // normally instead of being left running in a broken state
-                defaultHandler?.uncaughtException(thread, throwable)
+                val crashFilePath = crashFile.absolutePath
+                val logEntry = "\n---\n${java.util.Date()}\nThread: ${thread.name}\n${throwable.stackTraceToString()}"
+                Path(crashFilePath).toFile().appendText(logEntry)
+                Log.i("ThekrApp", "Crash log written to: $crashFilePath")
+            }.onFailure {
+                Log.e("ThekrApp", "Failed to write crash log", it)
             }
+            // Delegate to the previous handler so the process still dies
+            // normally instead of being left running in a broken state
+            defaultHandler?.uncaughtException(thread, throwable)
+        }
 
         // Build the Room database off the main thread; first access is gated by
         // initDatabaseIfNeeded, so this only warms the build up. A build
@@ -75,5 +91,3 @@ class ThekrApplication : Application() {
         appStorage = filesDir.path
     }
 }
-
-
