@@ -28,9 +28,11 @@ dependencyResolutionManagement {
         }
         mavenCentral()
 
-        // Load-bearing for the libsu fingerprint feature: com.github.topjohnwu.libsu
-        // resolves from jitpack.io only (probed 2026-09-18; not on Maven Central
-        // under these coordinates — Central publishes it as com.github.topjohnwu:libsu).
+        // Load-bearing for the libsu fingerprint feature: jitpack.io is the ONLY
+        // distribution channel for libsu (per the upstream topjohnwu/libsu README;
+        // probed 2026-09-18 — Maven Central has no libsu under any group). The
+        // only path off jitpack would be vendoring the artifacts locally or
+        // switching libraries; see the follow-up findings before acting.
         maven("https://jitpack.io")
     }
 }
