@@ -20,6 +20,12 @@ class ThekrApplication : Application() {
 
     companion object {
         lateinit var appContext: Context
+
+        /** crash_log.txt is append-only and cloud-backed-up: keep it bounded. */
+        private const val CRASH_LOG_MAX_BYTES = 256L * 1024
+
+        /** When the cap is exceeded, keep only this much of the newest content. */
+        private const val CRASH_LOG_KEEP_BYTES = 128 * 1024
     }
 
     init {
@@ -53,7 +59,19 @@ class ThekrApplication : Application() {
             Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
                 Log.e("ThekrApp", "Uncaught exception in thread: ${thread.name}", throwable)
                 runCatching {
-                    val crashFilePath = filesDir.resolve("crash_log.txt").absolutePath
+                    val crashFile = filesDir.resolve("crash_log.txt")
+                    // Bound the log before appending: a crash-looping device
+                    // grows it on every launch, and the file is included in
+                    // cloud backups. Keep only the newest tail when over cap.
+                    if (crashFile.exists() && crashFile.length() > CRASH_LOG_MAX_BYTES) {
+                        val tail =
+                            crashFile.readText()
+                                .takeLast(CRASH_LOG_KEEP_BYTES)
+                                .dropWhile { it != '\n' }
+                                .drop(1)
+                        crashFile.writeText(tail)
+                    }
+                    val crashFilePath = crashFile.absolutePath
                     val logEntry = "\n---\n${java.util.Date()}\nThread: ${thread.name}\n${throwable.stackTraceToString()}"
                     Path(crashFilePath).toFile().appendText(logEntry)
                     Log.i("ThekrApp", "Crash log written to: $crashFilePath")
