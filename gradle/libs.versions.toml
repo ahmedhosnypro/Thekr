@@ -47,7 +47,7 @@ apollo = "5.1.0"
 kotlinx-io = "0.9.1"
 okio = "3.18.1"
 
-korge= "6.0.0"
+korlibs = "6.0.0"
 
 sdp-ssp-compose-multiplatform= "1.0.7"
 constraintlayout-compose-multiplatform= "0.8.2"
@@ -131,7 +131,8 @@ lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifec
 navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigation-compose" }
 # Third party
 appdirs = { module = "ca.gosyer:kotlin-multiplatform-appdirs", version.ref = "appdirs" }
-korge-core = { module = "com.soywiz.korge:korge", version.ref = "korge" }
+korlibs-audio = { module = "com.soywiz:korlibs-audio", version.ref = "korlibs" }
+korlibs-time = { module = "com.soywiz:korlibs-time", version.ref = "korlibs" }
 
 sdp-ssp-compose-multiplatform = { module = "network.chaintech:sdp-ssp-compose-multiplatform", version.ref = "sdp-ssp-compose-multiplatform" }
 
@@ -177,7 +178,6 @@ apollo = { id = "com.apollographql.apollo", version.ref = "apollo" }
 
 binary-compatibility-validator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binary-compatibility-validator" }
 
-korge  = {id ="com.soywiz.korge", version.ref = "korge"}
 android-test = { id = "com.android.test", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 baselineprofile = { id = "androidx.baselineprofile", version.ref = "baselineprofile" }

@@ -12,7 +12,6 @@ plugins {
     alias(libs.plugins.room)
     alias(libs.plugins.ksp)
 
-//    alias(libs.plugins.korge)
     // id("org.jetbrains.compose.hot-reload") version "1.0.0-dev-63"
     alias(libs.plugins.baselineprofile)
     alias(libs.plugins.detekt)
@@ -149,7 +148,8 @@ kotlin {
             implementation(libs.kotlinx.io.core)
             implementation(libs.appdirs)
 
-            implementation(libs.korge.core)
+            implementation(libs.korlibs.audio)
+            implementation(libs.korlibs.time)
             implementation(libs.sdp.ssp.compose.multiplatform)
 
             implementation(libs.constraintlayout.compose.multiplatform)
