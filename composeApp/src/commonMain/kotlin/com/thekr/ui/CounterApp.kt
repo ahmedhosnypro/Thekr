@@ -33,14 +33,21 @@ fun CounterApp(
     var currentLang by rememberSaveable { mutableStateOf("") }
 
     val settings by settingsStore.updates.collectAsState(Settings())
-    val azkarState by appViewModel.appState.collectAsState()
 
     LaunchedEffect(Unit) {
         AppActions.initActions(appViewModel)
     }
 
-    LaunchedEffect(azkarState) {
-        AppStateHolder.updateState(azkarState)
+    // AppState is not read in composition here: every field the UI renders
+    // is a snapshot-state member of AppState mutated in place, and the only
+    // emission-carried field (currentViewedSebhaCategory) is consumed by
+    // event handlers through AppStateHolder. This Unit-keyed collector
+    // delivers every emission to the holder immediately — no root
+    // recomposition per push, and no one-frame holder lag.
+    LaunchedEffect(appViewModel) {
+        appViewModel.appState.collect { state ->
+            AppStateHolder.updateState(state)
+        }
     }
 
     val navController = rememberNavController()
@@ -61,7 +68,9 @@ fun CounterApp(
 
     val settingsDetails = settings!!.toSettingsDetails()
 
-    LaunchedEffect(settingsDetails) {
+    // Re-run the locale switch only when the language changes — not on
+    // every settings emission (font size, theme, etc.).
+    LaunchedEffect(settingsDetails.language) {
         changeLang(settingsDetails.language)
         if (currentLang != settingsDetails.language) {
             currentLang = settingsDetails.language
@@ -90,7 +99,7 @@ fun CounterApp(
             ) {
                 CounterNavyHost(
                     settingsDetails = settingsDetails,
-                    appState = azkarState,
+                    appState = appViewModel.appState,
                     navController = navController,
                 )
             }

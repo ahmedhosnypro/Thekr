@@ -1,10 +1,14 @@
+// ktlint 1.5's class-signature rule wants this class's 2-parameter primary
+// constructor collapsed onto one line, while detekt's ParameterListWrapping
+// demands one parameter per line — no formatting satisfies both, so the
+// codebase's established multiline form wins and the ktlint rule is off.
+@file:Suppress("ktlint:standard:class-signature")
+
 package com.thekr.ui.thekr.entry
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.thekr.data.thekr.category.CategoryDetails
-import com.thekr.data.thekr.count.ThekrCount
 import com.thekr.data.thekr.instance.ThekrInstanceRepository
 import com.thekr.data.thekr.thekr.ThekrEntry
 import com.thekr.data.thekr.thekr.ThekrEntryUiState
@@ -16,7 +20,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-
 
 /**
  * ViewModel for the Thekr entry screen.
@@ -31,7 +34,9 @@ class ThekrEntryViewModel(
     val viewState = _viewState.asStateFlow()
 
     /**
-     * Saves the current Thekr entry.
+     * Saves the current Thekr entry. The `saved` flag is the in-flight
+     * guard; it rolls back on failure so the entry stays editable and the
+     * save can be retried.
      *
      * @param parentCategory The category to which the Thekr belongs.
      */
@@ -39,14 +44,25 @@ class ThekrEntryViewModel(
         if (!viewState.value.saved && validateInput(viewState.value)) {
             _viewState.update { it.copy(saved = true) }
             viewModelScope.launch {
-                saveThekrAndInstance(parentCategory)
-                NavigationActions.navigateUp()
+                // runCatching splits success (navigate away) from a failed
+                // insert (roll the in-flight flag back so the entry stays
+                // editable and the save can be retried), mirroring the
+                // SettingActions fallback pattern.
+                if (runCatching { saveThekrAndInstance(parentCategory) }.isSuccess) {
+                    NavigationActions.navigateUp()
+                } else {
+                    _viewState.update { it.copy(saved = false) }
+                }
             }
         }
     }
 
     /**
-     * Saves the Thekr and ThekrInstance entities to the database.
+     * Saves the Thekr and ThekrInstance entities to the database. The
+     * category's snapshot lists are NOT touched here: the category's
+     * Room->Fetcher collectors (open since the category was first displayed)
+     * are the single write path into thekrList/thekrInstanceList/countList,
+     * and they pick up both inserts from the Room emissions.
      *
      * @param parentCategory The category to which the Thekr belongs.
      */
@@ -57,17 +73,7 @@ class ThekrEntryViewModel(
 
             val thekrInstance = viewState.value.thekrEntry.toThekrInstance()
                 .copy(thekrId = insertedThekrId, categoryId = parentCategory.id)
-            val thekrInstanceId = thekrInstanceRepository.insert(thekrInstance)
-
-            parentCategory.countList.add(
-                mutableStateOf(
-                    ThekrCount(
-                        thekrInstanceId = insertedThekrId,
-                        categoryId = parentCategory.id,
-                        timeUpdated = System.currentTimeMillis(),
-                    )
-                )
-            )
+            thekrInstanceRepository.insert(thekrInstance)
         }
     }
 
@@ -79,14 +85,14 @@ class ThekrEntryViewModel(
     fun updateLabel(label: String) {
         val isLabelValid = label.isNotBlank()
         val isEntryValid = validateInput(
-            viewState.value.copy(thekrEntry = viewState.value.thekrEntry.copy(text = label))
+            viewState.value.copy(thekrEntry = viewState.value.thekrEntry.copy(text = label)),
         )
 
         _viewState.update { currentState ->
             currentState.copy(
                 thekrEntry = currentState.thekrEntry.copy(text = label),
                 isLabelValid = isLabelValid,
-                isEntryValid = isEntryValid
+                isEntryValid = isEntryValid,
             )
         }
     }
@@ -99,13 +105,13 @@ class ThekrEntryViewModel(
     fun updateCoolDown(coolDown: String) {
         val updatedCoolDown = if (coolDown.isBlank()) 400L else coolDown.toLongOrNull()
         val isEntryValid = validateInput(
-            viewState.value.copy(thekrEntry = viewState.value.thekrEntry.copy(coolDown = updatedCoolDown ?: 0))
+            viewState.value.copy(thekrEntry = viewState.value.thekrEntry.copy(coolDown = updatedCoolDown ?: 0)),
         )
 
         _viewState.update { currentState ->
             currentState.copy(
                 thekrEntry = currentState.thekrEntry.copy(coolDown = updatedCoolDown ?: 400),
-                isEntryValid = isEntryValid
+                isEntryValid = isEntryValid,
             )
         }
     }
@@ -118,16 +124,16 @@ class ThekrEntryViewModel(
      */
     private fun updateTargetValue(
         targetValue: String,
-        updateStateLambda: (ThekrEntry, Long) -> ThekrEntry
+        updateStateLambda: (ThekrEntry, Long) -> ThekrEntry,
     ) {
         val updatedTarget = if (targetValue.isBlank()) 0L else targetValue.toLongOrNull()
         val isEntryValid = validateInput(
-            viewState.value.copy(thekrEntry = updateStateLambda(viewState.value.thekrEntry, updatedTarget ?: 0))
+            viewState.value.copy(thekrEntry = updateStateLambda(viewState.value.thekrEntry, updatedTarget ?: 0)),
         )
         _viewState.update { currentState ->
             currentState.copy(
                 thekrEntry = updateStateLambda(currentState.thekrEntry, updatedTarget ?: 0),
-                isEntryValid = isEntryValid
+                isEntryValid = isEntryValid,
             )
         }
     }
@@ -186,8 +192,6 @@ class ThekrEntryViewModel(
  * @param thekrEntryUiState The UI state to validate.
  * @return True if the input is valid, false otherwise.
  */
-fun validateInput(thekrEntryUiState: ThekrEntryUiState): Boolean {
-    return with(thekrEntryUiState) {
-        thekrEntry.text.isNotBlank()
-    }
+fun validateInput(thekrEntryUiState: ThekrEntryUiState): Boolean = with(thekrEntryUiState) {
+    thekrEntry.text.isNotBlank()
 }
