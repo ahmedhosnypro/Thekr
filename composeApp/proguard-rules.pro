@@ -16,20 +16,8 @@
 -dontwarn org.graalvm.**
 -dontwarn com.oracle.svm.**
 
-# Conscrypt - Optional TLS/SSL provider (OkHttp uses default JVM TLS)
--dontwarn org.conscrypt.**
-
-# BouncyCastle JSSE - Optional crypto provider
--dontwarn org.bouncycastle.**
-
-# OpenJSSE - Optional TLS/SSL provider
--dontwarn org.openjsse.**
-
 # FindBugs annotations - Optional static analysis annotations
 -dontwarn edu.umd.cs.findbugs.annotations.**
-
-# Ktor JVM-specific NIO utilities - Optional platform-specific optimizations
--dontwarn io.ktor.utils.io.jvm.nio.**
 
 # Kotlin concurrent atomics - Optional multiplatform atomic operations
 -dontwarn kotlin.concurrent.atomics.**
@@ -82,7 +70,6 @@
 -dontwarn java.lang.invoke.StringConcatFactory
 
 # Suppress specific method reference warnings
--dontwarn io.ktor.utils.io.ByteReadChannelKt
 -dontwarn korlibs.ffi.FFILib_jvmKt
 
 # Keep JNA classes used by korlibs
