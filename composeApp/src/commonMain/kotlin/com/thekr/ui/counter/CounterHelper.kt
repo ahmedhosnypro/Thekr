@@ -26,7 +26,9 @@ import com.thekr.ui.stats.DayStatisticsType
 import com.thekr.ui.stats.data.DailyStatisticsData.calcDayStatistics
 import com.thekr.ui.stats.data.StatisticsData
 import com.thekr.ui.stats.data.WeeklyStatisticsData.calcWeekStatistics
+import com.thekr.ui.stats.data.emptyStatisticsData
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
 
 /**
@@ -81,6 +83,20 @@ object CounterHelper {
     var initialized: MutableState<Boolean> = mutableStateOf(false)
 
     /**
+     * Identifies the latest [initActions] registration, so a stale screen's
+     * release hook never clears the actions of a newer Counter screen.
+     */
+    private var registration: Any? = null
+
+    /**
+     * Placeholder states served by the data-access getters once the actions
+     * are released, so no consumer can reach a disposed ViewModel.
+     */
+    private val releasedThekrInstance = mutableStateOf(ThekrInstanceDetails())
+    private val releasedThekrCount = mutableStateOf(ThekrCount())
+    private val releasedThekrDetails = mutableStateOf(ThekrDetails())
+
+    /**
      * Initializes actions for the Counter screen, connecting UI events to
      * ViewModel functions.
      *
@@ -88,13 +104,78 @@ object CounterHelper {
      *     the Counter screen.
      */
     fun initActions(actionComponents: CounterActionComponents) {
+        val registrationToken = Any()
+        registration = registrationToken
         initDataAccess(actionComponents.counterViewModel)
         initCountingActions(actionComponents.counterViewModel)
         initBottomSheetActions(actionComponents)
         initSettingsActions()
         initStatisticsActions(actionComponents.counterViewModel)
         initNavigationAndUiActions(actionComponents)
+        // The Counter screen's composition scope (ThekrScreen's
+        // rememberCoroutineScope) is cancelled only when the screen is left
+        // for good; in-screen overlay switches (statistics, thekr list menu)
+        // keep it alive. Releasing the registered actions at that point makes
+        // the disposed ViewModel collectible while every consumer stays
+        // reachable for as long as the screen is composed.
+        actionComponents.coroutineScope.coroutineContext.job
+            .invokeOnCompletion {
+                if (registration === registrationToken) releaseActions()
+            }
         initialized.value = true
+    }
+
+    /**
+     * Replaces every registered action with a placeholder that captures
+     * nothing, so this process-lifetime singleton stops retaining the
+     * Counter screen's ViewModel after dispose. Re-entering the Counter
+     * screen re-registers everything via [initActions].
+     */
+    private fun releaseActions() {
+        // Counting
+        onCount = {}
+        updateOnCount = {}
+
+        // Bottom sheet and count visibility
+        onClickCountVisibility = {}
+        toggleDailyCountVisibility = {}
+        toggleWeeklyCountVisibility = {}
+        toggleMonthlyCountVisibility = {}
+        toggleYearlyCountVisibility = {}
+        toggleTotalCountVisibility = {}
+        toggleSessionCountVisibility = {}
+
+        // Settings
+        onClickThemeMode = {}
+        onClickIncreaseFontSize = {}
+        onClickDecreaseFontSize = {}
+        onSettingUpdate = {}
+
+        // Statistics
+        dayStatisticsData = { _, _ -> emptyStatisticsData() }
+        weekStatisticsData = { emptyStatisticsData() }
+
+        // Navigation and UI
+        onCounterDispose = {}
+        scrollToThekr = {}
+        scrollToNextThekr = {}
+        onEditClick = {}
+        onNavigateUp = {}
+        showCategoryThekrListMenu = {}
+        showThekrStatistics = {}
+        onPlayAudio = {}
+        updateUiState = {}
+
+        // Data access
+        getCurrentThekrInstance = { releasedThekrInstance }
+        getThekrInstance = { releasedThekrInstance }
+        getThekrCount = { releasedThekrCount }
+        getCurrentThekrCount = { releasedThekrCount }
+        getThekr = { releasedThekrDetails }
+        tabIndexOf = { 0 }
+
+        registration = null
+        initialized.value = false
     }
 
     // --- Counting Actions ---
@@ -105,7 +186,6 @@ object CounterHelper {
 
     // --- Bottom Sheet and Count Visibility Actions ---
     private fun initBottomSheetActions(components: CounterActionComponents) {
-
         onClickCountVisibility = {
             SettingActions.changeCountVisibility()
             handleBottomSheetExpansion(components)
@@ -177,7 +257,7 @@ object CounterHelper {
                 components.coroutineScope.launch {
                     pagerState.animateScrollToPage(
                         pagerState.currentPage + 1,
-                        animationSpec = tween(100)
+                        animationSpec = tween(100),
                     )
                 }
                 if (ThekrSoundPlayer.isPlaying) {
@@ -191,7 +271,7 @@ object CounterHelper {
         showThekrStatistics = { counterViewModel.showStatistics() }
 
         onEditClick = {
-            //todo: initialize
+            // todo: initialize
         }
 
         onPlayAudio = {

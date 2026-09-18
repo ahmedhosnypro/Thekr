@@ -14,18 +14,17 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.thekr.data.settings.SettingsDetails
 import com.thekr.data.thekr.category.CategoryDetails
 import com.thekr.resources.Res
 import com.thekr.resources.thekr_indicator
 import com.thekr.ui.component.LocalizedApp
-import com.thekr.ui.counter.CounterHelper
 import com.thekr.ui.theme.AppTheme
 import com.thekr.values.Dimensions.medium
 import com.thekr.values.Dimensions.xLarge
 import org.jetbrains.compose.resources.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 
 /**
  * Displays a list of Thekr items within a category.
@@ -38,6 +37,9 @@ import androidx.compose.ui.tooling.preview.Preview
  * @param homeOnClick Callback invoked when a Thekr item is clicked in the
  *     Category context.
  */
+// Composables use PascalCase per the Compose API guidelines; this ktlint
+// version doesn't apply the editorconfig @Composable naming exemption.
+@Suppress("ktlint:standard:function-naming")
 @Composable
 fun ThekrList(
     categoryDetails: MutableState<CategoryDetails>,
@@ -61,7 +63,7 @@ fun ThekrList(
 
         itemsIndexed(
             items = category.thekrInstanceList,
-            key = { _, item -> item.value.id }
+            key = { _, item -> item.value.id },
         ) { index, item ->
             val colorIndex = if (index < 6) index else index % 6
 
@@ -76,7 +78,7 @@ fun ThekrList(
                     homeOnClick(tabIndex, item.value.categoryId, item.value.thekrId)
                 },
                 categoryListOnClick = {
-                    categoryListOnClick(CounterHelper.tabIndexOf(item.value.id))
+                    categoryListOnClick(index)
                 },
                 modifier = Modifier.padding(horizontal = medium),
                 leadingIcon = {
@@ -98,6 +100,7 @@ fun ThekrList(
 }
 
 @Preview
+@Suppress("ktlint:standard:function-naming")
 @Composable
 fun ThekrListPreview() {
     AppTheme {
