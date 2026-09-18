@@ -35,6 +35,20 @@ fun IconWrapper(
     }
 }
 
+@Composable
+@Suppress("ktlint:standard:function-naming")
+fun IconWrapper(
+    icon: DrawableResource,
+    contentDescription: String?,
+    modifier: Modifier = Modifier,
+    tint: Color? = null,
+) = IconWrapper(
+    icon = ThekrIcon.Drawable(icon),
+    contentDescription = contentDescription,
+    modifier = modifier,
+    tint = tint,
+)
+
 @Stable
 sealed interface ThekrIcon {
     data class Vector(val imageVector: ImageVector) : ThekrIcon
