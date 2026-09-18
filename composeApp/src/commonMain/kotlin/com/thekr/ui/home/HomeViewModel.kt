@@ -9,7 +9,7 @@ import com.thekr.model.ThekrCategoryType
 import com.thekr.ui.AppActions
 import com.thekr.ui.navigation.NavigationActions
 import com.thekr.ui.navigation.route.ThekrScreenRoute
-import com.thekr.ui.viewmodel.AppStateHolder.appState
+import com.thekr.ui.viewmodel.AppState
 import com.thekr.ui.viewmodel.AppViewModelHolder
 import com.thekr.values.Constants
 import kotlinx.coroutines.flow.first
@@ -21,6 +21,17 @@ import kotlinx.coroutines.withTimeoutOrNull
  * retrieval for the Home screen UI.
  */
 class HomeViewModel : ViewModel() {
+
+    /**
+     * The live AppViewModel state, read directly from the StateFlow value.
+     *
+     * [AppStateHolder] is refreshed by an effect one composition frame
+     * behind the live flow, so computing navigation args from its copy
+     * made a same-frame click after a stack push navigate with a stale
+     * initialPage. The click path must read live state instead.
+     */
+    private val liveAppState: AppState
+        get() = AppViewModelHolder.appViewModel.mutableAppState.value
 
     /**
      * Handles the click event on a Thekr item. Navigates to the ThekrDetails
@@ -55,7 +66,7 @@ class HomeViewModel : ViewModel() {
     fun onCategoryClick(
         tabIndex: Int,
         categoryDetails: MutableState<CategoryDetails>,
-        showSnackBar: (String) -> Unit
+        showSnackBar: (String) -> Unit,
     ) {
         // Lazy-fetch gate: opens the category's flows before its content is
         // read or navigated to (idempotent per category).
@@ -84,7 +95,7 @@ class HomeViewModel : ViewModel() {
      */
     private fun handleEmptyCategoryClick(
         categoryDetails: MutableState<CategoryDetails>,
-        showSnackBar: (String) -> Unit
+        showSnackBar: (String) -> Unit,
     ) {
         val category = categoryDetails.value
         if (category.thekrList.isNotEmpty()) {
@@ -126,21 +137,21 @@ class HomeViewModel : ViewModel() {
      * @param thekrId The ID of the Thekr.
      * @return The index of the Thekr within its category, or null if not found.
      */
-    private fun getThekrPageIndex(tabIndex: Int, thekrId: Long): Int? {
-        return when (tabIndex) {
-            ThekrCategoryType.User.tabIndex -> appState.currentViewedSebhaCategory
+    private fun getThekrPageIndex(tabIndex: Int, thekrId: Long): Int? = when (tabIndex) {
+        ThekrCategoryType.User.tabIndex ->
+            liveAppState.currentViewedSebhaCategory
                 ?.value?.thekrInstanceList?.indexOfFirst { it.value.thekrId == thekrId }
 
-            ThekrCategoryType.HesnAlMuslim.tabIndex -> appState.hesnAlmuslimStack.last().value.thekrInstanceList.indexOfFirst { it.value.thekrId == thekrId }
+        ThekrCategoryType.HesnAlMuslim.tabIndex -> liveAppState.hesnAlmuslimStack.last().value
+            .thekrInstanceList.indexOfFirst { it.value.thekrId == thekrId }
 
-            ThekrCategoryType.Knooz.tabIndex -> appState.knoozStack.last().value
-                .thekrInstanceList.indexOfFirst { it.value.thekrId == thekrId }
+        ThekrCategoryType.Knooz.tabIndex -> liveAppState.knoozStack.last().value
+            .thekrInstanceList.indexOfFirst { it.value.thekrId == thekrId }
 
-            ThekrCategoryType.Dua.tabIndex -> appState.duaCategoryStack.last().value
-                .thekrInstanceList.indexOfFirst { it.value.thekrId == thekrId }
+        ThekrCategoryType.Dua.tabIndex -> liveAppState.duaCategoryStack.last().value
+            .thekrInstanceList.indexOfFirst { it.value.thekrId == thekrId }
 
-            else -> null
-        }
+        else -> null
     }
 
     /**
@@ -151,22 +162,20 @@ class HomeViewModel : ViewModel() {
      * @return The total number of Thekr pages, or null if the category is
      *     invalid.
      */
-    private fun getThekrPageCount(tabIndex: Int): Int? {
-        return when (tabIndex) {
-            ThekrCategoryType.User.tabIndex ->
-                appState.currentViewedSebhaCategory?.value?.thekrInstanceList?.size
+    private fun getThekrPageCount(tabIndex: Int): Int? = when (tabIndex) {
+        ThekrCategoryType.User.tabIndex ->
+            liveAppState.currentViewedSebhaCategory?.value?.thekrInstanceList?.size
 
-            ThekrCategoryType.HesnAlMuslim.tabIndex ->
-                appState.hesnAlmuslimStack.last().value.thekrInstanceList.size
+        ThekrCategoryType.HesnAlMuslim.tabIndex ->
+            liveAppState.hesnAlmuslimStack.last().value.thekrInstanceList.size
 
-            ThekrCategoryType.Knooz.tabIndex ->
-                appState.knoozStack.last().value.thekrInstanceList.size
+        ThekrCategoryType.Knooz.tabIndex ->
+            liveAppState.knoozStack.last().value.thekrInstanceList.size
 
-            ThekrCategoryType.Dua.tabIndex ->
-                appState.duaCategoryStack.last().value.thekrInstanceList.size
+        ThekrCategoryType.Dua.tabIndex ->
+            liveAppState.duaCategoryStack.last().value.thekrInstanceList.size
 
-            else -> null
-        }
+        else -> null
     }
 
     /**
@@ -183,6 +192,5 @@ class HomeViewModel : ViewModel() {
         val route =
             "${ThekrScreenRoute.route}/${category.id}/$thekrId/0/${category.thekrInstanceList.size}"
         NavigationActions.navigate(route)
-
     }
 }

@@ -13,6 +13,7 @@ data class ThekrInstanceCountTotals(
     val monthlyCount: Long,
     val yearlyCount: Long,
     val totalCount: Long,
+    val maxTimeCreated: Long,
 )
 
 data class CountPeriodBounds(
@@ -31,6 +32,10 @@ interface CountDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(count: Count)
 
+    /** Batched counterpart of [insert] for count-tap write buffering. */
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertAll(counts: List<Count>)
+
     // Combine similar queries using a single base query with optional parameters
     @Query(
         """
@@ -38,12 +43,12 @@ interface CountDAO {
         WHERE (:thekrInstanceId IS NULL OR thekrInstanceId = :thekrInstanceId)
         AND (:timeCreatedAfter IS NULL OR timeCreated > :timeCreatedAfter)
         AND (:timeCreatedBefore IS NULL OR timeCreated < :timeCreatedBefore)
-    """
+    """,
     )
     fun findCounts(
         thekrInstanceId: Long? = null,
         timeCreatedAfter: Long? = null,
-        timeCreatedBefore: Long? = null
+        timeCreatedBefore: Long? = null,
     ): Flow<List<Count>>
 
     // Use a single query for both total and filtered counts
@@ -53,12 +58,12 @@ interface CountDAO {
         WHERE (:thekrInstanceId IS NULL OR thekrInstanceId = :thekrInstanceId)
         AND (:timeCreatedAfter IS NULL OR timeCreated > :timeCreatedAfter)
         AND (:timeCreatedBefore IS NULL OR timeCreated < :timeCreatedBefore)
-    """
+    """,
     )
     fun getCount(
         thekrInstanceId: Long? = null,
         timeCreatedAfter: Long? = null,
-        timeCreatedBefore: Long? = null
+        timeCreatedBefore: Long? = null,
     ): Flow<Int>
 
     // Simplify last count retrieval
@@ -82,10 +87,11 @@ interface CountDAO {
             COUNT(CASE WHEN timeCreated >= :weeklyStart AND timeCreated < :weeklyEnd THEN 1 END) AS weeklyCount,
             COUNT(CASE WHEN timeCreated >= :monthlyStart AND timeCreated < :monthlyEnd THEN 1 END) AS monthlyCount,
             COUNT(CASE WHEN timeCreated >= :yearlyStart AND timeCreated < :yearlyEnd THEN 1 END) AS yearlyCount,
-            COUNT(*) AS totalCount
+            COUNT(*) AS totalCount,
+            COALESCE(MAX(timeCreated), 0) AS maxTimeCreated
         FROM count
         WHERE thekrInstanceId = :thekrInstanceId
-    """
+    """,
     )
     fun getCountTotalsByThekrInstanceId(
         thekrInstanceId: Long,

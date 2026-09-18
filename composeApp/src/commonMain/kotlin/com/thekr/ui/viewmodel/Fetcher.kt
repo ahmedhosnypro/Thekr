@@ -83,7 +83,7 @@ object Fetcher {
                 .collect { thekrInstanceDetailsList ->
                     updateThekrInstanceList(
                         toUpdateThekrInstanceList = categoryDetails.value.thekrInstanceList,
-                        updatedThekrInstanceList = thekrInstanceDetailsList
+                        updatedThekrInstanceList = thekrInstanceDetailsList,
                     )
 
                     val currentInstanceIds = thekrInstanceDetailsList.mapTo(HashSet()) { it.id }
@@ -124,7 +124,19 @@ object Fetcher {
     /**
      * Fetches and updates the counts for a specific Thekr instance.
      *
-     * @param thekrId The ID of the Thekr definition; kept as the exposed
+     * The aggregation query runs against the instance's own id (true
+     * per-instance keying); the exposed [ThekrCount] carries that id in
+     * [ThekrCount.instanceId] while staying keyed by the Thekr definition
+     * id ([ThekrCount.thekrId]) that per-thekr consumers look counts up
+     * by. A re-derivation point flushes the count batch buffer first so
+     * the new bounds are computed over complete Room data, and its first
+     * emission bypasses the freshness guard so period rollovers always
+     * land. Subsequent emissions carry the newest persisted row time as
+     * their data freshness, so an emission never overwrites an entry
+     * holding optimistic in-memory increments newer than the persisted
+     * data.
+     *
+     * @param thekrId The ID of the Thekr definition; the exposed
      *     [ThekrCount] key that consumers look counts up by.
      * @param thekrInstanceId The ID of the Thekr instance the counts belong
      *     to.
@@ -136,14 +148,19 @@ object Fetcher {
     private fun AppViewModel.fetchThekrCounts(
         thekrId: Long,
         thekrInstanceId: Long,
-        categoryDetails: MutableState<CategoryDetails>
+        categoryDetails: MutableState<CategoryDetails>,
     ): Job = viewModelScope.launch(ioDispatcher) {
         midnightTick()
             .flatMapLatest {
-                // Bounds are bound at Flow creation, so re-create the
-                // collector at each midnight (week/month/year windows
-                // all roll over at a midnight too) to keep the SQL
-                // period filters in step with the calendar.
+                // Each tick is a re-derivation point: flush the batch
+                // buffer so Room is complete, then re-create the collector
+                // with freshly derived period bounds (week/month/year
+                // windows all roll over at a midnight too), keeping the
+                // SQL period filters in step with the calendar without
+                // re-running the aggregation query more often than the
+                // count table itself is written to.
+                countRepository.flush()
+                var firstEmission = true
                 countRepository.getCountTotalsByThekrInstanceId(
                     thekrInstanceId = thekrInstanceId,
                     periods = CountPeriodBounds(
@@ -156,23 +173,29 @@ object Fetcher {
                         yearlyStart = yearStart(),
                         yearlyEnd = yearEnd(),
                     ),
-                )
+                ).map { updatedCountTotals ->
+                    val isReDerivation = firstEmission
+                    firstEmission = false
+                    updatedCountTotals to isReDerivation
+                }
             }
-            .collect { updatedCountTotals ->
+            .collect { (updatedCountTotals, isReDerivation) ->
                 // Update ThekrCount item
                 updateThekrCountItem(
                     toUpdateThekrCountList = categoryDetails.value.countList,
                     updatedThekrCountItem = mutableStateOf(
                         ThekrCount(
-                            thekrInstanceId = thekrId,
+                            thekrId = thekrId,
+                            instanceId = thekrInstanceId,
                             dailyCount = updatedCountTotals.dailyCount,
                             weeklyCount = updatedCountTotals.weeklyCount,
                             monthlyCount = updatedCountTotals.monthlyCount,
                             yearlyCount = updatedCountTotals.yearlyCount,
                             totalCount = updatedCountTotals.totalCount,
-                            timeUpdated = now()
-                        )
-                    )
+                            timeUpdated = updatedCountTotals.maxTimeCreated,
+                        ),
+                    ),
+                    forceUpdate = isReDerivation,
                 )
             }
     }
