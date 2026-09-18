@@ -1,3 +1,8 @@
+// @Composable functions are PascalCase per the Compose API guidelines (detekt
+// exempts them via naming.FunctionNaming ignoreAnnotated; ktlint's
+// function-naming rule has no working equivalent in this setup).
+@file:Suppress("ktlint:standard:function-naming")
+
 package com.thekr.ui.thekr.entry
 
 import androidx.compose.foundation.layout.Arrangement
@@ -24,41 +29,46 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.thekr.data.settings.SettingsDetails
 import com.thekr.data.thekr.thekr.ThekrEntry
 import com.thekr.data.thekr.thekr.ThekrEntryUiState
 import com.thekr.model.ThekrTargetStatus
-import com.thekr.ui.component.bar.AppTopBar
-import com.thekr.ui.component.bar.HeaderText
-import com.thekr.ui.navigation.NavigationActions
-import com.thekr.ui.theme.AppTheme
-import com.thekr.ui.component.LocalizedApp
-import com.thekr.values.Dimensions.large
-import com.thekr.values.Dimensions.medium
-import com.thekr.values.Dimensions.normal
-import com.thekr.values.Dimensions.small
-import com.thekr.ui.viewmodel.AppViewModelProvider
-import org.jetbrains.compose.resources.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import com.thekr.resources.Res
 import com.thekr.resources.add_thekr
 import com.thekr.resources.coolDown
 import com.thekr.resources.daily_goal
 import com.thekr.resources.monthly_goal
 import com.thekr.resources.save
+import com.thekr.resources.thekr_content
 import com.thekr.resources.weekly_goal
 import com.thekr.resources.yearly_goal
-import com.thekr.resources.thekr_content
+import com.thekr.ui.component.LocalizedApp
+import com.thekr.ui.component.bar.AppTopBar
+import com.thekr.ui.component.bar.HeaderText
+import com.thekr.ui.navigation.NavigationActions
+import com.thekr.ui.theme.AppColors
+import com.thekr.ui.theme.AppTheme
+import com.thekr.ui.viewmodel.AppViewModelProvider
+import com.thekr.values.Dimensions.large
+import com.thekr.values.Dimensions.medium
+import com.thekr.values.Dimensions.normal
+import com.thekr.values.Dimensions.small
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import org.jetbrains.compose.resources.stringResource
 
-//todo:val c = LocalSoftwareKeyboardController.current
+// todo:val c = LocalSoftwareKeyboardController.current
 @Composable
 fun CounterEntryScreen(
     settingsDetails: SettingsDetails,
@@ -66,19 +76,23 @@ fun CounterEntryScreen(
         AppViewModelProvider.Factory.create(ThekrEntryViewModel::class, this)
     },
 ) {
-    val uiState by viewModel.viewState.collectAsState()
-    LaunchedEffect(Unit) {
+    DisposableEffect(viewModel) {
         ThekrEntryActions.initActions(viewModel)
+        onDispose { ThekrEntryActions.clearActions() }
     }
     CounterEntry(
-        uiState = uiState,
+        viewState = viewModel.viewState,
         settingsDetails = settingsDetails,
     )
 }
 
+// The UI state is deliberately NOT collected at this level: each leaf below
+// subscribes to the fields it renders, so a keystroke only invalidates the
+// edited field's leaf (plus the save button when validity flips) instead of
+// the whole screen.
 @Composable
 fun CounterEntry(
-    uiState: ThekrEntryUiState,
+    viewState: StateFlow<ThekrEntryUiState>,
     settingsDetails: SettingsDetails = SettingsDetails(),
 ) {
     val thekrColors = AppTheme.colors(settingsDetails)
@@ -98,33 +112,45 @@ fun CounterEntry(
                 }
             },
             actions = {
-                Button(
-                    onClick = {
-                        ThekrEntryActions.onSaveClick()
-                    }, enabled = uiState.isEntryValid, colors = ButtonDefaults.textButtonColors(
-                        contentColor = thekrColors.onMainHeader,
-                        disabledContentColor = thekrColors.onMainHeaderDisabled,
-                    )
-                ) {
-                    Text(stringResource(Res.string.save))
-                }
+                SaveActionButton(
+                    viewState = viewState,
+                    thekrColors = thekrColors,
+                )
             },
             settingsDetails = settingsDetails,
         )
     }) { innerPadding ->
-        CounterEntryBody(uiState, modifier = Modifier.padding(innerPadding))
+        CounterEntryBody(viewState, modifier = Modifier.padding(innerPadding))
+    }
+}
+
+@Composable
+private fun SaveActionButton(
+    viewState: StateFlow<ThekrEntryUiState>,
+    thekrColors: AppColors,
+) {
+    val uiState = viewState.collectAsState()
+    val isEntryValid by remember { derivedStateOf { uiState.value.isEntryValid } }
+    Button(
+        onClick = { ThekrEntryActions.onSaveClick() },
+        enabled = isEntryValid,
+        colors = ButtonDefaults.textButtonColors(
+            contentColor = thekrColors.onMainHeader,
+            disabledContentColor = thekrColors.onMainHeaderDisabled,
+        ),
+    ) {
+        Text(stringResource(Res.string.save))
     }
 }
 
 @Composable
 private fun CounterEntryBody(
-    uiState: ThekrEntryUiState,
+    viewState: StateFlow<ThekrEntryUiState>,
     modifier: Modifier = Modifier,
 ) {
 //    val keyboardController = LocalSoftwareKeyboardController.current
 
     val scrollState = rememberScrollState()
-
 
     Column(
         modifier = modifier
@@ -134,37 +160,54 @@ private fun CounterEntryBody(
             .padding(
                 start = normal,
                 end = normal,
-                top = small
-            ), verticalArrangement = Arrangement.spacedBy(16.dp)
+                top = small,
+            ),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        val counterEntry = uiState.thekrEntry
-
-        MyTextField(
-            stringResource(Res.string.thekr_content),
-            counterEntry.text,
-            uiState.isLabelValid,
-            { ThekrEntryActions.onLabelChange(it) },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = medium),
-        )
+        LabelField(viewState)
 
         ThekrGoals(
-            thekrEntry = uiState.thekrEntry,
+            viewState = viewState,
         )
 
-
-        MyTextField(
-            stringResource(Res.string.coolDown),
-            counterEntry.coolDown.toString(),
-            true,
-            { ThekrEntryActions.onCoolDownChange(it) },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = medium),
-            keyboardType = KeyboardType.Number
-        )
+        CoolDownField(viewState)
     }
+}
+
+@Composable
+private fun LabelField(
+    viewState: StateFlow<ThekrEntryUiState>,
+) {
+    val uiState = viewState.collectAsState()
+    val text by remember { derivedStateOf { uiState.value.thekrEntry.text } }
+    val isLabelValid by remember { derivedStateOf { uiState.value.isLabelValid } }
+    MyTextField(
+        stringResource(Res.string.thekr_content),
+        text,
+        isLabelValid,
+        { ThekrEntryActions.onLabelChange(it) },
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = medium),
+    )
+}
+
+@Composable
+private fun CoolDownField(
+    viewState: StateFlow<ThekrEntryUiState>,
+) {
+    val uiState = viewState.collectAsState()
+    val coolDown by remember { derivedStateOf { uiState.value.thekrEntry.coolDown } }
+    MyTextField(
+        stringResource(Res.string.coolDown),
+        coolDown.toString(),
+        true,
+        { ThekrEntryActions.onCoolDownChange(it) },
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = medium),
+        keyboardType = KeyboardType.Number,
+    )
 }
 
 @Composable
@@ -193,85 +236,101 @@ fun MyTextField(
     )
 }
 
-
 @Composable
 fun ThekrGoals(
-    thekrEntry: ThekrEntry,
+    viewState: StateFlow<ThekrEntryUiState>,
 ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(
                 vertical = large,
-            ), verticalArrangement = Arrangement.spacedBy(16.dp)
+            ),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         // yearly goal
-        ThekrGoalItem(
+        ThekrGoalField(
             label = stringResource(Res.string.yearly_goal),
-            value = thekrEntry.yearlyTarget.toString(),
-            isValid = true,
-            enabled = thekrEntry.yearlyTargetStatus == ThekrTargetStatus.Enabled,
+            viewState = viewState,
+            target = { it.thekrEntry.yearlyTarget },
+            status = { it.thekrEntry.yearlyTargetStatus },
             onValueChange = { ThekrEntryActions.onYearlyGoalChange(it) },
-            onCheckedChange = {
-                ThekrEntryActions.updateThekrEntry(
-                    thekrEntry.copy(
-                        yearlyTargetStatus = if (it) ThekrTargetStatus.Enabled else ThekrTargetStatus.Disabled
-                    )
+            onStatusChange = { entry, checked ->
+                entry.copy(
+                    yearlyTargetStatus = if (checked) ThekrTargetStatus.Enabled else ThekrTargetStatus.Disabled,
                 )
             },
         )
 
         // monthly goal
-        ThekrGoalItem(
+        ThekrGoalField(
             label = stringResource(Res.string.monthly_goal),
-            value = thekrEntry.monthlyTarget.toString(),
-            isValid = true,
-            enabled = thekrEntry.monthlyTargetStatus == ThekrTargetStatus.Enabled,
+            viewState = viewState,
+            target = { it.thekrEntry.monthlyTarget },
+            status = { it.thekrEntry.monthlyTargetStatus },
             onValueChange = { ThekrEntryActions.onMonthlyGoalChange(it) },
-            onCheckedChange = {
-                ThekrEntryActions.updateThekrEntry(
-                    thekrEntry.copy(
-                        monthlyTargetStatus = if (it) ThekrTargetStatus.Enabled else ThekrTargetStatus.Disabled
-                    )
+            onStatusChange = { entry, checked ->
+                entry.copy(
+                    monthlyTargetStatus = if (checked) ThekrTargetStatus.Enabled else ThekrTargetStatus.Disabled,
                 )
             },
         )
 
         // weekly goal
-        ThekrGoalItem(
+        ThekrGoalField(
             label = stringResource(Res.string.weekly_goal),
-            value = thekrEntry.weeklyTarget.toString(),
-            isValid = true,
-            enabled = thekrEntry.weeklyTargetStatus == ThekrTargetStatus.Enabled,
+            viewState = viewState,
+            target = { it.thekrEntry.weeklyTarget },
+            status = { it.thekrEntry.weeklyTargetStatus },
             onValueChange = { ThekrEntryActions.onWeeklyGoalChange(it) },
-            onCheckedChange = {
-                ThekrEntryActions.updateThekrEntry(
-                    thekrEntry.copy(
-                        weeklyTargetStatus = if (it) ThekrTargetStatus.Enabled else ThekrTargetStatus.Disabled
-                    )
+            onStatusChange = { entry, checked ->
+                entry.copy(
+                    weeklyTargetStatus = if (checked) ThekrTargetStatus.Enabled else ThekrTargetStatus.Disabled,
                 )
             },
         )
 
         // daily goal
-        ThekrGoalItem(
+        ThekrGoalField(
             label = stringResource(Res.string.daily_goal),
-            value = thekrEntry.dailyTarget.toString(),
-            isValid = true,
-            enabled = thekrEntry.dailyTargetStatus == ThekrTargetStatus.Enabled,
+            viewState = viewState,
+            target = { it.thekrEntry.dailyTarget },
+            status = { it.thekrEntry.dailyTargetStatus },
             onValueChange = { ThekrEntryActions.onDailyGoalChange(it) },
-            onCheckedChange = {
-                ThekrEntryActions.updateThekrEntry(
-                    thekrEntry.copy(
-                        dailyTargetStatus = if (it) ThekrTargetStatus.Enabled else ThekrTargetStatus.Disabled
-                    )
+            onStatusChange = { entry, checked ->
+                entry.copy(
+                    dailyTargetStatus = if (checked) ThekrTargetStatus.Enabled else ThekrTargetStatus.Disabled,
                 )
             },
-            keyboardType = KeyboardType.Number,
         )
     }
 }
 
+@Composable
+private fun ThekrGoalField(
+    label: String,
+    viewState: StateFlow<ThekrEntryUiState>,
+    target: (ThekrEntryUiState) -> Long,
+    status: (ThekrEntryUiState) -> ThekrTargetStatus,
+    onValueChange: (String) -> Unit,
+    onStatusChange: (ThekrEntry, Boolean) -> ThekrEntry,
+) {
+    val uiState = viewState.collectAsState()
+    val targetValue by remember { derivedStateOf { target(uiState.value) } }
+    val enabled by remember { derivedStateOf { status(uiState.value) == ThekrTargetStatus.Enabled } }
+    ThekrGoalItem(
+        label = label,
+        value = targetValue.toString(),
+        isValid = true,
+        enabled = enabled,
+        onValueChange = onValueChange,
+        onCheckedChange = { checked: Boolean ->
+            ThekrEntryActions.updateThekrEntry(
+                onStatusChange(uiState.value.thekrEntry, checked),
+            )
+        },
+    )
+}
 
 @Composable
 fun ThekrGoalItem(
@@ -292,10 +351,11 @@ fun ThekrGoalItem(
                 end = normal,
             ),
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Checkbox(
-            checked = enabled, onCheckedChange = onCheckedChange
+            checked = enabled,
+            onCheckedChange = onCheckedChange,
         )
         OutlinedTextField(
             value = value,
@@ -320,7 +380,7 @@ private fun CounterEntryScreenPreview() {
         Surface {
             LocalizedApp {
                 CounterEntry(
-                    uiState = ThekrEntryUiState(),
+                    viewState = MutableStateFlow(ThekrEntryUiState()),
                 )
             }
         }

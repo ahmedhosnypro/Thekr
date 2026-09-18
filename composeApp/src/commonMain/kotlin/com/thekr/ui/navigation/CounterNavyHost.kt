@@ -1,3 +1,8 @@
+// @Composable functions are PascalCase per the Compose API guidelines (detekt
+// exempts them via naming.FunctionNaming ignoreAnnotated; ktlint's
+// function-naming rule has no working equivalent in this setup).
+@file:Suppress("ktlint:standard:function-naming")
+
 package com.thekr.ui.navigation
 
 import androidx.compose.runtime.Composable
@@ -17,10 +22,11 @@ import com.thekr.ui.navigation.route.ThekrScreenRoute
 import com.thekr.ui.settings.SettingsScreen
 import com.thekr.ui.thekr.entry.CounterEntryScreen
 import com.thekr.ui.viewmodel.AppState
+import kotlinx.coroutines.flow.StateFlow
 
 @Composable
 fun CounterNavyHost(
-    appState: AppState,
+    appState: StateFlow<AppState>,
     settingsDetails: SettingsDetails,
     navController: NavHostController,
     modifier: Modifier = Modifier,
@@ -28,7 +34,7 @@ fun CounterNavyHost(
     NavHost(
         navController = navController,
         startDestination = HomeRoute.route,
-        modifier = modifier
+        modifier = modifier,
     ) {
         // home screen
         composable(HomeRoute.route) {
@@ -60,7 +66,7 @@ fun CounterNavyHost(
                 navArgument(ThekrScreenRoute.PAGE_COUNT_ARG) {
                     type = NavType.IntType
                 },
-            )
+            ),
         ) {
             ThekrScreen(
                 settingsDetails = settingsDetails,
