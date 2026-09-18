@@ -1997,16 +1997,16 @@
         <error line="403" column="1" source="standard:indent" />
         <error line="403" column="20" source="standard:binary-expression-wrapping" />
         <error line="403" column="46" source="standard:argument-list-wrapping" />
-        <error line="403" column="61" source="standard:argument-list-wrapping" />
         <error line="403" column="61" source="standard:comma-spacing" />
-        <error line="403" column="77" source="standard:argument-list-wrapping" />
+        <error line="403" column="61" source="standard:argument-list-wrapping" />
         <error line="403" column="77" source="standard:comma-spacing" />
-        <error line="403" column="94" source="standard:argument-list-wrapping" />
+        <error line="403" column="77" source="standard:argument-list-wrapping" />
         <error line="403" column="94" source="standard:comma-spacing" />
-        <error line="403" column="110" source="standard:argument-list-wrapping" />
+        <error line="403" column="94" source="standard:argument-list-wrapping" />
         <error line="403" column="110" source="standard:comma-spacing" />
-        <error line="403" column="125" source="standard:argument-list-wrapping" />
+        <error line="403" column="110" source="standard:argument-list-wrapping" />
         <error line="403" column="125" source="standard:comma-spacing" />
+        <error line="403" column="125" source="standard:argument-list-wrapping" />
         <error line="403" column="141" source="standard:max-line-length" />
         <error line="403" column="143" source="standard:argument-list-wrapping" />
         <error line="404" column="1" source="standard:indent" />
@@ -6578,16 +6578,16 @@
         <error line="403" column="1" source="standard:indent" />
         <error line="403" column="20" source="standard:binary-expression-wrapping" />
         <error line="403" column="46" source="standard:argument-list-wrapping" />
-        <error line="403" column="61" source="standard:argument-list-wrapping" />
         <error line="403" column="61" source="standard:comma-spacing" />
-        <error line="403" column="77" source="standard:argument-list-wrapping" />
+        <error line="403" column="61" source="standard:argument-list-wrapping" />
         <error line="403" column="77" source="standard:comma-spacing" />
-        <error line="403" column="94" source="standard:argument-list-wrapping" />
+        <error line="403" column="77" source="standard:argument-list-wrapping" />
         <error line="403" column="94" source="standard:comma-spacing" />
-        <error line="403" column="110" source="standard:argument-list-wrapping" />
+        <error line="403" column="94" source="standard:argument-list-wrapping" />
         <error line="403" column="110" source="standard:comma-spacing" />
-        <error line="403" column="125" source="standard:argument-list-wrapping" />
+        <error line="403" column="110" source="standard:argument-list-wrapping" />
         <error line="403" column="125" source="standard:comma-spacing" />
+        <error line="403" column="125" source="standard:argument-list-wrapping" />
         <error line="403" column="141" source="standard:max-line-length" />
         <error line="403" column="143" source="standard:argument-list-wrapping" />
         <error line="404" column="1" source="standard:indent" />
@@ -11159,16 +11159,16 @@
         <error line="403" column="1" source="standard:indent" />
         <error line="403" column="20" source="standard:binary-expression-wrapping" />
         <error line="403" column="46" source="standard:argument-list-wrapping" />
-        <error line="403" column="61" source="standard:argument-list-wrapping" />
         <error line="403" column="61" source="standard:comma-spacing" />
-        <error line="403" column="77" source="standard:argument-list-wrapping" />
+        <error line="403" column="61" source="standard:argument-list-wrapping" />
         <error line="403" column="77" source="standard:comma-spacing" />
-        <error line="403" column="94" source="standard:argument-list-wrapping" />
+        <error line="403" column="77" source="standard:argument-list-wrapping" />
         <error line="403" column="94" source="standard:comma-spacing" />
-        <error line="403" column="110" source="standard:argument-list-wrapping" />
+        <error line="403" column="94" source="standard:argument-list-wrapping" />
         <error line="403" column="110" source="standard:comma-spacing" />
-        <error line="403" column="125" source="standard:argument-list-wrapping" />
+        <error line="403" column="110" source="standard:argument-list-wrapping" />
         <error line="403" column="125" source="standard:comma-spacing" />
+        <error line="403" column="125" source="standard:argument-list-wrapping" />
         <error line="403" column="141" source="standard:max-line-length" />
         <error line="403" column="143" source="standard:argument-list-wrapping" />
         <error line="404" column="1" source="standard:indent" />
@@ -15740,16 +15740,16 @@
         <error line="403" column="1" source="standard:indent" />
         <error line="403" column="20" source="standard:binary-expression-wrapping" />
         <error line="403" column="46" source="standard:argument-list-wrapping" />
-        <error line="403" column="61" source="standard:argument-list-wrapping" />
         <error line="403" column="61" source="standard:comma-spacing" />
-        <error line="403" column="77" source="standard:argument-list-wrapping" />
+        <error line="403" column="61" source="standard:argument-list-wrapping" />
         <error line="403" column="77" source="standard:comma-spacing" />
-        <error line="403" column="94" source="standard:argument-list-wrapping" />
+        <error line="403" column="77" source="standard:argument-list-wrapping" />
         <error line="403" column="94" source="standard:comma-spacing" />
-        <error line="403" column="110" source="standard:argument-list-wrapping" />
+        <error line="403" column="94" source="standard:argument-list-wrapping" />
         <error line="403" column="110" source="standard:comma-spacing" />
-        <error line="403" column="125" source="standard:argument-list-wrapping" />
+        <error line="403" column="110" source="standard:argument-list-wrapping" />
         <error line="403" column="125" source="standard:comma-spacing" />
+        <error line="403" column="125" source="standard:argument-list-wrapping" />
         <error line="403" column="141" source="standard:max-line-length" />
         <error line="403" column="143" source="standard:argument-list-wrapping" />
         <error line="404" column="1" source="standard:indent" />
@@ -20321,16 +20321,16 @@
         <error line="403" column="1" source="standard:indent" />
         <error line="403" column="20" source="standard:binary-expression-wrapping" />
         <error line="403" column="46" source="standard:argument-list-wrapping" />
-        <error line="403" column="61" source="standard:argument-list-wrapping" />
         <error line="403" column="61" source="standard:comma-spacing" />
-        <error line="403" column="77" source="standard:argument-list-wrapping" />
+        <error line="403" column="61" source="standard:argument-list-wrapping" />
         <error line="403" column="77" source="standard:comma-spacing" />
-        <error line="403" column="94" source="standard:argument-list-wrapping" />
+        <error line="403" column="77" source="standard:argument-list-wrapping" />
         <error line="403" column="94" source="standard:comma-spacing" />
-        <error line="403" column="110" source="standard:argument-list-wrapping" />
+        <error line="403" column="94" source="standard:argument-list-wrapping" />
         <error line="403" column="110" source="standard:comma-spacing" />
-        <error line="403" column="125" source="standard:argument-list-wrapping" />
+        <error line="403" column="110" source="standard:argument-list-wrapping" />
         <error line="403" column="125" source="standard:comma-spacing" />
+        <error line="403" column="125" source="standard:argument-list-wrapping" />
         <error line="403" column="141" source="standard:max-line-length" />
         <error line="403" column="143" source="standard:argument-list-wrapping" />
         <error line="404" column="1" source="standard:indent" />
@@ -24340,28 +24340,6 @@
         <error line="1" column="1" source="standard:filename" />
         <error line="16" column="1" source="standard:no-consecutive-blank-lines" />
     </file>
-    <file name="src/androidMain/kotlin/com/thekr/ThekrApplication.kt">
-        <error line="3" column="1" source="standard:import-ordering" />
-        <error line="36" column="36" source="standard:trailing-comma-on-call-site" />
-        <error line="50" column="1" source="standard:indent" />
-        <error line="51" column="1" source="standard:indent" />
-        <error line="52" column="1" source="standard:indent" />
-        <error line="53" column="1" source="standard:indent" />
-        <error line="54" column="1" source="standard:indent" />
-        <error line="55" column="1" source="standard:indent" />
-        <error line="56" column="1" source="standard:indent" />
-        <error line="57" column="1" source="standard:indent" />
-        <error line="58" column="1" source="standard:indent" />
-        <error line="59" column="1" source="standard:indent" />
-        <error line="60" column="1" source="standard:indent" />
-        <error line="61" column="1" source="standard:indent" />
-        <error line="62" column="1" source="standard:indent" />
-        <error line="63" column="1" source="standard:indent" />
-        <error line="64" column="1" source="standard:indent" />
-        <error line="65" column="1" source="standard:indent" />
-        <error line="66" column="1" source="standard:indent" />
-        <error line="79" column="1" source="standard:no-consecutive-blank-lines" />
-    </file>
     <file name="src/androidMain/kotlin/com/thekr/database/AppContainer.kt">
         <error line="1" column="1" source="standard:filename" />
         <error line="3" column="1" source="standard:import-ordering" />
@@ -24478,25 +24456,6 @@
         <error line="8" column="14" source="standard:function-naming" />
         <error line="11" column="1" source="standard:final-newline" />
     </file>
-    <file name="src/commonMain/kotlin/com/thekr/data/count/count/CountDAO.kt">
-        <error line="41" column="8" source="standard:trailing-comma-on-call-site" />
-        <error line="46" column="40" source="standard:trailing-comma-on-declaration-site" />
-        <error line="56" column="8" source="standard:trailing-comma-on-call-site" />
-        <error line="61" column="40" source="standard:trailing-comma-on-declaration-site" />
-        <error line="88" column="8" source="standard:trailing-comma-on-call-site" />
-        <error line="101" column="1" source="standard:final-newline" />
-    </file>
-    <file name="src/commonMain/kotlin/com/thekr/data/count/count/CountRepository.kt">
-        <error line="11" column="40" source="standard:trailing-comma-on-declaration-site" />
-        <error line="17" column="40" source="standard:trailing-comma-on-declaration-site" />
-        <error line="28" column="1" source="standard:final-newline" />
-    </file>
-    <file name="src/commonMain/kotlin/com/thekr/data/count/count/OfflineCountRepository.kt">
-        <error line="4" column="1" source="standard:no-unused-imports" />
-        <error line="14" column="33" source="standard:trailing-comma-on-declaration-site" />
-        <error line="20" column="33" source="standard:trailing-comma-on-declaration-site" />
-        <error line="48" column="1" source="standard:final-newline" />
-    </file>
     <file name="src/commonMain/kotlin/com/thekr/data/count/miss/CountMissDAO.kt">
         <error line="23" column="1" source="standard:final-newline" />
     </file>
@@ -24587,7 +24546,6 @@
     </file>
     <file name="src/commonMain/kotlin/com/thekr/data/zekr/count/ZekrCount.kt">
         <error line="1" column="1" source="standard:filename" />
-        <error line="18" column="1" source="standard:final-newline" />
     </file>
     <file name="src/commonMain/kotlin/com/thekr/data/zekr/fadl/FadlDAO.kt">
         <error line="30" column="1" source="standard:final-newline" />
@@ -24792,12 +24750,6 @@
         <error line="25" column="41" source="standard:trailing-comma-on-call-site" />
         <error line="27" column="1" source="standard:final-newline" />
     </file>
-    <file name="src/commonMain/kotlin/com/thekr/ui/counter/CounterHelper.kt">
-        <error line="108" column="1" source="standard:no-empty-first-line-in-method-block" />
-        <error line="180" column="51" source="standard:trailing-comma-on-call-site" />
-        <error line="194" column="13" source="standard:comment-spacing" />
-        <error line="245" column="1" source="standard:final-newline" />
-    </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/counter/bar/bottom/BottomBar.kt">
         <error line="16" column="5" source="standard:function-naming" />
         <error line="21" column="34" source="standard:trailing-comma-on-declaration-site" />
@@ -24876,12 +24828,12 @@
         <error line="208" column="47" source="standard:trailing-comma-on-call-site" />
         <error line="209" column="18" source="standard:trailing-comma-on-call-site" />
         <error line="211" column="39" source="standard:trailing-comma-on-call-site" />
-        <error line="220" column="30" source="standard:trailing-comma-on-call-site" />
-        <error line="230" column="30" source="standard:trailing-comma-on-call-site" />
-        <error line="241" column="30" source="standard:trailing-comma-on-call-site" />
-        <error line="248" column="41" source="standard:trailing-comma-on-call-site" />
-        <error line="250" column="33" source="standard:trailing-comma-on-call-site" />
-        <error line="255" column="1" source="standard:final-newline" />
+        <error line="221" column="30" source="standard:trailing-comma-on-call-site" />
+        <error line="231" column="30" source="standard:trailing-comma-on-call-site" />
+        <error line="242" column="30" source="standard:trailing-comma-on-call-site" />
+        <error line="249" column="41" source="standard:trailing-comma-on-call-site" />
+        <error line="251" column="33" source="standard:trailing-comma-on-call-site" />
+        <error line="256" column="1" source="standard:final-newline" />
     </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/counter/footer/ZekrCountDetailed.kt">
         <error line="3" column="1" source="standard:import-ordering" />
@@ -24891,34 +24843,6 @@
         <error line="52" column="5" source="standard:function-naming" />
         <error line="57" column="34" source="standard:trailing-comma-on-declaration-site" />
         <error line="67" column="36" source="standard:trailing-comma-on-call-site" />
-        <error line="80" column="32" source="standard:trailing-comma-on-call-site" />
-        <error line="91" column="32" source="standard:trailing-comma-on-call-site" />
-        <error line="102" column="32" source="standard:trailing-comma-on-call-site" />
-        <error line="113" column="32" source="standard:trailing-comma-on-call-site" />
-        <error line="130" column="5" source="standard:function-naming" />
-        <error line="132" column="22" source="standard:trailing-comma-on-declaration-site" />
-        <error line="139" column="55" source="standard:trailing-comma-on-call-site" />
-        <error line="170" column="5" source="standard:function-naming" />
-        <error line="187" column="38" source="standard:trailing-comma-on-call-site" />
-        <error line="200" column="59" source="standard:trailing-comma-on-call-site" />
-        <error line="233" column="13" source="standard:function-naming" />
-        <error line="237" column="25" source="standard:trailing-comma-on-declaration-site" />
-        <error line="248" column="29" source="standard:trailing-comma-on-call-site" />
-        <error line="262" column="1" source="standard:no-consecutive-blank-lines" />
-        <error line="265" column="5" source="standard:function-naming" />
-        <error line="275" column="64" source="standard:trailing-comma-on-call-site" />
-        <error line="284" column="5" source="standard:function-naming" />
-        <error line="294" column="90" source="standard:trailing-comma-on-call-site" />
-        <error line="303" column="5" source="standard:function-naming" />
-        <error line="310" column="55" source="standard:trailing-comma-on-call-site" />
-        <error line="311" column="26" source="standard:trailing-comma-on-call-site" />
-        <error line="318" column="60" source="standard:trailing-comma-on-call-site" />
-        <error line="319" column="30" source="standard:trailing-comma-on-call-site" />
-        <error line="329" column="5" source="standard:function-naming" />
-        <error line="330" column="57" source="standard:trailing-comma-on-declaration-site" />
-        <error line="341" column="37" source="standard:trailing-comma-on-call-site" />
-        <error line="342" column="18" source="standard:trailing-comma-on-call-site" />
-        <error line="350" column="1" source="standard:no-consecutive-blank-lines" />
     </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/counter/header/ZekrCounterTopBar.kt">
         <error line="3" column="1" source="standard:import-ordering" />
@@ -25079,26 +25003,6 @@
         <error line="4" column="1" source="standard:import-ordering" />
         <error line="18" column="5" source="standard:function-naming" />
     </file>
-    <file name="src/commonMain/kotlin/com/thekr/ui/home/HomeActions.kt">
-        <error line="21" column="45" source="standard:trailing-comma-on-declaration-site" />
-        <error line="35" column="18" source="standard:trailing-comma-on-call-site" />
-        <error line="44" column="1" source="standard:no-blank-line-before-rbrace" />
-    </file>
-    <file name="src/commonMain/kotlin/com/thekr/ui/home/HomeScreen.kt">
-        <error line="5" column="1" source="standard:import-ordering" />
-        <error line="40" column="1" source="standard:no-consecutive-blank-lines" />
-        <error line="43" column="5" source="standard:function-naming" />
-        <error line="56" column="50" source="standard:trailing-comma-on-call-site" />
-        <error line="63" column="46" source="standard:trailing-comma-on-call-site" />
-        <error line="69" column="13" source="standard:function-naming" />
-        <error line="94" column="28" source="standard:trailing-comma-on-call-site" />
-        <error line="100" column="69" source="standard:trailing-comma-on-call-site" />
-        <error line="106" column="41" source="standard:trailing-comma-on-call-site" />
-        <error line="144" column="5" source="standard:function-naming" />
-        <error line="160" column="1" source="standard:no-consecutive-blank-lines" />
-        <error line="163" column="5" source="standard:function-naming" />
-        <error line="180" column="1" source="standard:final-newline" />
-    </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/home/HomeTab.kt">
         <error line="3" column="1" source="standard:import-ordering" />
         <error line="17" column="5" source="standard:class-signature" />
@@ -25106,20 +25010,6 @@
         <error line="18" column="34" source="standard:class-signature" />
         <error line="18" column="34" source="standard:trailing-comma-on-declaration-site" />
         <error line="24" column="1" source="standard:final-newline" />
-    </file>
-    <file name="src/commonMain/kotlin/com/thekr/ui/home/HomeViewModel.kt">
-        <error line="58" column="39" source="standard:trailing-comma-on-declaration-site" />
-        <error line="87" column="39" source="standard:trailing-comma-on-declaration-site" />
-        <error line="129" column="71" source="standard:function-expression-body" />
-        <error line="131" column="46" source="standard:wrapping" />
-        <error line="134" column="127" source="standard:function-literal" />
-        <error line="134" column="128" source="standard:wrapping" />
-        <error line="134" column="140" source="standard:max-line-length" />
-        <error line="134" column="148" source="standard:binary-expression-wrapping" />
-        <error line="134" column="157" source="standard:function-literal" />
-        <error line="154" column="56" source="standard:function-expression-body" />
-        <error line="186" column="1" source="standard:no-blank-line-before-rbrace" />
-        <error line="188" column="1" source="standard:final-newline" />
     </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/home/header/HeaderTabsRow.kt">
         <error line="7" column="1" source="standard:no-consecutive-blank-lines" />
@@ -25225,10 +25115,10 @@
         <error line="119" column="37" source="standard:trailing-comma-on-call-site" />
         <error line="120" column="14" source="standard:trailing-comma-on-call-site" />
         <error line="121" column="10" source="standard:trailing-comma-on-call-site" />
-        <error line="136" column="14" source="standard:trailing-comma-on-call-site" />
-        <error line="146" column="14" source="standard:trailing-comma-on-call-site" />
-        <error line="147" column="10" source="standard:trailing-comma-on-call-site" />
-        <error line="149" column="1" source="standard:final-newline" />
+        <error line="137" column="14" source="standard:trailing-comma-on-call-site" />
+        <error line="148" column="14" source="standard:trailing-comma-on-call-site" />
+        <error line="149" column="10" source="standard:trailing-comma-on-call-site" />
+        <error line="151" column="1" source="standard:final-newline" />
     </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/home/list/DuaTab.kt">
         <error line="3" column="1" source="standard:import-ordering" />
@@ -25310,13 +25200,6 @@
         <error line="23" column="9" source="standard:curly-spacing" />
         <error line="23" column="9" source="standard:function-start-of-body-spacing" />
         <error line="28" column="1" source="standard:final-newline" />
-    </file>
-    <file name="src/commonMain/kotlin/com/thekr/ui/home/list/ZekrList.kt">
-        <error line="3" column="1" source="standard:import-ordering" />
-        <error line="42" column="5" source="standard:function-naming" />
-        <error line="64" column="47" source="standard:trailing-comma-on-call-site" />
-        <error line="102" column="5" source="standard:function-naming" />
-        <error line="113" column="1" source="standard:final-newline" />
     </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/home/tab/ZekrTab.kt">
         <error line="3" column="1" source="standard:import-ordering" />
@@ -25462,43 +25345,8 @@
         <error line="396" column="13" source="standard:trailing-comma-on-declaration-site" />
         <error line="397" column="1" source="standard:final-newline" />
     </file>
-    <file name="src/commonMain/kotlin/com/thekr/ui/navigation/CounterNavyHost.kt">
-        <error line="22" column="5" source="standard:function-naming" />
-        <error line="31" column="28" source="standard:trailing-comma-on-call-site" />
-        <error line="63" column="14" source="standard:trailing-comma-on-call-site" />
-        <error line="87" column="1" source="standard:final-newline" />
-    </file>
-    <file name="src/commonMain/kotlin/com/thekr/ui/navigation/route/CounterEntryRoute.kt">
-        <error line="4" column="1" source="standard:no-unused-imports" />
-        <error line="11" column="1" source="standard:comment-spacing" />
-        <error line="12" column="1" source="standard:comment-spacing" />
-        <error line="15" column="1" source="standard:comment-spacing" />
-        <error line="15" column="3" source="standard:final-newline" />
-    </file>
-    <file name="src/commonMain/kotlin/com/thekr/ui/navigation/route/HomeRoute.kt">
-        <error line="4" column="1" source="standard:no-unused-imports" />
-        <error line="6" column="1" source="standard:no-consecutive-blank-lines" />
-        <error line="12" column="1" source="standard:no-consecutive-blank-lines" />
-        <error line="13" column="1" source="standard:comment-spacing" />
-        <error line="14" column="1" source="standard:comment-spacing" />
-        <error line="17" column="1" source="standard:comment-spacing" />
-        <error line="17" column="3" source="standard:final-newline" />
-    </file>
-    <file name="src/commonMain/kotlin/com/thekr/ui/navigation/route/SettingsRoute.kt">
-        <error line="4" column="1" source="standard:no-unused-imports" />
-        <error line="11" column="1" source="standard:comment-spacing" />
-        <error line="12" column="1" source="standard:comment-spacing" />
-        <error line="15" column="1" source="standard:comment-spacing" />
-        <error line="15" column="3" source="standard:final-newline" />
-    </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/navigation/route/ZekrScreenRoute.kt">
         <error line="1" column="1" source="standard:filename" />
-        <error line="4" column="1" source="standard:no-unused-imports" />
-        <error line="17" column="1" source="standard:comment-spacing" />
-        <error line="18" column="1" source="standard:comment-spacing" />
-        <error line="23" column="1" source="standard:comment-spacing" />
-        <error line="26" column="1" source="standard:comment-spacing" />
-        <error line="26" column="3" source="standard:final-newline" />
     </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/settings/SettingsScreen.kt">
         <error line="53" column="5" source="standard:function-naming" />
@@ -25661,33 +25509,10 @@
         <error line="93" column="36" source="standard:trailing-comma-on-call-site" />
         <error line="104" column="1" source="standard:final-newline" />
     </file>
-    <file name="src/commonMain/kotlin/com/thekr/ui/stats/component/axis/ValueFormatter.kt">
-        <error line="24" column="5" source="standard:class-signature" />
-        <error line="25" column="5" source="standard:class-signature" />
-        <error line="25" column="27" source="standard:class-signature" />
-        <error line="25" column="27" source="standard:trailing-comma-on-declaration-site" />
-        <error line="55" column="5" source="standard:class-signature" />
-        <error line="56" column="5" source="standard:class-signature" />
-        <error line="56" column="27" source="standard:class-signature" />
-        <error line="56" column="27" source="standard:trailing-comma-on-declaration-site" />
-        <error line="87" column="13" source="standard:trailing-comma-on-declaration-site" />
-        <error line="93" column="61" source="standard:trailing-comma-on-declaration-site" />
-        <error line="131" column="49" source="standard:trailing-comma-on-declaration-site" />
-        <error line="141" column="31" source="standard:trailing-comma-on-declaration-site" />
-        <error line="174" column="15" source="standard:argument-list-wrapping" />
-        <error line="174" column="23" source="standard:argument-list-wrapping" />
-        <error line="174" column="31" source="standard:argument-list-wrapping" />
-        <error line="174" column="40" source="standard:argument-list-wrapping" />
-        <error line="174" column="51" source="standard:argument-list-wrapping" />
-        <error line="174" column="61" source="standard:argument-list-wrapping" />
-        <error line="174" column="67" source="standard:trailing-comma-on-call-site" />
-        <error line="175" column="1" source="standard:final-newline" />
-    </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/stats/component/axis/WeeklyAxis.kt">
         <error line="9" column="1" source="standard:no-unused-imports" />
         <error line="42" column="1" source="standard:no-consecutive-blank-lines" />
         <error line="53" column="44" source="standard:trailing-comma-on-call-site" />
-        <error line="72" column="26" source="standard:no-multi-spaces" />
         <error line="80" column="32" source="standard:trailing-comma-on-call-site" />
     </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/stats/data/DailyStatisticsData.kt">
@@ -25731,37 +25556,7 @@
         <error line="38" column="36" source="standard:trailing-comma-on-call-site" />
     </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/stats/tab/DayStats.kt">
-        <error line="3" column="1" source="standard:import-ordering" />
         <error line="12" column="1" source="standard:no-unused-imports" />
-        <error line="60" column="5" source="standard:function-naming" />
-        <error line="68" column="35" source="standard:trailing-comma-on-call-site" />
-        <error line="80" column="13" source="standard:function-naming" />
-        <error line="89" column="39" source="standard:trailing-comma-on-call-site" />
-        <error line="101" column="19" source="standard:argument-list-wrapping" />
-        <error line="101" column="45" source="standard:argument-list-wrapping" />
-        <error line="101" column="60" source="standard:argument-list-wrapping" />
-        <error line="101" column="77" source="standard:trailing-comma-on-call-site" />
-        <error line="106" column="5" source="standard:function-naming" />
-        <error line="113" column="44" source="standard:trailing-comma-on-call-site" />
-        <error line="129" column="18" source="standard:trailing-comma-on-call-site" />
-        <error line="139" column="5" source="standard:function-naming" />
-        <error line="145" column="55" source="standard:trailing-comma-on-call-site" />
-        <error line="154" column="62" source="standard:trailing-comma-on-call-site" />
-        <error line="161" column="35" source="standard:argument-list-wrapping" />
-        <error line="161" column="50" source="standard:argument-list-wrapping" />
-        <error line="161" column="69" source="standard:trailing-comma-on-call-site" />
-        <error line="165" column="29" source="standard:argument-list-wrapping" />
-        <error line="165" column="44" source="standard:argument-list-wrapping" />
-        <error line="165" column="63" source="standard:trailing-comma-on-call-site" />
-        <error line="170" column="59" source="standard:trailing-comma-on-call-site" />
-        <error line="187" column="31" source="standard:trailing-comma-on-call-site" />
-        <error line="196" column="18" source="standard:trailing-comma-on-call-site" />
-        <error line="203" column="13" source="standard:function-naming" />
-        <error line="209" column="70" source="standard:trailing-comma-on-call-site" />
-        <error line="211" column="81" source="standard:paren-spacing" />
-        <error line="223" column="120" source="standard:trailing-comma-on-call-site" />
-        <error line="237" column="120" source="standard:trailing-comma-on-call-site" />
-        <error line="244" column="1" source="standard:no-consecutive-blank-lines" />
     </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/stats/tab/MonthlyStats.kt">
         <error line="7" column="5" source="standard:function-naming" />
@@ -25772,22 +25567,6 @@
     <file name="src/commonMain/kotlin/com/thekr/ui/stats/tab/WeeklyStats.kt">
         <error line="3" column="1" source="standard:import-ordering" />
         <error line="14" column="1" source="standard:no-unused-imports" />
-        <error line="51" column="5" source="standard:function-naming" />
-        <error line="58" column="35" source="standard:trailing-comma-on-call-site" />
-        <error line="62" column="24" source="standard:trailing-comma-on-call-site" />
-        <error line="68" column="5" source="standard:function-naming" />
-        <error line="74" column="55" source="standard:trailing-comma-on-call-site" />
-        <error line="85" column="62" source="standard:trailing-comma-on-call-site" />
-        <error line="110" column="1" source="standard:no-consecutive-blank-lines" />
-        <error line="113" column="59" source="standard:trailing-comma-on-call-site" />
-        <error line="129" column="16" source="standard:argument-list-wrapping" />
-        <error line="129" column="40" source="standard:trailing-comma-on-call-site" />
-        <error line="138" column="18" source="standard:trailing-comma-on-call-site" />
-        <error line="145" column="13" source="standard:function-naming" />
-        <error line="151" column="30" source="standard:trailing-comma-on-call-site" />
-        <error line="170" column="5" source="standard:function-naming" />
-        <error line="177" column="28" source="standard:trailing-comma-on-call-site" />
-        <error line="195" column="1" source="standard:final-newline" />
     </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/theme/Color.kt">
         <error line="36" column="1" source="standard:no-consecutive-blank-lines" />
@@ -25814,31 +25593,12 @@
     </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/theme/Theme.kt">
         <error line="11" column="1" source="standard:no-wildcard-imports" />
-        <error line="145" column="14" source="standard:function-naming" />
-        <error line="146" column="13" source="standard:annotation" />
-        <error line="146" column="27" source="standard:annotation" />
-        <error line="146" column="38" source="standard:trailing-comma-on-declaration-site" />
-        <error line="151" column="46" source="standard:trailing-comma-on-call-site" />
-        <error line="157" column="53" source="standard:trailing-comma-on-call-site" />
-        <error line="163" column="21" source="standard:function-naming" />
-        <error line="165" column="1" source="standard:no-consecutive-blank-lines" />
-        <error line="167" column="5" source="standard:function-naming" />
-        <error line="171" column="36" source="standard:trailing-comma-on-declaration-site" />
-        <error line="177" column="26" source="standard:trailing-comma-on-call-site" />
-        <error line="186" column="13" source="standard:function-naming" />
-        <error line="205" column="5" source="standard:function-naming" />
-        <error line="208" column="36" source="standard:trailing-comma-on-declaration-site" />
-        <error line="217" column="23" source="standard:no-multi-spaces" />
-        <error line="224" column="26" source="standard:trailing-comma-on-call-site" />
     </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/theme/Typography.kt">
         <error line="16" column="31" source="standard:trailing-comma-on-call-site" />
         <error line="17" column="6" source="standard:trailing-comma-on-call-site" />
         <error line="33" column="6" source="standard:block-comment-initial-star-alignment" />
         <error line="34" column="1" source="standard:final-newline" />
-    </file>
-    <file name="src/commonMain/kotlin/com/thekr/ui/util/CounterDateFormatter.kt">
-        <error line="30" column="1" source="standard:final-newline" />
     </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/util/EventKeyHandler.kt">
         <error line="4" column="1" source="standard:no-wildcard-imports" />
@@ -25852,108 +25612,17 @@
     <file name="src/commonMain/kotlin/com/thekr/ui/util/NoRippleInteractionSource.kt">
         <error line="15" column="1" source="standard:final-newline" />
     </file>
-    <file name="src/commonMain/kotlin/com/thekr/ui/viewmodel/AppViewModel.kt">
-        <error line="39" column="59" source="standard:trailing-comma-on-declaration-site" />
-        <error line="91" column="62" source="standard:wrapping" />
-        <error line="93" column="17" source="standard:wrapping" />
-        <error line="101" column="60" source="standard:wrapping" />
-        <error line="101" column="60" source="standard:argument-list-wrapping" />
-        <error line="102" column="60" source="standard:wrapping" />
-        <error line="102" column="61" source="standard:argument-list-wrapping" />
-        <error line="103" column="53" source="standard:wrapping" />
-        <error line="103" column="53" source="standard:argument-list-wrapping" />
-        <error line="104" column="60" source="standard:wrapping" />
-        <error line="104" column="61" source="standard:argument-list-wrapping" />
-        <error line="105" column="59" source="standard:wrapping" />
-        <error line="105" column="59" source="standard:argument-list-wrapping" />
-        <error line="106" column="60" source="standard:wrapping" />
-        <error line="106" column="61" source="standard:argument-list-wrapping" />
-        <error line="149" column="1" source="standard:final-newline" />
-    </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/viewmodel/AppViewModelFactory.kt">
         <error line="7" column="1" source="standard:final-newline" />
     </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/viewmodel/Creator.kt">
         <error line="15" column="10" source="standard:trailing-comma-on-call-site" />
     </file>
-    <file name="src/commonMain/kotlin/com/thekr/ui/viewmodel/Fetcher.kt">
-        <error line="86" column="76" source="standard:trailing-comma-on-call-site" />
-        <error line="139" column="55" source="standard:trailing-comma-on-declaration-site" />
-        <error line="173" column="48" source="standard:trailing-comma-on-call-site" />
-        <error line="174" column="26" source="standard:trailing-comma-on-call-site" />
-        <error line="175" column="22" source="standard:trailing-comma-on-call-site" />
-    </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/viewmodel/Navigator.kt">
         <error line="63" column="1" source="standard:final-newline" />
     </file>
-    <file name="src/commonMain/kotlin/com/thekr/ui/viewmodel/Updater.kt">
-        <error line="23" column="106" source="standard:trailing-comma-on-call-site" />
-        <error line="156" column="49" source="standard:trailing-comma-on-declaration-site" />
-        <error line="197" column="1" source="standard:final-newline" />
-    </file>
     <file name="src/commonMain/kotlin/com/thekr/ui/zekr/entry/ZekrEntryActions.kt">
         <error line="1" column="1" source="standard:filename" />
-        <error line="15" column="1" source="standard:no-trailing-spaces" />
-        <error line="16" column="52" source="standard:curly-spacing" />
-        <error line="16" column="52" source="standard:function-start-of-body-spacing" />
-        <error line="28" column="1" source="standard:final-newline" />
-    </file>
-    <file name="src/commonMain/kotlin/com/thekr/ui/zekr/entry/ZekrEntryScreen.kt">
-        <error line="3" column="1" source="standard:import-ordering" />
-        <error line="61" column="1" source="standard:comment-spacing" />
-        <error line="63" column="5" source="standard:function-naming" />
-        <error line="80" column="5" source="standard:function-naming" />
-        <error line="104" column="24" source="standard:argument-list-wrapping" />
-        <error line="104" column="55" source="standard:wrapping" />
-        <error line="104" column="56" source="standard:argument-list-wrapping" />
-        <error line="107" column="22" source="standard:trailing-comma-on-call-site" />
-        <error line="120" column="13" source="standard:function-naming" />
-        <error line="128" column="1" source="standard:no-consecutive-blank-lines" />
-        <error line="137" column="28" source="standard:trailing-comma-on-call-site" />
-        <error line="138" column="15" source="standard:wrapping" />
-        <error line="138" column="16" source="standard:argument-list-wrapping" />
-        <error line="138" column="65" source="standard:trailing-comma-on-call-site" />
-        <error line="156" column="1" source="standard:no-consecutive-blank-lines" />
-        <error line="165" column="47" source="standard:trailing-comma-on-call-site" />
-        <error line="171" column="5" source="standard:function-naming" />
-        <error line="196" column="1" source="standard:no-consecutive-blank-lines" />
-        <error line="198" column="5" source="standard:function-naming" />
-        <error line="206" column="15" source="standard:wrapping" />
-        <error line="206" column="16" source="standard:argument-list-wrapping" />
-        <error line="206" column="65" source="standard:trailing-comma-on-call-site" />
-        <error line="218" column="111" source="standard:trailing-comma-on-call-site" />
-        <error line="219" column="22" source="standard:trailing-comma-on-call-site" />
-        <error line="234" column="112" source="standard:trailing-comma-on-call-site" />
-        <error line="235" column="22" source="standard:trailing-comma-on-call-site" />
-        <error line="250" column="111" source="standard:trailing-comma-on-call-site" />
-        <error line="251" column="22" source="standard:trailing-comma-on-call-site" />
-        <error line="266" column="110" source="standard:trailing-comma-on-call-site" />
-        <error line="267" column="22" source="standard:trailing-comma-on-call-site" />
-        <error line="275" column="1" source="standard:no-consecutive-blank-lines" />
-        <error line="277" column="5" source="standard:function-naming" />
-        <error line="295" column="55" source="standard:trailing-comma-on-call-site" />
-        <error line="298" column="32" source="standard:argument-list-wrapping" />
-        <error line="298" column="65" source="standard:trailing-comma-on-call-site" />
-        <error line="318" column="13" source="standard:function-naming" />
-        <error line="328" column="1" source="standard:final-newline" />
-    </file>
-    <file name="src/commonMain/kotlin/com/thekr/ui/zekr/entry/ZekrEntryViewModel.kt">
-        <error line="20" column="1" source="standard:no-consecutive-blank-lines" />
-        <error line="26" column="5" source="standard:class-signature" />
-        <error line="27" column="5" source="standard:class-signature" />
-        <error line="27" column="66" source="standard:class-signature" />
-        <error line="28" column="5" source="standard:class-signature" />
-        <error line="68" column="22" source="standard:trailing-comma-on-call-site" />
-        <error line="69" column="18" source="standard:trailing-comma-on-call-site" />
-        <error line="82" column="93" source="standard:trailing-comma-on-call-site" />
-        <error line="89" column="44" source="standard:trailing-comma-on-call-site" />
-        <error line="102" column="112" source="standard:trailing-comma-on-call-site" />
-        <error line="108" column="44" source="standard:trailing-comma-on-call-site" />
-        <error line="121" column="60" source="standard:trailing-comma-on-declaration-site" />
-        <error line="125" column="113" source="standard:trailing-comma-on-call-site" />
-        <error line="130" column="44" source="standard:trailing-comma-on-call-site" />
-        <error line="189" column="66" source="standard:function-expression-body" />
-        <error line="193" column="1" source="standard:final-newline" />
     </file>
     <file name="src/commonMain/kotlin/com/thekr/values/Colors.kt">
         <error line="7" column="1" source="standard:final-newline" />
@@ -25965,9 +25634,6 @@
     <file name="src/commonMain/kotlin/com/thekr/values/Dimensions.kt">
         <error line="19" column="19" source="standard:curly-spacing" />
         <error line="28" column="1" source="standard:final-newline" />
-    </file>
-    <file name="src/jvmMain/kotlin/com/thekr/JvmApplication.kt">
-        <error line="31" column="1" source="standard:no-consecutive-blank-lines" />
     </file>
     <file name="src/jvmMain/kotlin/com/thekr/database/AppDataContainer.kt">
         <error line="52" column="46" source="standard:trailing-comma-on-call-site" />
