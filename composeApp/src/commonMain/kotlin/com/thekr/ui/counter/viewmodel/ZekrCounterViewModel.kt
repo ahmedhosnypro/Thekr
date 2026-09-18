@@ -144,14 +144,16 @@ class ThekrCounterViewModel(
 
     fun getThekrCount(tabIndex: Int): MutableState<ThekrCount> {
         val thekrInstance = uiState.value.categoryDetails.value.thekrInstanceList.getOrNull(tabIndex)
-        return uiState.value.categoryDetails.value.countList.firstOrNull { it.value.instanceId == thekrInstance?.value?.id }
-            ?: emptyThekrCountState
+        return uiState.value.categoryDetails.value.countList.firstOrNull {
+            it.value.instanceId == thekrInstance?.value?.id
+        } ?: emptyThekrCountState
     }
 
     fun getCurrentThekrCount(): MutableState<ThekrCount> {
         val currentThekrInstance = uiState.value.currentThekrInstance
-        return uiState.value.categoryDetails.value.countList.firstOrNull { it.value.instanceId == currentThekrInstance.value.id }
-            ?: emptyThekrCountState
+        return uiState.value.categoryDetails.value.countList.firstOrNull {
+            it.value.instanceId == currentThekrInstance.value.id
+        } ?: emptyThekrCountState
     }
 
     fun getThekr(tabIndex: Int): MutableState<ThekrDetails> {
