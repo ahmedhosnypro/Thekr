@@ -46,15 +46,16 @@ import com.thekr.ui.stats.component.axis.startAxis
 import com.thekr.ui.stats.component.getColumnLayer
 import com.thekr.ui.stats.component.getLineLayer
 import com.thekr.ui.stats.data.emptyStatisticsData
+import com.thekr.util.TimeHelper.calcMidnight
 import com.thekr.values.Dimensions.medium
 import com.thekr.values.Dimensions.small
-import com.thekr.util.TimeHelper.calcMidnight
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.jetbrains.compose.resources.stringResource
 import java.util.Calendar
 import java.util.Locale
 
+@Suppress("ktlint:standard:function-naming")
 @Composable
 fun DayStats(
     midnight: MutableLongState,
@@ -64,7 +65,7 @@ fun DayStats(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(top = medium)
+            .padding(top = medium),
     ) {
         // Day name and Date
         DayNavigator(midnight)
@@ -75,6 +76,7 @@ fun DayStats(
     }
 }
 
+@Suppress("ktlint:standard:function-naming")
 @Composable
 private fun DailyChartWrapper(
     midnight: MutableLongState,
@@ -85,7 +87,7 @@ private fun DailyChartWrapper(
     val dayStatistics = produceState(
         initialValue = emptyStatisticsData(),
         key1 = midnight.longValue,
-        key2 = dayStatisticsType.value
+        key2 = dayStatisticsType.value,
     ) {
         // Load on Dispatchers.IO so the blocking DB read never runs on the
         // main thread during composition.
@@ -97,10 +99,14 @@ private fun DailyChartWrapper(
         }
     }
     DayChart(
-        modifier, dayStatistics.value.maxY, modelProducer, dayStatisticsType
+        modifier,
+        dayStatistics.value.maxY,
+        modelProducer,
+        dayStatisticsType,
     )
 }
 
+@Suppress("ktlint:standard:function-naming")
 @Composable
 fun DayChart(
     modifier: Modifier = Modifier,
@@ -109,7 +115,7 @@ fun DayChart(
     dayStatisticsType: MutableState<DayStatisticsType>,
 ) {
     Box(
-        modifier = modifier.padding(medium)
+        modifier = modifier.padding(medium),
     ) {
         val scrollState = rememberVicoScrollState()
         val zoomState = rememberVicoZoomState(
@@ -125,7 +131,7 @@ fun DayChart(
                 bottomAxis = when (dayStatisticsType.value) {
                     DayStatisticsType.Hourly -> hourlyBottomAxis()
                     DayStatisticsType.Minute -> minuteBottomAxis()
-                }
+                },
             ),
             modelProducer = modelProducer,
             scrollState = scrollState,
@@ -134,6 +140,7 @@ fun DayChart(
     }
 }
 
+@Suppress("ktlint:standard:function-naming")
 @Composable
 fun DayNavigator(midnight: MutableLongState) {
     Row(
@@ -141,7 +148,7 @@ fun DayNavigator(midnight: MutableLongState) {
             .fillMaxWidth()
             .padding(small),
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         // previous day
         IconButton(onClick = {
@@ -150,23 +157,27 @@ fun DayNavigator(midnight: MutableLongState) {
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowBackIos,
                 contentDescription = null,
-                tint = MaterialTheme.colorScheme.onBackground
+                tint = MaterialTheme.colorScheme.onBackground,
             )
         }
 
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = midnight.longValue
         val dayName = calendar.getDisplayName(
-            Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault()
+            Calendar.DAY_OF_WEEK,
+            Calendar.LONG,
+            Locale.getDefault(),
         )
         val dayNumber = calendar[Calendar.DAY_OF_MONTH]
         val monthName = calendar.getDisplayName(
-            Calendar.MONTH, Calendar.LONG, Locale.getDefault()
+            Calendar.MONTH,
+            Calendar.LONG,
+            Locale.getDefault(),
         )
 
         Text(
             text = "$dayName - $dayNumber $monthName",
-            color = MaterialTheme.colorScheme.onBackground
+            color = MaterialTheme.colorScheme.onBackground,
         )
 
         var isToday by remember {
@@ -183,7 +194,7 @@ fun DayNavigator(midnight: MutableLongState) {
             onClick = {
                 midnight.longValue = StatsTimeHelper.midnightOffsetBy(midnight.longValue, 1)
             },
-            enabled = !isToday
+            enabled = !isToday,
         ) {
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowForwardIos,
@@ -192,12 +203,13 @@ fun DayNavigator(midnight: MutableLongState) {
                     MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)
                 } else {
                     MaterialTheme.colorScheme.onBackground
-                }
+                },
             )
         }
     }
 }
 
+@Suppress("ktlint:standard:function-naming")
 @Composable
 private fun HourMinuteSwitch(dayStatisticsType: MutableState<DayStatisticsType>) {
     Row(
@@ -205,10 +217,9 @@ private fun HourMinuteSwitch(dayStatisticsType: MutableState<DayStatisticsType>)
         horizontalArrangement = Arrangement.SpaceEvenly,
     ) {
         val selectedColor: ButtonColors = ButtonDefaults.outlinedButtonColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant
+            containerColor = MaterialTheme.colorScheme.surfaceVariant,
         )
-        val unselectedColor: ButtonColors = ButtonDefaults.outlinedButtonColors(
-        )
+        val unselectedColor: ButtonColors = ButtonDefaults.outlinedButtonColors()
         OutlinedButton(
             onClick = {
                 dayStatisticsType.value = DayStatisticsType.Hourly
@@ -219,7 +230,7 @@ private fun HourMinuteSwitch(dayStatisticsType: MutableState<DayStatisticsType>)
             } else {
                 unselectedColor
             },
-            border = ButtonDefaults.outlinedButtonBorder(enabled = dayStatisticsType.value == DayStatisticsType.Hourly)
+            border = ButtonDefaults.outlinedButtonBorder(enabled = dayStatisticsType.value == DayStatisticsType.Hourly),
         ) {
             Text(text = stringResource(Res.string.hour))
         }
@@ -233,10 +244,9 @@ private fun HourMinuteSwitch(dayStatisticsType: MutableState<DayStatisticsType>)
                 unselectedColor
             },
             shape = MaterialTheme.shapes.medium,
-            border = ButtonDefaults.outlinedButtonBorder(enabled = dayStatisticsType.value == DayStatisticsType.Minute)
+            border = ButtonDefaults.outlinedButtonBorder(enabled = dayStatisticsType.value == DayStatisticsType.Minute),
         ) {
             Text(text = stringResource(Res.string.minute))
         }
     }
 }
-

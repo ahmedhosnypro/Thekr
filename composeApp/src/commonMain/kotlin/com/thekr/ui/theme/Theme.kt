@@ -139,9 +139,10 @@ private val LightColors = lightColorScheme(
     scrim = md_theme_light_scrim,
 )
 
+@Suppress("ktlint:standard:function-naming")
 @Composable
 internal fun AppTheme(
-    content: @Composable() () -> Unit
+    content: @Composable () -> Unit,
 ) {
     val systemIsDark = isSystemInDarkTheme()
     val isDarkState = remember { mutableStateOf(systemIsDark) }
@@ -149,26 +150,27 @@ internal fun AppTheme(
     SystemAppearance(isLight = !isDark)
     MaterialTheme(
         colorScheme = if (isDark) DarkColorScheme else LightColorScheme,
-        content = { Surface(content = content) }
+        content = { Surface(content = content) },
     )
 }
 
+@Suppress("ktlint:standard:function-naming")
 @Composable
 internal expect fun SystemAppearance(isLight: Boolean)
 
-
+@Suppress("ktlint:standard:function-naming")
 @Composable
 fun MyMaterialTheme(
     colorScheme: ColorScheme = MaterialTheme.colorScheme,
     shapes: Shapes = MaterialTheme.shapes,
     typography: Typography = MaterialTheme.typography,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     MaterialTheme(
         colorScheme = colorScheme,
         shapes = shapes,
         typography = typography,
-        content = content
+        content = content,
     )
 }
 
@@ -176,6 +178,7 @@ fun MyMaterialTheme(
  * Applies system bar colors and content padding based on the current
  * theme.
  */
+@Suppress("ktlint:standard:function-naming")
 @Composable
 private fun SystemBarColorsAndPadding(isDarkTheme: Boolean) {
 //    val view = LocalView.current
@@ -195,11 +198,12 @@ private fun SystemBarColorsAndPadding(isDarkTheme: Boolean) {
 }
 
 /** The default theme for the app. */
+@Suppress("ktlint:standard:function-naming")
 @Composable
 fun AppTheme(
     themeMode: ThemeMode = ThemeMode.System,
     dynamicColor: Boolean = true,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     val isDarkTheme = when (themeMode) {
         ThemeMode.System -> isSystemInDarkTheme()
@@ -208,13 +212,13 @@ fun AppTheme(
     }
 
     // Decide which color scheme to use
-    val colorScheme =  if (isDarkTheme) DarkColors else LightColors
+    val colorScheme = if (isDarkTheme) DarkColors else LightColors
 
     SystemBarColorsAndPadding(isDarkTheme)
 
     MyMaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,
-        content = content
+        content = content,
     )
 }
