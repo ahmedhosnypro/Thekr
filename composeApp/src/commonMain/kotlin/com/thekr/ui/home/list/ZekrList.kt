@@ -11,6 +11,8 @@ import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
@@ -50,36 +52,52 @@ fun ThekrList(
     categoryListOnClick: (tabIndex: Int) -> Unit = {},
 ) {
     val category = categoryDetails.value // Access the value once for optimization
+
+    // Lookup maps as derived state: rebuilt only when the underlying lists
+    // actually change, so the grid content builder no longer subscribes to
+    // and re-runs on every thekrList/countList emission; each item stays an
+    // O(1) hash lookup (keeping the M21 no-indexOf behavior).
+    val thekrMap = remember(category) {
+        derivedStateOf { category.thekrList.associateBy { it.value.id } }
+    }
+    val countMap = remember(category) {
+        derivedStateOf { category.countList.associateBy { it.value.thekrInstanceId } }
+    }
+
     LazyVerticalGrid(
         columns = GridCells.Fixed(1),
         modifier = modifier
             .fillMaxSize()
             .padding(top = medium),
     ) {
-        // Build the lookup maps once per recomposition instead of once per
-        // grid item, and use itemsIndexed to avoid an O(n) indexOf per item.
-        val thekrMap = category.thekrList.associateBy { it.value.id }
-        val countMap = category.countList.associateBy { it.value.thekrInstanceId }
-
         itemsIndexed(
             items = category.thekrInstanceList,
             key = { _, item -> item.value.id },
         ) { index, item ->
             val colorIndex = if (index < 6) index else index % 6
 
-            val thekr = thekrMap[item.value.thekrId]?.value
-            val count = countMap[item.value.thekrId]?.value?.dailyCount
+            val thekr = thekrMap.value[item.value.thekrId]?.value
+            val count = countMap.value[item.value.thekrId]?.value?.dailyCount
+
+            // Stable per-item callbacks so cards with unchanged data can
+            // skip recomposition when only another item's state changed.
+            val cardHomeOnClick = remember(homeOnClick, tabIndex, item) {
+                {
+                    homeOnClick(tabIndex, item.value.categoryId, item.value.thekrId)
+                }
+            }
+            val cardCategoryListOnClick = remember(categoryListOnClick, index) {
+                {
+                    categoryListOnClick(index)
+                }
+            }
 
             ThekrCard(
                 text = thekr?.text ?: "",
                 count = count ?: 0L,
                 target = item.value.dailyTarget,
-                homeOnClick = {
-                    homeOnClick(tabIndex, item.value.categoryId, item.value.thekrId)
-                },
-                categoryListOnClick = {
-                    categoryListOnClick(index)
-                },
+                homeOnClick = cardHomeOnClick,
+                categoryListOnClick = cardCategoryListOnClick,
                 modifier = Modifier.padding(horizontal = medium),
                 leadingIcon = {
                     Image(
