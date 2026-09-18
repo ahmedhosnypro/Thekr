@@ -6,9 +6,6 @@ import com.thekr.database.AppDataContainer
 import com.thekr.database.getDatabaseBuilder
 import com.thekr.di.DatabaseProvider
 import com.thekr.di.appStorage
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import java.nio.file.FileSystems
 import java.nio.file.Files
 import java.nio.file.Path
@@ -17,7 +14,6 @@ import java.nio.file.attribute.PosixFilePermissions
 object JvmApplication {
     /** AppContainer instance used by the rest of classes to obtain dependencies */
     var container: AppContainer = AppDataContainer()
-    private val appCoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     val userDataDir = AppDirs {
         appName = "thekr"
