@@ -23,12 +23,15 @@ import com.thekr.ui.component.LocalizedApp
 import com.thekr.ui.navigation.CounterNavyHost
 import com.thekr.ui.navigation.NavigationActions
 import com.thekr.ui.theme.AppTheme
+import com.thekr.ui.theme.SystemAppearance
+import com.thekr.ui.theme.isDark
 import com.thekr.ui.viewmodel.AppStateHolder
 import com.thekr.ui.viewmodel.AppViewModel
 import com.thekr.ui.viewmodel.AppViewModelProvider
 import com.thekr.util.changeLang
 import com.thekr.util.reportFullyDrawnAnchor
 
+@Suppress("ktlint:standard:function-naming")
 @Composable
 fun CounterApp(
     appViewModel: AppViewModel = viewModel(factory = AppViewModelProvider.Factory),
@@ -109,6 +112,12 @@ fun CounterApp(
     AppTheme(
         themeMode = settingsDetails.themeMode,
     ) {
+        // The status bar follows the user's ThemeMode, not just the OS
+        // appearance. Wired here at the root instead of inside AppTheme so
+        // the ~40 preview/dialog color-scope AppTheme usages never touch the
+        // window insets. Composes inside the content block, so it also skips
+        // the LoadScreen phase exactly like the themed content itself.
+        SystemAppearance(isLight = !isDark(settingsDetails))
         LocalizedApp(
             language = currentLang,
         ) {
