@@ -37,6 +37,7 @@
     <string name="thekr_content">thekr</string>
     <string name="thekr_list">Thekr List</string>
     <string name="listen_to_thekr">Listen to Thekr</string>
+    <string name="sheikh_voice">Recited by Sheikh %1$s</string>
     <string name="hesn_almuslim">Hesn Almuslim</string>
     <string name="dua">Dua</string>
     <string name="coolDown">CoolDown</string>

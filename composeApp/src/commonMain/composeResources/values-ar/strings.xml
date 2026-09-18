@@ -49,6 +49,7 @@
     <string name="thekr_content">نص الذكر</string>
     <string name="thekr_list">قائمة الأذكار</string>
     <string name="listen_to_thekr">الاستماع للذكر</string>
+    <string name="sheikh_voice">بصوت الشيخ %1$s</string>
     <string name="hesn_almuslim">حصن المسلم</string>
     <string name="dua">الدعاء</string>
     <string name="coolDown">مهلة الذكر</string>
