@@ -30,12 +30,12 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.concurrent.Volatile
 
-// Stable fallbacks for the getters below: a fresh mutableStateOf per miss
-// would allocate a throwaway state object on every recomposition lookup.
-// Shared singletons are read-only in practice; they are only returned when
-// the list lookup misses, which itself implies an inconsistent category
-// state (the entry is absent from the list, so nothing observes writes to
-// the fallback).
+// Shared read-only fallbacks for the getters below: a fresh mutableStateOf
+// per miss would allocate a throwaway state object on every recomposition
+// lookup. They are only returned when the list lookup misses (the entry is
+// absent from the list — an already-inconsistent state). Never write these:
+// the single write site (updateOnCount) skips the fallback, so a mutated
+// value cannot leak into another instance's fallback reads.
 private val emptyThekrCountState = mutableStateOf(ThekrCount())
 private val emptyThekrDetailsState = mutableStateOf(ThekrDetails())
 private val emptyThekrInstanceState = mutableStateOf(ThekrInstanceDetails())
@@ -193,7 +193,14 @@ class ThekrCounterViewModel(
     }
 
     fun updateOnCount() {
-        var count by getCurrentThekrCount()
+        val countState = getCurrentThekrCount()
+        // On a countList miss the getter returns the shared read-only
+        // fallback; writing it would leak the increment into other
+        // instances' fallback reads. The DB tap row is already inserted
+        // by the caller, and the per-instance collector re-derives the
+        // missing entry, so skipping the optimistic update loses nothing.
+        if (countState === emptyThekrCountState) return
+        var count by countState
         count = count.copy(
             dailyCount = count.dailyCount + 1,
             weeklyCount = count.weeklyCount + 1,
