@@ -215,7 +215,8 @@ fun ThekrCountPreview() {
                     getThekrCount = {
                         mutableStateOf(
                             com.thekr.data.thekr.count.ThekrCount(
-                                thekrInstanceId = 1,
+                                thekrId = 1,
+                                instanceId = 1,
                                 dailyCount = 22,
                             )
                         )

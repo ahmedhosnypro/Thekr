@@ -74,7 +74,6 @@ object Fetcher {
     private fun AppViewModel.fetchThekrInstanceListAndCounts(categoryDetails: MutableState<CategoryDetails>) {
         viewModelScope.launch(ioDispatcher) {
             val countCollectorJobs = mutableMapOf<Long, Job>()
-            val instanceThekrIds = mutableMapOf<Long, Long>()
 
             thekrInstanceRepository.findByCategoryId(categoryDetails.value.id)
                 .map { thekrInstanceList ->
@@ -91,7 +90,6 @@ object Fetcher {
                     // Launch one count collector per newly seen instance id.
                     thekrInstanceDetailsList.forEach { thekrInstanceDetails ->
                         if (thekrInstanceDetails.id !in countCollectorJobs) {
-                            instanceThekrIds[thekrInstanceDetails.id] = thekrInstanceDetails.thekrId
                             countCollectorJobs[thekrInstanceDetails.id] = fetchThekrCounts(
                                 thekrId = thekrInstanceDetails.thekrId,
                                 thekrInstanceId = thekrInstanceDetails.id,
@@ -101,21 +99,18 @@ object Fetcher {
                     }
 
                     // Cancel the collectors of vanished instances and drop
-                    // their countList entries — but only when no surviving
-                    // instance shares the entry key.
+                    // their countList entries — each instance owns its own
+                    // per-instance entry, so removal is direct and
+                    // independent of surviving siblings.
                     val vanishedInstanceIds = countCollectorJobs.keys - currentInstanceIds
                     if (vanishedInstanceIds.isNotEmpty()) {
-                        val survivingThekrIds =
-                            thekrInstanceDetailsList.mapTo(HashSet()) { it.thekrId }
-                        val removedThekrIds = mutableSetOf<Long>()
                         vanishedInstanceIds.forEach { instanceId ->
                             countCollectorJobs.remove(instanceId)?.cancel()
-                            val thekrId = instanceThekrIds.remove(instanceId)
-                            if (thekrId != null && thekrId !in survivingThekrIds) {
-                                removedThekrIds.add(thekrId)
-                            }
                         }
-                        removeThekrCountItems(categoryDetails.value.countList, removedThekrIds)
+                        removeThekrCountItems(
+                            categoryDetails.value.countList,
+                            vanishedInstanceIds,
+                        )
                     }
                 }
         }
@@ -126,18 +121,18 @@ object Fetcher {
      *
      * The aggregation query runs against the instance's own id (true
      * per-instance keying); the exposed [ThekrCount] carries that id in
-     * [ThekrCount.instanceId] while staying keyed by the Thekr definition
-     * id ([ThekrCount.thekrId]) that per-thekr consumers look counts up
-     * by. A re-derivation point flushes the count batch buffer first so
-     * the new bounds are computed over complete Room data, and its first
-     * emission bypasses the freshness guard so period rollovers always
-     * land. Subsequent emissions carry the newest persisted row time as
-     * their data freshness, so an emission never overwrites an entry
-     * holding optimistic in-memory increments newer than the persisted
-     * data.
+     * [ThekrCount.instanceId], the key its countList entry is matched by —
+     * one entry per instance, so concurrent instances of the same Thekr
+     * each display their own counts. A re-derivation point flushes the
+     * count batch buffer first so the new bounds are computed over complete
+     * Room data, and its first emission bypasses the freshness guard so
+     * period rollovers always land. Subsequent emissions carry the newest
+     * persisted row time as their data freshness, so an emission never
+     * overwrites an entry holding optimistic in-memory increments newer
+     * than the persisted data.
      *
-     * @param thekrId The ID of the Thekr definition; the exposed
-     *     [ThekrCount] key that consumers look counts up by.
+     * @param thekrId The ID of the Thekr definition; carried as entry
+     *     provenance metadata.
      * @param thekrInstanceId The ID of the Thekr instance the counts belong
      *     to.
      * @param categoryDetails The MutableState holding the [CategoryDetails]

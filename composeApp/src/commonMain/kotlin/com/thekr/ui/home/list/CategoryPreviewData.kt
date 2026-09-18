@@ -127,7 +127,8 @@ fun countPreviewList(): SnapshotStateList<MutableState<ThekrCount>> = remember {
     mutableStateListOf(
         mutableStateOf(
             ThekrCount(
-                thekrInstanceId = 1,
+                thekrId = 1,
+                instanceId = 1,
                 dailyCount = 100,
                 weeklyCount = 200,
                 monthlyCount = 300,
@@ -137,7 +138,8 @@ fun countPreviewList(): SnapshotStateList<MutableState<ThekrCount>> = remember {
         ),
         mutableStateOf(
             ThekrCount(
-                thekrInstanceId = 2,
+                thekrId = 2,
+                instanceId = 2,
                 dailyCount = 100,
                 weeklyCount = 200,
                 monthlyCount = 300,

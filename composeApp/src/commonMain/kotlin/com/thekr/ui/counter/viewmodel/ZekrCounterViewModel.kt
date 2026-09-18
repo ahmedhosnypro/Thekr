@@ -24,6 +24,7 @@ import com.thekr.ui.navigation.NavigationActions
 import com.thekr.ui.navigation.route.HomeRoute
 import com.thekr.ui.navigation.route.ThekrScreenRoute
 import com.thekr.ui.viewmodel.AppStateHolder.appState
+import com.thekr.util.TimeHelper.now
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -102,9 +103,16 @@ class ThekrCounterViewModel(
     }
 
     fun updateCurrentThekrInstance(index: Int) {
-        val thekrInstanceDetails =
-            uiState.value.categoryDetails.value.thekrInstanceList.getOrNull(index)
-        if (thekrInstanceDetails != null) {
+        val thekrInstanceList = uiState.value.categoryDetails.value.thekrInstanceList
+        // Re-validate after list shifts: a deletion can shrink the list
+        // below the requested page, so clamp the index into the survivors
+        // instead of leaving currentThekrInstance dangling on a deleted
+        // row. The pager's settle gate re-runs this on every list-size
+        // change; the identity check skips the no-op copy when the pager
+        // re-syncs to the instance already held.
+        val validatedIndex = index.coerceIn(0, (thekrInstanceList.size - 1).coerceAtLeast(0))
+        val thekrInstanceDetails = thekrInstanceList.getOrNull(validatedIndex)
+        if (thekrInstanceDetails != null && uiState.value.currentThekrInstance !== thekrInstanceDetails) {
             mutableUiState.update { currentState ->
                 currentState.copy(
                     currentThekrInstance = thekrInstanceDetails,
@@ -136,14 +144,16 @@ class ThekrCounterViewModel(
 
     fun getThekrCount(tabIndex: Int): MutableState<ThekrCount> {
         val thekrInstance = uiState.value.categoryDetails.value.thekrInstanceList.getOrNull(tabIndex)
-        return uiState.value.categoryDetails.value.countList.firstOrNull { it.value.thekrInstanceId == thekrInstance?.value?.thekrId }
-            ?: emptyThekrCountState
+        return uiState.value.categoryDetails.value.countList.firstOrNull {
+            it.value.instanceId == thekrInstance?.value?.id
+        } ?: emptyThekrCountState
     }
 
     fun getCurrentThekrCount(): MutableState<ThekrCount> {
         val currentThekrInstance = uiState.value.currentThekrInstance
-        return uiState.value.categoryDetails.value.countList.firstOrNull { it.value.thekrInstanceId == currentThekrInstance.value.thekrId }
-            ?: emptyThekrCountState
+        return uiState.value.categoryDetails.value.countList.firstOrNull {
+            it.value.instanceId == currentThekrInstance.value.id
+        } ?: emptyThekrCountState
     }
 
     fun getThekr(tabIndex: Int): MutableState<ThekrDetails> {
@@ -207,7 +217,7 @@ class ThekrCounterViewModel(
             monthlyCount = count.monthlyCount + 1,
             yearlyCount = count.yearlyCount + 1,
             totalCount = count.totalCount + 1,
-            timeUpdated = System.currentTimeMillis(),
+            timeUpdated = now(),
         )
     }
 }
