@@ -6,14 +6,11 @@
     <string name="mesbaha">المسبحة</string>
 
     <!-- Navigation -->
-    <string name="details">التفاصيل</string>
-    <string name="history">السجل</string>
     <string name="settings">الإعدادات</string>
     <string name="back">العودة</string>
     <string name="statistics">الإحصائيات</string>
 
     <!-- Language Settings -->
-    <string name="language">اللغة</string>
     <string name="app_language">لغة التطبيق</string>
     <string name="current_language">اللغة الحالية</string>
     <string name="arabic">العربية</string>
@@ -26,14 +23,11 @@
     <string name="display">العرض</string>
     <string name="screen_always_on">منع اطفاء الشاشة</string>
     <string name="theme">المظهر</string>
-    <string name="dark_mode">الوضغ المظلم</string>
     <string name="theme_mode">الوضع المظلم</string>
     <string name="material_you">مظهر مستوحى من خلفية الهاتف</string>
     <string name="system_default">تلقائي</string>
     <string name="light">مضئ</string>
     <string name="dark">مظلم</string>
-    <string name="increase_font_size">تكبير حجم الخط</string>
-    <string name="decrease_font_size">تصغير حجم الخط</string>
     <string name="counter_visibility">ظهور العد</string>
 
     <!-- Feedback Settings -->
@@ -43,7 +37,6 @@
     <string name="sound">الصوت</string>
     <string name="speech_value">تنبيه العد</string>
     <string name="speech_name">تنبيه بالذكر</string>
-    <string name="speak_name">تنبيه بالذكر</string>
 
     <!-- Input Settings -->
     <string name="input">التفاعل</string>
@@ -53,10 +46,8 @@
     <!-- Thekr Management -->
     <string name="thekr">ذكر</string>
     <string name="add_thekr">اضافة ذكر</string>
-    <string name="about_thekr">معلومات عن الذكر</string>
     <string name="thekr_content">نص الذكر</string>
     <string name="thekr_list">قائمة الأذكار</string>
-    <string name="empty_thekr_list_alert">اضغط على القلم لاضافة ذكر جديد</string>
     <string name="listen_to_thekr">الاستماع للذكر</string>
     <string name="hesn_almuslim">حصن المسلم</string>
     <string name="dua">الدعاء</string>
@@ -72,7 +63,6 @@
     <string name="yearly_goal">الهدف السنوي</string>
 
     <!-- Time Units -->
-    <string name="day">يوم</string>
     <string name="week">أسبوع</string>
     <string name="month">شهر</string>
     <string name="minute">دقيقة</string>

@@ -15,24 +15,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.intl.Locale
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
-import com.thekr.ui.component.bar.AppTopBar
-import com.thekr.ui.component.DefaultHorizontalDivider
-import com.thekr.ui.component.bar.HeaderText
-import com.thekr.ui.navigation.NavigationActions
-import com.thekr.ui.navigation.route.HomeRoute
-import com.thekr.ui.settings.component.GroupTitle
-import com.thekr.ui.settings.component.SwitchSetting
-import com.thekr.ui.settings.language.LanguageSettings
-import com.thekr.ui.settings.theme.ThemeModeSetting
-import com.thekr.ui.theme.AppTheme
-import com.thekr.values.Dimensions.medium
-import com.thekr.values.Dimensions.small
-import org.jetbrains.compose.resources.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import com.thekr.resources.Res
 import com.thekr.resources.click_sound
 import com.thekr.resources.display
@@ -47,8 +33,21 @@ import com.thekr.resources.speech_name
 import com.thekr.resources.speech_value
 import com.thekr.resources.vibration
 import com.thekr.resources.volume_key
+import com.thekr.ui.component.DefaultHorizontalDivider
 import com.thekr.ui.component.LocalizedApp
+import com.thekr.ui.component.bar.AppTopBar
+import com.thekr.ui.component.bar.HeaderText
+import com.thekr.ui.navigation.NavigationActions
+import com.thekr.ui.navigation.route.HomeRoute
+import com.thekr.ui.settings.component.GroupTitle
+import com.thekr.ui.settings.component.SwitchSetting
+import com.thekr.ui.settings.language.LanguageSettings
+import com.thekr.ui.settings.theme.ThemeModeSetting
+import com.thekr.ui.theme.AppTheme
 import com.thekr.util.changeLang
+import com.thekr.values.Dimensions.medium
+import com.thekr.values.Dimensions.small
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun SettingsScreen(
@@ -56,7 +55,8 @@ fun SettingsScreen(
     modifier: Modifier = Modifier,
 ) {
     SettingsBody(
-        settingsDetails = settingsDetails, modifier = modifier,
+        settingsDetails = settingsDetails,
+        modifier = modifier,
         onSettingUpdate = remember { { SettingActions.update(it) } },
     )
 }
@@ -67,7 +67,6 @@ private fun SettingsBody(
     settingsDetails: SettingsDetails = SettingsDetails(),
     onSettingUpdate: (SettingsDetails) -> Unit = {},
 ) {
-
     Scaffold(
         topBar = {
             AppTopBar(
@@ -77,7 +76,7 @@ private fun SettingsBody(
                     IconButton(onClick = { NavigationActions.navigateUp(HomeRoute.route) }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
+                            contentDescription = "Back",
                         )
                     }
                 },
@@ -119,7 +118,6 @@ private fun SettingsBody(
             )
         }
     }
-
 }
 
 @Composable
@@ -129,12 +127,11 @@ fun InputSettings(
 ) {
     GroupTitle(
         title = stringResource(Res.string.input),
-        modifier = Modifier.padding(horizontal = medium)
+        modifier = Modifier.padding(horizontal = medium),
     )
     Column(
-        modifier = Modifier.padding(horizontal = small)
+        modifier = Modifier.padding(horizontal = small),
     ) {
-
         // volume control
         SwitchSetting(
             title = stringResource(Res.string.volume_key),
@@ -142,8 +139,8 @@ fun InputSettings(
             onToggle = {
                 onSettingUpdate(
                     settingsDetails.copy(
-                        volumeControl = !settingsDetails.volumeControl
-                    )
+                        volumeControl = !settingsDetails.volumeControl,
+                    ),
                 )
             },
         )
@@ -155,8 +152,8 @@ fun InputSettings(
             onToggle = {
                 onSettingUpdate(
                     settingsDetails.copy(
-                        fingerPrintControl = !settingsDetails.fingerPrintControl
-                    )
+                        fingerPrintControl = !settingsDetails.fingerPrintControl,
+                    ),
                 )
             },
         )
@@ -170,10 +167,10 @@ fun OutputSettings(
 ) {
     GroupTitle(
         title = stringResource(Res.string.feedback),
-        modifier = Modifier.padding(horizontal = medium)
+        modifier = Modifier.padding(horizontal = medium),
     )
     Column(
-        modifier = Modifier.padding(horizontal = small)
+        modifier = Modifier.padding(horizontal = small),
     ) {
         // vibration
         SwitchSetting(
@@ -182,8 +179,8 @@ fun OutputSettings(
             onToggle = {
                 onSettingUpdate(
                     settingsDetails.copy(
-                        vibration = !settingsDetails.vibration
-                    )
+                        vibration = !settingsDetails.vibration,
+                    ),
                 )
             },
         )
@@ -196,8 +193,8 @@ fun OutputSettings(
             onToggle = {
                 onSettingUpdate(
                     settingsDetails.copy(
-                        sound = !settingsDetails.sound
-                    )
+                        sound = !settingsDetails.sound,
+                    ),
                 )
             },
         )
@@ -210,8 +207,8 @@ fun OutputSettings(
             onToggle = {
                 onSettingUpdate(
                     settingsDetails.copy(
-                        clickSound = !settingsDetails.clickSound
-                    )
+                        clickSound = !settingsDetails.clickSound,
+                    ),
                 )
             },
             enabled = settingsDetails.sound,
@@ -225,8 +222,8 @@ fun OutputSettings(
             onToggle = {
                 onSettingUpdate(
                     settingsDetails.copy(
-                        speechValue = !settingsDetails.speechValue
-                    )
+                        speechValue = !settingsDetails.speechValue,
+                    ),
                 )
             },
             enabled = settingsDetails.sound,
@@ -239,8 +236,8 @@ fun OutputSettings(
             onToggle = {
                 onSettingUpdate(
                     settingsDetails.copy(
-                        speechName = !settingsDetails.speechName
-                    )
+                        speechName = !settingsDetails.speechName,
+                    ),
                 )
             },
             enabled = settingsDetails.sound,
@@ -255,27 +252,20 @@ fun DisplaySettings(
 ) {
     GroupTitle(
         title = stringResource(Res.string.display),
-        modifier = Modifier.padding(horizontal = medium)
+        modifier = Modifier.padding(horizontal = medium),
     )
 
     Column(
-        modifier = Modifier.padding(horizontal = small)
+        modifier = Modifier.padding(horizontal = small),
     ) {
         LanguageSettings(
             selectedLanguage = { settingsDetails.language },
             onLanguageChange = { option ->
-                val locale = try {
-                    Locale(option.value)
-                } catch (e: Exception) {
-                    null
-                }
-                locale?.let {
-                    changeLang(it.language)
-                }
+                changeLang(option.value)
                 onSettingUpdate(
                     settingsDetails.copy(
-                        language = option.value
-                    )
+                        language = option.value,
+                    ),
                 )
             },
         )
@@ -286,8 +276,8 @@ fun DisplaySettings(
             onThemeChange = {
                 onSettingUpdate(
                     settingsDetails.copy(
-                        themeMode = it.value
-                    )
+                        themeMode = it.value,
+                    ),
                 )
             },
         )
@@ -299,8 +289,8 @@ fun DisplaySettings(
             onToggle = {
                 onSettingUpdate(
                     settingsDetails.copy(
-                        materialYou = !settingsDetails.materialYou
-                    )
+                        materialYou = !settingsDetails.materialYou,
+                    ),
                 )
             },
         )
@@ -312,8 +302,8 @@ fun DisplaySettings(
             onToggle = {
                 onSettingUpdate(
                     settingsDetails.copy(
-                        screenAlwaysOn = !settingsDetails.screenAlwaysOn
-                    )
+                        screenAlwaysOn = !settingsDetails.screenAlwaysOn,
+                    ),
                 )
             },
         )
@@ -340,12 +330,10 @@ fun SettingsBodyPreviewDark() {
             LocalizedApp {
                 SettingsBody(
                     settingsDetails = SettingsDetails(
-                        themeMode = ThemeMode.Dark
-                    )
+                        themeMode = ThemeMode.Dark,
+                    ),
                 )
             }
         }
     }
 }
-
-

@@ -15,14 +15,16 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.sp
 import com.thekr.data.settings.SettingsDetails
 import com.thekr.data.thekr.category.CategoryDetails
-import com.thekr.values.Dimensions.large
-import com.thekr.ui.theme.AppTheme
-import org.jetbrains.compose.resources.painterResource
 import com.thekr.resources.Res
 import com.thekr.resources.next_thekr
+import com.thekr.ui.theme.AppTheme
+import com.thekr.values.Dimensions.large
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun CurrentThekrIndicator(
@@ -34,28 +36,37 @@ fun CurrentThekrIndicator(
     if (categoryDetails.value.thekrInstanceList.size > 1) {
         Box(
             modifier = modifier.fillMaxWidth(),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(large),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 val fontSize = 16.sp
                 val lineHeightDp = with(LocalDensity.current) {
                     fontSize.toDp()
                 }
                 val colors = AppTheme.colors(settingsDetails)
+                // next_thekr points left (RTL-forward): flip each arrow to the
+                // reading direction — prev mirrors in RTL, next in LTR — so the
+                // pair points outward correctly in both layouts.
+                val layoutDirection = LocalLayoutDirection.current
                 Image(
                     painter = painterResource(Res.drawable.next_thekr),
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .height(lineHeightDp)
-                        .graphicsLayer(scaleX = -1f),
+                        .graphicsLayer {
+                            if (layoutDirection == LayoutDirection.Rtl) scaleX = -1f
+                        },
                     colorFilter = ColorFilter.tint(
-                        if (tabIndex == 0) colors.disabledPrevNextIndicator
-                        else colors.prevNextIndicator
-                    )
+                        if (tabIndex == 0) {
+                            colors.disabledPrevNextIndicator
+                        } else {
+                            colors.prevNextIndicator
+                        },
+                    ),
                 )
                 Text(
                     text = "${tabIndex + 1} / ${categoryDetails.value.thekrInstanceList.size}",
@@ -67,11 +78,17 @@ fun CurrentThekrIndicator(
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
-                        .height(lineHeightDp),
+                        .height(lineHeightDp)
+                        .graphicsLayer {
+                            if (layoutDirection == LayoutDirection.Ltr) scaleX = -1f
+                        },
                     colorFilter = ColorFilter.tint(
-                        if (tabIndex == categoryDetails.value.thekrInstanceList.size - 1) colors.disabledPrevNextIndicator
-                        else colors.prevNextIndicator
-                    )
+                        if (tabIndex == categoryDetails.value.thekrInstanceList.size - 1) {
+                            colors.disabledPrevNextIndicator
+                        } else {
+                            colors.prevNextIndicator
+                        },
+                    ),
                 )
             }
         }

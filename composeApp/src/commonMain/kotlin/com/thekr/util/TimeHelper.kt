@@ -20,22 +20,31 @@ import kotlin.time.Instant
 @OptIn(ExperimentalTime::class)
 object TimeHelper {
     data class TimeHelper(
-        val midnight: Long = calcMidnight(Clock.System.now().toEpochMilliseconds()),
-        val nextMidnight: Long = calcNextMidnight(midnight),
-        val weekStart: Long = calcWeekStart(midnight),
-        val weekEnd: Long = calcWeekEnd(midnight),
-        val monthStart: Long = calcMonthStart(midnight),
-        val monthEnd: Long = calcMonthEnd(midnight),
-        val yearStart: Long = calcYearStart(midnight),
-        val yearEnd: Long = calcYearEnd(midnight),
+        val timeZone: TimeZone = TimeZone.currentSystemDefault(),
+        val midnight: Long = calcMidnight(Clock.System.now().toEpochMilliseconds(), timeZone),
+        val nextMidnight: Long = calcNextMidnight(midnight, timeZone),
+        val weekStart: Long = calcWeekStart(midnight, timeZone),
+        val weekEnd: Long = calcWeekEnd(midnight, timeZone),
+        val monthStart: Long = calcMonthStart(midnight, timeZone),
+        val monthEnd: Long = calcMonthEnd(midnight, timeZone),
+        val yearStart: Long = calcYearStart(midnight, timeZone),
+        val yearEnd: Long = calcYearEnd(midnight, timeZone),
     )
 
     @Volatile
     private var timeHelper = TimeHelper()
     fun now() = Clock.System.now().toEpochMilliseconds()
+
+    /**
+     * Rebuilds the cached bounds when the day rolls over in the zone the
+     * cache was built with, or when the system timezone changes — so the
+     * windows re-derive in the new zone immediately instead of only at the
+     * next midnight of the old zone.
+     */
     private fun refreshIfStale() {
-        if (now() >= timeHelper.nextMidnight) {
-            timeHelper = TimeHelper()
+        val currentTimeZone = TimeZone.currentSystemDefault()
+        if (now() >= timeHelper.nextMidnight || currentTimeZone != timeHelper.timeZone) {
+            timeHelper = TimeHelper(timeZone = currentTimeZone)
         }
     }
     fun midnight() = refreshIfStale().let { timeHelper.midnight }
@@ -46,8 +55,6 @@ object TimeHelper {
     fun monthEnd() = refreshIfStale().let { timeHelper.monthEnd }
     fun yearStart() = refreshIfStale().let { timeHelper.yearStart }
     fun yearEnd() = refreshIfStale().let { timeHelper.yearEnd }
-
-
 
     /**
      * Calculates the time in milliseconds for midnight (start of day) of the
@@ -61,14 +68,12 @@ object TimeHelper {
      */
     fun calcMidnight(
         time: Long = now(),
-        timeZone: TimeZone = TimeZone.currentSystemDefault()
-    ): Long {
-        return Instant.fromEpochMilliseconds(time)
-            .toLocalDateTime(timeZone)
-            .date
-            .atStartOfDayIn(timeZone)
-            .toEpochMilliseconds()
-    }
+        timeZone: TimeZone = TimeZone.currentSystemDefault(),
+    ): Long = Instant.fromEpochMilliseconds(time)
+        .toLocalDateTime(timeZone)
+        .date
+        .atStartOfDayIn(timeZone)
+        .toEpochMilliseconds()
 
     /**
      * Calculates the time in milliseconds for midnight (start of day) of the
@@ -83,15 +88,13 @@ object TimeHelper {
      */
     fun calcNextMidnight(
         time: Long = now(),
-        timeZone: TimeZone = TimeZone.currentSystemDefault()
-    ): Long {
-        return Instant.fromEpochMilliseconds(time)
-            .toLocalDateTime(timeZone)
-            .date
-            .plus(1, DateTimeUnit.DAY)
-            .atStartOfDayIn(timeZone)
-            .toEpochMilliseconds()
-    }
+        timeZone: TimeZone = TimeZone.currentSystemDefault(),
+    ): Long = Instant.fromEpochMilliseconds(time)
+        .toLocalDateTime(timeZone)
+        .date
+        .plus(1, DateTimeUnit.DAY)
+        .atStartOfDayIn(timeZone)
+        .toEpochMilliseconds()
 
     /**
      * Calculates the time in milliseconds for the start of the week (Saturday)
@@ -108,18 +111,16 @@ object TimeHelper {
     fun calcWeekStart(
         time: Long,
         timeZone: TimeZone = TimeZone.currentSystemDefault(),
-        weekStart: DayOfWeek = DayOfWeek.SATURDAY
-    ): Long {
-        return Instant.fromEpochMilliseconds(time)
-            .toLocalDateTime(timeZone)
-            .date
-            .let { date ->
-                val daysToSubtract = (date.dayOfWeek.isoDayNumber - weekStart.isoDayNumber + 7) % 7
-                date.minus(daysToSubtract, DateTimeUnit.DAY)
-                    .atStartOfDayIn(timeZone)
-                    .toEpochMilliseconds()
-            }
-    }
+        weekStart: DayOfWeek = DayOfWeek.SATURDAY,
+    ): Long = Instant.fromEpochMilliseconds(time)
+        .toLocalDateTime(timeZone)
+        .date
+        .let { date ->
+            val daysToSubtract = (date.dayOfWeek.isoDayNumber - weekStart.isoDayNumber + 7) % 7
+            date.minus(daysToSubtract, DateTimeUnit.DAY)
+                .atStartOfDayIn(timeZone)
+                .toEpochMilliseconds()
+        }
 
     /**
      * Calculates the time in milliseconds for the end of the week (Friday) of
@@ -136,19 +137,17 @@ object TimeHelper {
     fun calcWeekEnd(
         time: Long,
         timeZone: TimeZone = TimeZone.currentSystemDefault(),
-        weekStart: DayOfWeek = DayOfWeek.SATURDAY
-    ): Long {
-        return Instant.fromEpochMilliseconds(time)
-            .toLocalDateTime(timeZone)
-            .date
-            .let { date ->
-                val daysToAdd = (weekStart.isoDayNumber - date.dayOfWeek.isoDayNumber + 7) % 7
-                val weekEndOffset = if (daysToAdd == 0) 7 else daysToAdd
-                date.plus(weekEndOffset, DateTimeUnit.DAY)
-                    .atStartOfDayIn(timeZone)
-                    .toEpochMilliseconds()
-            }
-    }
+        weekStart: DayOfWeek = DayOfWeek.SATURDAY,
+    ): Long = Instant.fromEpochMilliseconds(time)
+        .toLocalDateTime(timeZone)
+        .date
+        .let { date ->
+            val daysToAdd = (weekStart.isoDayNumber - date.dayOfWeek.isoDayNumber + 7) % 7
+            val weekEndOffset = if (daysToAdd == 0) 7 else daysToAdd
+            date.plus(weekEndOffset, DateTimeUnit.DAY)
+                .atStartOfDayIn(timeZone)
+                .toEpochMilliseconds()
+        }
 
     /**
      * Calculates the time in milliseconds for the start of the month of the
@@ -159,16 +158,17 @@ object TimeHelper {
      *     zone).
      * @return The time in milliseconds representing the start of the month.
      */
-    fun calcMonthStart(time: Long, timeZone: TimeZone = TimeZone.currentSystemDefault()): Long {
-        return Instant.fromEpochMilliseconds(time)
-            .toLocalDateTime(timeZone)
-            .date
-            .let {
-                LocalDate(it.year, it.month.number, 1)
-                    .atStartOfDayIn(timeZone)
-                    .toEpochMilliseconds()
-            }
-    }
+    fun calcMonthStart(
+        time: Long,
+        timeZone: TimeZone = TimeZone.currentSystemDefault(),
+    ): Long = Instant.fromEpochMilliseconds(time)
+        .toLocalDateTime(timeZone)
+        .date
+        .let {
+            LocalDate(it.year, it.month.number, 1)
+                .atStartOfDayIn(timeZone)
+                .toEpochMilliseconds()
+        }
 
     /**
      * Calculates the time in milliseconds for the end of the month of the
@@ -179,24 +179,23 @@ object TimeHelper {
      *     zone).
      * @return The time in milliseconds representing the end of the month.
      */
-    fun calcMonthEnd(time: Long, timeZone: TimeZone = TimeZone.currentSystemDefault()): Long {
-        return Instant.fromEpochMilliseconds(time)
-            .toLocalDateTime(timeZone)
-            .date
-            .let {
-                LocalDate(it.year, it.month.number, it.month.maxLength(it.year))
-                    .plus(1, DateTimeUnit.DAY)
-                    .atStartOfDayIn(timeZone)
-                    .toEpochMilliseconds()
-            }
-    }
-
-    private fun Month.maxLength(year: Int): Int {
-        return when (this) {
-            Month.FEBRUARY -> if (Year(year).isLeap) 29 else 28
-            Month.APRIL, Month.JUNE, Month.SEPTEMBER, Month.NOVEMBER -> 30
-            else -> 31
+    fun calcMonthEnd(
+        time: Long,
+        timeZone: TimeZone = TimeZone.currentSystemDefault(),
+    ): Long = Instant.fromEpochMilliseconds(time)
+        .toLocalDateTime(timeZone)
+        .date
+        .let {
+            LocalDate(it.year, it.month.number, it.month.maxLength(it.year))
+                .plus(1, DateTimeUnit.DAY)
+                .atStartOfDayIn(timeZone)
+                .toEpochMilliseconds()
         }
+
+    private fun Month.maxLength(year: Int): Int = when (this) {
+        Month.FEBRUARY -> if (Year(year).isLeap) 29 else 28
+        Month.APRIL, Month.JUNE, Month.SEPTEMBER, Month.NOVEMBER -> 30
+        else -> 31
     }
 
     /**
@@ -208,16 +207,17 @@ object TimeHelper {
      *     zone).
      * @return The time in milliseconds representing the start of the year.
      */
-    fun calcYearStart(time: Long, timeZone: TimeZone = TimeZone.currentSystemDefault()): Long {
-        return Instant.fromEpochMilliseconds(time)
-            .toLocalDateTime(timeZone)
-            .date
-            .let {
-                LocalDate(it.year, 1, 1)
-                    .atStartOfDayIn(timeZone)
-                    .toEpochMilliseconds()
-            }
-    }
+    fun calcYearStart(
+        time: Long,
+        timeZone: TimeZone = TimeZone.currentSystemDefault(),
+    ): Long = Instant.fromEpochMilliseconds(time)
+        .toLocalDateTime(timeZone)
+        .date
+        .let {
+            LocalDate(it.year, 1, 1)
+                .atStartOfDayIn(timeZone)
+                .toEpochMilliseconds()
+        }
 
     /**
      * Calculates the time in milliseconds for the end of the year of the given
@@ -228,16 +228,16 @@ object TimeHelper {
      *     zone).
      * @return The time in milliseconds representing the end of the year.
      */
-    fun calcYearEnd(time: Long, timeZone: TimeZone = TimeZone.currentSystemDefault()): Long {
-        return Instant.fromEpochMilliseconds(time)
-            .toLocalDateTime(timeZone)
-            .date
-            .let {
-                LocalDate(it.year, 12, 31)
-                    .plus(1, DateTimeUnit.DAY)
-                    .atStartOfDayIn(timeZone)
-                    .toEpochMilliseconds()
-            }
-    }
-
+    fun calcYearEnd(
+        time: Long,
+        timeZone: TimeZone = TimeZone.currentSystemDefault(),
+    ): Long = Instant.fromEpochMilliseconds(time)
+        .toLocalDateTime(timeZone)
+        .date
+        .let {
+            LocalDate(it.year, 12, 31)
+                .plus(1, DateTimeUnit.DAY)
+                .atStartOfDayIn(timeZone)
+                .toEpochMilliseconds()
+        }
 }

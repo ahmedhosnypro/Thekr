@@ -1,6 +1,6 @@
 package com.thekr.util
 
-sealed class Language(val isoFormat : String) {
+sealed class Language(val isoFormat: String) {
     data object English : Language("en")
     data object Arabic : Language("ar")
 }
