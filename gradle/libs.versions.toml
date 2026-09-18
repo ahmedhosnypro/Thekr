@@ -45,7 +45,7 @@ appdirs="2.0.0"
 ksp = "2.3.12"
 apollo = "5.1.0"
 kotlinx-io = "0.9.1"
-okio = "3.17.0"
+okio = "3.18.1"
 
 korge= "6.0.0"
 
