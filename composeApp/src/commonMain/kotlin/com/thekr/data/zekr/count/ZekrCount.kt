@@ -5,13 +5,12 @@ import androidx.compose.runtime.Stable
 import com.thekr.util.TimeHelper.now
 
 /**
- * Aggregated counts displayed for one Thekr row.
+ * Aggregated counts displayed for one Thekr instance row.
  *
- * [thekrId] is the Thekr definition id and the key the countList entry is
- * matched by — one entry per thekr, matching the per-thekr card displays.
- * [instanceId] carries the true per-instance id the aggregation was
- * derived from, so consumers can migrate to per-instance keying without
- * re-plumbing the collectors.
+ * [instanceId] is the Thekr instance row id and the key the countList
+ * entry is matched by — one entry per instance, so concurrent instances
+ * of the same Thekr each display their own counts. [thekrId] carries the
+ * Thekr definition id as entry provenance metadata.
  *
  * [timeUpdated] is the entry's data-freshness clock: for collector-derived
  * entries it is the time of the newest persisted count row, so a Room
@@ -34,12 +33,22 @@ data class ThekrCount(
     /**
      * Compatibility alias for pre-rename consumers: the value is the Thekr
      * definition id, not an instance id.
+     *
+     * The single remaining reference is the ZekrCounter.kt preview
+     * (CounterScreenPreviewDark, `thekrInstanceId = 1`) — an actively
+     * reserved lane; retire this alias with it once that lane lands.
      */
     @Deprecated("The entry is keyed by the Thekr definition id; use thekrId")
     val thekrInstanceId: Long
         get() = thekrId
 
-    /** Compatibility constructor for pre-rename construction sites. */
+    /**
+     * Compatibility constructor for pre-rename construction sites.
+     *
+     * The single remaining reference is the ZekrCounter.kt preview
+     * (CounterScreenPreviewDark, `thekrInstanceId = 1`); remove it together
+     * with the deprecated alias above once that lane lands.
+     */
     @Deprecated("The entry is keyed by the Thekr definition id; use thekrId")
     constructor(
         thekrInstanceId: Long = 0,
