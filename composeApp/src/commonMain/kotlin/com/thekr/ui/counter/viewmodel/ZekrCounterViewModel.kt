@@ -30,6 +30,16 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.concurrent.Volatile
 
+// Shared read-only fallbacks for the getters below: a fresh mutableStateOf
+// per miss would allocate a throwaway state object on every recomposition
+// lookup. They are only returned when the list lookup misses (the entry is
+// absent from the list — an already-inconsistent state). Never write these:
+// the single write site (updateOnCount) skips the fallback, so a mutated
+// value cannot leak into another instance's fallback reads.
+private val emptyThekrCountState = mutableStateOf(ThekrCount())
+private val emptyThekrDetailsState = mutableStateOf(ThekrDetails())
+private val emptyThekrInstanceState = mutableStateOf(ThekrInstanceDetails())
+
 class ThekrCounterViewModel(
     savedStateHandle: SavedStateHandle,
     val thekrRepository: ThekrRepository,
@@ -127,32 +137,32 @@ class ThekrCounterViewModel(
     fun getThekrCount(tabIndex: Int): MutableState<ThekrCount> {
         val thekrInstance = uiState.value.categoryDetails.value.thekrInstanceList.getOrNull(tabIndex)
         return uiState.value.categoryDetails.value.countList.firstOrNull { it.value.thekrInstanceId == thekrInstance?.value?.thekrId }
-            ?: mutableStateOf(ThekrCount())
+            ?: emptyThekrCountState
     }
 
     fun getCurrentThekrCount(): MutableState<ThekrCount> {
         val currentThekrInstance = uiState.value.currentThekrInstance
         return uiState.value.categoryDetails.value.countList.firstOrNull { it.value.thekrInstanceId == currentThekrInstance.value.thekrId }
-            ?: mutableStateOf(ThekrCount())
+            ?: emptyThekrCountState
     }
 
     fun getThekr(tabIndex: Int): MutableState<ThekrDetails> {
         val thekrInstance = uiState.value.categoryDetails.value.thekrInstanceList.getOrNull(tabIndex)
         return uiState.value.categoryDetails.value.thekrList.firstOrNull { it.value.id == thekrInstance?.value?.thekrId }
-            ?: mutableStateOf(ThekrDetails())
+            ?: emptyThekrDetailsState
     }
 
     fun getCurrentThekr(): MutableState<ThekrDetails> {
         val currentThekrInstance = uiState.value.currentThekrInstance
         return uiState.value.categoryDetails.value.thekrList.firstOrNull { it.value.id == currentThekrInstance.value.thekrId }
-            ?: mutableStateOf(ThekrDetails())
+            ?: emptyThekrDetailsState
     }
 
     fun getThekrInstance(tabIndex: Int): MutableState<ThekrInstanceDetails> =
         uiState.value.categoryDetails.value.thekrInstanceList.getOrNull(
             tabIndex,
         )
-            ?: mutableStateOf(ThekrInstanceDetails())
+            ?: emptyThekrInstanceState
 
     fun tabIndexOf(thekrInstanceId: Long): Int = uiState.value.categoryDetails.value.thekrInstanceList.indexOfFirst {
         it.value.id == thekrInstanceId
@@ -183,7 +193,14 @@ class ThekrCounterViewModel(
     }
 
     fun updateOnCount() {
-        var count by getCurrentThekrCount()
+        val countState = getCurrentThekrCount()
+        // On a countList miss the getter returns the shared read-only
+        // fallback; writing it would leak the increment into other
+        // instances' fallback reads. The DB tap row is already inserted
+        // by the caller, and the per-instance collector re-derives the
+        // missing entry, so skipping the optimistic update loses nothing.
+        if (countState === emptyThekrCountState) return
+        var count by countState
         count = count.copy(
             dailyCount = count.dailyCount + 1,
             weeklyCount = count.weeklyCount + 1,

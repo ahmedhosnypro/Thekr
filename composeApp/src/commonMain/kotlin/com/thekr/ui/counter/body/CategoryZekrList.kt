@@ -30,8 +30,8 @@ import androidx.compose.ui.tooling.preview.Preview
 @OptIn(InternalVoyagerApi::class)
 fun CategoryThekrList(
     settingsDetails: SettingsDetails,
+    category: MutableState<CategoryDetails>,
     modifier: Modifier = Modifier,
-    category: MutableState<CategoryDetails> = mutableStateOf(CategoryDetails()),
     onNavigateUp: () -> Unit = {},
     canNavigateUp: () -> Boolean = { true },
     categoryListOnClick: (tabIndex: Int) -> Unit = {},

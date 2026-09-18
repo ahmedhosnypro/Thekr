@@ -39,6 +39,17 @@ object ThekrSoundPlayer : SoundPlayer {
     private val decodeMutex = Mutex()
     private var playJob: Job? = null
 
+    // FasilBnGazyan recorded "18_sob7n_web7mdh_3dd5lqh" and
+    // "sob7an_allh_wb7mdh_3dd_5lqh_wazent_3rsho" as one byte-identical file
+    // (md5 3a36644c); only the latter ships, so the former resolves to it
+    // for that sheikh. Other sheikhs keep their own recording of the name.
+    private fun resolveSoundName(sheikh: String, soundFileName: String): String =
+        if (sheikh == "FasilBnGazyan" && soundFileName == "18_sob7n_web7mdh_3dd5lqh") {
+            "sob7an_allh_wb7mdh_3dd_5lqh_wazent_3rsho"
+        } else {
+            soundFileName
+        }
+
     @OptIn(ExperimentalResourceApi::class)
     fun ThekrCounterViewModel.onPlayAudio() {
         if (soundChannel?.playing == true) {
@@ -49,10 +60,19 @@ object ThekrSoundPlayer : SoundPlayer {
         // A playback coroutine may still be decoding; launching another would
         // play the same sound twice and orphan the first channel.
         if (playJob?.isActive == true) return
-        val soundFileName = getCurrentThekr().value.soundFileName
-        val filePath = "files/thekr/${currentSettings().currentSheikh}/$soundFileName.mp3"
+        val soundFileName = getCurrentThekr().value.soundFileName ?: return
+        val sheikh = currentSettings().currentSheikh
+        val soundName = resolveSoundName(sheikh, soundFileName)
         playJob = scope.launch {
-            val sound = decodeSound(filePath) ?: return@launch
+            // Sheikh-local recording first; names whose per-sheikh copies were
+            // verified byte-identical (md5) live only under files/thekr/shared
+            // and resolve from there. A sheikh-local file always takes
+            // precedence, so per-sheikh recordings are never shadowed. (The
+            // directory must not start with an underscore — Android's asset
+            // merger drops underscore-prefixed asset directories.)
+            val sound = decodeSound("files/thekr/$sheikh/$soundName.mp3")
+                ?: decodeSound("files/thekr/shared/$soundName.mp3")
+                ?: return@launch
             if (!isActive || soundChannel?.playing == true) return@launch
             val channel = sound.play()
             if (!isActive) {

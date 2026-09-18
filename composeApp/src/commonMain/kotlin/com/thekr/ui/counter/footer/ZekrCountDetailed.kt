@@ -69,49 +69,60 @@ fun DetailedThekrCount(
         verticalArrangement = Arrangement.spacedBy(tiny, alignment = Alignment.CenterVertically),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        // Display counts based on visibility settings
+        // Display counts based on visibility settings. Each CountItem is
+        // keyed by period: the items are conditionally included, so
+        // positional slot identity alone would let one period's saved
+        // progress bleed into another's slot after a visibility toggle.
         if (settingsDetails.showDailyCount) {
-            CountItem(
-                count = count.dailyCount,
-                countLabel = stringResource(Res.string.daily),
-                target = thekrInstanceDetails.dailyTarget,
-                targetStatus = thekrInstanceDetails.dailyTargetStatus,
-                thekrDetails = thekrDetails,
-                colors = colors
-            )
+            key("daily") {
+                CountItem(
+                    count = count.dailyCount,
+                    countLabel = stringResource(Res.string.daily),
+                    target = thekrInstanceDetails.dailyTarget,
+                    targetStatus = thekrInstanceDetails.dailyTargetStatus,
+                    thekrDetails = thekrDetails,
+                    colors = colors,
+                )
+            }
         }
 
         if (settingsDetails.showWeeklyCount) {
-            CountItem(
-                count = count.weeklyCount,
-                countLabel = stringResource(Res.string.weekly),
-                target = thekrInstanceDetails.weeklyTarget,
-                targetStatus = thekrInstanceDetails.weeklyTargetStatus,
-                thekrDetails = thekrDetails,
-                colors = colors
-            )
+            key("weekly") {
+                CountItem(
+                    count = count.weeklyCount,
+                    countLabel = stringResource(Res.string.weekly),
+                    target = thekrInstanceDetails.weeklyTarget,
+                    targetStatus = thekrInstanceDetails.weeklyTargetStatus,
+                    thekrDetails = thekrDetails,
+                    colors = colors,
+                )
+            }
         }
 
         if (settingsDetails.showMonthlyCount) {
-            CountItem(
-                count = count.monthlyCount,
-                countLabel = stringResource(Res.string.monthly),
-                target = thekrInstanceDetails.monthlyTarget,
-                targetStatus = thekrInstanceDetails.monthlyTargetStatus,
-                thekrDetails = thekrDetails,
-                colors = colors
-            )
+            key("monthly") {
+                CountItem(
+                    count = count.monthlyCount,
+                    countLabel = stringResource(Res.string.monthly),
+                    target = thekrInstanceDetails.monthlyTarget,
+                    targetStatus = thekrInstanceDetails.monthlyTargetStatus,
+                    thekrDetails = thekrDetails,
+                    colors = colors,
+                )
+            }
         }
 
         if (settingsDetails.showYearlyCount) {
-            CountItem(
-                count = count.yearlyCount,
-                countLabel = stringResource(Res.string.yearly),
-                target = thekrInstanceDetails.yearlyTarget,
-                targetStatus = thekrInstanceDetails.yearlyTargetStatus,
-                thekrDetails = thekrDetails,
-                colors = colors
-            )
+            key("yearly") {
+                CountItem(
+                    count = count.yearlyCount,
+                    countLabel = stringResource(Res.string.yearly),
+                    target = thekrInstanceDetails.yearlyTarget,
+                    targetStatus = thekrInstanceDetails.yearlyTargetStatus,
+                    thekrDetails = thekrDetails,
+                    colors = colors,
+                )
+            }
         }
 
         if (settingsDetails.showTotalCount) {
@@ -126,17 +137,18 @@ fun DetailedThekrCount(
  * @param thekrCount The state of the Thekr count data.
  * @param colors The color palette for the Thekr theme.
  */
+@Suppress("ktlint:standard:function-naming")
 @Composable
 fun TotalCount(
     thekrCount: MutableState<ThekrCount>,
-    colors: AppColors
+    colors: AppColors,
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .border(width = 1.dp, color = colors.secondaryHeaderBorder, shape = CircleShape)
             .padding(vertical = small, horizontal = normal),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
             text = stringResource(Res.string.total),
@@ -166,6 +178,7 @@ fun TotalCount(
  * @param colors The color palette for the Thekr theme.
  * @param modifier Modifier to be applied to the layout.
  */
+@Suppress("ktlint:standard:function-naming")
 @Composable
 fun CountItem(
     count: Long,
@@ -184,7 +197,7 @@ fun CountItem(
         val progressAnimate = animateFloatAsState(
             targetValue = progressTarget,
             animationSpec = tween(durationMillis = thekrDetails.value.coolDown.toInt()),
-            label = "progressAnimate"
+            label = "progressAnimate",
         )
 
         LaunchedEffect(count, target) {
@@ -197,7 +210,7 @@ fun CountItem(
                 .border(width = 1.dp, color = colors.secondaryHeaderBorder, shape = CircleShape)
                 .padding(vertical = small, horizontal = normal),
             horizontalArrangement = Arrangement.spacedBy(24.dp),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
                 text = countLabel,
@@ -229,12 +242,13 @@ fun CountItem(
  * @param progressColor The color for the progress bar and current count
  *     text.
  */
+@Suppress("ktlint:standard:function-naming")
 @Composable
 private fun CountValues(
     count: Long,
     target: Long,
     colors: AppColors,
-    progressColor: Color
+    progressColor: Color,
 ) {
     BoxWithConstraints(modifier = Modifier.fillMaxWidth(0.4f)) {
         val width = maxWidth / 2 - 8.sp.value.dp
@@ -245,7 +259,7 @@ private fun CountValues(
                 textAlign = TextAlign.Start,
                 fontSize = 12.sp,
                 color = progressColor,
-                maxLines = 1
+                maxLines = 1,
             )
             Text(text = "/", fontSize = 12.sp)
             AutoSizeText(
@@ -259,7 +273,7 @@ private fun CountValues(
     }
 }
 
-
+@Suppress("ktlint:standard:function-naming")
 @Preview
 @Composable
 fun CountPreview() {
@@ -272,13 +286,14 @@ fun CountPreview() {
                     target = 100,
                     targetStatus = ThekrTargetStatus.Enabled,
                     thekrDetails = thekrPreviewList()[0],
-                    colors = AppTheme.colors(SettingsDetails())
+                    colors = AppTheme.colors(SettingsDetails()),
                 )
             }
         }
     }
 }
 
+@Suppress("ktlint:standard:function-naming")
 @Preview
 @Composable
 fun CountPreviewDark() {
@@ -291,13 +306,14 @@ fun CountPreviewDark() {
                     target = 100,
                     targetStatus = ThekrTargetStatus.Enabled,
                     thekrDetails = thekrPreviewList()[0],
-                    colors = AppTheme.colors(SettingsDetails(themeMode = ThemeMode.Dark))
+                    colors = AppTheme.colors(SettingsDetails(themeMode = ThemeMode.Dark)),
                 )
             }
         }
     }
 }
 
+@Suppress("ktlint:standard:function-naming")
 @Preview
 @Composable
 fun DetailedThekrCountPreviewDark() {
@@ -307,16 +323,16 @@ fun DetailedThekrCountPreviewDark() {
                 Surface {
                     DetailedThekrCountPreview(
                         settingsDetails = SettingsDetails(
-                            themeMode = ThemeMode.Dark
-                        )
+                            themeMode = ThemeMode.Dark,
+                        ),
                     )
                 }
                 AppTheme(themeMode = ThemeMode.Light) {
                     Surface {
                         DetailedThekrCountPreview(
                             settingsDetails = SettingsDetails(
-                                themeMode = ThemeMode.Light
-                            )
+                                themeMode = ThemeMode.Light,
+                            ),
                         )
                     }
                 }
@@ -325,9 +341,10 @@ fun DetailedThekrCountPreviewDark() {
     }
 }
 
+@Suppress("ktlint:standard:function-naming")
 @Composable
 fun DetailedThekrCountPreview(
-    settingsDetails: SettingsDetails = SettingsDetails()
+    settingsDetails: SettingsDetails = SettingsDetails(),
 ) {
     DetailedThekrCount(
         settingsDetails = settingsDetails,
@@ -338,12 +355,11 @@ fun DetailedThekrCountPreview(
                     weeklyCount = 100,
                     monthlyCount = 200,
                     yearlyCount = 300,
-                    totalCount = 650
-                )
+                    totalCount = 650,
+                ),
             )
         },
         thekrInstanceDetailsMutableState = thekrInstanceList()[0],
         thekrDetails = thekrPreviewList()[0],
     )
 }
-
