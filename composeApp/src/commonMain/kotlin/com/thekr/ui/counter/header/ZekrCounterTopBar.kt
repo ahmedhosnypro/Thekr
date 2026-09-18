@@ -521,7 +521,7 @@ private fun Lock(
             imageVector =
             if (!counterUiState.lockEnabled) Icons.Default.LockOpen
             else Icons.Default.Lock,
-            contentDescription = stringResource(Res.string.lock)
+            contentDescription = stringResource(Res.string.lock),
         )
     }
 }
