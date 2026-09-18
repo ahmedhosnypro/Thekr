@@ -20,7 +20,8 @@ expect suspend fun initAppData()
 // Mirrors kstore 1.1.0's FileCodec default Json (ignoreUnknownKeys +
 // encodeDefaults) so this pre-check only rejects what kstore itself would
 // fail to decode — no false-positive quarantines on benign schema drift.
-private val recoveryJson = Json {
+// Also reused by the desktop store's codec so decode parity holds there too.
+internal val recoveryJson = Json {
     ignoreUnknownKeys = true
     encodeDefaults = true
 }
@@ -33,6 +34,14 @@ private val recoveryJson = Json {
 private object QuarantineFiles {
     const val KEEP_COUNT = 5
 }
+
+/**
+ * The raw bytes read from settings.json together with the value decoded from
+ * them (null when the file did not decode) — the quarantine pre-check's single
+ * read+decode, handed back so the platform store's codec can share it instead
+ * of reading and decoding the same file again.
+ */
+internal class SettingsFileSnapshot(val bytes: ByteArray, val decoded: Settings?)
 
 /**
  * kstore 1.1.0's file codec maps only FileNotFoundException to null; a corrupt
@@ -48,25 +57,31 @@ private object QuarantineFiles {
  * (settings.json.corrupt-<epochMillis> — nothing is silently destroyed);
  * the next get() then returns null, which makes initAppData() re-initialize
  * the record with defaults so the app boots normally.
+ *
+ * Returns the pre-check's read+decode so callers that share the decode with
+ * their store codec can; callers that ignore it (Android) keep the previous
+ * behavior.
  */
-internal fun quarantineCorruptSettingsFile() {
+internal fun quarantineCorruptSettingsFile(): SettingsFileSnapshot? {
     val settingsPath = Path("$appStorage/$settingsFile")
     if (!SystemFileSystem.exists(settingsPath)) {
         pruneQuarantineFiles()
-        return
+        return null
     }
 
     val bytes = runCatching {
         SystemFileSystem.source(settingsPath).buffered().use { it.readByteArray() }
     }.getOrElse { failure ->
         quarantine(settingsPath, "unreadable (${failure.message})")
-        return
+        return null
     }
 
-    runCatching { recoveryJson.decodeFromString<Settings>(bytes.decodeToString()) }
+    val decoded = runCatching { recoveryJson.decodeFromString<Settings>(bytes.decodeToString()) }
         .onFailure { quarantine(settingsPath, "undecodable (${it.message})") }
+        .getOrNull()
 
     pruneQuarantineFiles()
+    return SettingsFileSnapshot(bytes, decoded)
 }
 
 /** Keeps only the newest [QuarantineFiles.KEEP_COUNT] settings.json.corrupt-* files. */
@@ -85,7 +100,10 @@ private fun pruneQuarantineFiles() {
     }
 }
 
-private fun quarantine(settingsPath: Path, reason: String?) {
+/** Moves an unreadable or undecodable settings.json next to itself as
+ * settings.json.corrupt-<epochMillis> (deleting it only if the move fails),
+ * so the store re-initializes with defaults and the app still boots. */
+internal fun quarantine(settingsPath: Path, reason: String?) {
     val quarantinePath = Path("$appStorage/$settingsFile.corrupt-${now()}")
     runCatching { SystemFileSystem.atomicMove(settingsPath, quarantinePath) }
         .onFailure {
