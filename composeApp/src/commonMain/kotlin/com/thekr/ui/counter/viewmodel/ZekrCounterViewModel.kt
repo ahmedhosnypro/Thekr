@@ -30,6 +30,16 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.concurrent.Volatile
 
+// Stable fallbacks for the getters below: a fresh mutableStateOf per miss
+// would allocate a throwaway state object on every recomposition lookup.
+// Shared singletons are read-only in practice; they are only returned when
+// the list lookup misses, which itself implies an inconsistent category
+// state (the entry is absent from the list, so nothing observes writes to
+// the fallback).
+private val emptyThekrCountState = mutableStateOf(ThekrCount())
+private val emptyThekrDetailsState = mutableStateOf(ThekrDetails())
+private val emptyThekrInstanceState = mutableStateOf(ThekrInstanceDetails())
+
 class ThekrCounterViewModel(
     savedStateHandle: SavedStateHandle,
     val thekrRepository: ThekrRepository,
@@ -127,32 +137,32 @@ class ThekrCounterViewModel(
     fun getThekrCount(tabIndex: Int): MutableState<ThekrCount> {
         val thekrInstance = uiState.value.categoryDetails.value.thekrInstanceList.getOrNull(tabIndex)
         return uiState.value.categoryDetails.value.countList.firstOrNull { it.value.thekrInstanceId == thekrInstance?.value?.thekrId }
-            ?: mutableStateOf(ThekrCount())
+            ?: emptyThekrCountState
     }
 
     fun getCurrentThekrCount(): MutableState<ThekrCount> {
         val currentThekrInstance = uiState.value.currentThekrInstance
         return uiState.value.categoryDetails.value.countList.firstOrNull { it.value.thekrInstanceId == currentThekrInstance.value.thekrId }
-            ?: mutableStateOf(ThekrCount())
+            ?: emptyThekrCountState
     }
 
     fun getThekr(tabIndex: Int): MutableState<ThekrDetails> {
         val thekrInstance = uiState.value.categoryDetails.value.thekrInstanceList.getOrNull(tabIndex)
         return uiState.value.categoryDetails.value.thekrList.firstOrNull { it.value.id == thekrInstance?.value?.thekrId }
-            ?: mutableStateOf(ThekrDetails())
+            ?: emptyThekrDetailsState
     }
 
     fun getCurrentThekr(): MutableState<ThekrDetails> {
         val currentThekrInstance = uiState.value.currentThekrInstance
         return uiState.value.categoryDetails.value.thekrList.firstOrNull { it.value.id == currentThekrInstance.value.thekrId }
-            ?: mutableStateOf(ThekrDetails())
+            ?: emptyThekrDetailsState
     }
 
     fun getThekrInstance(tabIndex: Int): MutableState<ThekrInstanceDetails> =
         uiState.value.categoryDetails.value.thekrInstanceList.getOrNull(
             tabIndex,
         )
-            ?: mutableStateOf(ThekrInstanceDetails())
+            ?: emptyThekrInstanceState
 
     fun tabIndexOf(thekrInstanceId: Long): Int = uiState.value.categoryDetails.value.thekrInstanceList.indexOfFirst {
         it.value.id == thekrInstanceId

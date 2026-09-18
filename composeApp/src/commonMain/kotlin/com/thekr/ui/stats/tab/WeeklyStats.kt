@@ -46,11 +46,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import java.util.Calendar
 import java.util.Locale
 
-@Preview
 @Composable
 fun WeekStats(
+    time: MutableLongState,
     modifier: Modifier = Modifier,
-    time: MutableLongState = mutableLongStateOf(System.currentTimeMillis()),
 ) {
     Column(
         modifier = modifier
@@ -62,6 +61,14 @@ fun WeekStats(
             time = time
         )
     }
+}
+
+@Preview
+@Composable
+fun WeekStatsPreview() {
+    WeekStats(
+        time = remember { mutableLongStateOf(System.currentTimeMillis()) }
+    )
 }
 
 @Composable
@@ -143,7 +150,7 @@ fun WeekNavigator(time: MutableLongState) {
 
 @Composable
 private fun WeeklyChartWrapper(
-    time: MutableLongState = mutableLongStateOf(System.currentTimeMillis()),
+    time: MutableLongState,
 ) {
     val modelProducer = remember { CartesianChartModelProducer() }
     val weekStatistics = produceState(

@@ -22,7 +22,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableLongState
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
@@ -58,9 +57,9 @@ import java.util.Locale
 
 @Composable
 fun DayStats(
+    midnight: MutableLongState,
+    dayStatisticsType: MutableState<DayStatisticsType>,
     modifier: Modifier = Modifier,
-    midnight: MutableLongState = mutableLongStateOf(calcMidnight()),
-    dayStatisticsType: MutableState<DayStatisticsType> = mutableStateOf(DayStatisticsType.Hourly),
 ) {
     Column(
         modifier = modifier
