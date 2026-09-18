@@ -34,27 +34,27 @@ actual class AppDataContainer(private val context: Context) : AppContainer {
     }
 
     override val categoryRepository: CategoryRepository by lazy {
-        OfflineCategoryRepository(db().categoryDao())
+        GuardedCategoryRepository(OfflineCategoryRepository(db().categoryDao()))
     }
 
     override val thekrRepository: ThekrRepository by lazy {
-        OfflineThekrRepository(db().thekrDAO())
+        GuardedThekrRepository(OfflineThekrRepository(db().thekrDAO()))
     }
 
     override val thekrInstanceRepository: ThekrInstanceRepository by lazy {
-        OfflineThekrInstanceRepository(db().thekrInstanceDao())
+        GuardedThekrInstanceRepository(OfflineThekrInstanceRepository(db().thekrInstanceDao()))
     }
 
     override val fadlRepository: FadlRepository by lazy {
-        OfflineFadlRepository(db().fadlDao())
+        GuardedFadlRepository(OfflineFadlRepository(db().fadlDao()))
     }
 
     override val countRepository: CountRepository by lazy {
-        OfflineCountRepository(db().countDao())
+        GuardedCountRepository(OfflineCountRepository(db().countDao()))
     }
 
     override val countMissRepository: CountMissRepository by lazy {
-        OfflineCountMissRepository(db().countMissDao())
+        GuardedCountMissRepository(OfflineCountMissRepository(db().countMissDao()))
     }
 
     override val thekrGoalCompletionRepository: ThekrGoalCompletionRepository by lazy {
@@ -64,6 +64,6 @@ actual class AppDataContainer(private val context: Context) : AppContainer {
     }
 
     override val sessionRepository: SessionRepository by lazy {
-        OfflineSessionRepository(db().sessionDao())
+        GuardedSessionRepository(OfflineSessionRepository(db().sessionDao()))
     }
 }
