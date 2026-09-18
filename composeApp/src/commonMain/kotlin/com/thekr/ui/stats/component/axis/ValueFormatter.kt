@@ -20,10 +20,7 @@ private class IntFormatter : CartesianValueFormatter {
 /** Formats values as integers. */
 fun intFormatter(): CartesianValueFormatter = IntFormatter()
 
-private class HourFormatter(
-    private val am: String,
-    private val pm: String
-) : CartesianValueFormatter {
+private class HourFormatter(private val am: String, private val pm: String) : CartesianValueFormatter {
     override fun format(
         context: CartesianMeasuringContext,
         value: Double,
@@ -40,9 +37,9 @@ private class HourFormatter(
     }
 
     override fun equals(other: Any?) =
-        this === other || other is HourFormatter
+        this === other || other is HourFormatter && other.am == am && other.pm == pm
 
-    override fun hashCode() = javaClass.hashCode()
+    override fun hashCode() = 31 * am.hashCode() + pm.hashCode()
 }
 
 /** Formats values as hours. */
@@ -51,10 +48,7 @@ fun hourFormatter(
     pm: String = "pm",
 ): CartesianValueFormatter = HourFormatter(am, pm)
 
-private class MinuteFormatter(
-    private val am: String,
-    private val pm: String
-) : CartesianValueFormatter {
+private class MinuteFormatter(private val am: String, private val pm: String) : CartesianValueFormatter {
     override fun format(
         context: CartesianMeasuringContext,
         value: Double,
@@ -71,9 +65,9 @@ private class MinuteFormatter(
     }
 
     override fun equals(other: Any?) =
-        this === other || other is MinuteFormatter
+        this === other || other is MinuteFormatter && other.am == am && other.pm == pm
 
-    override fun hashCode() = javaClass.hashCode()
+    override fun hashCode() = 31 * am.hashCode() + pm.hashCode()
 }
 
 /** Formats values as minutes. */
@@ -84,13 +78,13 @@ fun minuteFormatter(
 
 enum class HourFormat {
     HOURS_12,
-    HOURS_24
+    HOURS_24,
 }
 
 private class ExtendedMinuteFormatter(
     private val am: String,
     private val pm: String,
-    private val hourFormat: HourFormat = HourFormat.HOURS_12
+    private val hourFormat: HourFormat = HourFormat.HOURS_12,
 ) : CartesianValueFormatter {
     override fun format(
         context: CartesianMeasuringContext,
@@ -118,47 +112,40 @@ private class ExtendedMinuteFormatter(
         }
     }
 
-    override fun equals(other: Any?) =
-        this === other || other is ExtendedMinuteFormatter
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is ExtendedMinuteFormatter) return false
+        if (other.am != am) return false
+        if (other.pm != pm) return false
+        return other.hourFormat == hourFormat
+    }
 
-    override fun hashCode() = javaClass.hashCode()
+    override fun hashCode(): Int {
+        var result = am.hashCode()
+        result = 31 * result + pm.hashCode()
+        result = 31 * result + hourFormat.hashCode()
+        return result
+    }
 }
 
 /** Enhanced formatter that formats minutes as HH:MM. */
 fun extendedMinuteFormatter(
     am: String = "am",
     pm: String = "pm",
-    hourFormat: HourFormat = HourFormat.HOURS_12
+    hourFormat: HourFormat = HourFormat.HOURS_12,
 ): CartesianValueFormatter = ExtendedMinuteFormatter(am, pm, hourFormat)
 
-private class WeekdayFormatter(
-    private val saturday: String,
-    private val sunday: String,
-    private val monday: String,
-    private val tuesday: String,
-    private val wednesday: String,
-    private val thursday: String,
-    private val friday: String
-) : CartesianValueFormatter {
+private class WeekdayFormatter(private val names: List<String>) : CartesianValueFormatter {
     override fun format(
         context: CartesianMeasuringContext,
         value: Double,
         verticalAxisPosition: Axis.Position.Vertical?,
-    ): CharSequence = when (value.toInt()) {
-        0 -> saturday
-        1 -> sunday
-        2 -> monday
-        3 -> tuesday
-        4 -> wednesday
-        5 -> thursday
-        6 -> friday
-        else -> " "
-    }
+    ): CharSequence = names.getOrNull(value.toInt()) ?: " "
 
     override fun equals(other: Any?) =
-        this === other || other is WeekdayFormatter
+        this === other || other is WeekdayFormatter && other.names == names
 
-    override fun hashCode() = javaClass.hashCode()
+    override fun hashCode() = names.hashCode()
 }
 
 /** Formats values as weekdays. */
@@ -170,6 +157,5 @@ fun weekdayFormatter(
     wednesday: String = "Wednesday",
     thursday: String = "Thursday",
     friday: String = "Friday",
-): CartesianValueFormatter = WeekdayFormatter(
-    saturday, sunday, monday, tuesday, wednesday, thursday, friday
-)
+): CartesianValueFormatter =
+    WeekdayFormatter(listOf(saturday, sunday, monday, tuesday, wednesday, thursday, friday))
