@@ -100,14 +100,17 @@ fun updateThekrInstanceList(
 }
 
 /**
- * Updates a ThekrCount item in a SnapshotStateList.
- * If the item exists, it is replaced only when the emission's data is
- * fresher than the entry — an entry holding optimistic in-memory count
- * increments newer than the persisted data is never overwritten by a
- * stale Room emission. [forceUpdate] bypasses the freshness guard for
- * rollover re-derivations, where the period bounds changed even though
- * the persisted data is not newer.
- * If the item does not exist, it is added to the list.
+ * Updates a ThekrCount entry in a SnapshotStateList keyed by instance id.
+ * If an entry for the instance exists, it is replaced only when the
+ * emission's data is fresher than the entry — an entry holding optimistic
+ * in-memory count increments newer than the persisted data is never
+ * overwritten by a stale Room emission. [forceUpdate] bypasses the
+ * freshness guard for rollover re-derivations, where the period bounds
+ * changed even though the persisted data is not newer.
+ * If no entry exists, one is added — so each Thekr instance owns exactly
+ * one entry with a stable [MutableState] identity, mutated in place across
+ * emissions (concurrent instances of the same Thekr each get their own
+ * entry instead of flapping a shared one).
  *
  * @param toUpdateThekrCountList The list to be updated.
  * @param updatedThekrCountItem The updated ThekrCount item.
@@ -119,7 +122,7 @@ fun updateThekrCountItem(
     forceUpdate: Boolean = false,
 ) {
     val existingItemIndex = toUpdateThekrCountList.indexOfFirst {
-        it.value.thekrId == updatedThekrCountItem.value.thekrId
+        it.value.instanceId == updatedThekrCountItem.value.instanceId
     }
 
     if (existingItemIndex != -1) {
@@ -140,15 +143,15 @@ fun updateThekrCountItem(
  * instance ever created.
  *
  * @param toUpdateThekrCountList The list to be updated.
- * @param removedThekrIds The ThekrCount keys (thekrId values) whose
+ * @param removedInstanceIds The ThekrCount keys (instanceId values) whose
  *     instances are gone.
  */
 fun removeThekrCountItems(
     toUpdateThekrCountList: SnapshotStateList<MutableState<ThekrCount>>,
-    removedThekrIds: Set<Long>,
+    removedInstanceIds: Set<Long>,
 ) {
-    if (removedThekrIds.isEmpty()) return
-    toUpdateThekrCountList.removeIf { it.value.thekrId in removedThekrIds }
+    if (removedInstanceIds.isEmpty()) return
+    toUpdateThekrCountList.removeIf { it.value.instanceId in removedInstanceIds }
 }
 
 /**
