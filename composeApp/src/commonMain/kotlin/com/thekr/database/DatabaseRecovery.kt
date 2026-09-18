@@ -59,7 +59,7 @@ private fun readStoredSchemaVersion(databasePath: Path): Int? {
     SystemFileSystem.source(databasePath).buffered().use { source ->
         val magic = ByteArray(SQLITE_MAGIC.size)
         val magicBytesRead = source.readAtMostTo(magic, 0, magic.size)
-        if (magicBytesRead == 0) return null
+        if (magicBytesRead <= 0) return null
         check(magicBytesRead == SQLITE_MAGIC.size && magic.contentEquals(SQLITE_MAGIC)) {
             "not a SQLite database file"
         }
