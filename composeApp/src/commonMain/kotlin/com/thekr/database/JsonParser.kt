@@ -34,8 +34,12 @@ object JsonParser {
                     )
                 }
             } catch (e: Exception) {
-                e.printStackTrace()
-                // Handle error, maybe log or notify user
+                // Seed failures leave dbInitialized false, so the import is
+                // retried on the next launch and insertAll is idempotent
+                // (OnConflictStrategy.IGNORE) — a partial import self-heals.
+                // Log loudly instead of crashing; the UI stays on its
+                // loading screen rather than faking an initialized app.
+                println("JsonParser: database seed import failed; retrying on next launch ($e)")
             }
         }
     }
@@ -49,7 +53,9 @@ object JsonParser {
     }
 
     private suspend fun insertDataIntoDatabase(
-        thekrList: List<Thekr>, thekrInstanceList: List<ThekrInstance>, categoryList: List<Category>
+        thekrList: List<Thekr>,
+        thekrInstanceList: List<ThekrInstance>,
+        categoryList: List<Category>,
     ) {
         withContext(Dispatchers.IO) {
             database.thekrDAO().insertAll(thekrList)
