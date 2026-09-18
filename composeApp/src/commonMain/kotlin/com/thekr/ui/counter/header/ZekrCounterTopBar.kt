@@ -544,7 +544,7 @@ private fun ThemeMode(
                 com.thekr.ui.component.ThekrIcon.Drawable(AppTheme.resources(settingsDetails).themeMode)
             },
             contentDescription = if (settingsDetails.themeMode == ThemeMode.System) {
-                "                stringResource(Res.string.system_theme_mode)"
+                stringResource(Res.string.system_theme_mode)
             } else {
                 stringResource(Res.string.theme_mode)
             },
