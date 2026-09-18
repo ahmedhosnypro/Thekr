@@ -106,7 +106,6 @@ kotlin {
             implementation(libs.compose.ui.tooling)
             implementation(libs.androidx.activity.compose)
             implementation(libs.kotlinx.coroutines.android)
-            implementation(libs.ktor.client.okhttp)
             implementation(libs.bundles.libsu)
             implementation(libs.androidx.appcompat)
 
@@ -124,11 +123,7 @@ kotlin {
             implementation(libs.compose.ui.tooling.preview)
 
             implementation(libs.voyager.navigator)
-            implementation(libs.coil)
-            implementation(libs.coil.network.ktor)
-            implementation(libs.napier)
             implementation(libs.kotlinx.coroutines.core)
-            implementation(libs.ktor.core)
             implementation(libs.composeIcons.featherIcons)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kotlinx.datetime)
@@ -140,8 +135,6 @@ kotlin {
             implementation(libs.lifecycle.runtime.compose)
             implementation(libs.lifecycle.viewmodel.compose)
             implementation(libs.navigation.compose)
-
-            implementation(libs.apollo.runtime)
 
             implementation(libs.moko.mvvm)
 
@@ -165,12 +158,7 @@ kotlin {
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
-            implementation(libs.ktor.client.okhttp)
         }
-
-//        iosMain.dependencies {
-//            implementation(libs.ktor.client.darwin)
-//        }
     }
 }
 
