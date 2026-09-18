@@ -46,24 +46,34 @@ import androidx.compose.ui.tooling.preview.Preview
 import java.util.Calendar
 import java.util.Locale
 
-@Preview
+@Suppress("ktlint:standard:function-naming")
 @Composable
 fun WeekStats(
+    time: MutableLongState,
     modifier: Modifier = Modifier,
-    time: MutableLongState = mutableLongStateOf(System.currentTimeMillis()),
 ) {
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(top = medium)
+            .padding(top = medium),
     ) {
         WeekNavigator(time)
         WeeklyChartWrapper(
-            time = time
+            time = time,
         )
     }
 }
 
+@Suppress("ktlint:standard:function-naming")
+@Preview
+@Composable
+fun WeekStatsPreview() {
+    WeekStats(
+        time = remember { mutableLongStateOf(System.currentTimeMillis()) },
+    )
+}
+
+@Suppress("ktlint:standard:function-naming")
 @Composable
 fun WeekNavigator(time: MutableLongState) {
     Row(
@@ -71,7 +81,7 @@ fun WeekNavigator(time: MutableLongState) {
             .fillMaxWidth()
             .padding(small),
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         // previous week
         IconButton(onClick = {
@@ -82,7 +92,7 @@ fun WeekNavigator(time: MutableLongState) {
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowBackIos,
                 contentDescription = null,
-                tint = MaterialTheme.colorScheme.onBackground
+                tint = MaterialTheme.colorScheme.onBackground,
             )
         }
 
@@ -107,10 +117,9 @@ fun WeekNavigator(time: MutableLongState) {
             timeInMillis = weekStartDate
         }.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())
 
-
         Text(
             text = "$monthName $startDay - $endDay",
-            color = MaterialTheme.colorScheme.onBackground
+            color = MaterialTheme.colorScheme.onBackground,
         )
 
         var isCurrentWeek by remember {
@@ -126,7 +135,8 @@ fun WeekNavigator(time: MutableLongState) {
         IconButton(
             onClick = {
                 time.longValue = StatsTimeHelper.midnightOffsetBy(calcWeekStart(time.longValue), 7)
-            }, enabled = !isCurrentWeek
+            },
+            enabled = !isCurrentWeek,
         ) {
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowForwardIos,
@@ -135,20 +145,21 @@ fun WeekNavigator(time: MutableLongState) {
                     MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)
                 } else {
                     MaterialTheme.colorScheme.onBackground
-                }
+                },
             )
         }
     }
 }
 
+@Suppress("ktlint:standard:function-naming")
 @Composable
 private fun WeeklyChartWrapper(
-    time: MutableLongState = mutableLongStateOf(System.currentTimeMillis()),
+    time: MutableLongState,
 ) {
     val modelProducer = remember { CartesianChartModelProducer() }
     val weekStatistics = produceState(
         initialValue = emptyStatisticsData(),
-        key1 = time.longValue
+        key1 = time.longValue,
     ) {
         // Load on Dispatchers.IO so the blocking DB read never runs on the
         // main thread during composition.
@@ -166,6 +177,7 @@ private fun WeeklyChartWrapper(
     )
 }
 
+@Suppress("ktlint:standard:function-naming")
 @Composable
 fun WeekChart(
     modifier: Modifier = Modifier,
@@ -174,7 +186,7 @@ fun WeekChart(
 ) {
     val scrollState = rememberVicoScrollState()
     val zoomState = rememberVicoZoomState(
-        zoomEnabled = false
+        zoomEnabled = false,
     )
 
     Box(
