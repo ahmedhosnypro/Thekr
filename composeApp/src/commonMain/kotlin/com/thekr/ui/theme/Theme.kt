@@ -139,24 +139,18 @@ private val LightColors = lightColorScheme(
     scrim = md_theme_light_scrim,
 )
 
-internal val LocalThemeIsDark = compositionLocalOf { mutableStateOf(true) }
-
 @Composable
 internal fun AppTheme(
     content: @Composable() () -> Unit
 ) {
     val systemIsDark = isSystemInDarkTheme()
     val isDarkState = remember { mutableStateOf(systemIsDark) }
-    CompositionLocalProvider(
-        LocalThemeIsDark provides isDarkState
-    ) {
-        val isDark by isDarkState
-        SystemAppearance(isLight = !isDark)
-        MaterialTheme(
-            colorScheme = if (isDark) DarkColorScheme else LightColorScheme,
-            content = { Surface(content = content) }
-        )
-    }
+    val isDark by isDarkState
+    SystemAppearance(isLight = !isDark)
+    MaterialTheme(
+        colorScheme = if (isDark) DarkColorScheme else LightColorScheme,
+        content = { Surface(content = content) }
+    )
 }
 
 @Composable
