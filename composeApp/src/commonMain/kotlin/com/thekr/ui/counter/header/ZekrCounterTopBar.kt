@@ -469,7 +469,7 @@ private fun SoundPlayer(
                 )
         ) {
             IconWrapper(
-                icon = if (counterUiState.isAudioPlaying) Res.drawable.pause_sound else Res.drawable.play_sound,
+                icon = ThekrIcon.Drawable(if (counterUiState.isAudioPlaying) Res.drawable.pause_sound else Res.drawable.play_sound),
                 contentDescription = stringResource(Res.string.listen_to_thekr),
                 tint = tint,
                 modifier = Modifier.size(24.dp)
@@ -539,9 +539,9 @@ private fun ThemeMode(
     ) {
         IconWrapper(
             icon = if (settingsDetails.themeMode == ThemeMode.System) {
-                Icons.Filled.BrightnessAuto
+                ThekrIcon.Vector(Icons.Filled.BrightnessAuto)
             } else {
-                AppTheme.resources(settingsDetails).themeMode
+                ThekrIcon.Drawable(AppTheme.resources(settingsDetails).themeMode)
             },
             contentDescription = if (settingsDetails.themeMode == ThemeMode.System) {
                 "                stringResource(Res.string.system_theme_mode)"
