@@ -25,8 +25,14 @@ private val recoveryJson = Json {
     encodeDefaults = true
 }
 
-/** Quarantine files (settings.json.corrupt-<epochMillis>) pruned to this many. */
-private const val QUARANTINE_KEEP_COUNT = 5
+/**
+ * Quarantine files (settings.json.corrupt-<epochMillis>) are pruned to this
+ * many newest copies on startup. Object-scoped so ktlint (screaming snake)
+ * and detekt (top-level PascalCase) naming rules are both satisfied.
+ */
+private object QuarantineFiles {
+    const val KEEP_COUNT = 5
+}
 
 /**
  * kstore 1.1.0's file codec maps only FileNotFoundException to null; a corrupt
@@ -63,7 +69,7 @@ internal fun quarantineCorruptSettingsFile() {
     pruneQuarantineFiles()
 }
 
-/** Keeps only the newest [QUARANTINE_KEEP_COUNT] settings.json.corrupt-* files. */
+/** Keeps only the newest [QuarantineFiles.KEEP_COUNT] settings.json.corrupt-* files. */
 private fun pruneQuarantineFiles() {
     runCatching {
         val prefix = "$settingsFile.corrupt-"
@@ -71,7 +77,7 @@ private fun pruneQuarantineFiles() {
             .list(Path(appStorage))
             .filter { it.name.startsWith(prefix) }
             .sortedByDescending { it.name.removePrefix(prefix).toLongOrNull() ?: 0L }
-            .drop(QUARANTINE_KEEP_COUNT)
+            .drop(QuarantineFiles.KEEP_COUNT)
             .forEach { stale ->
                 // A single unremovable stale file must never break the boot.
                 runCatching { SystemFileSystem.delete(stale) }

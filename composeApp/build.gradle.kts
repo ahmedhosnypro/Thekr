@@ -132,6 +132,11 @@ kotlin {
             implementation(libs.kstore)
             implementation(libs.kstore.file)
 
+            // okio was previously only on the android/jvm compile classpath as a
+            // transitive of ktor-client-okhttp; both platform KSettingStore
+            // siblings import okio.Path explicitly, so declare it directly.
+            implementation(libs.okio)
+
             implementation(libs.lifecycle.runtime.compose)
             implementation(libs.lifecycle.viewmodel.compose)
             implementation(libs.navigation.compose)

@@ -6,13 +6,13 @@ import com.thekr.database.AppDataContainer
 import com.thekr.database.getDatabaseBuilder
 import com.thekr.di.DatabaseProvider
 import com.thekr.di.appStorage
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import java.nio.file.FileSystems
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.attribute.PosixFilePermissions
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 
 object JvmApplication {
     /** AppContainer instance used by the rest of classes to obtain dependencies */
@@ -46,5 +46,3 @@ object JvmApplication {
         appStorage = userDataDir
     }
 }
-
-
