@@ -20,7 +20,7 @@ import kotlinx.coroutines.flow.update
 fun AppViewModel.updateCurrentSebhaViewedCategory(tabIndex: Int) {
     mutableAppState.update { currentState ->
         currentState.copy(
-            currentViewedSebhaCategory = currentState.userThekr.value.childCategories.getOrNull(tabIndex)
+            currentViewedSebhaCategory = currentState.userThekr.value.childCategories.getOrNull(tabIndex),
         )
     }
     mutableAppState.value.currentViewedSebhaCategory?.let { ensureCategoryFetched(it) }
@@ -101,23 +101,30 @@ fun updateThekrInstanceList(
 
 /**
  * Updates a ThekrCount item in a SnapshotStateList.
- * If the item exists and has an older timestamp, it's updated.
- * Otherwise, the item is added to the list.
+ * If the item exists, it is replaced only when the emission's data is
+ * fresher than the entry — an entry holding optimistic in-memory count
+ * increments newer than the persisted data is never overwritten by a
+ * stale Room emission. [forceUpdate] bypasses the freshness guard for
+ * rollover re-derivations, where the period bounds changed even though
+ * the persisted data is not newer.
+ * If the item does not exist, it is added to the list.
  *
  * @param toUpdateThekrCountList The list to be updated.
  * @param updatedThekrCountItem The updated ThekrCount item.
+ * @param forceUpdate Replace an existing entry regardless of timestamps.
  */
 fun updateThekrCountItem(
     toUpdateThekrCountList: SnapshotStateList<MutableState<ThekrCount>>,
     updatedThekrCountItem: MutableState<ThekrCount>,
+    forceUpdate: Boolean = false,
 ) {
     val existingItemIndex = toUpdateThekrCountList.indexOfFirst {
-        it.value.thekrInstanceId == updatedThekrCountItem.value.thekrInstanceId
+        it.value.thekrId == updatedThekrCountItem.value.thekrId
     }
 
     if (existingItemIndex != -1) {
         val existingItem = toUpdateThekrCountList[existingItemIndex]
-        if (existingItem.value.timeUpdated < updatedThekrCountItem.value.timeUpdated) {
+        if (forceUpdate || existingItem.value.timeUpdated < updatedThekrCountItem.value.timeUpdated) {
             // Update the existing MutableState directly
             existingItem.value = updatedThekrCountItem.value
         }
@@ -133,7 +140,7 @@ fun updateThekrCountItem(
  * instance ever created.
  *
  * @param toUpdateThekrCountList The list to be updated.
- * @param removedThekrIds The ThekrCount keys (thekrInstanceId values) whose
+ * @param removedThekrIds The ThekrCount keys (thekrId values) whose
  *     instances are gone.
  */
 fun removeThekrCountItems(
@@ -141,7 +148,7 @@ fun removeThekrCountItems(
     removedThekrIds: Set<Long>,
 ) {
     if (removedThekrIds.isEmpty()) return
-    toUpdateThekrCountList.removeIf { it.value.thekrInstanceId in removedThekrIds }
+    toUpdateThekrCountList.removeIf { it.value.thekrId in removedThekrIds }
 }
 
 /**
@@ -153,7 +160,7 @@ fun removeThekrCountItems(
  */
 fun updateCountMissList(
     toUpdateCountMissList: SnapshotStateList<CountMissDetails>,
-    updatedCountMissList: List<CountMissDetails>
+    updatedCountMissList: List<CountMissDetails>,
 ) {
     val existingCountMissIds = toUpdateCountMissList.mapTo(HashSet()) { it.id }
     updatedCountMissList.filter { it.id !in existingCountMissIds }
