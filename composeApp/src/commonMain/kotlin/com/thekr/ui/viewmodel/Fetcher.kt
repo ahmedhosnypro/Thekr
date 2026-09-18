@@ -1,20 +1,11 @@
 package com.thekr.ui.viewmodel
 
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.thekr.data.count.count.CountPeriodBounds
-import com.thekr.data.count.count.ThekrInstanceCountTotals
 import com.thekr.data.thekr.category.CategoryDetails
 import com.thekr.data.thekr.count.ThekrCount
-import com.thekr.util.TimeHelper.calcMidnight
-import com.thekr.util.TimeHelper.calcMonthEnd
-import com.thekr.util.TimeHelper.calcMonthStart
-import com.thekr.util.TimeHelper.calcWeekEnd
-import com.thekr.util.TimeHelper.calcWeekStart
-import com.thekr.util.TimeHelper.calcYearEnd
-import com.thekr.util.TimeHelper.calcYearStart
 import com.thekr.util.TimeHelper.midnight
 import com.thekr.util.TimeHelper.monthEnd
 import com.thekr.util.TimeHelper.monthStart
@@ -24,20 +15,19 @@ import com.thekr.util.TimeHelper.weekEnd
 import com.thekr.util.TimeHelper.weekStart
 import com.thekr.util.TimeHelper.yearEnd
 import com.thekr.util.TimeHelper.yearStart
-import com.thekr.values.Constants
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 object Fetcher {
     /**
      * Fetches and updates data for a specific category in the ViewModel.
+     * Only called through [AppViewModel.ensureCategoryFetched], so a
+     * category's flows open once, on first display.
      *
      * @param categoryDetails The MutableState holding the [CategoryDetails] to
      *     be updated.
@@ -58,20 +48,14 @@ object Fetcher {
      */
     private fun AppViewModel.fetchThekrList(categoryDetails: MutableState<CategoryDetails>) {
         viewModelScope.launch(ioDispatcher) {
-            val thekrList = thekrRepository.findByCategoryId(categoryDetails.value.id)
+            thekrRepository.findByCategoryId(categoryDetails.value.id)
                 .map { thekrList -> thekrList.map { thekr -> thekr.toThekrDetails() } }
-                .stateIn(
-                    scope = viewModelScope,
-                    started = SharingStarted.WhileSubscribed(Constants.TIMEOUT_MILLIS),
-                    initialValue = mutableStateListOf()
-                )
-
-            thekrList.collect { thekrDetailsList ->
-                updateThekrList(
-                    toUpdateThekrList = categoryDetails.value.thekrList,
-                    updatedThekrList = thekrDetailsList,
-                )
-            }
+                .collect { thekrDetailsList ->
+                    updateThekrList(
+                        toUpdateThekrList = categoryDetails.value.thekrList,
+                        updatedThekrList = thekrDetailsList,
+                    )
+                }
         }
     }
 
@@ -79,36 +63,61 @@ object Fetcher {
      * Fetches and updates the Thekr instance list and their associated counts
      * for the given category.
      *
+     * The per-instance count collectors live in a Map keyed by instance id:
+     * when an instance vanishes from an emission (deleted), its collector Job
+     * is cancelled and its countList entry is dropped, so neither collectors
+     * nor stale ThekrCount entries outlive their instance.
+     *
      * @param categoryDetails The MutableState holding the [CategoryDetails] to
      *     be updated.
      */
     private fun AppViewModel.fetchThekrInstanceListAndCounts(categoryDetails: MutableState<CategoryDetails>) {
-        val launchedCountInstanceIds = mutableSetOf<Long>()
         viewModelScope.launch(ioDispatcher) {
-            val thekrInstanceList = thekrInstanceRepository.findByCategoryId(categoryDetails.value.id)
+            val countCollectorJobs = mutableMapOf<Long, Job>()
+            val instanceThekrIds = mutableMapOf<Long, Long>()
+
+            thekrInstanceRepository.findByCategoryId(categoryDetails.value.id)
                 .map { thekrInstanceList ->
                     thekrInstanceList.map { thekrInstance -> thekrInstance.toThekrInstanceDetails() }
-                }.stateIn(
-                    scope = viewModelScope,
-                    started = SharingStarted.WhileSubscribed(Constants.TIMEOUT_MILLIS),
-                    initialValue = mutableStateListOf()
-                )
+                }
+                .collect { thekrInstanceDetailsList ->
+                    updateThekrInstanceList(
+                        toUpdateThekrInstanceList = categoryDetails.value.thekrInstanceList,
+                        updatedThekrInstanceList = thekrInstanceDetailsList
+                    )
 
-            thekrInstanceList.collect { thekrInstanceDetailsList ->
-                updateThekrInstanceList(
-                    toUpdateThekrInstanceList = categoryDetails.value.thekrInstanceList,
-                    updatedThekrInstanceList = thekrInstanceDetailsList
-                )
+                    val currentInstanceIds = thekrInstanceDetailsList.mapTo(HashSet()) { it.id }
 
-                // Launch the per-instance count collector only once per instance id:
-                // Room invalidation re-emits this list on any write, and re-launching
-                // would pile up redundant collectors for the lifetime of the ViewModel.
-                thekrInstanceDetailsList.forEach { thekrInstanceDetails ->
-                    if (launchedCountInstanceIds.add(thekrInstanceDetails.id)) {
-                        fetchThekrCounts(thekrInstanceDetails.thekrId, thekrInstanceDetails.id, categoryDetails)
+                    // Launch one count collector per newly seen instance id.
+                    thekrInstanceDetailsList.forEach { thekrInstanceDetails ->
+                        if (thekrInstanceDetails.id !in countCollectorJobs) {
+                            instanceThekrIds[thekrInstanceDetails.id] = thekrInstanceDetails.thekrId
+                            countCollectorJobs[thekrInstanceDetails.id] = fetchThekrCounts(
+                                thekrId = thekrInstanceDetails.thekrId,
+                                thekrInstanceId = thekrInstanceDetails.id,
+                                categoryDetails = categoryDetails,
+                            )
+                        }
+                    }
+
+                    // Cancel the collectors of vanished instances and drop
+                    // their countList entries — but only when no surviving
+                    // instance shares the entry key.
+                    val vanishedInstanceIds = countCollectorJobs.keys - currentInstanceIds
+                    if (vanishedInstanceIds.isNotEmpty()) {
+                        val survivingThekrIds =
+                            thekrInstanceDetailsList.mapTo(HashSet()) { it.thekrId }
+                        val removedThekrIds = mutableSetOf<Long>()
+                        vanishedInstanceIds.forEach { instanceId ->
+                            countCollectorJobs.remove(instanceId)?.cancel()
+                            val thekrId = instanceThekrIds.remove(instanceId)
+                            if (thekrId != null && thekrId !in survivingThekrIds) {
+                                removedThekrIds.add(thekrId)
+                            }
+                        }
+                        removeThekrCountItems(categoryDetails.value.countList, removedThekrIds)
                     }
                 }
-            }
         }
     }
 
@@ -121,47 +130,35 @@ object Fetcher {
      *     to.
      * @param categoryDetails The MutableState holding the [CategoryDetails]
      *     to be updated.
+     * @return The collector [Job], so the caller can cancel it when the
+     *     instance is deleted.
      */
     private fun AppViewModel.fetchThekrCounts(
         thekrId: Long,
         thekrInstanceId: Long,
         categoryDetails: MutableState<CategoryDetails>
-    ) {
-        viewModelScope.launch(ioDispatcher) {
-            val countTotals: StateFlow<ThekrInstanceCountTotals> =
-                midnightTick()
-                    .flatMapLatest {
-                        // Bounds are bound at Flow creation, so re-create the
-                        // collector at each midnight (week/month/year windows
-                        // all roll over at a midnight too) to keep the SQL
-                        // period filters in step with the calendar.
-                        countRepository.getCountTotalsByThekrInstanceId(
-                            thekrInstanceId = thekrInstanceId,
-                            periods = CountPeriodBounds(
-                                dailyStart = midnight(),
-                                dailyEnd = nextMidnight(),
-                                weeklyStart = weekStart(),
-                                weeklyEnd = weekEnd(),
-                                monthlyStart = monthStart(),
-                                monthlyEnd = monthEnd(),
-                                yearlyStart = yearStart(),
-                                yearlyEnd = yearEnd(),
-                            ),
-                        )
-                    }
-                    .stateIn(
-                        scope = viewModelScope,
-                        started = SharingStarted.WhileSubscribed(Constants.TIMEOUT_MILLIS),
-                        initialValue = ThekrInstanceCountTotals(
-                            dailyCount = 0,
-                            weeklyCount = 0,
-                            monthlyCount = 0,
-                            yearlyCount = 0,
-                            totalCount = 0,
-                        )
-                    )
-
-            countTotals.collect { updatedCountTotals ->
+    ): Job = viewModelScope.launch(ioDispatcher) {
+        midnightTick()
+            .flatMapLatest {
+                // Bounds are bound at Flow creation, so re-create the
+                // collector at each midnight (week/month/year windows
+                // all roll over at a midnight too) to keep the SQL
+                // period filters in step with the calendar.
+                countRepository.getCountTotalsByThekrInstanceId(
+                    thekrInstanceId = thekrInstanceId,
+                    periods = CountPeriodBounds(
+                        dailyStart = midnight(),
+                        dailyEnd = nextMidnight(),
+                        weeklyStart = weekStart(),
+                        weeklyEnd = weekEnd(),
+                        monthlyStart = monthStart(),
+                        monthlyEnd = monthEnd(),
+                        yearlyStart = yearStart(),
+                        yearlyEnd = yearEnd(),
+                    ),
+                )
+            }
+            .collect { updatedCountTotals ->
                 // Update ThekrCount item
                 updateThekrCountItem(
                     toUpdateThekrCountList = categoryDetails.value.countList,
@@ -178,7 +175,6 @@ object Fetcher {
                     )
                 )
             }
-        }
     }
 
     /**
@@ -202,16 +198,9 @@ object Fetcher {
      */
     private fun AppViewModel.fetchFadlList(categoryDetails: MutableState<CategoryDetails>) {
         viewModelScope.launch(ioDispatcher) {
-            val fadlList =
-                fadlRepository.findByCategoryId(categoryDetails.value.id).map { fadlList ->
-                    fadlList.map { fadl -> fadl.toFadlDetails() }
-                }.stateIn(
-                    scope = viewModelScope,
-                    started = SharingStarted.WhileSubscribed(Constants.TIMEOUT_MILLIS),
-                    initialValue = mutableStateListOf()
-                )
-
-            fadlList.collect { updatedFadlList ->
+            fadlRepository.findByCategoryId(categoryDetails.value.id).map { fadlList ->
+                fadlList.map { fadl -> fadl.toFadlDetails() }
+            }.collect { updatedFadlList ->
                 updateFadlList(
                     toUpdateFadlList = categoryDetails.value.fadlList,
                     updatedFadlList = updatedFadlList,
@@ -220,24 +209,3 @@ object Fetcher {
         }
     }
 }
-
-
-//  todo: countMiss List
-//                    viewModelScope.launch {
-//                        val countMissList = countMissRepository.findByThekrInstanceId(thekrInstanceId).map {
-//                            it.map { countMiss ->
-//                                countMiss.toCountMissDetails()
-//                            }
-//                        }.stateIn(
-//                            scope = viewModelScope,
-//                            started = SharingStarted.WhileSubscribed(Constants.TIMEOUT_MILLIS),
-//                            initialValue = mutableStateListOf()
-//                        )
-//
-//                        countMissList.collect { updatedCountMissList ->
-//                            updateCountMissList(
-//                                toUpdateCountMissList = categoryDetails.value.countMissList,
-//                                updatedCountMissList = updatedCountMissList,
-//                            )
-//                        }
-//                    }

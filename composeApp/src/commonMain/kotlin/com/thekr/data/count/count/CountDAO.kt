@@ -65,15 +65,15 @@ interface CountDAO {
     @Query("SELECT * FROM count WHERE thekrInstanceId = :thekrInstanceId ORDER BY timeCreated DESC LIMIT 1")
     fun getLastCountByThekrInstanceId(thekrInstanceId: Long): Flow<Count?>
 
-    // Synchronous queries (use sparingly and only when necessary)
+    // Suspend one-shot query (use sparingly and only when necessary)
     @Query("SELECT * FROM count")
-    suspend fun findAllSync(): List<Count>
+    suspend fun findAll(): List<Count>
 
     @Query("SELECT * FROM count WHERE thekrCategoryId = :categoryId")
-    fun findAllByCategorySync(categoryId: Long): Flow<List<Count>>
+    fun findAllByCategory(categoryId: Long): Flow<List<Count>>
 
     @Query("SELECT * FROM count WHERE thekrInstanceId = :thekrInstanceId")
-    fun findAllByThekrInstanceSync(thekrInstanceId: Long): Flow<List<Count>>
+    fun findAllByThekrInstance(thekrInstanceId: Long): Flow<List<Count>>
 
     @Query(
         """

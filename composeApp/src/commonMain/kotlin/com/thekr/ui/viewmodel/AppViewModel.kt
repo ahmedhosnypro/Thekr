@@ -26,6 +26,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 
 class AppViewModel(
     val thekrRepository: ThekrRepository,
@@ -40,10 +42,36 @@ class AppViewModel(
     val appState = mutableAppState.asStateFlow()
 
     init {
+        AppViewModelHolder.appViewModel = this
         intiCategoryList()
     }
 
     val initialized = mutableStateOf(false)
+
+    private val fetchedCategoryIds = mutableSetOf<Long>()
+    private val fetchedCategoryIdsMutex = Mutex()
+
+    /**
+     * Opens this category's thekr/instance/fadl flows exactly once, on first
+     * display. Called from the tab/sub-tab/category visibility paths
+     * ([updateCurrentSebhaViewedCategory], [navigateToCategory],
+     * [canNavigateToPreviousCategory] and [createNewUserCategory]); idempotent
+     * per category id.
+     */
+    fun ensureCategoryFetched(categoryDetails: MutableState<CategoryDetails>) {
+        viewModelScope.launch(ioDispatcher) {
+            val shouldFetch = fetchedCategoryIdsMutex.withLock {
+                fetchedCategoryIds.add(categoryDetails.value.id)
+            }
+            if (shouldFetch) {
+                fetchCategory(categoryDetails)
+            }
+        }
+    }
+
+    suspend fun isCategoryFetched(categoryId: Long): Boolean =
+        fetchedCategoryIdsMutex.withLock { categoryId in fetchedCategoryIds }
+
     private fun intiCategoryList() {
         viewModelScope.launch(ioDispatcher) {
             initAppData()
@@ -60,10 +88,6 @@ class AppViewModel(
                     else -> 4
                 }
             }.forEach { categoryDetails ->
-                viewModelScope.launch(ioDispatcher) {
-                    fetchCategory(categoryDetails)
-                }
-                // childCategories
                 categoryDetails.value.childCategories.addAll(childCategories.filter { childCategory ->
                     childCategory.value.parent == categoryDetails.value.id
                 })
@@ -87,6 +111,10 @@ class AppViewModel(
             }
 
             initialized.value = true
+
+            // Startup only opens the start tab's content; every other
+            // category's flows open lazily on first display.
+            mutableAppState.value.currentViewedSebhaCategory?.let { ensureCategoryFetched(it) }
         }
     }
 

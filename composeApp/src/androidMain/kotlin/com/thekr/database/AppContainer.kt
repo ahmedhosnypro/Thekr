@@ -18,7 +18,6 @@ import com.thekr.data.thekr.instance.ThekrInstanceRepository
 import com.thekr.data.thekr.thekr.ThekrRepository
 import com.thekr.data.thekr.thekr.OfflineThekrRepository
 import com.thekr.di.DatabaseProvider
-import com.thekr.database.initDatabaseIfNeeded
 
 
 /**
@@ -28,8 +27,10 @@ import com.thekr.database.initDatabaseIfNeeded
 actual class AppDataContainer(private val context: Context) : AppContainer {
 
     private fun db(): AppDatabase {
-        initDatabaseIfNeeded(context)
-        return DatabaseProvider.database
+        // Lock-free fast path once the warm-up has built the database; the
+        // slow path builds off-thread (see initDatabaseIfNeeded).
+        if (DatabaseProvider.isDatabaseInitialized) return DatabaseProvider.database
+        return initDatabaseIfNeeded(context)
     }
 
     override val categoryRepository: CategoryRepository by lazy {

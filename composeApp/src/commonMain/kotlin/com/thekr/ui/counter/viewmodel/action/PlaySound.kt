@@ -7,12 +7,14 @@ import korlibs.audio.sound.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import org.jetbrains.compose.resources.ExperimentalResourceApi
+import kotlin.concurrent.Volatile
 
 expect suspend fun SoundAudioStream.platformPlay(player: SoundPlayer)
 expect suspend fun Sound.platformPlay(): SoundChannel
@@ -134,36 +136,56 @@ object ThekrSoundPlayer : SoundPlayer {
 @OptIn(ExperimentalResourceApi::class)
 object ClickSoundPlayer : SoundPlayer {
     private val scope = CoroutineScope(Dispatchers.Main)
+
+    // This object class-initializes on the first counted tap, so decoding the
+    // click mp3 on Main would jank that frame; preload it off Main instead.
+    private val decodeScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
     override var soundChannel: SoundChannel? = null
 
+    // Written by decodeScope, read from Main; @Volatile publishes the decode.
+    @Volatile
     private var sound: Sound? = null
 
     // todo: dynamic click sound
     private const val PATH = "files/alert/click_1.mp3"
 
     init {
-        scope.launch {
+        decodeScope.launch {
             val bytes = try {
                 Res.readBytes(PATH)
             } catch (e: Exception) {
                 return@launch
             }
-            sound = nativeSoundProvider.createSound(data = bytes)
+            val decoded = try {
+                nativeSoundProvider.createSound(data = bytes)
+            } catch (e: Exception) {
+                return@launch
+            }
+            sound = decoded
         }
     }
 
     fun clickSound() {
+        // The preload may not have finished for the very first taps: skip the
+        // click rather than block the count feedback or crash on a bad asset.
         val currentSound = sound ?: return
         scope.launch {
-//            stopPlayer()
-            currentSound.platformPlay()
+            val channel = currentSound.platformPlay()
+            // Keep the newest click stoppable; older taps' short clicks are
+            // allowed to ring out so rapid counting stays audible.
+            soundChannel = channel
+            channel.onCompleted(coroutineContext = scope.coroutineContext) {
+                // Only clean up if this channel is still the current one;
+                // a stale completion callback must not clear a newer click.
+                if (soundChannel === channel) {
+                    soundChannel = null
+                }
+            }
         }
     }
 
     override fun stopPlayer() {
-//        if (soundChannel != null) {
-//            soundChannel?.stop()
-//            soundChannel = null
-//        }
+        soundChannel?.stop()
+        soundChannel = null
     }
 }

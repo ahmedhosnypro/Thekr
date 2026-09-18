@@ -1,7 +1,12 @@
 @file:OptIn(
     ExperimentalMaterial3Api::class,
-    InternalVoyagerApi::class
+    InternalVoyagerApi::class,
 )
+
+// @Composable functions are PascalCase per the Compose API guidelines (detekt
+// exempts them via naming.FunctionNaming ignoreAnnotated; ktlint's
+// function-naming rule has no working equivalent in this setup).
+@file:Suppress("ktlint:standard:function-naming")
 
 package com.thekr.ui.counter
 
@@ -28,7 +33,6 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.material3.rememberStandardBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -45,19 +49,19 @@ import com.thekr.data.settings.SettingsDetails
 import com.thekr.data.thekr.category.CategoryDetails
 import com.thekr.data.thekr.instance.ThekrInstanceDetails
 import com.thekr.model.ThekrTargetStatus
+import com.thekr.ui.component.LocalizedApp
 import com.thekr.ui.counter.body.ThekrText
 import com.thekr.ui.counter.footer.CurrentThekrIndicator
 import com.thekr.ui.counter.footer.ThekrCount
 import com.thekr.ui.counter.viewmodel.CounterUiState
-import com.thekr.values.Dimensions.normal
-import com.thekr.values.Dimensions.small
-import com.thekr.values.Dimensions.tiny
 import com.thekr.ui.home.list.categoryDetailsPreviewState
 import com.thekr.ui.theme.AppTheme
 import com.thekr.ui.util.KeepScreenOn
 import com.thekr.ui.util.NoRippleInteractionSource
-import com.thekr.ui.component.LocalizedApp
 import com.thekr.ui.util.customOnKeyEvent
+import com.thekr.values.Dimensions.normal
+import com.thekr.values.Dimensions.small
+import com.thekr.values.Dimensions.tiny
 
 @Composable
 fun ThekrHome(
@@ -76,39 +80,45 @@ fun ThekrHome(
         }
     }
 
-    DisposableEffect(Unit) { onDispose { CounterHelper.onCounterDispose() } }
-
     KeepScreenOn(
         settingsDetails.screenAlwaysOn,
     ) {
         val focusRequester = remember { FocusRequester() }
         val interactionSource = remember { NoRippleInteractionSource() }
         LaunchedEffect(settingsDetails.volumeControl) {
-            if (settingsDetails.volumeControl)
+            if (settingsDetails.volumeControl) {
                 focusRequester.requestFocus()
+            }
         }
         Box(
             modifier = modifier
                 .clickable(
                     interactionSource = interactionSource,
                     indication = LocalIndication.current,
-                    onClick = { CounterHelper.onCount() }
+                    onClick = { CounterHelper.onCount() },
                 )
                 // to use volume keys to increment and decrement the counter
                 .customOnKeyEvent(
                     enabled = settingsDetails.volumeControl,
-                    focusRequester = focusRequester
-                )
+                    focusRequester = focusRequester,
+                ),
         ) {
-            LaunchedEffect(pagerState.currentPage) {
-                CounterHelper.scrollToThekr(pagerState.currentPage)
+            LaunchedEffect(pagerState.settledPage, categoryDetails.value.thekrInstanceList.size) {
+                // Keyed on settledPage: it equals currentPage only at rest, so a
+                // transient page while the pager restores or scrolls can never
+                // clobber the current instance (M63 race), while every completed
+                // transition — swipe, auto-advance, category-menu jump — settles
+                // and re-fires the sync. The initial-composition fire is kept: the
+                // VM never initializes currentThekrInstance. The size key re-runs
+                // the sync once the instance list has finished loading.
+                CounterHelper.scrollToThekr(pagerState.settledPage)
             }
             HorizontalPager(
                 modifier = Modifier
                     .fillMaxSize(),
                 verticalAlignment = Alignment.Top,
                 state = pagerState,
-                userScrollEnabled = counterUiState.lockEnabled.not()
+                userScrollEnabled = counterUiState.lockEnabled.not(),
             ) { tabIndex ->
                 ThekrHomeBody(
                     counterUiState = counterUiState,
@@ -122,7 +132,6 @@ fun ThekrHome(
     }
 }
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ThekrHomeBody(
@@ -133,7 +142,6 @@ fun ThekrHomeBody(
     modifier: Modifier = Modifier,
     tabIndex: Int = 0,
 ) {
-
     val pageCount = categoryDetails.value.thekrInstanceList.size
     val peak = if (pageCount > 1) 72.dp else 0.dp
     val colors = AppTheme.colors(settingsDetails)
@@ -144,7 +152,7 @@ fun ThekrHomeBody(
             if (settingsDetails.showCount) {
                 ThekrCount(
                     settingsDetails = settingsDetails,
-                    tabIndex = tabIndex
+                    tabIndex = tabIndex,
                 )
             }
         },
@@ -157,7 +165,7 @@ fun ThekrHomeBody(
                         .requiredHeight(peak),
 
                     verticalArrangement = Arrangement.spacedBy(normal, Alignment.Top),
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     CurrentThekrIndicator(
                         categoryDetails = categoryDetails,
@@ -188,7 +196,6 @@ fun ThekrHomeBody(
 
 @Composable
 fun ChangeCurrentSheikh() {
-
 }
 
 @Composable
@@ -201,16 +208,14 @@ fun SheikhCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = tiny),
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 Text(text = "بصوت الشيخ $sheikhName")
             }
             Row {
                 TextButton(onClick = { }) {
-
                 }
                 TextButton(onClick = { }) {
-
                 }
             }
         }
@@ -229,7 +234,7 @@ fun CounterScreenPreviewDark() {
                             com.thekr.data.thekr.count.ThekrCount(
                                 thekrInstanceId = 1,
                                 dailyCount = 22,
-                            )
+                            ),
                         )
                     }
 //                    getThekr = {
@@ -248,7 +253,7 @@ fun CounterScreenPreviewDark() {
                                 categoryId = 1,
                                 dailyTarget = 100,
                                 dailyTargetStatus = ThekrTargetStatus.Enabled,
-                            )
+                            ),
                         )
                     }
                 }
@@ -265,15 +270,14 @@ fun CounterScreenPreviewDark() {
                     ),
                     countSheetState = rememberBottomSheetScaffoldState(
                         bottomSheetState = rememberStandardBottomSheetState(
-                            initialValue = SheetValue.Expanded
-                        )
+                            initialValue = SheetValue.Expanded,
+                        ),
                     ),
                 )
             }
         }
     }
 }
-
 
 @Preview()
 @Composable
