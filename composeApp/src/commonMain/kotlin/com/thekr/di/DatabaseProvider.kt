@@ -11,6 +11,11 @@ import kotlinx.coroutines.Dispatchers
 object DatabaseProvider {
     lateinit var database: AppDatabase
 
+    /** Exposes the lateinit check to other source sets (the backing field
+     *  isn't accessible there). */
+    val isDatabaseInitialized: Boolean
+        get() = this::database.isInitialized
+
     private val MIGRATION_1_2 =
         object : Migration(1, 2) {
             override fun migrate(connection: SQLiteConnection) {
