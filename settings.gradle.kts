@@ -14,10 +14,6 @@ pluginManagement {
         }
         gradlePluginPortal()
         mavenCentral()
-        
-        maven("https://jitpack.io")
-        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-        maven("https://packages.jetbrains.team/maven/p/firework/dev")
     }
 }
 
@@ -31,13 +27,11 @@ dependencyResolutionManagement {
             }
         }
         mavenCentral()
-        maven("https://maven.pkg.jetbrains.space/kotlin/p/wasm/experimental")
-        maven("https://maven.pkg.jetbrains.space/public/p/ktor/eap")
 
+        // Load-bearing for the libsu fingerprint feature: com.github.topjohnwu.libsu
+        // resolves from jitpack.io only (probed 2026-09-18; not on Maven Central
+        // under these coordinates — Central publishes it as com.github.topjohnwu:libsu).
         maven("https://jitpack.io")
-        maven("https://maven.pkg.github.com/bumble-org/appyx")
-        maven("https://androidx.dev/storage/compose-compiler/repository/")
-        maven("https://packages.jetbrains.team/maven/p/firework/dev")
     }
 }
 plugins {
