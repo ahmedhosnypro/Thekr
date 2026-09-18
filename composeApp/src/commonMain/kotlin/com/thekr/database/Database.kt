@@ -45,5 +45,33 @@ abstract class AppDatabase : RoomDatabase() {
 
     companion object {
         const val DATABASE_NAME = "thekr.db"
+
+        /**
+         * Current Room schema version — must stay in sync with the
+         * `@Database(version = ...)` literal above (KSP cannot resolve a
+         * constant reference there, so the two cannot share one symbol).
+         * A version bump MUST ship two changes together, in the same commit:
+         *  1. a real, non-destructive `Migration` registered in
+         *     `di/DatabaseProvider` (the MIGRATION_1_2 count-index migration
+         *     is the precedent — never rely on a destructive fallback), and
+         *  2. the previous schema version added to [MIGRATION_ENTRY_VERSIONS]
+         *     and this constant raised.
+         *
+         * If either is forgotten, the pre-open drift check in
+         * `DatabaseRecovery.quarantineDatabaseOnSchemaDrift` quarantines the
+         * old database file (preserving every count row next to the new
+         * file) instead of letting Room silently recreate the schema — so a
+         * silent user-data wipe is impossible by construction, and the
+         * omission fails loudly in the first QA run instead of shipping.
+         */
+        const val SCHEMA_VERSION = 2
+
+        /**
+         * On-disk schema versions from which `di/DatabaseProvider` carries a
+         * migration to [SCHEMA_VERSION] (today: 1 -> 2). Versions outside
+         * this set plus [SCHEMA_VERSION] are quarantined before Room opens
+         * the file.
+         */
+        val MIGRATION_ENTRY_VERSIONS = setOf(1)
     }
 }

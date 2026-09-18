@@ -4,11 +4,16 @@ import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.thekr.di.DatabaseProvider
+import kotlinx.io.files.Path
 import java.util.concurrent.Executors
 
 fun getDatabaseBuilder(ctx: Context): RoomDatabase.Builder<AppDatabase> {
     val appContext = ctx.applicationContext
     val dbFile = appContext.getDatabasePath(AppDatabase.DATABASE_NAME)
+    // Runs on the builder thread (this is only called from
+    // initDatabaseIfNeeded's executor), before Room can open — or
+    // destructively recreate — the file.
+    quarantineDatabaseOnSchemaDrift(Path(dbFile.absolutePath))
     return Room.databaseBuilder<AppDatabase>(
         context = appContext,
         name = dbFile.absolutePath
