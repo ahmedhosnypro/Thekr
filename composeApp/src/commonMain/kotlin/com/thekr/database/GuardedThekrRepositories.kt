@@ -14,9 +14,7 @@ import kotlinx.coroutines.flow.Flow
  * Flow-emission guards over the thekr-family repositories; the guard
  * semantics live in [guardedEmissions].
  */
-internal class GuardedCategoryRepository(
-    private val delegate: CategoryRepository,
-) : CategoryRepository by delegate {
+internal class GuardedCategoryRepository(private val delegate: CategoryRepository) : CategoryRepository by delegate {
     override fun findById(id: Long): Flow<Category?> =
         delegate.findById(id).guardedEmissions()
 
@@ -32,9 +30,7 @@ internal class GuardedCategoryRepository(
         delegate.isCategoryHasChild(id).guardedEmissions()
 }
 
-internal class GuardedThekrRepository(
-    private val delegate: ThekrRepository,
-) : ThekrRepository by delegate {
+internal class GuardedThekrRepository(private val delegate: ThekrRepository) : ThekrRepository by delegate {
     override fun findAll(): Flow<List<Thekr>> = delegate.findAll().guardedEmissions()
 
     override fun findByCategoryId(categoryId: Long): Flow<List<Thekr>> =
@@ -43,9 +39,7 @@ internal class GuardedThekrRepository(
     override fun findById(id: Long): Flow<Thekr?> = delegate.findById(id).guardedEmissions()
 }
 
-internal class GuardedThekrInstanceRepository(
-    private val delegate: ThekrInstanceRepository,
-) : ThekrInstanceRepository by delegate {
+internal class GuardedThekrInstanceRepository(private val delegate: ThekrInstanceRepository) : ThekrInstanceRepository by delegate {
     override fun findById(id: Long): Flow<ThekrInstance?> =
         delegate.findById(id).guardedEmissions()
 
@@ -56,9 +50,7 @@ internal class GuardedThekrInstanceRepository(
         delegate.findByCategoryId(categoryId).guardedEmissions()
 }
 
-internal class GuardedFadlRepository(
-    private val delegate: FadlRepository,
-) : FadlRepository by delegate {
+internal class GuardedFadlRepository(private val delegate: FadlRepository) : FadlRepository by delegate {
     override fun findAll(): Flow<List<ThekrFadl>> = delegate.findAll().guardedEmissions()
 
     override fun findByThekrId(thekrId: Long): Flow<List<ThekrFadl>> =

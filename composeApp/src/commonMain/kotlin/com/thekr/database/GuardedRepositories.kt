@@ -34,7 +34,7 @@ import kotlinx.coroutines.flow.retryWhen
 internal fun <T> Flow<T>.guardedEmissions(): Flow<T> = retryWhen { cause, attempt ->
     if (cause is CancellationException || cause !is Exception) throw cause
     val delayMillis =
-        minOf(RetryBackoffBaseMillis * (attempt + 1), RetryBackoffMaxMillis)
+        minOf(RetryPolicy.BACKOFF_BASE_MILLIS * (attempt + 1), RetryPolicy.BACKOFF_MAX_MILLIS)
     println(
         "DatabaseFlow: emission failed (retry ${attempt + 1} in $delayMillis ms): $cause",
     )
@@ -42,9 +42,7 @@ internal fun <T> Flow<T>.guardedEmissions(): Flow<T> = retryWhen { cause, attemp
     true
 }
 
-internal class GuardedCountRepository(
-    private val delegate: CountRepository,
-) : CountRepository by delegate {
+internal class GuardedCountRepository(private val delegate: CountRepository) : CountRepository by delegate {
     override fun findCounts(
         thekrInstanceId: Long?,
         timeCreatedAfter: Long?,
@@ -81,9 +79,7 @@ internal class GuardedCountRepository(
             .guardedEmissions()
 }
 
-internal class GuardedCountMissRepository(
-    private val delegate: CountMissRepository,
-) : CountMissRepository by delegate {
+internal class GuardedCountMissRepository(private val delegate: CountMissRepository) : CountMissRepository by delegate {
     override fun findAll(): Flow<List<CountMiss>> = delegate.findAll().guardedEmissions()
 
     override fun findByThekrInstanceId(thekrId: Long): Flow<List<CountMiss>> =
@@ -93,9 +89,7 @@ internal class GuardedCountMissRepository(
         delegate.getTotalCountByThekrId(thekrId).guardedEmissions()
 }
 
-internal class GuardedSessionRepository(
-    private val delegate: SessionRepository,
-) : SessionRepository by delegate {
+internal class GuardedSessionRepository(private val delegate: SessionRepository) : SessionRepository by delegate {
     override fun findAll(): Flow<List<Session>> = delegate.findAll().guardedEmissions()
 
     override fun findById(id: Long): Flow<Session?> = delegate.findById(id).guardedEmissions()
@@ -109,5 +103,7 @@ internal class GuardedSessionRepository(
             .guardedEmissions()
 }
 
-private const val RetryBackoffBaseMillis = 1_000L
-private const val RetryBackoffMaxMillis = 30_000L
+private object RetryPolicy {
+    const val BACKOFF_BASE_MILLIS = 1_000L
+    const val BACKOFF_MAX_MILLIS = 30_000L
+}

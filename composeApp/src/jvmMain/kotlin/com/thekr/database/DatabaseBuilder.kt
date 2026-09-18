@@ -11,7 +11,7 @@ fun getDatabaseBuilder(): RoomDatabase.Builder<AppDatabase> {
         AppDirs {
             appName = "thekr"
             appAuthor = "thekr"
-        }.getUserDataDir()
+        }.getUserDataDir(),
     )
     dbDir.mkdirs()
     val dbFile = File(dbDir, AppDatabase.DATABASE_NAME)

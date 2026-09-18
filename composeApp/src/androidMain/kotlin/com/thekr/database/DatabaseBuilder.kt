@@ -16,7 +16,7 @@ fun getDatabaseBuilder(ctx: Context): RoomDatabase.Builder<AppDatabase> {
     quarantineDatabaseOnSchemaDrift(Path(dbFile.absolutePath))
     return Room.databaseBuilder<AppDatabase>(
         context = appContext,
-        name = dbFile.absolutePath
+        name = dbFile.absolutePath,
     )
 }
 

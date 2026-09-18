@@ -53,7 +53,9 @@ object JsonParser {
     }
 
     private suspend fun insertDataIntoDatabase(
-        thekrList: List<Thekr>, thekrInstanceList: List<ThekrInstance>, categoryList: List<Category>
+        thekrList: List<Thekr>,
+        thekrInstanceList: List<ThekrInstance>,
+        categoryList: List<Category>,
     ) {
         withContext(Dispatchers.IO) {
             database.thekrDAO().insertAll(thekrList)

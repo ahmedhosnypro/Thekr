@@ -63,14 +63,14 @@ private fun readStoredSchemaVersion(databasePath: Path): Int? {
         check(magicBytesRead == SQLITE_MAGIC.size && magic.contentEquals(SQLITE_MAGIC)) {
             "not a SQLite database file"
         }
-        source.skip((SqliteVersionOffset - SQLITE_MAGIC.size).toLong())
+        source.skip((DbFile.SCHEMA_VERSION_OFFSET - SQLITE_MAGIC.size).toLong())
         return source.readInt()
     }
 }
 
 private fun quarantine(databasePath: Path, reason: String) {
-    val quarantineSuffix = "$QuarantineMarker-${now()}"
-    val sidecarSuffixes = listOf(WalSuffix, ShmSuffix)
+    val quarantineSuffix = "${DbFile.QUARANTINE_MARKER}-${now()}"
+    val sidecarSuffixes = listOf(DbFile.WAL_SUFFIX, DbFile.SHM_SUFFIX)
     val movedSidecars = mutableListOf<Pair<Path, Path>>()
 
     // Sidecar files first so the main file only moves once the whole set can;
@@ -119,7 +119,10 @@ private fun restoreSidecars(movedSidecars: List<Pair<Path, Path>>) {
 }
 
 private val SQLITE_MAGIC = "SQLite format 3\u0000".encodeToByteArray()
-private const val SqliteVersionOffset = 60
-private const val WalSuffix = "-wal"
-private const val ShmSuffix = "-shm"
-private const val QuarantineMarker = ".quarantined"
+
+private object DbFile {
+    const val SCHEMA_VERSION_OFFSET = 60
+    const val WAL_SUFFIX = "-wal"
+    const val SHM_SUFFIX = "-shm"
+    const val QUARANTINE_MARKER = ".quarantined"
+}
