@@ -147,7 +147,7 @@ private fun ThekrAppBarActions(
         IconButton(onClick = { CounterHelper.showThekrStatistics() }) {
             Icon(
                 imageVector = Icons.Filled.StackedBarChart,
-                contentDescription = "Statistics"
+                contentDescription = stringResource(Res.string.statistics),
             )
         }
 
@@ -186,7 +186,7 @@ private fun UnlockAppBar(
         actions = {
             Icon(
                 Icons.Default.Lock,
-                contentDescription = "Lock",
+                contentDescription = stringResource(Res.string.lock),
                 modifier = Modifier
                     .padding(horizontal = small)
                     .combinedClickable(
@@ -497,7 +497,7 @@ private fun SwapDirection(
         ) {
             Icon(
                 Icons.Default.SwapVert,
-                contentDescription = "Vertical Swap"
+                contentDescription = stringResource(Res.string.vertical_swap),
             )
         }
     }
@@ -521,7 +521,7 @@ private fun Lock(
             imageVector =
             if (!counterUiState.lockEnabled) Icons.Default.LockOpen
             else Icons.Default.Lock,
-            contentDescription = "Lock"
+            contentDescription = stringResource(Res.string.lock)
         )
     }
 }
@@ -544,7 +544,7 @@ private fun ThemeMode(
                 AppTheme.resources(settingsDetails).themeMode
             },
             contentDescription = if (settingsDetails.themeMode == ThemeMode.System) {
-                "System Theme Mode"
+                "                stringResource(Res.string.system_theme_mode)"
             } else {
                 stringResource(Res.string.theme_mode)
             },
@@ -583,7 +583,7 @@ fun FontSizeControl(
         ) {
             Icon(
                 imageVector = Icons.Filled.TextFields,
-                contentDescription = "Change Font Size",
+                contentDescription = stringResource(Res.string.change_font_size),
             )
         }
 

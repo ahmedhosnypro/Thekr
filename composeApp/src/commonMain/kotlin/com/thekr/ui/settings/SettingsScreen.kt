@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.thekr.data.proto.ThemeMode
 import com.thekr.data.settings.SettingsDetails
 import com.thekr.resources.Res
+import com.thekr.resources.back
 import com.thekr.resources.click_sound
 import com.thekr.resources.display
 import com.thekr.resources.feedback
@@ -48,7 +49,6 @@ import com.thekr.util.changeLang
 import com.thekr.values.Dimensions.medium
 import com.thekr.values.Dimensions.small
 import org.jetbrains.compose.resources.stringResource
-
 @Composable
 fun SettingsScreen(
     settingsDetails: SettingsDetails,
@@ -76,7 +76,7 @@ private fun SettingsBody(
                     IconButton(onClick = { NavigationActions.navigateUp(HomeRoute.route) }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back",
+                            contentDescription = stringResource(Res.string.back),
                         )
                     }
                 },
