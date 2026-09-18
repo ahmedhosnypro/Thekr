@@ -57,7 +57,7 @@ fun hourlyBottomAxis(): HorizontalAxis<Axis.Position.Horizontal.Bottom> {
             )
         },
         guideline = null,
-        valueFormatter = remember { hourFormatter(am, pm) },
+        valueFormatter = remember(am, pm) { hourFormatter(am, pm) },
         tickLength = 1.dp,
     )
 }
@@ -98,7 +98,7 @@ fun minuteBottomAxis(): HorizontalAxis<Axis.Position.Horizontal.Bottom> {
             LayoutDirection.Rtl -> -90f
         },
         guideline = null,
-        valueFormatter = remember { extendedMinuteFormatter(am, pm) },
+        valueFormatter = remember(am, pm) { extendedMinuteFormatter(am, pm) },
         tickLength = 1.dp,
     )
 }

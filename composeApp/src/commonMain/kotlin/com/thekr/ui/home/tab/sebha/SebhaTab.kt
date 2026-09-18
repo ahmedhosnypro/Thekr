@@ -47,8 +47,8 @@ fun SebhaTab(
         }
     }
 
-    LaunchedEffect(pagerState.currentPage) {
-        AppActions.updateCurrentSebhaViewedCategory(pagerState.currentPage)
+    LaunchedEffect(pagerState.settledPage) {
+        AppActions.updateCurrentSebhaViewedCategory(pagerState.settledPage)
     }
 
     Column {

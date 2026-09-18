@@ -69,7 +69,7 @@ fun weeklyBottomAxis(): HorizontalAxis<Axis.Position.Horizontal.Bottom> {
             )
         },
         guideline = null,
-        valueFormatter =  remember {
+        valueFormatter = remember(saturday, sunday, monday, tuesday, wednesday, thursday, friday) {
             weekdayFormatter(
                 saturday = saturday,
                 sunday = sunday,
