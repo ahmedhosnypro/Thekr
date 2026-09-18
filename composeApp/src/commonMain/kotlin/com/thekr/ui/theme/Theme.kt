@@ -144,9 +144,12 @@ private val LightColors = lightColorScheme(
 internal fun AppTheme(
     content: @Composable () -> Unit,
 ) {
-    val systemIsDark = isSystemInDarkTheme()
-    val isDarkState = remember { mutableStateOf(systemIsDark) }
-    val isDark by isDarkState
+    // Read the system value directly: remember { mutableStateOf(...) }
+    // froze the first observed value for the whole composition lifetime, so
+    // the theme (and status-bar appearance via SystemAppearance) never
+    // followed system dark-mode changes on platforms without activity
+    // recreation.
+    val isDark = isSystemInDarkTheme()
     SystemAppearance(isLight = !isDark)
     MaterialTheme(
         colorScheme = if (isDark) DarkColorScheme else LightColorScheme,
