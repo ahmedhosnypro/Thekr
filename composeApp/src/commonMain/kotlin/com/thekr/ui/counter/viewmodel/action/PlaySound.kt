@@ -170,15 +170,22 @@ object ClickSoundPlayer : SoundPlayer {
         // click rather than block the count feedback or crash on a bad asset.
         val currentSound = sound ?: return
         scope.launch {
-//            stopPlayer()
-            currentSound.platformPlay()
+            val channel = currentSound.platformPlay()
+            // Keep the newest click stoppable; older taps' short clicks are
+            // allowed to ring out so rapid counting stays audible.
+            soundChannel = channel
+            channel.onCompleted(coroutineContext = scope.coroutineContext) {
+                // Only clean up if this channel is still the current one;
+                // a stale completion callback must not clear a newer click.
+                if (soundChannel === channel) {
+                    soundChannel = null
+                }
+            }
         }
     }
 
     override fun stopPlayer() {
-//        if (soundChannel != null) {
-//            soundChannel?.stop()
-//            soundChannel = null
-//        }
+        soundChannel?.stop()
+        soundChannel = null
     }
 }
