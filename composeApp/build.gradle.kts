@@ -201,6 +201,19 @@ android {
                 storePassword = System.getenv("KEYSTORE_PASSWORD")?.takeIf { it.isNotBlank() } ?: "123456"
                 keyAlias = System.getenv("KEY_ALIAS")?.takeIf { it.isNotBlank() } ?: "key0"
                 keyPassword = System.getenv("KEY_PASSWORD")?.takeIf { it.isNotBlank() } ?: "123456"
+                if (envPath == null) {
+                    // ks.jks is the weak development-only key: it must never
+                    // silently sign a distributable release. CI is unaffected
+                    // (it fails closed without the secret) and env-provided
+                    // keystores skip this warning. No secret values printed.
+                    logger.lifecycle(
+                        "WARNING: the release signing config fell back to the weak " +
+                            "local dev keystore 'ks.jks' instead of a release key. " +
+                            "Set KEYSTORE_PATH, KEYSTORE_PASSWORD, KEY_ALIAS and " +
+                            "KEY_PASSWORD to sign a real release (see " +
+                            ".github/workflows/build-release.yml).",
+                    )
+                }
             }
         }
     }
