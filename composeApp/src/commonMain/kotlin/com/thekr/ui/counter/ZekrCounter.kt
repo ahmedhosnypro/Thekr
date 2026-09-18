@@ -49,6 +49,8 @@ import com.thekr.data.settings.SettingsDetails
 import com.thekr.data.thekr.category.CategoryDetails
 import com.thekr.data.thekr.instance.ThekrInstanceDetails
 import com.thekr.model.ThekrTargetStatus
+import com.thekr.resources.Res
+import com.thekr.resources.sheikh_voice
 import com.thekr.ui.component.LocalizedApp
 import com.thekr.ui.counter.body.ThekrText
 import com.thekr.ui.counter.footer.CurrentThekrIndicator
@@ -62,6 +64,7 @@ import com.thekr.ui.util.customOnKeyEvent
 import com.thekr.values.Dimensions.normal
 import com.thekr.values.Dimensions.small
 import com.thekr.values.Dimensions.tiny
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun ThekrHome(
@@ -210,7 +213,7 @@ fun SheikhCard(
                     .padding(horizontal = tiny),
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
-                Text(text = "بصوت الشيخ $sheikhName")
+                Text(text = stringResource(Res.string.sheikh_voice, sheikhName))
             }
             Row {
                 TextButton(onClick = { }) {

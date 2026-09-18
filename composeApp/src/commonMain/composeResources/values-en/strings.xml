@@ -37,6 +37,7 @@
     <string name="thekr_content">thekr</string>
     <string name="thekr_list">Thekr List</string>
     <string name="listen_to_thekr">Listen to Thekr</string>
+    <string name="sheikh_voice">Recited by Sheikh %1$s</string>
     <string name="hesn_almuslim">Hesn Almuslim</string>
     <string name="dua">Dua</string>
     <string name="coolDown">CoolDown</string>
@@ -78,6 +79,13 @@
     <string name="cancel">Cancel</string>
     <string name="create">Create</string>
     <string name="group_name">Group Name</string>
+
+    <!-- Accessibility -->
+    <string name="lock">Lock</string>
+    <string name="vertical_swap">Vertical Swap</string>
+    <string name="system_theme_mode">System Theme Mode</string>
+    <string name="change_font_size">Change Font Size</string>
+    <string name="app_icon">App icon</string>
 
     <!-- Display Settings -->
     <string name="click_sound">Click Sound</string>

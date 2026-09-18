@@ -49,6 +49,7 @@
     <string name="thekr_content">نص الذكر</string>
     <string name="thekr_list">قائمة الأذكار</string>
     <string name="listen_to_thekr">الاستماع للذكر</string>
+    <string name="sheikh_voice">بصوت الشيخ %1$s</string>
     <string name="hesn_almuslim">حصن المسلم</string>
     <string name="dua">الدعاء</string>
     <string name="coolDown">مهلة الذكر</string>
@@ -90,4 +91,11 @@
     <string name="cancel">الغاء</string>
     <string name="create">إنشاء</string>
     <string name="group_name">اسم المجموعة</string>
+
+    <!-- Accessibility -->
+    <string name="lock">قفل</string>
+    <string name="vertical_swap">تبديل رأسي</string>
+    <string name="system_theme_mode">مظهر النظام</string>
+    <string name="change_font_size">تغيير حجم الخط</string>
+    <string name="app_icon">أيقونة التطبيق</string>
 </resources>
