@@ -36,7 +36,7 @@ class AppViewModel(
     val countMissRepository: CountMissRepository,
     val categoryRepository: CategoryRepository,
     val fadlRepository: FadlRepository,
-    val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+    val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) : ViewModel() {
     val mutableAppState = MutableStateFlow(AppState())
     val appState = mutableAppState.asStateFlow()
@@ -72,6 +72,19 @@ class AppViewModel(
     suspend fun isCategoryFetched(categoryId: Long): Boolean =
         fetchedCategoryIdsMutex.withLock { categoryId in fetchedCategoryIds }
 
+    /**
+     * Flushes batched count-tap writes to Room. Call on lifecycle ON_STOP so
+     * counts tapped in the final debounce window are durable before the
+     * process can be killed; the batch buffer also self-flushes on a short
+     * debounce and on every period re-derivation, so this is the explicit
+     * belt-and-suspenders durability trigger for platform lifecycle hooks.
+     */
+    fun flushCountWrites() {
+        viewModelScope.launch(ioDispatcher) {
+            countRepository.flush()
+        }
+    }
+
     private fun intiCategoryList() {
         viewModelScope.launch(ioDispatcher) {
             initAppData()
@@ -88,9 +101,11 @@ class AppViewModel(
                     else -> 4
                 }
             }.forEach { categoryDetails ->
-                categoryDetails.value.childCategories.addAll(childCategories.filter { childCategory ->
-                    childCategory.value.parent == categoryDetails.value.id
-                })
+                categoryDetails.value.childCategories.addAll(
+                    childCategories.filter { childCategory ->
+                        childCategory.value.parent == categoryDetails.value.id
+                    },
+                )
             }
 
             mutableAppState.update { currentState ->
@@ -98,12 +113,18 @@ class AppViewModel(
                     categoryList = childCategories.toMutableStateList(),
                     userThekr = childCategories.firstOrNull { it.value.id == ThekrCategoryType.User.id }
                         ?: mutableStateOf(CategoryDetails()),
-                    hesnAlmuslimStack = mutableStateListOf(childCategories.firstOrNull { it.value.id == ThekrCategoryType.HesnAlMuslim.id }
-                        ?: mutableStateOf(CategoryDetails())),
-                    knoozStack = mutableStateListOf(childCategories.firstOrNull { it.value.id == ThekrCategoryType.Knooz.id }
-                        ?: mutableStateOf(CategoryDetails())),
-                    duaCategoryStack = mutableStateListOf(childCategories.firstOrNull { it.value.id == ThekrCategoryType.Dua.id }
-                        ?: mutableStateOf(CategoryDetails())),
+                    hesnAlmuslimStack = mutableStateListOf(
+                        childCategories.firstOrNull { it.value.id == ThekrCategoryType.HesnAlMuslim.id }
+                            ?: mutableStateOf(CategoryDetails()),
+                    ),
+                    knoozStack = mutableStateListOf(
+                        childCategories.firstOrNull { it.value.id == ThekrCategoryType.Knooz.id }
+                            ?: mutableStateOf(CategoryDetails()),
+                    ),
+                    duaCategoryStack = mutableStateListOf(
+                        childCategories.firstOrNull { it.value.id == ThekrCategoryType.Dua.id }
+                            ?: mutableStateOf(CategoryDetails()),
+                    ),
                     currentViewedSebhaCategory = childCategories.firstOrNull { it.value.id == ThekrCategoryType.User.id }
                         ?.value?.childCategories?.firstOrNull()
                         ?: mutableStateOf(CategoryDetails()),
