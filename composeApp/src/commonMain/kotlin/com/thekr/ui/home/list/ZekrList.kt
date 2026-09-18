@@ -56,12 +56,15 @@ fun ThekrList(
     // Lookup maps as derived state: rebuilt only when the underlying lists
     // actually change, so the grid content builder no longer subscribes to
     // and re-runs on every thekrList/countList emission; each item stays an
-    // O(1) hash lookup (keeping the M21 no-indexOf behavior).
+    // O(1) hash lookup (keeping the M21 no-indexOf behavior). The count map
+    // is keyed by the instance's own id — each instance row reads its own
+    // entry, so concurrent instances of the same thekr display their own
+    // counts.
     val thekrMap = remember(category) {
         derivedStateOf { category.thekrList.associateBy { it.value.id } }
     }
     val countMap = remember(category) {
-        derivedStateOf { category.countList.associateBy { it.value.thekrInstanceId } }
+        derivedStateOf { category.countList.associateBy { it.value.instanceId } }
     }
 
     LazyVerticalGrid(
@@ -77,7 +80,7 @@ fun ThekrList(
             val colorIndex = if (index < 6) index else index % 6
 
             val thekr = thekrMap.value[item.value.thekrId]?.value
-            val count = countMap.value[item.value.thekrId]?.value?.dailyCount
+            val count = countMap.value[item.value.id]?.value?.dailyCount
 
             // Stable per-item callbacks so cards with unchanged data can
             // skip recomposition when only another item's state changed.
