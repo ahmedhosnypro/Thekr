@@ -34,7 +34,7 @@ import kotlinx.coroutines.flow.retryWhen
 internal fun <T> Flow<T>.guardedEmissions(): Flow<T> = retryWhen { cause, attempt ->
     if (cause is CancellationException || cause !is Exception) throw cause
     val delayMillis =
-        minOf(RETRY_BACKOFF_BASE_MILLIS * (attempt + 1), RETRY_BACKOFF_MAX_MILLIS)
+        minOf(RetryBackoffBaseMillis * (attempt + 1), RetryBackoffMaxMillis)
     println(
         "DatabaseFlow: emission failed (retry ${attempt + 1} in $delayMillis ms): $cause",
     )
@@ -109,5 +109,5 @@ internal class GuardedSessionRepository(
             .guardedEmissions()
 }
 
-private const val RETRY_BACKOFF_BASE_MILLIS = 1_000L
-private const val RETRY_BACKOFF_MAX_MILLIS = 30_000L
+private const val RetryBackoffBaseMillis = 1_000L
+private const val RetryBackoffMaxMillis = 30_000L
