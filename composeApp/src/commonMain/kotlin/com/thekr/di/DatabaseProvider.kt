@@ -35,9 +35,13 @@ object DatabaseProvider {
     ) {
         if (DatabaseProvider::database.isInitialized.not()) {
 
+            // No upgrade-path destructive fallback: a genuinely missing upgrade
+            // migration fails fast (Room IllegalStateException at open) instead of
+            // silently booting an empty database. Downgrades still fall back
+            // destructively — DatabaseRecovery's pre-open quarantine has already
+            // preserved the old file and its sidecars.
             database = builder
                 .addMigrations(MIGRATION_1_2)
-                .fallbackToDestructiveMigration(true)
                 .fallbackToDestructiveMigrationOnDowngrade(true)
                 .setDriver(BundledSQLiteDriver())
                 .setQueryCoroutineContext(Dispatchers.IO)
@@ -45,4 +49,3 @@ object DatabaseProvider {
         }
     }
 }
-
